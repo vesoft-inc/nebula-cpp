@@ -6,7 +6,7 @@ How to use cpp client lib
 ### Down package
 
 ```bash
-wget https://github.com/vesoft-inc/nebula-clients/releases/download/$release-version/nebula-graph-client-$version.$system.x86_64.rpm
+wget https://github.com/vesoft-inc/nebula-cpp/releases/download/$release-version/nebula-graph-client-$version.$system.x86_64.rpm
 ```
 
 ### Install lib to local
