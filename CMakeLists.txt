@@ -140,3 +140,9 @@ install(
     DESTINATION
         ${CMAKE_INSTALL_INCLUDEDIR}/common/thrift
 )
+
+include(CPackage)
+package(ON
+        "nebula-graph-client"
+        "https://github.com/vesoft-inc/nebula-clients/releases"
+        ${CMAKE_SOURCE_DIR}/package)
