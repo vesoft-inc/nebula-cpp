@@ -144,5 +144,5 @@ install(
 include(CPackage)
 package(ON
         "nebula-graph-client"
-        "https://github.com/vesoft-inc/nebula-clients/releases"
+        "https://github.com/vesoft-inc/nebula-cpp/releases"
         ${CMAKE_SOURCE_DIR}/package)
