@@ -21,10 +21,12 @@ cmake_minimum_required(VERSION 3.5.0)
 
 # Set the project name
 project("Nebula C++ Client" C CXX)
+set(PACKAGE_NAME "nebula-client")
 
 set(CMAKE_CXX_STANDARD 11)  # specify the C++ standard
 
 option(ENABLE_MODULE_UPDATE "Automatically update module" OFF)
+option(DISABLE_CLONE_COMMON "Automatically disable clone common module" OFF)
 
 add_definitions(-DNEBULA_HOME=${CMAKE_SOURCE_DIR})
 
@@ -41,16 +43,18 @@ endif()
 
 include(FetchModule)
 if(NOT NEBULA_COMMON_SOURCE_DIR)
-    nebula_fetch_module(
-        NAME
-            common
-        URL
-            ${NEBULA_COMMON_REPO_URL}
-        TAG
-            ${NEBULA_COMMON_REPO_TAG}
-        UPDATE
-            ${ENABLE_MODULE_UPDATE}
-    )
+    if (NOT ${DISABLE_CLONE_COMMON})
+        nebula_fetch_module(
+            NAME
+                common
+            URL
+                ${NEBULA_COMMON_REPO_URL}
+            TAG
+                ${NEBULA_COMMON_REPO_TAG}
+            UPDATE
+                ${ENABLE_MODULE_UPDATE}
+        )
+    endif()
     set(nebula_common_source_dir ${CMAKE_SOURCE_DIR}/modules/common)
     set(nebula_common_build_dir ${CMAKE_BINARY_DIR}/modules/common)
 else()
@@ -78,7 +82,6 @@ include(SanitizerConfig)
 include(GitHooksConfig)
 include(GitInfoConfig)
 include(NebulaCustomTargets)
-include(NebulaCMakeMacros)
 include(ConfigNebulaCommon)
 
 set(ENABLE_PIC ON FORCE)
@@ -97,8 +100,17 @@ include(GNUInstallDirs)
 
 include_directories(AFTER ${CMAKE_SOURCE_DIR}/include)
 
+# Remove the target exporting file
+file(REMOVE ${CMAKE_BINARY_DIR}/${PACKAGE_NAME}-config.cmake)
+
 macro(nebula_add_library name type)
     add_library(${name} ${type} ${ARGN})
+    export(
+        TARGETS ${name}
+        NAMESPACE "client_"
+        APPEND
+        FILE ${CMAKE_BINARY_DIR}/${PACKAGE_NAME}-config.cmake
+    )
     add_dependencies(
         ${name}
         common_project
@@ -128,7 +140,7 @@ install(DIRECTORY ${nebula_common_source_dir}/src/common/datatypes
 install(DIRECTORY ${nebula_common_source_dir}/src/common/graph
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/common
         FILES_MATCHING PATTERN "*.h")
-    
+
 # reuse the thrift types in common
 install(
     FILES
