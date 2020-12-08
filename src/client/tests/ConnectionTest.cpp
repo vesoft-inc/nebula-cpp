@@ -4,7 +4,6 @@
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
  */
 
-#include <folly/executors/IOThreadPoolExecutor.h>
 #include <folly/synchronization/Baton.h>
 #include <glog/logging.h>
 #include <gtest/gtest.h>
@@ -15,6 +14,8 @@
 #include "./ClientTest.h"
 
 // Require a nebula server could access
+
+static constexpr char kServerHost[] = "graphd";
 
 class ConnectionTest : public ClientTest {
 protected:
@@ -36,7 +37,7 @@ protected:
         });
 
         // open
-        ASSERT_TRUE(c.open("127.0.0.1", 3699));
+        ASSERT_TRUE(c.open(kServerHost, 3699));
 
         // ping
         EXPECT_TRUE(c.ping());

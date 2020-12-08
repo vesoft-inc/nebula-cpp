@@ -21,6 +21,8 @@
 
 // Require a nebula server could access
 
+#define kServerHost "graphd"
+
 class SessionTest : public ClientTest {
 protected:
     static void runOnce(nebula::ConnectionPool& pool) {
@@ -87,7 +89,7 @@ protected:
 
 TEST_F(SessionTest, Basic) {
     nebula::ConnectionPool pool;
-    pool.init({"127.0.0.1:3699"}, nebula::Config{});
+    pool.init({kServerHost ":3699"}, nebula::Config{});
     LOG(INFO) << "Testing once.";
     runOnce(pool);
 
@@ -98,7 +100,7 @@ TEST_F(SessionTest, Basic) {
 TEST_F(SessionTest, OverUse) {
     nebula::ConnectionPool pool;
     nebula::Config c;
-    pool.init({"127.0.0.1:3699"}, c);
+    pool.init({kServerHost ":3699"}, c);
     std::vector<nebula::Session> sessions;
     for (std::size_t i = 0; i < c.maxConnectionPoolSize_; ++i) {
         sessions.emplace_back(pool.getSession("root", "nebula"));
@@ -110,7 +112,7 @@ TEST_F(SessionTest, OverUse) {
 TEST_F(SessionTest, MTSafe) {
     nebula::ConnectionPool pool;
     nebula::Config c;
-    pool.init({"127.0.0.1:3699"}, c);
+    pool.init({kServerHost ":3699"}, c);
     std::vector<std::thread> threads;
     for (std::size_t i = 0; i < c.maxConnectionPoolSize_; ++i) {
         threads.emplace_back([&pool, i]() {
