@@ -57,7 +57,7 @@ Connection ConnectionPool::getConnection() {
     // check connection
     for (auto c = conns_.begin(); c != conns_.end(); ++c) {
         if (!c->isOpen()) {
-            conns_.erase(c);
+            c = conns_.erase(c);
             newConnection(nextCursor(), 1);
         }
     }
