@@ -5,9 +5,7 @@
  */
 
 #include "nebula/client/ConnectionPool.h"
-
 #include <folly/String.h>
-
 #include <atomic>
 
 namespace nebula {
@@ -55,10 +53,12 @@ Session ConnectionPool::getSession(const std::string &username,
 Connection ConnectionPool::getConnection() {
     std::lock_guard<std::mutex> l(lock_);
     // check connection
-    for (auto c = conns_.begin(); c != conns_.end(); ++c) {
+    for (auto c = conns_.begin(); c != conns_.end();) {
         if (!c->isOpen()) {
             c = conns_.erase(c);
             newConnection(nextCursor(), 1);
+        } else {
+            c++;
         }
     }
     if (conns_.empty()) {
