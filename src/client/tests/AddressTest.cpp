@@ -23,11 +23,13 @@ class AddressTest : public ClientTest {};
 TEST_F(AddressTest, One) {
     nebula::ConnectionPool pool;
     pool.init({kServerHost ":3699"}, nebula::Config{});
+    EXPECT_EQ(pool.size(), 10);
 }
 
 TEST_F(AddressTest, Multiple) {
     nebula::ConnectionPool pool;
-    pool.init({"graphd1:3699"}, nebula::Config{});
+    pool.init({"graphd:3699", "graphd1:3699", "graphd2:3699"}, nebula::Config{});
+    EXPECT_EQ(pool.size(), 10);
 }
 
 int main(int argc, char** argv) {
