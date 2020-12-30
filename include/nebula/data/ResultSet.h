@@ -26,6 +26,10 @@ public:
         return resp_.planDesc.get();
     }
 
+    const std::string *errorMsg() const {
+        return resp_.errorMsg.get();
+    }
+
 private:
     ExecutionResponse resp_;
 };
