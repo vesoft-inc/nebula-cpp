@@ -91,8 +91,6 @@ config_nebula_common(
     BUILD_DIR ${nebula_common_build_dir}
 )
 
-LintHook(${nebula_common_source_dir})
-
 add_custom_target(
     clean-modules
     DEPENDS clean-common
