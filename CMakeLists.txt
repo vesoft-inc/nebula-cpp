@@ -121,7 +121,7 @@ nebula_add_shared_linker_flag(-static-libstdc++)
 nebula_add_shared_linker_flag(-static-libgcc)
 nebula_add_shared_linker_flag(-rdynamic)
 nebula_add_shared_linker_flag(-Wl,--no-undefined)
-#nebula_add_shared_linker_flag("-Wl,--version-script=${CMAKE_SOURCE_DIR}/exported-symbols.map")
+nebula_add_shared_linker_flag("-Wl,--version-script=${CMAKE_SOURCE_DIR}/exported-symbols.map")
 
 
 nebula_add_subdirectory(src)
