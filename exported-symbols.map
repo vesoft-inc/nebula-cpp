@@ -1,0 +1,32 @@
+{
+global:
+    extern "C++" {
+        nebula::Connection::*;
+        nebula::ConnectionPool::*;
+        "nebula::init(int*, char***)";
+        nebula::Session::*;
+        nebula::Value::*;
+        nebula::DataSet::*;
+        nebula::Date::*;
+        nebula::DateTime::*;
+        nebula::Time::*;
+        nebula::Edge::*;
+        nebula::Vertex::*;
+        nebula::HostAddr::*;
+        nebula::KeyValue::*;
+        nebula::List::*;
+        nebula::Map::*;
+        nebula::Path::*;
+        nebula::Set::*;
+        nebula::AuthResponse::*;
+        nebula::ProfilingStats::*;
+        nebula::PlanNodeBranchInfo::*;
+        nebula::Pair::*;
+        nebula::PlanNodeDescription::*;
+        nebula::PlanDescription::*;
+        nebula::ExecutionResponse::*;
+        *::_S_empty_rep_storage;
+    };
+local:
+    *;
+};
