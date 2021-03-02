@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
     nebula::init(&argc, &argv);
 
     nebula::ConnectionPool pool;
-    pool.init({"127.0.0.1:3699"}, nebula::Config{});
+    pool.init({"127.0.0.1:9669"}, nebula::Config{});
     auto session = pool.getSession("root", "nebula");
     if (!session.valid()) {
         return -1;

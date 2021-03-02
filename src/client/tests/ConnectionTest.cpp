@@ -37,7 +37,7 @@ protected:
         });
 
         // open
-        ASSERT_TRUE(c.open(kServerHost, 3699));
+        ASSERT_TRUE(c.open(kServerHost, 9669));
 
         // ping
         EXPECT_TRUE(c.ping());
