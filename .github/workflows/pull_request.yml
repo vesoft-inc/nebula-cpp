@@ -90,8 +90,8 @@ jobs:
         run: cmake --build build/ -j $(nproc)
       - name: Nebula Server
         run: |
-          sudo curl -sSL https://get.docker.com/ | sh -- -y
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+          sudo curl -sSL https://get.docker.com/ | sh
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -- -y
           pip3 install setuptools setuptools_rust
           pip3 install docker-compose
           docker network ls
