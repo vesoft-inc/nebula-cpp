@@ -91,6 +91,7 @@ jobs:
       - name: Nebula Server
         run: |
           sudo curl -sSL https://get.docker.com/ | sh
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
           pip3 install setuptools setuptools_rust
           pip3 install docker-compose
           docker network ls
