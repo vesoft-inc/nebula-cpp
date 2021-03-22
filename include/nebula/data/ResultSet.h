@@ -30,6 +30,10 @@ public:
         return resp_.errorMsg.get();
     }
 
+    const std::string *spaceName() const {
+        return resp_.spaceName.get();
+    }
+
 private:
     ExecutionResponse resp_;
 };
