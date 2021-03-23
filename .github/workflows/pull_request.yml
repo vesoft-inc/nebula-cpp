@@ -93,6 +93,7 @@ jobs:
         run: yum install -y gcc
       - name: Nebula Server
         run: |
+          export CC=/usr/bin/cc
           sudo curl -sSL https://get.docker.com/ | sh
           curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
           source $HOME/.cargo/env
