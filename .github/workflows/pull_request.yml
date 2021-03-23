@@ -89,7 +89,7 @@ jobs:
       - name: Make
         run: cmake --build build/ -j $(nproc)
       - name: Install native compiler
-        if: ${{ matrix.os }} == centos7
+        if: ${{ matrix.os }} == 'centos7'
         run: yum install -y gcc
       - name: Nebula Server
         run: |
