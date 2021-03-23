@@ -30,10 +30,10 @@ jobs:
       - uses: ./.github/actions/tagname-action
         id: tag
       - name: package
-        if: ${{ contains(fromJson('["centos6", "centos7"]'), ${{ matrix.os }}) }}
+        if: ${{ contains(fromJson('["centos6", "centos7"]'), matrix.os) }}
         run: ./package/package.sh -b ${{ steps.tag.outputs.tag }} -a ON
       - name: package abi 11
-        if: ${{ contains(['centos8', 'ubuntu1604', 'ubuntu1804', 'ubuntu2004'], ${{ matrix.os }}) }}
+        if: ${{ contains(fromJson('["centos8", "ubuntu1604", "ubuntu1804", "ubuntu2004"]'), matrix.os) }}
         run: ./package/package.sh -b ${{ steps.tag.outputs.tag }}
       - name: Get package name
         id: pkg
