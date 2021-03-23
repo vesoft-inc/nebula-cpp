@@ -88,16 +88,10 @@ jobs:
           esac
       - name: Make
         run: cmake --build build/ -j $(nproc)
-      - name: Install native compiler
-        if: ${{ matrix.os }} == 'centos7'
-        run: yum install -y gcc
       - name: Nebula Server
         run: |
-          export CC=/usr/bin/cc
           sudo curl -sSL https://get.docker.com/ | sh
-          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-          source $HOME/.cargo/env
-          pip3 install setuptools setuptools_rust
+          pip3 install --upgrade pip
           pip3 install docker-compose
           docker network ls
           mkdir tmp
