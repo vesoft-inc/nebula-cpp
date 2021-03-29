@@ -34,6 +34,10 @@ public:
         return resp_.spaceName.get();
     }
 
+    int64_t latencyInUs() const {
+        return resp_.latencyInUse.get();
+    }
+
 private:
     ExecutionResponse resp_;
 };
