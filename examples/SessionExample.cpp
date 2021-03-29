@@ -23,20 +23,20 @@ int main(int argc, char* argv[]) {
     }
 
     auto result = session.execute("SHOW HOSTS");
-    if (result.errorCode() != nebula::ErrorCode::SUCCEEDED) {
-        std::cout << "Exit with error code: " << static_cast<int>(result.errorCode()) << std::endl;
-        return static_cast<int>(result.errorCode());
+    if (result.errorCode != nebula::ErrorCode::SUCCEEDED) {
+        std::cout << "Exit with error code: " << static_cast<int>(result.errorCode) << std::endl;
+        return static_cast<int>(result.errorCode);
     }
-    std::cout << *result.data();
+    std::cout << *result.data;
 
     std::atomic_bool complete{false};
-    session.asyncExecute("SHOW HOSTS", [&complete](nebula::ResultSet&& cbResult) {
-        if (cbResult.errorCode() != nebula::ErrorCode::SUCCEEDED) {
-            std::cout << "Exit with error code: " << static_cast<int>(cbResult.errorCode())
+    session.asyncExecute("SHOW HOSTS", [&complete](nebula::ExecutionResponse&& cbResult) {
+        if (cbResult.errorCode != nebula::ErrorCode::SUCCEEDED) {
+            std::cout << "Exit with error code: " << static_cast<int>(cbResult.errorCode)
                       << std::endl;
-            std::exit(static_cast<int>(cbResult.errorCode()));
+            std::exit(static_cast<int>(cbResult.errorCode));
         }
-        std::cout << *cbResult.data();
+        std::cout << *cbResult.data;
         complete.store(true);
     });
 
