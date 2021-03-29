@@ -9,13 +9,14 @@
 
 namespace nebula {
 
-ResultSet Session::execute(const std::string &stmt) {
-    return ResultSet(conn_.execute(sessionId_, stmt));
+ExecutionResponse Session::execute(const std::string &stmt) {
+    return ExecutionResponse(conn_.execute(sessionId_, stmt));
 }
 
 void Session::asyncExecute(const std::string &stmt, ExecuteCallback cb) {
-    conn_.asyncExecute(
-        sessionId_, stmt, [cb = std::move(cb)](auto &&resp) { cb(ResultSet(std::move(resp))); });
+    conn_.asyncExecute(sessionId_, stmt, [cb = std::move(cb)](auto &&resp) {
+        cb(ExecutionResponse(std::move(resp)));
+    });
 }
 
 std::string Session::executeJson(const std::string &stmt) {

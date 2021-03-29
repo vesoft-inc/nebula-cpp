@@ -34,22 +34,22 @@ protected:
 
         // execute
         auto result = session.execute("SHOW SPACES");
-        ASSERT_EQ(result.errorCode(), nebula::ErrorCode::SUCCEEDED);
+        ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
         nebula::DataSet expected({"Name"});
-        EXPECT_TRUE(verifyResultWithoutOrder(*result.data(), expected));
+        EXPECT_TRUE(verifyResultWithoutOrder(*result.data, expected));
 
         // explain
         result = session.execute("EXPLAIN SHOW HOSTS");
-        ASSERT_EQ(result.errorCode(), nebula::ErrorCode::SUCCEEDED);
-        EXPECT_NE(result.planDescription(), nullptr);
+        ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
+        EXPECT_NE(result.planDesc, nullptr);
         // TODO(shylock) check the plan
 
         // async execute
         folly::Baton<> b;
         session.asyncExecute("SHOW SPACES", [&b](auto&& cbResult) {
-            ASSERT_EQ(cbResult.errorCode(), nebula::ErrorCode::SUCCEEDED);
+            ASSERT_EQ(cbResult.errorCode, nebula::ErrorCode::SUCCEEDED);
             nebula::DataSet cbExpected({"Name"});
-            EXPECT_TRUE(verifyResultWithoutOrder(*cbResult.data(), cbExpected));
+            EXPECT_TRUE(verifyResultWithoutOrder(*cbResult.data, cbExpected));
             b.post();
         });
         b.wait();
@@ -59,8 +59,8 @@ protected:
 
         // execute
         result = session.execute("SHOW SPACES");
-        ASSERT_EQ(result.errorCode(), nebula::ErrorCode::SUCCEEDED);
-        EXPECT_TRUE(verifyResultWithoutOrder(*result.data(), expected));
+        ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
+        EXPECT_TRUE(verifyResultWithoutOrder(*result.data, expected));
 
         // release
         session.release();
@@ -72,12 +72,12 @@ protected:
 
         // check release
         result = session.execute("SHOW SPACES");
-        ASSERT_EQ(result.errorCode(), nebula::ErrorCode::E_DISCONNECTED);
+        ASSERT_EQ(result.errorCode, nebula::ErrorCode::E_DISCONNECTED);
 
         // async execute
         folly::Baton<> b2;
         session.asyncExecute("SHOW SPACES", [&b2](auto&& cbResult) {
-            ASSERT_EQ(cbResult.errorCode(), nebula::ErrorCode::E_DISCONNECTED);
+            ASSERT_EQ(cbResult.errorCode, nebula::ErrorCode::E_DISCONNECTED);
             b2.post();
         });
         b2.wait();
