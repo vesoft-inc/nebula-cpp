@@ -90,7 +90,6 @@ ExecutionResponse Connection::execute(int64_t sessionId, const std::string &stmt
     try {
         resp = client_->future_execute(sessionId, stmt).get();
     } catch (const std::exception &ex) {
-        std::cout << "DEBUG POINT: " << ex.what();
         resp = ExecutionResponse{ErrorCode::E_RPC_FAILURE,
                                  0,
                                  nullptr,
@@ -157,7 +156,6 @@ void Connection::close() {
 
 bool Connection::ping() {
     auto resp = execute(-1 /*Only check connection*/, "YIELD 1");
-    std::cout << static_cast<int>(resp.errorCode) << std::endl;
     if (resp.errorCode == ErrorCode::E_RPC_FAILURE || resp.errorCode == ErrorCode::E_DISCONNECTED) {
         return false;
     }
