@@ -7,8 +7,8 @@
 #include <memory>
 
 #include <folly/SocketAddress.h>
+#include <folly/io/async/AsyncSocket.h>
 #include <folly/io/async/ScopedEventBaseThread.h>
-#include <thrift/lib/cpp/async/TAsyncSocket.h>
 #include <thrift/lib/cpp2/async/HeaderClientChannel.h>
 
 #include "common/interface/gen-cpp2/GraphServiceAsyncClient.h"
@@ -45,13 +45,12 @@ bool Connection::open(const std::string &address, int32_t port) {
         [this, &complete, &address, port]() {
             try {
                 auto socketAddr = folly::SocketAddress(address, port, true);
-                auto socket = apache::thrift::async::TAsyncSocket::newSocket(
-                    clientLoopThread_->getEventBase(),
-                    socketAddr,
-                    0 /*TODO(shylock) pass from config*/);
-
+                auto socket = folly::AsyncSocket::UniquePtr(
+                    new folly::AsyncSocket(clientLoopThread_->getEventBase(),
+                                           std::move(socketAddr),
+                                           0 /*TODO(shylock) pass from config*/));
                 client_ = new graph::cpp2::GraphServiceAsyncClient(
-                    apache::thrift::HeaderClientChannel::newChannel(socket));
+                    apache::thrift::HeaderClientChannel::newChannel(std::move(socket)));
                 complete = true;
             } catch (const std::exception &) {
                 complete = false;
@@ -91,6 +90,7 @@ ExecutionResponse Connection::execute(int64_t sessionId, const std::string &stmt
     try {
         resp = client_->future_execute(sessionId, stmt).get();
     } catch (const std::exception &ex) {
+        std::cout << "DEBUG POINT: " << ex.what();
         resp = ExecutionResponse{ErrorCode::E_RPC_FAILURE,
                                  0,
                                  nullptr,
@@ -157,6 +157,7 @@ void Connection::close() {
 
 bool Connection::ping() {
     auto resp = execute(-1 /*Only check connection*/, "YIELD 1");
+    std::cout << static_cast<int>(resp.errorCode) << std::endl;
     if (resp.errorCode == ErrorCode::E_RPC_FAILURE || resp.errorCode == ErrorCode::E_DISCONNECTED) {
         return false;
     }
