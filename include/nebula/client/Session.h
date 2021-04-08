@@ -7,7 +7,6 @@
 #pragma once
 
 #include "nebula/client/Connection.h"
-#include "nebula/data/ResultSet.h"
 
 namespace nebula {
 
@@ -15,7 +14,7 @@ class ConnectionPool;
 
 class Session {
 public:
-    using ExecuteCallback = std::function<void(ResultSet &&)>;
+    using ExecuteCallback = std::function<void(ExecutionResponse &&)>;
     using ExecuteJsonCallback = std::function<void(std::string &&)>;
 
     Session() = default;
@@ -42,7 +41,7 @@ public:
         release();
     }
 
-    ResultSet execute(const std::string &stmt);
+    ExecutionResponse execute(const std::string &stmt);
 
     void asyncExecute(const std::string &stmt, ExecuteCallback cb);
 
