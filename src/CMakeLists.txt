@@ -41,6 +41,8 @@ set(NEBULA_CLIENT_LIBRARIES
     ssl
     crypto
     bz2
+    fmt
+    unwind
     -static-libgcc
     -static-libstdc++
     -Wl,--no-undefined

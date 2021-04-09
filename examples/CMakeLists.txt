@@ -9,7 +9,9 @@ project("Nebula C++ Client simple example" C CXX)
 
 set(CMAKE_CXX_STANDARD 11)  # specify the C++ standard
 
-set(NEBULA_HOME /usr/local/nebula)
+if (NOT NEBULA_HOME)
+    set(NEBULA_HOME /usr/local/nebula)
+endif()
 
 option(DISABLE_CXX11_ABI                "Whether to disable cxx11 abi" OFF)
 

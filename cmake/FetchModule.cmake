@@ -16,6 +16,7 @@ macro(nebula_fetch_module)
     set(module_dir ${CMAKE_SOURCE_DIR}/modules/${module_NAME})
     if(NOT EXISTS ${module_dir}/.git)
         message(STATUS "Cloning from ${module_URL}")
+        message(STATUS "Execute ${GIT_EXECUTABLE} clone --single-branch --branch ${module_TAG} ${module_URL} ${module_dir}")
         execute_process(
             COMMAND
                 ${GIT_EXECUTABLE} clone

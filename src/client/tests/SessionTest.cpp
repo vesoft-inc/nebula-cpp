@@ -34,22 +34,22 @@ protected:
 
         // execute
         auto result = session.execute("SHOW SPACES");
-        ASSERT_EQ(result.errorCode(), nebula::ErrorCode::SUCCEEDED);
+        ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
         nebula::DataSet expected({"Name"});
-        EXPECT_TRUE(verifyResultWithoutOrder(*result.data(), expected));
+        EXPECT_TRUE(verifyResultWithoutOrder(*result.data, expected));
 
         // explain
         result = session.execute("EXPLAIN SHOW HOSTS");
-        ASSERT_EQ(result.errorCode(), nebula::ErrorCode::SUCCEEDED);
-        EXPECT_NE(result.planDescription(), nullptr);
+        ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
+        EXPECT_NE(result.planDesc, nullptr);
         // TODO(shylock) check the plan
 
         // async execute
         folly::Baton<> b;
         session.asyncExecute("SHOW SPACES", [&b](auto&& cbResult) {
-            ASSERT_EQ(cbResult.errorCode(), nebula::ErrorCode::SUCCEEDED);
+            ASSERT_EQ(cbResult.errorCode, nebula::ErrorCode::SUCCEEDED);
             nebula::DataSet cbExpected({"Name"});
-            EXPECT_TRUE(verifyResultWithoutOrder(*cbResult.data(), cbExpected));
+            EXPECT_TRUE(verifyResultWithoutOrder(*cbResult.data, cbExpected));
             b.post();
         });
         b.wait();
@@ -59,8 +59,8 @@ protected:
 
         // execute
         result = session.execute("SHOW SPACES");
-        ASSERT_EQ(result.errorCode(), nebula::ErrorCode::SUCCEEDED);
-        EXPECT_TRUE(verifyResultWithoutOrder(*result.data(), expected));
+        ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
+        EXPECT_TRUE(verifyResultWithoutOrder(*result.data, expected));
 
         // release
         session.release();
@@ -72,12 +72,12 @@ protected:
 
         // check release
         result = session.execute("SHOW SPACES");
-        ASSERT_EQ(result.errorCode(), nebula::ErrorCode::E_DISCONNECTED);
+        ASSERT_EQ(result.errorCode, nebula::ErrorCode::E_DISCONNECTED);
 
         // async execute
         folly::Baton<> b2;
         session.asyncExecute("SHOW SPACES", [&b2](auto&& cbResult) {
-            ASSERT_EQ(cbResult.errorCode(), nebula::ErrorCode::E_DISCONNECTED);
+            ASSERT_EQ(cbResult.errorCode, nebula::ErrorCode::E_DISCONNECTED);
             b2.post();
         });
         b2.wait();
@@ -89,7 +89,7 @@ protected:
 
 TEST_F(SessionTest, Basic) {
     nebula::ConnectionPool pool;
-    pool.init({kServerHost ":3699"}, nebula::Config{});
+  pool.init({kServerHost ":9669"}, nebula::Config{});
     LOG(INFO) << "Testing once.";
     runOnce(pool);
 
@@ -100,7 +100,7 @@ TEST_F(SessionTest, Basic) {
 TEST_F(SessionTest, OverUse) {
     nebula::ConnectionPool pool;
     nebula::Config c;
-    pool.init({kServerHost ":3699"}, c);
+    pool.init({kServerHost ":9669"}, c);
     std::vector<nebula::Session> sessions;
     for (std::size_t i = 0; i < c.maxConnectionPoolSize_; ++i) {
         sessions.emplace_back(pool.getSession("root", "nebula"));
@@ -112,7 +112,7 @@ TEST_F(SessionTest, OverUse) {
 TEST_F(SessionTest, MTSafe) {
     nebula::ConnectionPool pool;
     nebula::Config c;
-    pool.init({kServerHost ":3699"}, c);
+    pool.init({kServerHost ":9669"}, c);
     std::vector<std::thread> threads;
     for (std::size_t i = 0; i < c.maxConnectionPoolSize_; ++i) {
         threads.emplace_back([&pool, i]() {
