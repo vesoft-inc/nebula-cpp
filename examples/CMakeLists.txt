@@ -3,7 +3,6 @@
 # This source code is licensed under Apache 2.0 License,
 # attached with Common Clause Condition 1.0, found in the LICENSES directory.
 #
-
 # Set the project name
 project("Nebula C++ Client simple example" C CXX)
 cmake_minimum_required(VERSION 2.8.0)
@@ -35,7 +34,16 @@ add_executable(session_example
     SessionExample.cpp
 )
 
+add_executable(storage_client_example
+    StorageClientExample.cpp
+)
+
 target_link_libraries(session_example
     PRIVATE
         nebula_graph_client
+)
+
+target_link_libraries(storage_client_example
+    PRIVATE
+        nebula_storage_client
 )

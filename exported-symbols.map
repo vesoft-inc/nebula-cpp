@@ -25,6 +25,9 @@ global:
         nebula::PlanNodeDescription::*;
         nebula::PlanDescription::*;
         nebula::ExecutionResponse::*;
+        nebula::MetaHostAddr::*;
+        nebula::StorageClient::*;
+        nebula::ScanResultIter::*;
         *::_S_empty_rep_storage;
     };
 local:
