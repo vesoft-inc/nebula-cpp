@@ -35,12 +35,26 @@ ScanVertexIter& ScanVertexIter::operator=(const ScanVertexIter& rhs) {
     return *this;
 }
 
+ScanVertexIter& ScanVertexIter::operator=(ScanVertexIter&& rhs) noexcept {
+    client_ = rhs.client_;
+    delete req_;
+    req_ = rhs.req_;
+    rhs.req_ = nullptr;
+    hasNext_ = rhs.hasNext_;
+    nextCursor_ = rhs.nextCursor_;
+
+    return *this;
+}
+
 ScanVertexIter::~ScanVertexIter() {
     delete req_;
 }
 
 DataSet ScanVertexIter::next() {
-    DCHECK(hasNext_);
+    if (!hasNext_) {
+        LOG(ERROR) << "hasNext() == false !";
+        return DataSet();
+    }
     DCHECK(!!req_);
     req_->set_cursor(std::move(nextCursor_));
     auto r = client_->scanVertex(*req_).get();

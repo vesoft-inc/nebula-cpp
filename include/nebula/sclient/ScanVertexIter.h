@@ -31,6 +31,8 @@ struct ScanVertexIter {
 
     ScanVertexIter& operator=(const ScanVertexIter& rhs);
 
+    ScanVertexIter& operator=(ScanVertexIter&& rhs) noexcept;
+
     ~ScanVertexIter();
 
     bool hasNext() {

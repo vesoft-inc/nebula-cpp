@@ -9,6 +9,9 @@
 #include <functional>
 #include <memory>
 #include <string>
+#include <vector>
+#include <thread>
+
 
 #include "common/datatypes/HostAddr.h"
 #include "nebula/sclient/ScanEdgeIter.h"
@@ -47,6 +50,10 @@ public:
     ~StorageClient();
 
     StorageClient &operator=(StorageClient &&c) noexcept;
+
+    std::unordered_map<int32_t, std::vector<nebula::HostAddr>> getPartsAlloc(std::string spaceName);
+
+    std::unordered_map<int32_t, nebula::HostAddr> getPartsLeader(std::string spaceName);
 
     ScanEdgeIter scanEdgeWithPart(std::string spaceName,
                                     int32_t partID,

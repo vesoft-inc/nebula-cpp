@@ -31,6 +31,8 @@ struct ScanEdgeIter {
 
     ScanEdgeIter& operator=(const ScanEdgeIter& rhs);
 
+    ScanEdgeIter& operator=(ScanEdgeIter&& rhs) noexcept;
+
     ~ScanEdgeIter();
 
     bool hasNext() {

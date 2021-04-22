@@ -35,12 +35,26 @@ ScanEdgeIter& ScanEdgeIter::operator=(const ScanEdgeIter& rhs) {
     return *this;
 }
 
+ScanEdgeIter& ScanEdgeIter::operator=(ScanEdgeIter&& rhs) noexcept {
+    client_ = rhs.client_;
+    delete req_;
+    req_ = rhs.req_;
+    rhs.req_ = nullptr;
+    hasNext_ = rhs.hasNext_;
+    nextCursor_ = rhs.nextCursor_;
+
+    return *this;
+}
+
 ScanEdgeIter::~ScanEdgeIter() {
     delete req_;
 }
 
 DataSet ScanEdgeIter::next() {
-    DCHECK(hasNext_);
+    if (!hasNext_) {
+        LOG(ERROR) << "hasNext() == false !";
+        return DataSet();
+    }
     DCHECK(!!req_);
     req_->set_cursor(std::move(nextCursor_));
     auto r = client_->scanEdge(*req_).get();

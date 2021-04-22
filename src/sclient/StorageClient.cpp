@@ -4,9 +4,6 @@
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
  */
 
-#include <memory>
-#include <thread>
-
 #include <folly/executors/IOThreadPoolExecutor.h>
 
 #include "common/clients/meta/MetaClient.h"
@@ -44,16 +41,69 @@ StorageClient &StorageClient::operator=(StorageClient &&rhs) noexcept {
     return *this;
 }
 
+std::unordered_map<int32_t, std::vector<nebula::HostAddr>> StorageClient::getPartsAlloc(
+    std::string spaceName) {
+    std::unordered_map<int32_t, std::vector<nebula::HostAddr>> result;
+
+    auto spaceIdResult = mclient_->getSpaceIdByNameFromCache(spaceName);
+    if (!spaceIdResult.ok()) {
+        LOG(ERROR) << "Get space id for " << spaceName << " failed: " << spaceIdResult.status();
+        return result;
+    }
+    auto spaceId = spaceIdResult.value();
+
+    auto partsAllocResult = mclient_->getPartsAlloc(spaceId).get();
+    if (!partsAllocResult.ok()) {
+        LOG(ERROR) << "Get parts alloc for space: " << spaceName
+                   << " failed: " << partsAllocResult.status();
+        return result;
+    }
+    result = partsAllocResult.value();
+    return result;
+}
+
+std::unordered_map<int32_t, nebula::HostAddr> StorageClient::getPartsLeader(std::string spaceName) {
+    std::unordered_map<int32_t, nebula::HostAddr> result;
+
+    auto spaceIdResult = mclient_->getSpaceIdByNameFromCache(spaceName);
+    if (!spaceIdResult.ok()) {
+        LOG(ERROR) << "Get space id for " << spaceName << " failed: " << spaceIdResult.status();
+        return result;
+    }
+    auto spaceId = spaceIdResult.value();
+
+    auto partsAllocResult = mclient_->getPartsAlloc(spaceId).get();
+    if (!partsAllocResult.ok()) {
+        LOG(ERROR) << "Get parts alloc for space: " << spaceName
+                   << " failed: " << partsAllocResult.status();
+        return result;
+    }
+    auto partsAlloc = partsAllocResult.value();
+    for (auto &partAlloc : partsAlloc) {
+        auto partId = partAlloc.first;
+        auto leaderResult = sclient_->getLeader(spaceId, partId);
+        if (!leaderResult.ok()) {
+            LOG(ERROR) << "Get leader host for space: " << spaceName << ", part: " << partId
+                       << " failed: " << leaderResult.status();
+            return result;
+        }
+        result[partId] = leaderResult.value();
+    }
+    DCHECK(result.size() == partsAlloc.size());
+
+    return result;
+}
+
 ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
-                                               int32_t partId,
-                                               std::string edgeName,
-                                               std::vector<std::string> propNames,
-                                               int64_t limit,
-                                               int64_t startTime,
-                                               int64_t endTime,
-                                               std::string filter,
-                                               bool onlyLatestVersion,
-                                               bool enableReadFromFollower) {
+                                             int32_t partId,
+                                             std::string edgeName,
+                                             std::vector<std::string> propNames,
+                                             int64_t limit,
+                                             int64_t startTime,
+                                             int64_t endTime,
+                                             std::string filter,
+                                             bool onlyLatestVersion,
+                                             bool enableReadFromFollower) {
     auto spaceIdResult = mclient_->getSpaceIdByNameFromCache(spaceName);
     if (!spaceIdResult.ok()) {
         LOG(ERROR) << "Get space id for " << spaceName << " failed: " << spaceIdResult.status();

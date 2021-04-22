@@ -19,6 +19,24 @@ static constexpr char kServerHost[] = "127.0.0.1";
 
 class StorageClientTest : public ClientTest {
 protected:
+    static void runGetPartsAlloc(nebula::StorageClient &c) {
+        std::cout << "get parts alloc of space" << std::endl;
+        auto partsAlloc = c.getPartsAlloc("nba");
+        for (auto p : partsAlloc) {
+            std::cout << "partReplicaSize[" << p.first << "]=" << p.second.size() << std::endl;
+        }
+        std::cout << "-----------------------" << std::endl;
+    }
+
+    static void runGetPartsLeader(nebula::StorageClient &c) {
+        std::cout << "get parts leader of space" << std::endl;
+        auto partsLeader = c.getPartsLeader("nba");
+        for (auto p : partsLeader) {
+            std::cout << "partLeader[" << p.first << "]=" << p.second << std::endl;
+        }
+        std::cout << "-----------------------" << std::endl;
+    }
+
     static void runScanEdge(nebula::StorageClient &c) {
         auto scanResultIter = c.scanEdgeWithPart("nba",
                                                  999,
@@ -104,6 +122,10 @@ protected:
 
 TEST_F(StorageClientTest, ScanEdge) {
     nebula::StorageClient c({nebula::MetaHostAddr("localhost", 45996)});
+    LOG(INFO) << "Testing run get parts alloc.";
+    runGetPartsAlloc(c);
+    LOG(INFO) << "Testing run get parts leader.";
+    runGetPartsLeader(c);
     LOG(INFO) << "Testing run scan edge.";
     runScanEdge(c);
     LOG(INFO) << "Testing run scan vertex.";
