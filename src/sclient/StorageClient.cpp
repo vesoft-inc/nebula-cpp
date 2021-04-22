@@ -17,8 +17,8 @@
 namespace nebula {
 
 StorageClient::StorageClient(const std::vector<MetaHostAddr> &metaServers) {
-    ioExecutor_ = std::make_shared<folly::IOThreadPoolExecutor>(
-                        std::thread::hardware_concurrency());
+    ioExecutor_ =
+        std::make_shared<folly::IOThreadPoolExecutor>(std::thread::hardware_concurrency());
     mclient_ = std::make_unique<meta::MetaClient>(ioExecutor_, metaServers);
     // load data try 3 time
     bool loadDataOk = mclient_->waitForMetadReady(3);
@@ -44,26 +44,26 @@ StorageClient &StorageClient::operator=(StorageClient &&rhs) noexcept {
     return *this;
 }
 
-ScanResultIter StorageClient::scanEdgeWithPart(std::string spaceName,
-                                           int32_t partId,
-                                           std::string edgeName,
-                                           std::vector<std::string> propNames,
-                                           int64_t limit,
-                                           int64_t startTime,
-                                           int64_t endTime,
-                                           std::string filter,
-                                           bool onlyLatestVersion,
-                                           bool enableReadFromFollower) {
+ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
+                                               int32_t partId,
+                                               std::string edgeName,
+                                               std::vector<std::string> propNames,
+                                               int64_t limit,
+                                               int64_t startTime,
+                                               int64_t endTime,
+                                               std::string filter,
+                                               bool onlyLatestVersion,
+                                               bool enableReadFromFollower) {
     auto spaceIdResult = mclient_->getSpaceIdByNameFromCache(spaceName);
     if (!spaceIdResult.ok()) {
         LOG(ERROR) << "Get space id for " << spaceName << " failed: " << spaceIdResult.status();
-        return ScanResultIter(nullptr, nullptr, false);
+        return ScanEdgeIter(nullptr, nullptr, false);
     }
     int32_t spaceId = spaceIdResult.value();
     auto edgeTypeResult = mclient_->getEdgeTypeByNameFromCache(spaceId, edgeName);
     if (!edgeTypeResult.ok()) {
         LOG(ERROR) << "Get edge type for " << edgeName << " failed: " << edgeTypeResult.status();
-        return ScanResultIter(nullptr, nullptr, false);
+        return ScanEdgeIter(nullptr, nullptr, false);
     }
     int32_t edgeType = edgeTypeResult.value();
 
@@ -83,7 +83,49 @@ ScanResultIter StorageClient::scanEdgeWithPart(std::string spaceName,
     req->set_only_latest_version(onlyLatestVersion);
     req->set_enable_read_from_follower(enableReadFromFollower);
 
-    return ScanResultIter(sclient_.get(), req);
+    return ScanEdgeIter(sclient_.get(), req);
+}
+
+ScanVertexIter StorageClient::scanVertexWithPart(std::string spaceName,
+                                                 int32_t partId,
+                                                 std::string tagName,
+                                                 std::vector<std::string> propNames,
+                                                 int64_t limit,
+                                                 int64_t startTime,
+                                                 int64_t endTime,
+                                                 std::string filter,
+                                                 bool onlyLatestVersion,
+                                                 bool enableReadFromFollower) {
+    auto spaceIdResult = mclient_->getSpaceIdByNameFromCache(spaceName);
+    if (!spaceIdResult.ok()) {
+        LOG(ERROR) << "Get space id for " << spaceName << " failed: " << spaceIdResult.status();
+        return ScanVertexIter(nullptr, nullptr, false);
+    }
+    int32_t spaceId = spaceIdResult.value();
+    auto tagIdResult = mclient_->getTagIDByNameFromCache(spaceId, tagName);
+    if (!tagIdResult.ok()) {
+        LOG(ERROR) << "Get tag id for " << tagName << " failed: " << tagIdResult.status();
+        return ScanVertexIter(nullptr, nullptr, false);
+    }
+    int32_t tagId = tagIdResult.value();
+
+    storage::cpp2::VertexProp returnCols;
+    returnCols.set_tag(tagId);
+    returnCols.set_props(propNames);
+
+    auto *req = new storage::cpp2::ScanVertexRequest;
+    req->set_space_id(spaceId);
+    req->set_part_id(partId);
+    req->set_cursor("");
+    req->set_return_columns(returnCols);
+    req->set_limit(limit);
+    req->set_start_time(startTime);
+    req->set_end_time(endTime);
+    req->set_filter(filter);
+    req->set_only_latest_version(onlyLatestVersion);
+    req->set_enable_read_from_follower(enableReadFromFollower);
+
+    return ScanVertexIter(sclient_.get(), req);
 }
 
 }   // namespace nebula

@@ -7,15 +7,23 @@
 #include "common/clients/storage/GraphStorageClient.h"
 #include "common/interface/gen-cpp2/storage_types.h"
 
-#include "nebula/sclient/ScanResultIter.h"
+#include "nebula/sclient/ScanEdgeIter.h"
 
 namespace nebula {
 
-ScanResultIter::~ScanResultIter() {
-    delete req_;
+ScanEdgeIter::ScanEdgeIter(const ScanEdgeIter& rhs)
+    : client_(rhs.client_),
+      req_(new storage::cpp2::ScanEdgeRequest(*rhs.req_)),
+      hasNext_(rhs.hasNext_),
+      nextCursor_(rhs.nextCursor_) {}
+
+ScanEdgeIter::ScanEdgeIter(ScanEdgeIter&& rhs)
+    : client_(rhs.client_), hasNext_(rhs.hasNext_), nextCursor_(std::move(rhs.nextCursor_)) {
+    req_ = rhs.req_;
+    rhs.req_ = nullptr;
 }
 
-ScanResultIter& ScanResultIter::operator=(const ScanResultIter& rhs) {
+ScanEdgeIter& ScanEdgeIter::operator=(const ScanEdgeIter& rhs) {
     if (this != &rhs) {
         client_ = rhs.client_;
         delete req_;
@@ -27,7 +35,11 @@ ScanResultIter& ScanResultIter::operator=(const ScanResultIter& rhs) {
     return *this;
 }
 
-DataSet ScanResultIter::next() {
+ScanEdgeIter::~ScanEdgeIter() {
+    delete req_;
+}
+
+DataSet ScanEdgeIter::next() {
     DCHECK(hasNext_);
     DCHECK(!!req_);
     req_->set_cursor(std::move(nextCursor_));
@@ -37,21 +49,21 @@ DataSet ScanResultIter::next() {
         this->hasNext_ = false;
         return DataSet();
     }
-    auto scanEdgeResponse = std::move(r).value();
-    if (scanEdgeResponse.get_result().get_failed_parts().size() != 0) {
-        auto errorCode = scanEdgeResponse.get_result().get_failed_parts()[0].code;
+    auto scanResponse = std::move(r).value();
+    if (scanResponse.get_result().get_failed_parts().size() != 0) {
+        auto errorCode = scanResponse.get_result().get_failed_parts()[0].code;
         LOG(ERROR) << "Scan edge failed, errorcode: "
                    << static_cast<int32_t>(errorCode);
         this->hasNext_ = false;
         return DataSet();
     }
-    this->hasNext_ = scanEdgeResponse.get_has_next();
-    std::string* cursor = scanEdgeResponse.get_next_cursor();
+    this->hasNext_ = scanResponse.get_has_next();
+    std::string* cursor = scanResponse.get_next_cursor();
     if (cursor) {
         this->nextCursor_ = *cursor;
     }
-    auto edgeData = scanEdgeResponse.get_edge_data();
-    return edgeData;
+    auto data = scanResponse.get_edge_data();
+    return data;
 }
 
 }   //  namespace nebula

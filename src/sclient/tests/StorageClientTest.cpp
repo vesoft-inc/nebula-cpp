@@ -9,7 +9,7 @@
 #include <gtest/gtest.h>
 
 #include <nebula/sclient/Init.h>
-#include <nebula/sclient/ScanResultIter.h>
+#include <nebula/sclient/ScanEdgeIter.h>
 #include <nebula/sclient/StorageClient.h>
 #include "./ClientTest.h"
 
@@ -19,7 +19,7 @@ static constexpr char kServerHost[] = "127.0.0.1";
 
 class StorageClientTest : public ClientTest {
 protected:
-    static void runScanEdgeOnce(nebula::StorageClient &c) {
+    static void runScanEdge(nebula::StorageClient &c) {
         auto scanResultIter = c.scanEdgeWithPart("nba",
                                                  999,
                                                  "like",
@@ -59,14 +59,55 @@ protected:
             std::cout << "+++++++++++++++++++++++++" << std::endl;
         }
     }
+
+    static void runScanVertex(nebula::StorageClient &c) {
+        auto scanResultIter = c.scanVertexWithPart("nba",
+                                                   999,
+                                                   "non_exist_tag",
+                                                   std::vector<std::string>(),
+                                                   1000,
+                                                   0,
+                                                   std::numeric_limits<int64_t>::max(),
+                                                   "",
+                                                   true,
+                                                   true);
+        {
+            EXPECT_EQ(scanResultIter.hasNext(), false);
+            // nebula::DataSet ds = scanResultIter.next();
+            // EXPECT_EQ(ds, nebula::DataSet());
+            EXPECT_EQ(scanResultIter.hasNext_, false);
+            EXPECT_EQ(scanResultIter.nextCursor_, "");
+        }
+
+        scanResultIter = c.scanVertexWithPart("nba",
+                                              1,
+                                              "player",
+                                              std::vector<std::string>{"name", "age"},
+                                              10,
+                                              0,
+                                              std::numeric_limits<int64_t>::max(),
+                                              "",
+                                              true,
+                                              true);
+        while (scanResultIter.hasNext()) {
+            std::cout << "-------------------------" << std::endl;
+            nebula::DataSet expected({"likeness"});
+            nebula::DataSet ds = scanResultIter.next();
+            std::cout << ds << std::endl;
+            // EXPECT_EQ(scanResultIter.hasNext_, false);
+            // EXPECT_EQ(scanResultIter.nextCursor_, "");
+            // EXPECT_TRUE(verifyResultWithoutOrder(ds, expected));
+            std::cout << "+++++++++++++++++++++++++" << std::endl;
+        }
+    }
 };
 
 TEST_F(StorageClientTest, ScanEdge) {
     nebula::StorageClient c({nebula::MetaHostAddr("localhost", 45996)});
-    LOG(INFO) << "Testing run scan edge once.";
-    runScanEdgeOnce(c);
-    LOG(INFO) << "Testing run scan edge reopen.";
-    runScanEdgeOnce(c);
+    LOG(INFO) << "Testing run scan edge.";
+    runScanEdge(c);
+    LOG(INFO) << "Testing run scan vertex.";
+    runScanVertex(c);
 }
 
 int main(int argc, char **argv) {

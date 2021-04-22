@@ -19,15 +19,19 @@ class ScanEdgeRequest;
 }   // namespace cpp2
 }   // namespace storage
 
-struct ScanResultIter {
-    ScanResultIter(storage::GraphStorageClient* client,
-                   storage::cpp2::ScanEdgeRequest* req,
-                   bool hasNext = true)
+struct ScanEdgeIter {
+    ScanEdgeIter(storage::GraphStorageClient* client,
+                 storage::cpp2::ScanEdgeRequest* req,
+                 bool hasNext = true)
         : client_(client), req_(req), hasNext_(hasNext) {}
 
-    ScanResultIter& operator=(const ScanResultIter& rhs);
+    ScanEdgeIter(const ScanEdgeIter& rhs);
 
-    ~ScanResultIter();
+    ScanEdgeIter(ScanEdgeIter&& c);
+
+    ScanEdgeIter& operator=(const ScanEdgeIter& rhs);
+
+    ~ScanEdgeIter();
 
     bool hasNext() {
         return hasNext_;

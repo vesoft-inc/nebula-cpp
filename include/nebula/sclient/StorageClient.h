@@ -11,7 +11,8 @@
 #include <string>
 
 #include "common/datatypes/HostAddr.h"
-#include "nebula/sclient/ScanResultIter.h"
+#include "nebula/sclient/ScanEdgeIter.h"
+#include "nebula/sclient/ScanVertexIter.h"
 
 #define DEFAULT_LIMIT 1000
 #define DEFAULT_START_TIME 0
@@ -47,7 +48,7 @@ public:
 
     StorageClient &operator=(StorageClient &&c) noexcept;
 
-    ScanResultIter scanEdgeWithPart(std::string spaceName,
+    ScanEdgeIter scanEdgeWithPart(std::string spaceName,
                                     int32_t partID,
                                     std::string edgeName,
                                     std::vector<std::string> propNames,
@@ -57,6 +58,17 @@ public:
                                     std::string filter = "",
                                     bool onlyLatestVersion = false,
                                     bool enableReadFromFollower = true);
+
+    ScanVertexIter scanVertexWithPart(std::string spaceName,
+                                      int32_t partId,
+                                      std::string tagName,
+                                      std::vector<std::string> propNames,
+                                      int64_t limit,
+                                      int64_t startTime,
+                                      int64_t endTime,
+                                      std::string filter,
+                                      bool onlyLatestVersion,
+                                      bool enableReadFromFollower);
 
 private:
     std::shared_ptr<folly::IOThreadPoolExecutor> ioExecutor_;

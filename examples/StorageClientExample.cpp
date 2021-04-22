@@ -17,20 +17,41 @@ int main(int argc, char* argv[]) {
 
     nebula::StorageClient c({nebula::MetaHostAddr("localhost", 45996)});
 
-    auto scanResultIter = c.scanEdgeWithPart("nba",
+    auto scanEdgeIter = c.scanEdgeWithPart("nba",
                                              1,
-                                             "like",
-                                             std::vector<std::string>{"likeness"},
+                                             "player",
+                                             std::vector<std::string>{"name"},
                                              10,
                                              0,
                                              std::numeric_limits<int64_t>::max(),
                                              "",
                                              true,
                                              true);
-    while (scanResultIter.hasNext()) {
+    std::cout << "scan edge..." << std::endl;
+    while (scanEdgeIter.hasNext()) {
         std::cout << "-------------------------" << std::endl;
         nebula::DataSet expected({"likeness"});
-        nebula::DataSet ds = scanResultIter.next();
+        nebula::DataSet ds = scanEdgeIter.next();
+        std::cout << ds << std::endl;
+        std::cout << "+++++++++++++++++++++++++" << std::endl;
+    }
+
+    auto scanVertexIter = c.scanVertexWithPart("nba",
+                                          1,
+                                          "player",
+                                          std::vector<std::string>{},
+                                          10,
+                                          0,
+                                          std::numeric_limits<int64_t>::max(),
+                                          "",
+                                          true,
+                                          true);
+
+    std::cout << "scan vertex" << std::endl;
+    while (scanVertexIter.hasNext()) {
+        std::cout << "-------------------------" << std::endl;
+        nebula::DataSet expected({"likeness"});
+        nebula::DataSet ds = scanVertexIter.next();
         std::cout << ds << std::endl;
         std::cout << "+++++++++++++++++++++++++" << std::endl;
     }

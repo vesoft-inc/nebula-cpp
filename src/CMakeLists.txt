@@ -56,7 +56,8 @@ set(NEBULA_CLIENT_SOURCES
 
 set(NEBULA_SCLIENT_SOURCES
     sclient/StorageClient.cpp
-    sclient/ScanResultIter.cpp
+    sclient/ScanEdgeIter.cpp
+    sclient/ScanVertexIter.cpp
     sclient/Init.cpp
 )
 
