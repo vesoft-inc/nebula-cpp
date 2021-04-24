@@ -29,6 +29,7 @@ global:
         nebula::StorageClient::*;
         nebula::ScanEdgeIter::*;
         nebula::ScanVertexIter::*;
+        nebula::MetaHostAddrHash::*;
         *::_S_empty_rep_storage;
     };
 local:

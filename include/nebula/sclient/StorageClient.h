@@ -9,9 +9,9 @@
 #include <functional>
 #include <memory>
 #include <string>
-#include <vector>
 #include <thread>
-
+#include <unordered_map>
+#include <vector>
 
 #include "common/datatypes/HostAddr.h"
 #include "nebula/sclient/ScanEdgeIter.h"
@@ -38,6 +38,12 @@ class GraphStorageClient;
 
 using MetaHostAddr = HostAddr;
 
+struct MetaHostAddrHash {
+    std::size_t operator()(const MetaHostAddr &h) const noexcept {
+        return std::hash<std::string>()(h.host + std::to_string(h.port));
+    }
+};
+
 class StorageClient {
 public:
     explicit StorageClient(const std::vector<nebula::MetaHostAddr> &metaServers);
@@ -51,20 +57,21 @@ public:
 
     StorageClient &operator=(StorageClient &&c) noexcept;
 
-    std::unordered_map<int32_t, std::vector<nebula::HostAddr>> getPartsAlloc(std::string spaceName);
+    std::unordered_map<int32_t, std::vector<nebula::MetaHostAddr>> getPartsAlloc(
+        std::string spaceName);
 
-    std::unordered_map<int32_t, nebula::HostAddr> getPartsLeader(std::string spaceName);
+    std::unordered_map<int32_t, nebula::MetaHostAddr> getPartsLeader(std::string spaceName);
 
     ScanEdgeIter scanEdgeWithPart(std::string spaceName,
-                                    int32_t partID,
-                                    std::string edgeName,
-                                    std::vector<std::string> propNames,
-                                    int64_t limit = DEFAULT_LIMIT,
-                                    int64_t startTime = DEFAULT_START_TIME,
-                                    int64_t endTime = DEFAULT_END_TIME,
-                                    std::string filter = "",
-                                    bool onlyLatestVersion = false,
-                                    bool enableReadFromFollower = true);
+                                  int32_t partID,
+                                  std::string edgeName,
+                                  std::vector<std::string> propNames,
+                                  int64_t limit = DEFAULT_LIMIT,
+                                  int64_t startTime = DEFAULT_START_TIME,
+                                  int64_t endTime = DEFAULT_END_TIME,
+                                  std::string filter = "",
+                                  bool onlyLatestVersion = false,
+                                  bool enableReadFromFollower = true);
 
     ScanVertexIter scanVertexWithPart(std::string spaceName,
                                       int32_t partId,
