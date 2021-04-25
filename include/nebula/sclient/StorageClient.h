@@ -57,6 +57,8 @@ public:
 
     StorageClient &operator=(StorageClient &&c) noexcept;
 
+    std::vector<int32_t> getParts(std::string spaceName);
+
     std::unordered_map<int32_t, std::vector<nebula::MetaHostAddr>> getPartsAlloc(
         std::string spaceName);
 

@@ -41,6 +41,19 @@ StorageClient &StorageClient::operator=(StorageClient &&rhs) noexcept {
     return *this;
 }
 
+std::vector<int32_t> StorageClient::getParts(std::string spaceName) {
+    std::vector<int32_t> parts;
+
+    auto partsAlloc = this->getPartsAlloc(spaceName);
+
+    parts.reserve(partsAlloc.size());
+
+    for (auto &partAlloc : partsAlloc) {
+        parts.push_back(partAlloc.first);
+    }
+    return parts;
+}
+
 std::unordered_map<int32_t, std::vector<nebula::HostAddr>> StorageClient::getPartsAlloc(
     std::string spaceName) {
     std::unordered_map<int32_t, std::vector<nebula::HostAddr>> result;

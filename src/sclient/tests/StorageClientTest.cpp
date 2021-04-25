@@ -19,6 +19,16 @@ static constexpr char kServerHost[] = "127.0.0.1";
 
 class StorageClientTest : public ClientTest {
 protected:
+    static void runGetParts(nebula::StorageClient &c) {
+        std::cout << "get parts of space" << std::endl;
+        auto parts = c.getParts("nba");
+        for (auto p : parts) {
+            std::cout << p << " ";
+        }
+        std::cout << std::endl;
+        std::cout << "-----------------------" << std::endl;
+    }
+
     static void runGetPartsAlloc(nebula::StorageClient &c) {
         std::cout << "get parts alloc of space" << std::endl;
         auto partsAlloc = c.getPartsAlloc("nba");
@@ -122,6 +132,8 @@ protected:
 
 TEST_F(StorageClientTest, ScanEdge) {
     nebula::StorageClient c({nebula::MetaHostAddr("localhost", 45996)});
+    LOG(INFO) << "Testing run get parts.";
+    runGetParts(c);
     LOG(INFO) << "Testing run get parts alloc.";
     runGetPartsAlloc(c);
     LOG(INFO) << "Testing run get parts leader.";
