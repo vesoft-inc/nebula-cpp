@@ -41,6 +41,47 @@ StorageClient &StorageClient::operator=(StorageClient &&rhs) noexcept {
     return *this;
 }
 
+VidType StorageClient::getSpaceVidType(std::string spaceName) {
+    auto spaceIdResult = mclient_->getSpaceIdByNameFromCache(spaceName);
+    if (!spaceIdResult.ok()) {
+        LOG(ERROR) << "Get space id for " << spaceName << " failed: " << spaceIdResult.status();
+        return VidType::UNKNOWN;
+    }
+    auto spaceId = spaceIdResult.value();
+
+    auto spaceVidTypeResult = mclient_->getSpaceVidType(spaceId);
+    if (!spaceVidTypeResult.ok()) {
+        LOG(ERROR) << "Get space vid type for " << spaceName
+                   << " failed: " << spaceVidTypeResult.status();
+        return VidType::UNKNOWN;
+    }
+    auto spaceVidType = spaceVidTypeResult.value();
+    if (spaceVidType == nebula::meta::cpp2::PropertyType::INT64) {
+        return VidType::INT64;
+    } else if (spaceVidType == nebula::meta::cpp2::PropertyType::FIXED_STRING) {
+        return VidType::FIXED_STRING;
+    } else {
+        return VidType::UNKNOWN;
+    }
+}
+
+int32_t StorageClient::getSpaceVidLen(std::string spaceName) {
+    auto spaceIdResult = mclient_->getSpaceIdByNameFromCache(spaceName);
+    if (!spaceIdResult.ok()) {
+        LOG(ERROR) << "Get space id for " << spaceName << " failed: " << spaceIdResult.status();
+        return -1;
+    }
+    auto spaceId = spaceIdResult.value();
+
+    auto spaceVidLenResult = mclient_->getSpaceVidLen(spaceId);
+    if (!spaceVidLenResult.ok()) {
+        LOG(ERROR) << "Get space vid len for " << spaceName
+                   << " failed: " << spaceVidLenResult.status();
+        return -1;
+    }
+    return spaceVidLenResult.value();
+}
+
 std::vector<int32_t> StorageClient::getParts(std::string spaceName) {
     std::vector<int32_t> parts;
 

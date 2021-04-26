@@ -44,6 +44,12 @@ struct MetaHostAddrHash {
     }
 };
 
+enum class VidType : int8_t {
+    INT64,
+    FIXED_STRING,
+    UNKNOWN
+};
+
 class StorageClient {
 public:
     explicit StorageClient(const std::vector<nebula::MetaHostAddr> &metaServers);
@@ -56,6 +62,10 @@ public:
     ~StorageClient();
 
     StorageClient &operator=(StorageClient &&c) noexcept;
+
+    VidType getSpaceVidType(std::string spaceName);
+
+    int32_t getSpaceVidLen(std::string spaceName);
 
     std::vector<int32_t> getParts(std::string spaceName);
 
