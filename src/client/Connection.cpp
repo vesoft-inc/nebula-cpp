@@ -155,7 +155,7 @@ void Connection::close() {
 }
 
 bool Connection::ping() {
-    auto resp = execute(-1 /*Only check connection*/, "YIELD 1");
+    auto resp = execute(0 /*Only check connection*/, "YIELD 1");
     if (resp.errorCode == ErrorCode::E_RPC_FAILURE || resp.errorCode == ErrorCode::E_DISCONNECTED) {
         return false;
     }
