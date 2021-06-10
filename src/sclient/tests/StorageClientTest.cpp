@@ -131,7 +131,7 @@ protected:
 };
 
 TEST_F(StorageClientTest, ScanEdge) {
-    nebula::StorageClient c({nebula::MetaHostAddr("localhost", 45996)});
+    nebula::StorageClient c({"localhost:45996"});
     LOG(INFO) << "Testing run get parts.";
     runGetParts(c);
     LOG(INFO) << "Testing run get parts alloc.";

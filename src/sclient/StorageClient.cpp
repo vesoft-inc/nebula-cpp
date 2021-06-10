@@ -13,10 +13,18 @@
 
 namespace nebula {
 
-StorageClient::StorageClient(const std::vector<MetaHostAddr> &metaServers) {
+StorageClient::StorageClient(const std::vector<std::string> &metaServers) {
+    for (const auto &addr : metaServers) {
+        std::vector<std::string> ip_port;
+        folly::split(':', addr, ip_port, true);
+        CHECK(ip_port.size() == 2) << "meta server addr " << addr << " is illegal";
+        metaServers_.emplace_back(ip_port[0], folly::to<int32_t>(ip_port[1]));
+    }
+    CHECK(!metaServers_.empty()) << "metaServers_ is empty";
+
     ioExecutor_ =
         std::make_shared<folly::IOThreadPoolExecutor>(std::thread::hardware_concurrency());
-    mclient_ = std::make_unique<meta::MetaClient>(ioExecutor_, metaServers);
+    mclient_ = std::make_unique<meta::MetaClient>(ioExecutor_, metaServers_);
     // load data try 3 time
     bool loadDataOk = mclient_->waitForMetadReady(3);
     if (!loadDataOk) {

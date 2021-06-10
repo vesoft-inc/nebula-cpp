@@ -36,14 +36,6 @@ namespace storage {
 class GraphStorageClient;
 }   // namespace storage
 
-using MetaHostAddr = HostAddr;
-
-struct MetaHostAddrHash {
-    std::size_t operator()(const MetaHostAddr &h) const noexcept {
-        return std::hash<std::string>()(h.host + std::to_string(h.port));
-    }
-};
-
 enum class VidType : int8_t {
     INT64,
     FIXED_STRING,
@@ -52,7 +44,7 @@ enum class VidType : int8_t {
 
 class StorageClient {
 public:
-    explicit StorageClient(const std::vector<nebula::MetaHostAddr> &metaServers);
+    explicit StorageClient(const std::vector<std::string> &metaServers);
     // disable copy
     StorageClient(const StorageClient &) = delete;
     StorageClient &operator=(const StorageClient &) = delete;
@@ -69,10 +61,10 @@ public:
 
     std::vector<int32_t> getParts(std::string spaceName);
 
-    std::unordered_map<int32_t, std::vector<nebula::MetaHostAddr>> getPartsAlloc(
+    std::unordered_map<int32_t, std::vector<nebula::HostAddr>> getPartsAlloc(
         std::string spaceName);
 
-    std::unordered_map<int32_t, nebula::MetaHostAddr> getPartsLeader(std::string spaceName);
+    std::unordered_map<int32_t, nebula::HostAddr> getPartsLeader(std::string spaceName);
 
     ScanEdgeIter scanEdgeWithPart(std::string spaceName,
                                   int32_t partID,
@@ -97,6 +89,7 @@ public:
                                       bool enableReadFromFollower);
 
 private:
+    std::vector<nebula::HostAddr> metaServers_;
     std::shared_ptr<folly::IOThreadPoolExecutor> ioExecutor_;
     std::unique_ptr<meta::MetaClient> mclient_;
     std::unique_ptr<storage::GraphStorageClient> sclient_;
