@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 vesoft inc. All rights reserved.
+/* Copyright (c) 2021 vesoft inc. All rights reserved.
  *
  * This source code is licensed under Apache 2.0 License,
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
@@ -131,7 +131,7 @@ protected:
 };
 
 TEST_F(StorageClientTest, ScanEdge) {
-    nebula::StorageClient c({"localhost:45996"});
+    nebula::StorageClient c({"localhost:9559"});
     LOG(INFO) << "Testing run get parts.";
     runGetParts(c);
     LOG(INFO) << "Testing run get parts alloc.";
