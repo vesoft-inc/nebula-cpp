@@ -16,7 +16,7 @@ endif()
 option(DISABLE_CXX11_ABI                "Whether to disable cxx11 abi" OFF)
 
 # Is abi 11
-if (${DISABLE_CXX11_ABI})
+if (DISABLE_CXX11_ABI)
     message(STATUS "Set D_GLIBCXX_USE_CXX11_ABI to 0")
     add_compile_options(-D_GLIBCXX_USE_CXX11_ABI=0)
 else()
