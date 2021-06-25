@@ -4,6 +4,8 @@
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
  */
 
+#include <common/time/TimeUtils.h>
+
 #include "nebula/client/Session.h"
 #include "nebula/client/ConnectionPool.h"
 
@@ -45,6 +47,19 @@ void Session::release() {
         conn_.signout(sessionId_);
         pool_->giveBack(std::move(conn_));
         sessionId_ = -1;
+    }
+}
+
+void Session::toLocal(DataSet &data, int32_t offsetSecs) {
+    DataSet ds(std::move(data.colNames));
+    for (auto &row : data.rows) {
+        for (auto &col : row.values) {
+            if (col.isTime()) {
+                col.setTime(time::TimeUtils::timeShift(col.getTime(), offsetSecs));
+            } else if (col.isDateTime()) {
+                col.setDateTime(time::TimeUtils::dateTimeShift(col.getDateTime(), offsetSecs));
+            }
+        }
     }
 }
 
