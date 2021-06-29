@@ -51,7 +51,6 @@ void Session::release() {
 }
 
 void Session::toLocal(DataSet &data, int32_t offsetSecs) {
-    DataSet ds(std::move(data.colNames));
     for (auto &row : data.rows) {
         for (auto &col : row.values) {
             if (col.isTime()) {
