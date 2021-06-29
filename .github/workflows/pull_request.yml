@@ -113,6 +113,13 @@ jobs:
           ctest -j $(($(nproc)/2+1)) --timeout 400 --output-on-failure
           popd
         timeout-minutes: 4
+      - name: Build example
+        run: |
+          pushd examples
+          mkdir build
+          cmake -B build
+          cmake --build build/ -j $(nproc)
+          popd
       - name: Cleanup
         if: ${{ always() }}
         run: rm -rf build modules
