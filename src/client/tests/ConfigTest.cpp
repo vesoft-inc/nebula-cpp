@@ -26,7 +26,7 @@ TEST_F(ConfigTest, Timeout) {
         nebula::ConnectionPool pool;
         nebula::Config c{};
         ASSERT_EQ(c.timeout_, 0);
-        pool.init({kServerHost ":3699"}, c);
+        pool.init({kServerHost ":9669"}, c);
         EXPECT_EQ(pool.size(), 10);
     }
     {
@@ -35,7 +35,7 @@ TEST_F(ConfigTest, Timeout) {
         nebula::Config c{};
         c.timeout_ = 0;
         ASSERT_EQ(c.timeout_, 0);
-        pool.init({kServerHost ":3699"}, c);
+        pool.init({kServerHost ":9669"}, c);
         EXPECT_EQ(pool.size(), 10);
     }
     {
@@ -44,7 +44,7 @@ TEST_F(ConfigTest, Timeout) {
         nebula::Config c{};
         c.timeout_ = 3;
         ASSERT_EQ(c.timeout_, 3);
-        pool.init({kServerHost ":3699"}, c);
+        pool.init({kServerHost ":9669"}, c);
         EXPECT_EQ(pool.size(), 10);
     }
 }
@@ -55,7 +55,7 @@ TEST_F(ConfigTest, IdleTime) {
         nebula::ConnectionPool pool;
         nebula::Config c{};
         ASSERT_EQ(c.idleTime_, 0);
-        pool.init({kServerHost ":3699"}, c);
+        pool.init({kServerHost ":9669"}, c);
         EXPECT_EQ(pool.size(), 10);
     }
     {
@@ -64,7 +64,7 @@ TEST_F(ConfigTest, IdleTime) {
         nebula::Config c{};
         c.idleTime_ = 0;
         ASSERT_EQ(c.idleTime_, 0);
-        pool.init({kServerHost ":3699"}, c);
+        pool.init({kServerHost ":9669"}, c);
         EXPECT_EQ(pool.size(), 10);
     }
     {
@@ -73,7 +73,7 @@ TEST_F(ConfigTest, IdleTime) {
         nebula::Config c{};
         c.idleTime_ = 3;
         ASSERT_EQ(c.idleTime_, 3);
-        pool.init({kServerHost ":3699"}, c);
+        pool.init({kServerHost ":9669"}, c);
         EXPECT_EQ(pool.size(), 10);
     }
 }
@@ -84,7 +84,7 @@ TEST_F(ClientTest, maxConnectionPoolSize) {
         nebula::ConnectionPool pool;
         nebula::Config c{};
         ASSERT_EQ(c.maxConnectionPoolSize_, 10);
-        pool.init({kServerHost ":3699"}, c);
+        pool.init({kServerHost ":9669"}, c);
         EXPECT_LE(pool.size(), c.maxConnectionPoolSize_);
         EXPECT_GE(pool.size(), c.minConnectionPoolSize_);
     }
@@ -94,7 +94,7 @@ TEST_F(ClientTest, maxConnectionPoolSize) {
         nebula::Config c{};
         c.maxConnectionPoolSize_ = 5;
         ASSERT_EQ(c.maxConnectionPoolSize_, 5);
-        pool.init({kServerHost ":3699"}, c);
+        pool.init({kServerHost ":9669"}, c);
         EXPECT_LE(pool.size(), c.maxConnectionPoolSize_);
         EXPECT_GE(pool.size(), c.minConnectionPoolSize_);
     }
@@ -104,7 +104,7 @@ TEST_F(ClientTest, maxConnectionPoolSize) {
         nebula::Config c{};
         c.maxConnectionPoolSize_ = 0;
         ASSERT_EQ(c.maxConnectionPoolSize_, 0);
-        pool.init({kServerHost ":3699"}, c);
+        pool.init({kServerHost ":9669"}, c);
         EXPECT_LE(pool.size(), c.maxConnectionPoolSize_);
         EXPECT_GE(pool.size(), c.minConnectionPoolSize_);
     }
@@ -116,7 +116,7 @@ TEST_F(ClientTest, minConnectionPoolSize) {
         nebula::ConnectionPool pool;
         nebula::Config c{};
         ASSERT_EQ(c.minConnectionPoolSize_, 0);
-        pool.init({kServerHost ":3699"}, c);
+        pool.init({kServerHost ":9669"}, c);
         EXPECT_LE(pool.size(), c.maxConnectionPoolSize_);
         EXPECT_GE(pool.size(), c.minConnectionPoolSize_);
     }
@@ -126,7 +126,7 @@ TEST_F(ClientTest, minConnectionPoolSize) {
         nebula::Config c{};
         c.minConnectionPoolSize_ = 0;
         ASSERT_EQ(c.minConnectionPoolSize_, 0);
-        pool.init({kServerHost ":3699"}, c);
+        pool.init({kServerHost ":9669"}, c);
         EXPECT_LE(pool.size(), c.maxConnectionPoolSize_);
         EXPECT_GE(pool.size(), c.minConnectionPoolSize_);
     }
@@ -136,7 +136,7 @@ TEST_F(ClientTest, minConnectionPoolSize) {
         nebula::Config c{};
         c.minConnectionPoolSize_ = 4;
         ASSERT_EQ(c.minConnectionPoolSize_, 4);
-        pool.init({kServerHost ":3699"}, c);
+        pool.init({kServerHost ":9669"}, c);
         EXPECT_LE(pool.size(), c.maxConnectionPoolSize_);
         EXPECT_GE(pool.size(), c.minConnectionPoolSize_);
     }
