@@ -34,7 +34,7 @@ bash> ldconfig
 ### clone nebula src
 
 ```
-git clone https://github.com/vesoft-inc/nebula-clients.git
+git clone https://github.com/vesoft-inc/nebula-cpp.git
 ```
 
 ### build
