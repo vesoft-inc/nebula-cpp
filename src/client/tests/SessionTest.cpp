@@ -119,7 +119,7 @@ TEST_F(SessionTest, MTSafe) {
             using namespace std::chrono_literals;  // NOLINT
             std::this_thread::sleep_for(1s);
 
-            auto session = pool.getSession(std::to_string(i), std::to_string(i));
+            auto session = pool.getSession("root", "nebula");
             EXPECT_TRUE(session.valid());
 
             session.release();
