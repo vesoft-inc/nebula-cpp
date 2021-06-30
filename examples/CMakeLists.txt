@@ -6,6 +6,7 @@
 
 # Set the project name
 project("Nebula C++ Client simple example" C CXX)
+cmake_minimum_required(VERSION 2.8.0)
 
 set(CMAKE_CXX_STANDARD 11)  # specify the C++ standard
 
@@ -28,6 +29,7 @@ endif()
 # This project only depends on the nebula-client headers/library
 include_directories(${NEBULA_HOME}/include)
 link_directories(${NEBULA_HOME}/lib64)
+link_directories(${NEBULA_HOME}/lib)
 
 add_executable(session_example
     SessionExample.cpp

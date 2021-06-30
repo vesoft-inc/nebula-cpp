@@ -89,7 +89,7 @@ protected:
 
 TEST_F(SessionTest, Basic) {
     nebula::ConnectionPool pool;
-  pool.init({kServerHost ":9669"}, nebula::Config{});
+    pool.init({kServerHost ":9669"}, nebula::Config{});
     LOG(INFO) << "Testing once.";
     runOnce(pool);
 
