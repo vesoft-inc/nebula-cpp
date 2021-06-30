@@ -129,6 +129,7 @@ nebula_add_subdirectory(src)
 install(
     DIRECTORY include/nebula
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+    PATTERN ".gitkeep" EXCLUDE
 )
 
 # resuse the datatypes in common

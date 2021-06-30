@@ -34,7 +34,7 @@ bash> ldconfig
 ### clone nebula src
 
 ```
-git clone https://github.com/vesoft-inc/nebula-clients.git
+git clone https://github.com/vesoft-inc/nebula-cpp.git
 ```
 
 ### build
@@ -77,7 +77,7 @@ If your g++ version is less than 5.0
 LIBRARY_PATH=${Your Installed Library Folder}:$LIBRARY_PATH g++ -std=c++11 SessionExample.cpp -I${Your Installed Include folder} -lnebula_graph_client -o session_example -D _GLIBCXX_USE_CXX11_ABI=0
 ```
 
-Run the example (require a available nebula graph 2.0 server in '127.0.0.1:3699')
+Run the example (require a available nebula graph 2.0 server in '127.0.0.1:9669')
 
 ```bash
 LD_LIBRARY_PATH=${Your Installed Library Folder}:$LD_LIBRARY_PATH ./session_example
