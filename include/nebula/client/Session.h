@@ -68,6 +68,14 @@ public:
         return sessionId_ > 0;
     }
 
+    const auto& timeZoneName() const {
+        return timezoneName_;
+    }
+
+    int32_t timeZoneOffsetSecs() const {
+        return offsetSecs_;
+    }
+
     // convert the time to server time zone
     void toLocal(DataSet &data) {
         return toLocal(data, offsetSecs_);

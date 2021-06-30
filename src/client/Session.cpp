@@ -4,7 +4,7 @@
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
  */
 
-#include <common/time/TimeUtils.h>
+#include <common/time/TimeConversion.h>
 
 #include "nebula/client/Session.h"
 #include "nebula/client/ConnectionPool.h"
@@ -54,9 +54,9 @@ void Session::toLocal(DataSet &data, int32_t offsetSecs) {
     for (auto &row : data.rows) {
         for (auto &col : row.values) {
             if (col.isTime()) {
-                col.setTime(time::TimeUtils::timeShift(col.getTime(), offsetSecs));
+                col.setTime(time::TimeConversion::timeShift(col.getTime(), offsetSecs));
             } else if (col.isDateTime()) {
-                col.setDateTime(time::TimeUtils::dateTimeShift(col.getDateTime(), offsetSecs));
+                col.setDateTime(time::TimeConversion::dateTimeShift(col.getDateTime(), offsetSecs));
             }
         }
     }
