@@ -84,3 +84,5 @@ LD_LIBRARY_PATH=${Your Installed Library Folder}:$LD_LIBRARY_PATH ./session_exam
 ```
 
 Or if you're familiar to cmake you could try build and run by cmake directly.
+
+Note: If you install by rpm or deb package, the default install path of rpm or deb package is `/usr/local/nebula`, the `${Your Installed Library Folder}` is `/usr/local/nebula/lib` or `/usr/local/nebula/lib64`, the `${Your Installed Include folder}` is `/usr/local/nebula/include`
