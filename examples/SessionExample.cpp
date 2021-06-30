@@ -14,9 +14,13 @@
 
 int main(int argc, char* argv[]) {
     nebula::init(&argc, &argv);
-
+    auto address = "127.0.0.1:9669";
+    if (argc == 2) {
+        address = argv[1];
+    }
+    std::cout << "Current address: " << address << std::endl;
     nebula::ConnectionPool pool;
-    pool.init({"127.0.0.1:9669"}, nebula::Config{});
+    pool.init({address}, nebula::Config{});
     auto session = pool.getSession("root", "nebula");
     if (!session.valid()) {
         return -1;

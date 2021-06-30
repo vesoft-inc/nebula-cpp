@@ -29,6 +29,7 @@ endif()
 # This project only depends on the nebula-client headers/library
 include_directories(${NEBULA_HOME}/include)
 link_directories(${NEBULA_HOME}/lib64)
+link_directories(${NEBULA_HOME}/lib)
 
 add_executable(session_example
     SessionExample.cpp
