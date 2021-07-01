@@ -28,6 +28,7 @@ void ConnectionPool::init(const std::vector<std::string> &addresses, const Confi
         // no valid address
         return;
     }
+    config_ = config;
     newConnection(0, config.maxConnectionPoolSize_);
 }
 
@@ -47,8 +48,13 @@ Session ConnectionPool::getSession(const std::string &username,
     if (resp.errorCode != ErrorCode::SUCCEEDED || resp.sessionId == nullptr) {
         return Session();
     }
-    return Session(*resp.sessionId, std::move(conn), this, username, password,
-        *resp.timeZoneName, *resp.timeZoneOffsetSeconds);
+    return Session(*resp.sessionId,
+                   std::move(conn),
+                   this,
+                   username,
+                   password,
+                   *resp.timeZoneName,
+                   *resp.timeZoneOffsetSeconds);
 }
 
 Connection ConnectionPool::getConnection() {
@@ -87,7 +93,7 @@ void ConnectionPool::newConnection(std::size_t cursor, std::size_t count) {
             addrCursor = 0;
         }
         Connection conn;
-        if (conn.open(address_[addrCursor].first, address_[addrCursor].second)) {
+        if (conn.open(address_[addrCursor].first, address_[addrCursor].second, config_.timeout_)) {
             ++connectionCount;
             conns_.emplace_back(std::move(conn));
         }
