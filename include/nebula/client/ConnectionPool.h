@@ -49,6 +49,7 @@ private:
     std::size_t                                  cursor_{0};
     // host, port
     std::vector<std::pair<std::string, int32_t>> address_;
+    Config                                       config_;
 
     mutable std::mutex lock_;
     std::list<Connection> conns_;

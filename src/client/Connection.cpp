@@ -36,21 +36,20 @@ Connection &Connection::operator=(Connection &&c) {
     return *this;
 }
 
-bool Connection::open(const std::string &address, int32_t port) {
+bool Connection::open(const std::string &address, int32_t port, uint32_t timeout) {
     if (address.empty()) {
         return false;
     }
     bool complete{false};
     clientLoopThread_->getEventBase()->runInEventBaseThreadAndWait(
-        [this, &complete, &address, port]() {
+        [this, &complete, &address, port, timeout]() {
             try {
                 auto socketAddr = folly::SocketAddress(address, port, true);
-                auto socket = folly::AsyncSocket::UniquePtr(
-                    new folly::AsyncSocket(clientLoopThread_->getEventBase(),
-                                           std::move(socketAddr),
-                                           0 /*TODO(shylock) pass from config*/));
-                client_ = new graph::cpp2::GraphServiceAsyncClient(
-                    apache::thrift::HeaderClientChannel::newChannel(std::move(socket)));
+                auto socket = folly::AsyncSocket::UniquePtr(new folly::AsyncSocket(
+                    clientLoopThread_->getEventBase(), std::move(socketAddr), timeout));
+                auto channel = apache::thrift::HeaderClientChannel::newChannel(std::move(socket));
+                channel->setTimeout(timeout);
+                client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
                 complete = true;
             } catch (const std::exception &) {
                 complete = false;

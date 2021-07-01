@@ -13,6 +13,7 @@
 #include <gtest/gtest.h>
 #include <gtest/gtest_prod.h>
 
+#include <nebula/client/Config.h>
 #include <nebula/client/ConnectionPool.h>
 #include <nebula/client/Init.h>
 #include <nebula/client/Session.h>
@@ -115,8 +116,8 @@ TEST_F(SessionTest, MTSafe) {
     pool.init({kServerHost ":9669"}, c);
     std::vector<std::thread> threads;
     for (std::size_t i = 0; i < c.maxConnectionPoolSize_; ++i) {
-        threads.emplace_back([&pool, i]() {
-            using namespace std::chrono_literals;  // NOLINT
+        threads.emplace_back([&pool]() {
+            using namespace std::chrono_literals;   // NOLINT
             std::this_thread::sleep_for(1s);
 
             auto session = pool.getSession("root", "nebula");
@@ -136,6 +137,25 @@ TEST_F(SessionTest, InvalidAddress) {
     nebula::Config c;
     pool.init({"xxxx"}, c);
     EXPECT_EQ(pool.size(), 0);
+}
+
+TEST_F(SessionTest, Timeout) {
+    nebula::ConnectionPool pool;
+    nebula::Config c{5, 0, 10, 0};
+    pool.init({kServerHost ":9669"}, c);
+    auto session = pool.getSession("root", "nebula");
+    ASSERT_TRUE(session.valid());
+
+    // execute
+    auto resp = session.execute("show spaces;show spaces;show spaces;show spaces;"
+                                "show spaces;show spaces;show spaces;show spaces;"
+                                "show spaces;show spaces;show spaces;show spaces;"
+                                "show spaces;show spaces;show spaces;show spaces;"
+                                "show spaces;show spaces;show spaces;show spaces;"
+                                "show spaces;show spaces;show spaces;show spaces;"
+                                "show spaces;show spaces;show spaces;show spaces;"
+                                "show spaces;show spaces;show spaces;show spaces;");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE);
 }
 
 int main(int argc, char** argv) {

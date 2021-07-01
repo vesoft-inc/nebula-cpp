@@ -47,7 +47,7 @@ public:
 
     ~Connection();
 
-    bool open(const std::string &address, int32_t port);
+    bool open(const std::string &address, int32_t port, uint32_t timeout);
 
     AuthResponse authenticate(const std::string &user, const std::string &password);
 

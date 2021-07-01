@@ -37,7 +37,7 @@ protected:
         });
 
         // open
-        ASSERT_TRUE(c.open(kServerHost, 9669));
+        ASSERT_TRUE(c.open(kServerHost, 9669, 0));
 
         // ping
         EXPECT_TRUE(c.ping());
@@ -116,6 +116,28 @@ TEST_F(ConnectionTest, Basic) {
     runOnce(c);
     LOG(INFO) << "Testing reopen.";
     runOnce(c);
+}
+
+TEST_F(ConnectionTest, Timeout) {
+    nebula::Connection c;
+
+    ASSERT_TRUE(c.open(kServerHost, 9669, 5));
+
+    // auth
+    auto authResp = c.authenticate("root", "nebula");
+    ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
+    // execute
+    auto resp = c.execute(*authResp.sessionId,
+                          "show spaces;show spaces;show spaces;show spaces;"
+                          "show spaces;show spaces;show spaces;show spaces;"
+                          "show spaces;show spaces;show spaces;show spaces;"
+                          "show spaces;show spaces;show spaces;show spaces;"
+                          "show spaces;show spaces;show spaces;show spaces;"
+                          "show spaces;show spaces;show spaces;show spaces;"
+                          "show spaces;show spaces;show spaces;show spaces;"
+                          "show spaces;show spaces;show spaces;show spaces;");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE);
 }
 
 int main(int argc, char **argv) {
