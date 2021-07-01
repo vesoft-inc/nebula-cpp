@@ -142,6 +142,11 @@ install(DIRECTORY ${nebula_common_source_dir}/src/common/graph
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/common
         FILES_MATCHING PATTERN "*.h")
 
+# reuse the time utils in common
+install(DIRECTORY ${nebula_common_source_dir}/src/common/time
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/common
+        FILES_MATCHING PATTERN "TimeConversion.h")
+
 # reuse the thrift types in common
 install(
     FILES

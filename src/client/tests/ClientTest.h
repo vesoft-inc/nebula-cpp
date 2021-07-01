@@ -6,6 +6,7 @@
 
 #pragma once
 
+#include <gtest/gtest.h>
 class ClientTest : public ::testing::Test {
 protected:
     static ::testing::AssertionResult verifyResultWithoutOrder(const nebula::DataSet& resp,
@@ -20,5 +21,23 @@ protected:
         }
         return ::testing::AssertionSuccess();
     }
-};
 
+    static ::testing::AssertionResult verifyResultWithoutOrder(
+        const nebula::ExecutionResponse& resp,
+        const nebula::DataSet& expect) {
+        auto result = succeeded(resp);
+        if (!result) {
+            return result;
+        }
+        const auto& data = *resp.data;
+        return verifyResultWithoutOrder(data, expect);
+    }
+
+    static ::testing::AssertionResult succeeded(const nebula::ExecutionResponse& resp) {
+        if (resp.errorCode != nebula::ErrorCode::SUCCEEDED) {
+            return ::testing::AssertionFailure()
+                   << "Execution Failed with error: " << resp.errorCode << "," << *resp.errorMsg;
+        }
+        return ::testing::AssertionSuccess();
+    }
+};

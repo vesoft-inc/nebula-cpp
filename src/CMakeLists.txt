@@ -9,6 +9,7 @@ set(NEBULA_CLIENT_OBJS
     $<TARGET_OBJECTS:common_graph_thrift_obj>
     $<TARGET_OBJECTS:common_datatypes_obj>
     $<TARGET_OBJECTS:common_graph_obj>
+    $<TARGET_OBJECTS:common_time_utils_obj>
 )
 
 set(NEBULA_CLIENT_SOURCES

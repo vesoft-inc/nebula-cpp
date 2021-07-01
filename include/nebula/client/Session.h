@@ -6,6 +6,8 @@
 
 #pragma once
 
+#include <common/datatypes/DataSet.h>
+
 #include "nebula/client/Connection.h"
 
 namespace nebula {
@@ -22,20 +24,27 @@ public:
             Connection &&conn,
             ConnectionPool *pool,
             const std::string &username,
-            const std::string &password)
+            const std::string &password,
+            const std::string &timezoneName,
+            int32_t offsetSecs)
         : sessionId_(sessionId),
           conn_(std::move(conn)),
           pool_(pool),
           username_(username),
-          password_(password) {}
+          password_(password),
+          timezoneName_(timezoneName),
+          offsetSecs_(offsetSecs) {}
     Session(Session &&session)
         : sessionId_(session.sessionId_),
           conn_(std::move(session.conn_)),
           pool_(session.pool_),
           username_(std::move(session.username_)),
-          password_(std::move(session.password_)) {
+          password_(std::move(session.password_)),
+          timezoneName_(std::move(session.timezoneName_)),
+          offsetSecs_(session.offsetSecs_) {
         session.sessionId_ = -1;
         session.pool_ = nullptr;
+        session.offsetSecs_ = 0;
     }
     ~Session() {
         release();
@@ -59,12 +68,31 @@ public:
         return sessionId_ > 0;
     }
 
+    const std::string& timeZoneName() const {
+        return timezoneName_;
+    }
+
+    int32_t timeZoneOffsetSecs() const {
+        return offsetSecs_;
+    }
+
+    // convert the time to server time zone
+    void toLocal(DataSet &data) {
+        return toLocal(data, offsetSecs_);
+    }
+
+    // convert the time to specific time zone
+    static void toLocal(DataSet &data, int32_t offsetSecs);
+
 private:
     int64_t sessionId_{-1};
     Connection conn_;
     ConnectionPool *pool_{nullptr};
     std::string username_;
     std::string password_;
+    // empty means not a named timezone
+    std::string timezoneName_;
+    int32_t offsetSecs_;
 };
 
 }   // namespace nebula
