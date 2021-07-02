@@ -137,7 +137,7 @@ TEST_F(ConnectionTest, Timeout) {
                           "show spaces;show spaces;show spaces;show spaces;"
                           "show spaces;show spaces;show spaces;show spaces;"
                           "show spaces;show spaces;show spaces;show spaces;");
-    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE);
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_TIMEOUT);
 }
 
 int main(int argc, char **argv) {

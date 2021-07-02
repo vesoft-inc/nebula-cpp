@@ -26,14 +26,16 @@ public:
             const std::string &username,
             const std::string &password,
             const std::string &timezoneName,
-            int32_t offsetSecs)
+            int32_t offsetSecs,
+            bool retryConnect)
         : sessionId_(sessionId),
           conn_(std::move(conn)),
           pool_(pool),
           username_(username),
           password_(password),
           timezoneName_(timezoneName),
-          offsetSecs_(offsetSecs) {}
+          offsetSecs_(offsetSecs),
+          retryConnect_(retryConnect) {}
     Session(Session &&session)
         : sessionId_(session.sessionId_),
           conn_(std::move(session.conn_)),
@@ -41,10 +43,12 @@ public:
           username_(std::move(session.username_)),
           password_(std::move(session.password_)),
           timezoneName_(std::move(session.timezoneName_)),
-          offsetSecs_(session.offsetSecs_) {
+          offsetSecs_(session.offsetSecs_),
+          retryConnect_(session.retryConnect_) {
         session.sessionId_ = -1;
         session.pool_ = nullptr;
         session.offsetSecs_ = 0;
+        session.retryConnect_ = true;
     }
     ~Session() {
         release();
@@ -93,6 +97,8 @@ private:
     // empty means not a named timezone
     std::string timezoneName_;
     int32_t offsetSecs_;
+    // auto retry connection
+    bool retryConnect_{true};
 };
 
 }   // namespace nebula

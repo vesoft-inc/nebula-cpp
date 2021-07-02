@@ -41,6 +41,12 @@ public:
 
         clientLoopThread_ = c.clientLoopThread_;
         c.clientLoopThread_ = nullptr;
+
+        address_ = std::move(c.address_);
+        port_ = c.port_;
+        c.port_ = 0;
+        timeout_ = c.timeout_;
+        c.timeout_ = 0;
     }
 
     Connection &operator=(Connection &&c);
@@ -48,6 +54,7 @@ public:
     ~Connection();
 
     bool open(const std::string &address, int32_t port, uint32_t timeout);
+    bool open();
 
     AuthResponse authenticate(const std::string &user, const std::string &password);
 
@@ -70,6 +77,10 @@ public:
 private:
     graph::cpp2::GraphServiceAsyncClient *client_{nullptr};
     folly::ScopedEventBaseThread         *clientLoopThread_{nullptr};
+
+    std::string                           address_;
+    int32_t                               port_{0};
+    uint32_t                              timeout_{0};
 };
 
 }   // namespace nebula

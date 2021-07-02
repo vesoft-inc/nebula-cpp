@@ -27,7 +27,7 @@
 class SessionTest : public ClientTest {
 protected:
     static void runOnce(nebula::ConnectionPool& pool) {
-        auto session = pool.getSession("root", "nebula");
+        auto session = pool.getSession("root", "nebula", true);
         ASSERT_TRUE(session.valid());
 
         // ping
@@ -155,7 +155,7 @@ TEST_F(SessionTest, Timeout) {
                                 "show spaces;show spaces;show spaces;show spaces;"
                                 "show spaces;show spaces;show spaces;show spaces;"
                                 "show spaces;show spaces;show spaces;show spaces;");
-    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE);
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_TIMEOUT);
 }
 
 int main(int argc, char** argv) {

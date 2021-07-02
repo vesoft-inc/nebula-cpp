@@ -12,12 +12,38 @@
 namespace nebula {
 
 ExecutionResponse Session::execute(const std::string &stmt) {
-    return ExecutionResponse(conn_.execute(sessionId_, stmt));
+    auto resp = conn_.execute(sessionId_, stmt);
+    if (resp.errorCode == ErrorCode::E_RPC_FAILURE && retryConnect_) {
+        auto errorCode = retryConnect();
+        if (errorCode == ErrorCode::E_RPC_FAILURE) {
+            return ExecutionResponse{errorCode,
+                                     0,
+                                     nullptr,
+                                     nullptr,
+                                     std::make_unique<std::string>("Retry connect failed.")};
+        }
+        return execute(stmt);
+    } else {
+        return resp;
+    }
 }
 
 void Session::asyncExecute(const std::string &stmt, ExecuteCallback cb) {
-    conn_.asyncExecute(sessionId_, stmt, [cb = std::move(cb)](auto &&resp) {
-        cb(ExecutionResponse(std::move(resp)));
+    conn_.asyncExecute(sessionId_, stmt, [this, stmt, cb = std::move(cb)](auto &&resp) {
+        if (resp.errorCode == ErrorCode::E_RPC_FAILURE && retryConnect_) {
+            auto errorCode = retryConnect();
+            if (errorCode != ErrorCode::SUCCEEDED) {
+                cb(ExecutionResponse{errorCode,
+                                     0,
+                                     nullptr,
+                                     nullptr,
+                                     std::make_unique<std::string>("Retry connect failed.")});
+                return;
+            }
+            asyncExecute(stmt, std::move(cb));
+        } else {
+            cb(std::move(resp));
+        }
     });
 }
 
@@ -35,8 +61,10 @@ bool Session::ping() {
 }
 
 ErrorCode Session::retryConnect() {
-    pool_->giveBack(std::move(conn_));
-    conn_ = pool_->getConnection();
+    conn_.signout(sessionId_);
+    if (!conn_.open()) {
+        return ErrorCode::E_DISCONNECTED;
+    }
     auto resp = conn_.authenticate(username_, password_);
     sessionId_ = resp.sessionId != nullptr ? *resp.sessionId : -1;
     return resp.errorCode;
