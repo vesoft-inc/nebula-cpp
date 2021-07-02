@@ -61,13 +61,10 @@ bool Session::ping() {
 }
 
 ErrorCode Session::retryConnect() {
-    conn_.signout(sessionId_);
     if (!conn_.open()) {
         return ErrorCode::E_DISCONNECTED;
     }
-    auto resp = conn_.authenticate(username_, password_);
-    sessionId_ = resp.sessionId != nullptr ? *resp.sessionId : -1;
-    return resp.errorCode;
+    return ErrorCode::SUCCEEDED;
 }
 
 void Session::release() {
