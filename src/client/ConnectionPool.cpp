@@ -34,7 +34,7 @@ void ConnectionPool::init(const std::vector<std::string> &addresses, const Confi
     config_ = config;
     newConnection(0, config.maxConnectionPoolSize_);
 
-    keepAlive_.store(true, std::memory_order_relaxed);
+    keepAlive_.store(true, std::memory_order_release);
     maintainer_ = std::thread(&ConnectionPool::keepAliveJob, this);
 }
 
@@ -45,7 +45,7 @@ void ConnectionPool::close() {
             conn.close();
         }
     }
-    keepAlive_.store(false, std::memory_order_relaxed);
+    keepAlive_.store(false, std::memory_order_release);
     if (maintainer_.joinable()) {
         maintainer_.join();
     }
@@ -114,7 +114,7 @@ void ConnectionPool::newConnection(std::size_t cursor, std::size_t count) {
 }
 
 void ConnectionPool::keepAliveJob() {
-    while (keepAlive_.load(std::memory_order_relaxed)) {
+    while (keepAlive_.load(std::memory_order_acquire)) {
         {
             std::lock_guard<std::mutex> l(lock_);
             std::size_t invalid = 0;
