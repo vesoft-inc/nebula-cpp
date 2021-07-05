@@ -56,7 +56,7 @@ protected:
         b.wait();
 
         // retry connection
-        ASSERT_EQ(session.retryConnect(), nebula::ErrorCode::SUCCEEDED);
+        session.retryConnect();
 
         // execute
         result = session.execute("SHOW SPACES");

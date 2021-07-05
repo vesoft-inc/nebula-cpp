@@ -64,7 +64,7 @@ public:
 
     bool ping();
 
-    ErrorCode retryConnect();
+    void retryConnect();
 
     void release();
 

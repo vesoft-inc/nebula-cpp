@@ -14,14 +14,7 @@ namespace nebula {
 ExecutionResponse Session::execute(const std::string &stmt) {
     auto resp = conn_.execute(sessionId_, stmt);
     if (resp.errorCode == ErrorCode::E_RPC_FAILURE && retryConnect_) {
-        auto errorCode = retryConnect();
-        if (errorCode == ErrorCode::E_RPC_FAILURE) {
-            return ExecutionResponse{errorCode,
-                                     0,
-                                     nullptr,
-                                     nullptr,
-                                     std::make_unique<std::string>("Retry connect failed.")};
-        }
+        retryConnect();
         return execute(stmt);
     } else {
         return resp;
@@ -31,15 +24,7 @@ ExecutionResponse Session::execute(const std::string &stmt) {
 void Session::asyncExecute(const std::string &stmt, ExecuteCallback cb) {
     conn_.asyncExecute(sessionId_, stmt, [this, stmt, cb = std::move(cb)](auto &&resp) {
         if (resp.errorCode == ErrorCode::E_RPC_FAILURE && retryConnect_) {
-            auto errorCode = retryConnect();
-            if (errorCode != ErrorCode::SUCCEEDED) {
-                cb(ExecutionResponse{errorCode,
-                                     0,
-                                     nullptr,
-                                     nullptr,
-                                     std::make_unique<std::string>("Retry connect failed.")});
-                return;
-            }
+            retryConnect();
             asyncExecute(stmt, std::move(cb));
         } else {
             cb(std::move(resp));
@@ -60,11 +45,8 @@ bool Session::ping() {
     return conn_.ping();
 }
 
-ErrorCode Session::retryConnect() {
-    if (!conn_.open()) {
-        return ErrorCode::E_DISCONNECTED;
-    }
-    return ErrorCode::SUCCEEDED;
+void Session::retryConnect() {
+    conn_ = pool_->getConnection();
 }
 
 void Session::release() {
