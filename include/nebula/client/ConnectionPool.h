@@ -10,6 +10,7 @@
 #include <memory>
 #include <mutex>
 #include <thread>
+#include <atomic>
 
 #include "nebula/client/Config.h"
 #include "nebula/client/Connection.h"
@@ -46,10 +47,16 @@ private:
         return cursor_ >= address_.size() ? cursor_ = 0 : cursor_++;
     }
 
+    void keepAliveJob();
+
     std::size_t                                  cursor_{0};
     // host, port
     std::vector<std::pair<std::string, int32_t>> address_;
     Config                                       config_;
+
+    // keep the alive of connections
+    std::thread                                  maintainer_;
+    std::atomic<bool>                            keepAlive_{true};
 
     mutable std::mutex lock_;
     std::list<Connection> conns_;

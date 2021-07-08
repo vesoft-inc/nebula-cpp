@@ -4,9 +4,12 @@
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
  */
 
-#include "nebula/client/ConnectionPool.h"
 #include <folly/String.h>
 #include <atomic>
+#include <mutex>
+#include <thread>
+
+#include "nebula/client/ConnectionPool.h"
 
 namespace nebula {
 
@@ -30,19 +33,27 @@ void ConnectionPool::init(const std::vector<std::string> &addresses, const Confi
     }
     config_ = config;
     newConnection(0, config.maxConnectionPoolSize_);
+
+    keepAlive_.store(true, std::memory_order_release);
+    maintainer_ = std::thread(&ConnectionPool::keepAliveJob, this);
 }
 
 void ConnectionPool::close() {
-    std::lock_guard<std::mutex> l(lock_);
-    for (auto &conn : conns_) {
-        conn.close();
+    {
+        std::lock_guard<std::mutex> l(lock_);
+        for (auto &conn : conns_) {
+            conn.close();
+        }
+    }
+    keepAlive_.store(false, std::memory_order_release);
+    if (maintainer_.joinable()) {
+        maintainer_.join();
     }
 }
 
 Session ConnectionPool::getSession(const std::string &username,
                                    const std::string &password,
                                    bool retryConnect) {
-    (void)retryConnect;
     Connection conn = getConnection();
     auto resp = conn.authenticate(username, password);
     if (resp.errorCode != ErrorCode::SUCCEEDED || resp.sessionId == nullptr) {
@@ -54,7 +65,8 @@ Session ConnectionPool::getSession(const std::string &username,
                    username,
                    password,
                    *resp.timeZoneName,
-                   *resp.timeZoneOffsetSeconds);
+                   *resp.timeZoneOffsetSeconds,
+                   retryConnect);
 }
 
 Connection ConnectionPool::getConnection() {
@@ -98,6 +110,27 @@ void ConnectionPool::newConnection(std::size_t cursor, std::size_t count) {
             conns_.emplace_back(std::move(conn));
         }
         // ignore error
+    }
+}
+
+void ConnectionPool::keepAliveJob() {
+    while (keepAlive_.load(std::memory_order_acquire)) {
+        {
+            std::lock_guard<std::mutex> l(lock_);
+            std::size_t invalid = 0;
+            for (auto c = conns_.begin(); c != conns_.end();) {
+                if (!c->ping()) {
+                    invalid++;
+                    c = conns_.erase(c);
+                } else {
+                    c++;
+                }
+            }
+            newConnection(nextCursor(), invalid);
+        }
+
+        using namespace std::chrono_literals;  // NOLINT
+        std::this_thread::sleep_for(1s);
     }
 }
 
