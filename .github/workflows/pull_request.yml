@@ -6,6 +6,9 @@ on:
     branches:
       - master
       - 'v[0-9]+.*'
+  schedule:
+    - cron:  '0 18 * * *'
+
 
 defaults:
   run:
