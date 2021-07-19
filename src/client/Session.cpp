@@ -1,10 +1,11 @@
-/* Copyright (c) 2020 vesoft inc. All rights reserved.
+/* Copyright (c) 2021 vesoft inc. All rights reserved.
  *
  * This source code is licensed under Apache 2.0 License,
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
  */
 
 #include <common/time/TimeConversion.h>
+#include <glog/logging.h>
 
 #include "nebula/client/Session.h"
 #include "nebula/client/ConnectionPool.h"
@@ -43,11 +44,13 @@ ErrorCode Session::retryConnect() {
 }
 
 void Session::release() {
+    LOG(INFO) << "try to release session: " << sessionId_;
     if (valid()) {
         conn_.signout(sessionId_);
         pool_->giveBack(std::move(conn_));
         sessionId_ = -1;
     }
+    LOG(INFO) << "released session: " << sessionId_;
 }
 
 void Session::toLocal(DataSet &data, int32_t offsetSecs) {

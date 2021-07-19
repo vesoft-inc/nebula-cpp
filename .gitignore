@@ -34,3 +34,5 @@
 _build
 build
 modules
+
+.vscode
