@@ -46,8 +46,6 @@ jobs:
             compiler: clang-9
     container:
       image: vesoft/nebula-dev:${{ matrix.os }}
-      env:
-        TOOLSET_DIR: /opt/vesoft/toolset/clang/9.0.0
       volumes:
         - /tmp/nebula-graph-client/${{ matrix.os }}-${{ matrix.compiler }}:/tmp/nebula-graph-client/nebula-graph/${{ matrix.os }}-${{ matrix.compiler }}
       options: --mount type=tmpfs,destination=/tmp/ccache/nebula-graph,tmpfs-size=1073741824 --cap-add=SYS_PTRACE
@@ -61,8 +59,8 @@ jobs:
             centos7)
               # build with Release type
               cmake \
-                  -DCMAKE_CXX_COMPILER=$TOOLSET_DIR/bin/g++ \
-                  -DCMAKE_C_COMPILER=$TOOLSET_DIR/bin/gcc \
+                  -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/g++ \
+                  -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/gcc \
                   -DCMAKE_BUILD_TYPE=Release \
                   -DENABLE_TESTING=on \
                   -DCMAKE_INSTALL_PREFIX=/usr/local/nebula \
@@ -72,8 +70,8 @@ jobs:
             ubuntu1804)
               # build with Debug type
               cmake \
-                  -DCMAKE_CXX_COMPILER=$TOOLSET_DIR/bin/g++ \
-                  -DCMAKE_C_COMPILER=$TOOLSET_DIR/bin/gcc \
+                  -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/g++ \
+                  -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/gcc \
                   -DCMAKE_BUILD_TYPE=Debug \
                   -DENABLE_TESTING=on \
                   -DCMAKE_INSTALL_PREFIX=/usr/local/nebula \
@@ -84,8 +82,8 @@ jobs:
           clang-*)
             # build with Sanitizer
             cmake \
-                -DCMAKE_CXX_COMPILER=$TOOLSET_DIR/bin/clang++ \
-                -DCMAKE_C_COMPILER=$TOOLSET_DIR/bin/clang \
+                -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/clang++ \
+                -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/clang \
                 -DCMAKE_BUILD_TYPE=Debug \
                 -DENABLE_ASAN=on \
                 -DENABLE_TESTING=on \
