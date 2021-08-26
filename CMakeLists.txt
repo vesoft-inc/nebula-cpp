@@ -11,10 +11,10 @@
 #
 #   NEBULA_THIRDPARTY_ROOT          -- Specify the root directory for third-party
 #
-#   NEBULA_COMMON_REPO_URL          -- Git URL for the nebula-common repo
-#   NEBULA_COMMON_REPO_TAG          -- Tag/branch of the nebula-common repo
+#   NEBULA_REPO_URL                 -- Git URL for the nebula repo
+#   NEBULA_REPO_TAG                 -- Tag/branch of the nebula repo
 #
-#   ENABLE_TESTING                 -- Build unit test
+#   ENABLE_TESTING                  -- Build unit test
 #
 # CMake version check
 cmake_minimum_required(VERSION 3.5.0)
@@ -26,48 +26,48 @@ set(PACKAGE_NAME "nebula-client")
 set(CMAKE_CXX_STANDARD 11)  # specify the C++ standard
 
 option(ENABLE_MODULE_UPDATE "Automatically update module" OFF)
-option(DISABLE_CLONE_COMMON "Automatically disable clone common module" OFF)
+option(DISABLE_CLONE_NEBULA "Automatically disable clone nebula module" OFF)
 
 add_definitions(-DNEBULA_HOME=${CMAKE_SOURCE_DIR})
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 
 # Submodules
-if("${NEBULA_COMMON_REPO_URL}" STREQUAL "")
-    SET(NEBULA_COMMON_REPO_URL "https://github.com/vesoft-inc/nebula-common.git")
+if("${NEBULA_REPO_URL}" STREQUAL "")
+    SET(NEBULA_REPO_URL "https://github.com/vesoft-inc/nebula.git")
 endif()
 
-if("${NEBULA_COMMON_REPO_TAG}" STREQUAL "")
-    SET(NEBULA_COMMON_REPO_TAG "master")
+if("${NEBULA_REPO_TAG}" STREQUAL "")
+    SET(NEBULA_REPO_TAG "master")
 endif()
 
 include(FetchModule)
-if(NOT NEBULA_COMMON_SOURCE_DIR)
-    if (NOT ${DISABLE_CLONE_COMMON})
+if(NOT NEBULA_SOURCE_DIR)
+    if (NOT ${DISABLE_CLONE_NEBULA})
         nebula_fetch_module(
             NAME
-                common
+                nebula
             URL
-                ${NEBULA_COMMON_REPO_URL}
+                ${NEBULA_REPO_URL}
             TAG
-                ${NEBULA_COMMON_REPO_TAG}
+                ${NEBULA_REPO_TAG}
             UPDATE
                 ${ENABLE_MODULE_UPDATE}
         )
     endif()
-    set(nebula_common_source_dir ${CMAKE_SOURCE_DIR}/modules/common)
-    set(nebula_common_build_dir ${CMAKE_BINARY_DIR}/modules/common)
+    set(nebula_source_dir ${CMAKE_SOURCE_DIR}/modules/nebula)
+    set(nebula_build_dir ${CMAKE_BINARY_DIR}/modules/nebula)
 else()
-    set(nebula_common_source_dir ${NEBULA_COMMON_SOURCE_DIR})
-    if(NOT NEBULA_COMMON_BUILD_DIR)
-        set(nebula_common_build_dir ${CMAKE_BINARY_DIR}/modules/common)
+    set(nebula_source_dir ${NEBULA_SOURCE_DIR})
+    if(NOT NEBULA_BUILD_DIR)
+        set(nebula_build_dir ${CMAKE_BINARY_DIR}/modules/nebula)
     else()
-        set(nebula_common_build_dir ${NEBULA_COMMON_BUILD_DIR})
+        set(nebula_build_dir ${NEBULA_BUILD_DIR})
     endif()
 endif()
 
-list(APPEND CMAKE_MODULE_PATH ${nebula_common_source_dir}/cmake)
-list(APPEND CMAKE_MODULE_PATH ${nebula_common_source_dir}/cmake/nebula)
+list(APPEND CMAKE_MODULE_PATH ${nebula_source_dir}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${nebula_source_dir}/cmake/nebula)
 
 include(PlatformCheck)
 include(NebulaCMakeMacros)
@@ -82,18 +82,18 @@ include(SanitizerConfig)
 include(GitHooksConfig)
 include(GitInfoConfig)
 include(NebulaCustomTargets)
-include(ConfigNebulaCommon)
+include(ConfigNebula)
 
 set(ENABLE_PIC ON FORCE)
 set(ENABLE_JEMALLOC OFF FORCE)
-config_nebula_common(
-    SOURCE_DIR ${nebula_common_source_dir}
-    BUILD_DIR ${nebula_common_build_dir}
+config_nebula(
+    SOURCE_DIR ${nebula_source_dir}
+    BUILD_DIR ${nebula_build_dir}
 )
 
 add_custom_target(
     clean-modules
-    DEPENDS clean-common
+    DEPENDS clean-nebula
 )
 
 include(GNUInstallDirs)
@@ -113,7 +113,7 @@ macro(nebula_add_library name type)
     )
     add_dependencies(
         ${name}
-        common_project
+        nebula_project
     )
 endmacro()
 
@@ -132,31 +132,31 @@ install(
     PATTERN ".gitkeep" EXCLUDE
 )
 
-# resuse the datatypes in common
-install(DIRECTORY ${nebula_common_source_dir}/src/common/datatypes
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/common
+# resuse the datatypes in nebula
+install(DIRECTORY ${nebula_source_dir}/src/common/datatypes
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/nebula
         FILES_MATCHING PATTERN "*.h")
 
-# reuse the response of graph in common
-install(DIRECTORY ${nebula_common_source_dir}/src/common/graph
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/common
+# reuse the response of graph in nebula
+install(DIRECTORY ${nebula_source_dir}/src/common/graph
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/nebula
         FILES_MATCHING PATTERN "*.h")
 
-# reuse the time utils in common
-install(DIRECTORY ${nebula_common_source_dir}/src/common/time
-        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/common
+# reuse the time utils in nebula
+install(DIRECTORY ${nebula_source_dir}/src/common/time
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/nebula
         FILES_MATCHING PATTERN "TimeConversion.h")
 
-# reuse the thrift types in common
+# reuse the thrift types in nebula
 install(
     FILES
-        ${nebula_common_source_dir}/src/common/thrift/ThriftTypes.h
+        ${nebula_source_dir}/src/common/thrift/ThriftTypes.h
     PERMISSIONS
         OWNER_WRITE OWNER_READ
         GROUP_READ
         WORLD_READ
     DESTINATION
-        ${CMAKE_INSTALL_INCLUDEDIR}/common/thrift
+        ${CMAKE_INSTALL_INCLUDEDIR}/nebula/thrift
 )
 
 include(CPackage)

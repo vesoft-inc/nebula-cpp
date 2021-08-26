@@ -4,12 +4,12 @@
 # attached with Common Clause Condition 1.0, found in the LICENSES directory.
 
 set(NEBULA_CLIENT_OBJS
-    $<TARGET_OBJECTS:common_base_obj>
-    $<TARGET_OBJECTS:common_common_thrift_obj>
-    $<TARGET_OBJECTS:common_graph_thrift_obj>
-    $<TARGET_OBJECTS:common_datatypes_obj>
-    $<TARGET_OBJECTS:common_graph_obj>
-    $<TARGET_OBJECTS:common_time_utils_obj>
+    $<TARGET_OBJECTS:nebula_base_obj>
+    $<TARGET_OBJECTS:nebula_common_thrift_obj>
+    $<TARGET_OBJECTS:nebula_graph_thrift_obj>
+    $<TARGET_OBJECTS:nebula_datatypes_obj>
+    $<TARGET_OBJECTS:nebula_graph_obj>
+    $<TARGET_OBJECTS:nebula_time_utils_obj>
 )
 
 set(NEBULA_CLIENT_SOURCES
