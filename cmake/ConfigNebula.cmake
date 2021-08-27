@@ -51,8 +51,15 @@ macro(config_nebula)
 
     add_custom_target(
         nebula_project ALL
-        COMMAND +${CMAKE_COMMAND} --build ${nebula_build_dir} --target module_common --target module_interface
+        COMMAND +${CMAKE_COMMAND} --build ${nebula_build_dir}
+            --target base_obj
+            --target common_thrift_obj
+            --target graph_thrift_obj
+            --target datatypes_obj
+            --target graph_obj
+            --target time_utils_obj
     )
+
 
     add_custom_target(
         clean-nebula
