@@ -93,6 +93,7 @@ set(NEBULA_LIBRARIES
     -static-libstdc++
     -Wl,--no-undefined
     ${GETTIME_LIB}
+    atomic
 )
 
 nebula_add_library(

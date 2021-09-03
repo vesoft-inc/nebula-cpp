@@ -72,6 +72,10 @@ protected:
         // signout
         c.signout(*authResp.sessionId);
 
+        // TODO(shylock) the signout don't complete in server side even if request returned
+        // Trick sleep to wait it
+        sleep(1);
+
         // ping
         EXPECT_TRUE(c.ping());
 
