@@ -4,12 +4,8 @@
 # attached with Common Clause Condition 1.0, found in the LICENSES directory.
 
 set(NEBULA_CLIENT_OBJS
-    $<TARGET_OBJECTS:common_base_obj>
-    $<TARGET_OBJECTS:common_common_thrift_obj>
-    $<TARGET_OBJECTS:common_graph_thrift_obj>
-    $<TARGET_OBJECTS:common_datatypes_obj>
-    $<TARGET_OBJECTS:common_graph_obj>
-    $<TARGET_OBJECTS:common_time_utils_obj>
+    $<TARGET_OBJECTS:common_thrift_obj>
+    $<TARGET_OBJECTS:graph_thrift_obj>
 )
 
 set(NEBULA_CLIENT_SOURCES
@@ -17,6 +13,18 @@ set(NEBULA_CLIENT_SOURCES
     client/Init.cpp
     client/ConnectionPool.cpp
     client/Session.cpp
+    datatypes/Date.cpp
+    datatypes/Edge.cpp
+    datatypes/Geography.cpp
+    datatypes/HostAddr.cpp
+    datatypes/List.cpp
+    datatypes/Map.cpp
+    datatypes/Path.cpp
+    datatypes/Set.cpp
+    datatypes/Value.cpp
+    datatypes/Vertex.cpp
+    graph/Response.cpp
+    time/TimeConversion.cpp
 )
 
 set(NEBULA_CLIENT_LIBRARIES
@@ -50,6 +58,8 @@ set(NEBULA_CLIENT_LIBRARIES
     ${GETTIME_LIB}
     atomic
 )
+
+nebula_add_subdirectory(interface)
 
 nebula_add_library(
     nebula_graph_client SHARED
