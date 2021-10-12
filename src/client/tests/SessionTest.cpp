@@ -158,6 +158,8 @@ TEST_F(SessionTest, Timeout) {
                                 "show spaces;show spaces;show spaces;show spaces;"
                                 "show spaces;show spaces;show spaces;show spaces;"
                                 "show spaces;show spaces;show spaces;show spaces;"
+                                "show spaces;show spaces;show spaces;show spaces;"
+                                "show spaces;show spaces;show spaces;show spaces;"
                                 "show spaces;show spaces;show spaces;show spaces;");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE);
 }
