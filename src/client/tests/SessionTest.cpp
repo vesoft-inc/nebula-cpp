@@ -34,9 +34,10 @@ protected:
         EXPECT_TRUE(session.ping());
 
         // execute
-        auto result = session.execute("SHOW SPACES");
+        auto result = session.execute("YIELD 1");
         ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
-        nebula::DataSet expected({"Name"});
+        nebula::DataSet expected({"1"});
+        expected.emplace_back(nebula::List({1}));
         EXPECT_TRUE(verifyResultWithoutOrder(*result.data, expected));
 
         // explain
@@ -47,9 +48,10 @@ protected:
 
         // async execute
         folly::Baton<> b;
-        session.asyncExecute("SHOW SPACES", [&b](auto&& cbResult) {
+        session.asyncExecute("YIELD 1", [&b](auto&& cbResult) {
             ASSERT_EQ(cbResult.errorCode, nebula::ErrorCode::SUCCEEDED);
-            nebula::DataSet cbExpected({"Name"});
+            nebula::DataSet cbExpected({"1"});
+            cbExpected.emplace_back(nebula::List({1}));
             EXPECT_TRUE(verifyResultWithoutOrder(*cbResult.data, cbExpected));
             b.post();
         });
@@ -59,7 +61,7 @@ protected:
         ASSERT_EQ(session.retryConnect(), nebula::ErrorCode::SUCCEEDED);
 
         // execute
-        result = session.execute("SHOW SPACES");
+        result = session.execute("YIELD 1");
         ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
         EXPECT_TRUE(verifyResultWithoutOrder(*result.data, expected));
 
@@ -72,12 +74,12 @@ protected:
         EXPECT_FALSE(session.ping());
 
         // check release
-        result = session.execute("SHOW SPACES");
+        result = session.execute("YIELD 1");
         ASSERT_EQ(result.errorCode, nebula::ErrorCode::E_DISCONNECTED);
 
         // async execute
         folly::Baton<> b2;
-        session.asyncExecute("SHOW SPACES", [&b2](auto&& cbResult) {
+        session.asyncExecute("YIELD 1", [&b2](auto&& cbResult) {
             ASSERT_EQ(cbResult.errorCode, nebula::ErrorCode::E_DISCONNECTED);
             b2.post();
         });
