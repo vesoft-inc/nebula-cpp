@@ -143,13 +143,14 @@ TEST_F(SessionTest, InvalidAddress) {
 
 TEST_F(SessionTest, Timeout) {
     nebula::ConnectionPool pool;
-    nebula::Config c{5, 0, 10, 0};
+    nebula::Config c{10, 0, 10, 0};
     pool.init({kServerHost ":9669"}, c);
     auto session = pool.getSession("root", "nebula");
     ASSERT_TRUE(session.valid());
 
-    auto resp = session.execute("CREATE SPACE IF NOT EXISTS test(vid_type = FIXED_STRING(16));use "
-                                "test;CREATE EDGE IF NOT EXISTS like();");
+    auto resp =
+        session.execute("CREATE SPACE IF NOT EXISTS session_test(vid_type = FIXED_STRING(16));use "
+                        "session_test;CREATE EDGE IF NOT EXISTS like();");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
 
     ::sleep(30);
@@ -159,7 +160,7 @@ TEST_F(SessionTest, Timeout) {
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 
     // execute
-    resp = session.execute("use nba;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
+    resp = session.execute("use session_test;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE) << *resp.errorMsg;
 
     resp = session.execute(
@@ -170,7 +171,7 @@ TEST_F(SessionTest, Timeout) {
         "| KILL QUERY(session=$-.sid, plan=$-.eid)");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 
-    resp = session.execute("DROP SPACE IF EXISTS test");
+    resp = session.execute("DROP SPACE IF EXISTS session_test");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 }
 

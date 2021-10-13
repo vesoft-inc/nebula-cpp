@@ -127,15 +127,15 @@ TEST_F(ConnectionTest, Basic) {
 TEST_F(ConnectionTest, Timeout) {
     nebula::Connection c;
 
-    ASSERT_TRUE(c.open(kServerHost, 9669, 5));
+    ASSERT_TRUE(c.open(kServerHost, 9669, 10));
 
     // auth
     auto authResp = c.authenticate("root", "nebula");
     ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED);
 
     auto resp = c.execute(*authResp.sessionId,
-                          "CREATE SPACE IF NOT EXISTS test(vid_type = FIXED_STRING(16));use "
-                          "test;CREATE EDGE IF NOT EXISTS like();");
+                          "CREATE SPACE IF NOT EXISTS conn_test(vid_type = FIXED_STRING(16));use "
+                          "conn_test;CREATE EDGE IF NOT EXISTS like();");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
 
     ::sleep(30);
@@ -146,7 +146,8 @@ TEST_F(ConnectionTest, Timeout) {
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 
     // execute
-    resp = c.execute(*authResp.sessionId, "use nba;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
+    resp = c.execute(*authResp.sessionId,
+                     "use conn_test;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE) << *resp.errorMsg;
 
     resp = c.execute(
@@ -158,7 +159,7 @@ TEST_F(ConnectionTest, Timeout) {
         "| KILL QUERY(session=$-.sid, plan=$-.eid)");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 
-    resp = c.execute(*authResp.sessionId, "DROP SPACE IF EXISTS test");
+    resp = c.execute(*authResp.sessionId, "DROP SPACE IF EXISTS conn_test");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 }
 
