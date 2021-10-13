@@ -149,21 +149,16 @@ TEST_F(SessionTest, Timeout) {
     ASSERT_TRUE(session.valid());
 
     // execute
-    auto resp = session.execute("show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;");
+    auto resp = session.execute("use nba;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE);
+
+    resp = session.execute(
+        "SHOW QUERIES "
+        "| YIELD $-.SessionID AS sid, $-.ExecutionPlanID AS eid, $-.DurationInUSec AS dur "
+        "WHERE $-.DurationInUSec > 1000000 AND $-.`Query` CONTAINS 'GO' "
+        "| ORDER BY $-.dur "
+        "| KILL QUERY(session=$-.sid, plan=$-.eid)");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 }
 
 int main(int argc, char** argv) {

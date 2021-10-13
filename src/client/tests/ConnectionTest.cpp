@@ -134,22 +134,18 @@ TEST_F(ConnectionTest, Timeout) {
     ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED);
 
     // execute
-    auto resp = c.execute(*authResp.sessionId,
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;"
-                          "show spaces;show spaces;show spaces;show spaces;");
+    auto resp =
+        c.execute(*authResp.sessionId, "use nba;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE);
+
+    resp = c.execute(
+        *authResp.sessionId,
+        "SHOW QUERIES "
+        "| YIELD $-.SessionID AS sid, $-.ExecutionPlanID AS eid, $-.DurationInUSec AS dur "
+        "WHERE $-.DurationInUSec > 1000000 AND $-.`Query` CONTAINS 'GO' "
+        "| ORDER BY $-.dur "
+        "| KILL QUERY(session=$-.sid, plan=$-.eid)");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 }
 
 int main(int argc, char **argv) {
