@@ -133,9 +133,20 @@ TEST_F(ConnectionTest, Timeout) {
     auto authResp = c.authenticate("root", "nebula");
     ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED);
 
+    auto resp = c.execute(*authResp.sessionId,
+                          "CREATE SPACE IF NOT EXISTS test(vid_type = FIXED_STRING(16));use "
+                          "test;CREATE EDGE IF NOT EXISTS like();");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
+
+    ::sleep(30);
+
+    resp = c.execute(*authResp.sessionId,
+                     "INSERT EDGE like() VALUES 'Tim Duncan'->'Tony Parker':(), 'Tony "
+                     "Parker'->'Tim Duncan':();");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
     // execute
-    auto resp =
-        c.execute(*authResp.sessionId, "use nba;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
+    resp = c.execute(*authResp.sessionId, "use nba;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE) << *resp.errorMsg;
 
     resp = c.execute(
@@ -145,6 +156,9 @@ TEST_F(ConnectionTest, Timeout) {
         "WHERE $-.DurationInUSec > 1000000 AND $-.`Query` CONTAINS 'GO' "
         "| ORDER BY $-.dur "
         "| KILL QUERY(session=$-.sid, plan=$-.eid)");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
+    resp = c.execute(*authResp.sessionId, "DROP SPACE IF EXISTS test");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 }
 
