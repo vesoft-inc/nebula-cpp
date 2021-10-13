@@ -157,7 +157,7 @@ TEST_F(SessionTest, Timeout) {
 
     resp = session.execute("INSERT EDGE like() VALUES 'Tim Duncan'->'Tony Parker':(), 'Tony "
                            "Parker'->'Tim Duncan':();");
-    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
 
     // execute
     resp = session.execute("use session_test;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");

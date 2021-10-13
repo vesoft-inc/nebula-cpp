@@ -143,7 +143,7 @@ TEST_F(ConnectionTest, Timeout) {
     resp = c.execute(*authResp.sessionId,
                      "INSERT EDGE like() VALUES 'Tim Duncan'->'Tony Parker':(), 'Tony "
                      "Parker'->'Tim Duncan':();");
-    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
 
     // execute
     resp = c.execute(*authResp.sessionId,
