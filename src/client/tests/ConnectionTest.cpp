@@ -136,7 +136,7 @@ TEST_F(ConnectionTest, Timeout) {
     // execute
     auto resp =
         c.execute(*authResp.sessionId, "use nba;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
-    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE);
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE) << *resp.errorMsg;
 
     resp = c.execute(
         *authResp.sessionId,

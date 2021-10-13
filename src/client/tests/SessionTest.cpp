@@ -150,7 +150,7 @@ TEST_F(SessionTest, Timeout) {
 
     // execute
     auto resp = session.execute("use nba;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
-    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE);
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE) << *resp.errorMsg;
 
     resp = session.execute(
         "SHOW QUERIES "
