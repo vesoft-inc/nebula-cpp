@@ -11,30 +11,28 @@
 namespace nebula {
 
 bool HostAddr::operator==(const HostAddr& rhs) const {
-    return host == rhs.host && port == rhs.port;
+  return host == rhs.host && port == rhs.port;
 }
 
-bool HostAddr::operator!=(const HostAddr& rhs) const {
-    return !(*this == rhs);
-}
+bool HostAddr::operator!=(const HostAddr& rhs) const { return !(*this == rhs); }
 
 bool HostAddr::operator<(const HostAddr& rhs) const {
-    if (host == rhs.host) {
-        return port < rhs.port;
-    }
-    return host < rhs.host;
+  if (host == rhs.host) {
+    return port < rhs.port;
+  }
+  return host < rhs.host;
 }
 
-}   // namespace nebula
+}  // namespace nebula
 
 namespace std {
 
 // Inject a customized hash function
 std::size_t hash<nebula::HostAddr>::operator()(const nebula::HostAddr& h) const noexcept {
-    int64_t code = folly::hash::fnv32_buf(h.host.data(), h.host.size());
-    code <<= 32;
-    code |= folly::hash::fnv32_buf(&(h.port), sizeof(nebula::Port));
-    return code;
+  int64_t code = folly::hash::fnv32_buf(h.host.data(), h.host.size());
+  code <<= 32;
+  code |= folly::hash::fnv32_buf(&(h.port), sizeof(nebula::Port));
+  return code;
 }
 
-}   // namespace std
+}  // namespace std

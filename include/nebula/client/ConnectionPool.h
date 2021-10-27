@@ -18,41 +18,39 @@
 namespace nebula {
 
 class ConnectionPool {
-public:
-    ~ConnectionPool();
+ public:
+  ~ConnectionPool();
 
-    void init(const std::vector<std::string> &addresses, const Config &config);
+  void init(const std::vector<std::string> &addresses, const Config &config);
 
-    void close();
+  void close();
 
-    Session getSession(const std::string &username,
-                       const std::string &password,
-                       bool retryConnect = true);
+  Session getSession(const std::string &username,
+                     const std::string &password,
+                     bool retryConnect = true);
 
-    Connection getConnection();
+  Connection getConnection();
 
-    void giveBack(Connection &&conn);
+  void giveBack(Connection &&conn);
 
-    std::size_t size() const {
-        std::lock_guard<std::mutex> l(lock_);
-        return conns_.size();
-    }
+  std::size_t size() const {
+    std::lock_guard<std::mutex> l(lock_);
+    return conns_.size();
+  }
 
-private:
-    // The count may can't perform if can't create enough valid connection
-    void newConnection(std::size_t cursor, std::size_t count);
+ private:
+  // The count may can't perform if can't create enough valid connection
+  void newConnection(std::size_t cursor, std::size_t count);
 
-    std::size_t nextCursor() {
-        return cursor_ >= address_.size() ? cursor_ = 0 : cursor_++;
-    }
+  std::size_t nextCursor() { return cursor_ >= address_.size() ? cursor_ = 0 : cursor_++; }
 
-    std::size_t cursor_{0};
-    // host, port
-    std::vector<std::pair<std::string, int32_t>> address_;
-    Config config_;
+  std::size_t cursor_{0};
+  // host, port
+  std::vector<std::pair<std::string, int32_t>> address_;
+  Config config_;
 
-    mutable std::mutex lock_;
-    std::list<Connection> conns_;
+  mutable std::mutex lock_;
+  std::list<Connection> conns_;
 };
 
-}   // namespace nebula
+}  // namespace nebula

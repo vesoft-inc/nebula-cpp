@@ -8,8 +8,6 @@
 
 namespace nebula {
 
-void init(int *argc, char **argv[]) {
-    folly::init(argc, argv, true);
-}
+void init(int *argc, char **argv[]) { folly::init(argc, argv, true); }
 
-}   // namespace nebula
+}  // namespace nebula
