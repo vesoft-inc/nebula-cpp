@@ -34,9 +34,10 @@ protected:
         EXPECT_TRUE(session.ping());
 
         // execute
-        auto result = session.execute("SHOW SPACES");
+        auto result = session.execute("YIELD 1");
         ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
-        nebula::DataSet expected({"Name"});
+        nebula::DataSet expected({"1"});
+        expected.emplace_back(nebula::List({1}));
         EXPECT_TRUE(verifyResultWithoutOrder(*result.data, expected));
 
         // explain
@@ -47,9 +48,10 @@ protected:
 
         // async execute
         folly::Baton<> b;
-        session.asyncExecute("SHOW SPACES", [&b](auto&& cbResult) {
+        session.asyncExecute("YIELD 1", [&b](auto&& cbResult) {
             ASSERT_EQ(cbResult.errorCode, nebula::ErrorCode::SUCCEEDED);
-            nebula::DataSet cbExpected({"Name"});
+            nebula::DataSet cbExpected({"1"});
+            cbExpected.emplace_back(nebula::List({1}));
             EXPECT_TRUE(verifyResultWithoutOrder(*cbResult.data, cbExpected));
             b.post();
         });
@@ -59,7 +61,7 @@ protected:
         ASSERT_EQ(session.retryConnect(), nebula::ErrorCode::SUCCEEDED);
 
         // execute
-        result = session.execute("SHOW SPACES");
+        result = session.execute("YIELD 1");
         ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
         EXPECT_TRUE(verifyResultWithoutOrder(*result.data, expected));
 
@@ -72,12 +74,12 @@ protected:
         EXPECT_FALSE(session.ping());
 
         // check release
-        result = session.execute("SHOW SPACES");
+        result = session.execute("YIELD 1");
         ASSERT_EQ(result.errorCode, nebula::ErrorCode::E_DISCONNECTED);
 
         // async execute
         folly::Baton<> b2;
-        session.asyncExecute("SHOW SPACES", [&b2](auto&& cbResult) {
+        session.asyncExecute("YIELD 1", [&b2](auto&& cbResult) {
             ASSERT_EQ(cbResult.errorCode, nebula::ErrorCode::E_DISCONNECTED);
             b2.post();
         });
@@ -141,21 +143,36 @@ TEST_F(SessionTest, InvalidAddress) {
 
 TEST_F(SessionTest, Timeout) {
     nebula::ConnectionPool pool;
-    nebula::Config c{5, 0, 10, 0};
+    nebula::Config c{10, 0, 10, 0};
     pool.init({kServerHost ":9669"}, c);
     auto session = pool.getSession("root", "nebula");
     ASSERT_TRUE(session.valid());
 
+    auto resp =
+        session.execute("CREATE SPACE IF NOT EXISTS session_test(vid_type = FIXED_STRING(16));use "
+                        "session_test;CREATE EDGE IF NOT EXISTS like();");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
+
+    ::sleep(30);
+
+    resp = session.execute("INSERT EDGE like() VALUES 'Tim Duncan'->'Tony Parker':(), 'Tony "
+                           "Parker'->'Tim Duncan':();");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
+
     // execute
-    auto resp = session.execute("show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;"
-                                "show spaces;show spaces;show spaces;show spaces;");
-    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE);
+    resp = session.execute("use session_test;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE) << *resp.errorMsg;
+
+    resp = session.execute(
+        "SHOW QUERIES "
+        "| YIELD $-.SessionID AS sid, $-.ExecutionPlanID AS eid, $-.DurationInUSec AS dur "
+        "WHERE $-.DurationInUSec > 1000000 AND $-.`Query` CONTAINS 'GO' "
+        "| ORDER BY $-.dur "
+        "| KILL QUERY(session=$-.sid, plan=$-.eid)");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
+    resp = session.execute("DROP SPACE IF EXISTS session_test");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 }
 
 int main(int argc, char** argv) {

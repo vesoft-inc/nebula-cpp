@@ -23,7 +23,7 @@ namespace graph {
 namespace cpp2 {
 class GraphServiceAsyncClient;
 }
-}
+}   // namespace graph
 
 class Connection {
 public:
@@ -69,7 +69,7 @@ public:
 
 private:
     graph::cpp2::GraphServiceAsyncClient *client_{nullptr};
-    folly::ScopedEventBaseThread         *clientLoopThread_{nullptr};
+    folly::ScopedEventBaseThread *clientLoopThread_{nullptr};
 };
 
 }   // namespace nebula

@@ -68,7 +68,7 @@ public:
         return sessionId_ > 0;
     }
 
-    const std::string& timeZoneName() const {
+    const std::string &timeZoneName() const {
         return timezoneName_;
     }
 

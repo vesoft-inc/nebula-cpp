@@ -11,7 +11,7 @@
 #include <folly/io/async/ScopedEventBaseThread.h>
 #include <thrift/lib/cpp2/async/HeaderClientChannel.h>
 
-#include "common/interface/gen-cpp2/GraphServiceAsyncClient.h"
+#include "interface/gen-cpp2/GraphServiceAsyncClient.h"
 #include "nebula/client/Connection.h"
 
 namespace nebula {
