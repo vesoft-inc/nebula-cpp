@@ -160,7 +160,8 @@ TEST_F(SessionTest, Timeout) {
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
 
     // execute
-    resp = session.execute("use session_test;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
+    resp = session.execute(
+        "use session_test;GO 100000 STEPS FROM 'Tim Duncan' OVER like YIELD like_._dst;");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE) << *resp.errorMsg;
 
     resp = session.execute(

@@ -147,7 +147,7 @@ TEST_F(ConnectionTest, Timeout) {
 
     // execute
     resp = c.execute(*authResp.sessionId,
-                     "use conn_test;GO 100000 STEPS FROM 'Tim Duncan' OVER like;");
+                     "use conn_test;GO 100000 STEPS FROM 'Tim Duncan' OVER like YIELD like._dst;");
     ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE) << *resp.errorMsg;
 
     resp = c.execute(
