@@ -23,53 +23,53 @@ namespace graph {
 namespace cpp2 {
 class GraphServiceAsyncClient;
 }
-}   // namespace graph
+}  // namespace graph
 
 class Connection {
-public:
-    using ExecuteCallback = std::function<void(ExecutionResponse &&)>;
-    using ExecuteJsonCallback = std::function<void(std::string &&)>;
+ public:
+  using ExecuteCallback = std::function<void(ExecutionResponse &&)>;
+  using ExecuteJsonCallback = std::function<void(std::string &&)>;
 
-    Connection();
-    // disable copy
-    Connection(const Connection &) = delete;
-    Connection &operator=(const Connection &c) = delete;
+  Connection();
+  // disable copy
+  Connection(const Connection &) = delete;
+  Connection &operator=(const Connection &c) = delete;
 
-    Connection(Connection &&c) noexcept {
-        client_ = c.client_;
-        c.client_ = nullptr;
+  Connection(Connection &&c) noexcept {
+    client_ = c.client_;
+    c.client_ = nullptr;
 
-        clientLoopThread_ = c.clientLoopThread_;
-        c.clientLoopThread_ = nullptr;
-    }
+    clientLoopThread_ = c.clientLoopThread_;
+    c.clientLoopThread_ = nullptr;
+  }
 
-    Connection &operator=(Connection &&c);
+  Connection &operator=(Connection &&c);
 
-    ~Connection();
+  ~Connection();
 
-    bool open(const std::string &address, int32_t port, uint32_t timeout);
+  bool open(const std::string &address, int32_t port, uint32_t timeout);
 
-    AuthResponse authenticate(const std::string &user, const std::string &password);
+  AuthResponse authenticate(const std::string &user, const std::string &password);
 
-    ExecutionResponse execute(int64_t sessionId, const std::string &stmt);
+  ExecutionResponse execute(int64_t sessionId, const std::string &stmt);
 
-    void asyncExecute(int64_t sessionId, const std::string &stmt, ExecuteCallback cb);
+  void asyncExecute(int64_t sessionId, const std::string &stmt, ExecuteCallback cb);
 
-    std::string executeJson(int64_t sessionId, const std::string &stmt);
+  std::string executeJson(int64_t sessionId, const std::string &stmt);
 
-    void asyncExecuteJson(int64_t sessionId, const std::string &stmt, ExecuteJsonCallback cb);
+  void asyncExecuteJson(int64_t sessionId, const std::string &stmt, ExecuteJsonCallback cb);
 
-    bool isOpen();
+  bool isOpen();
 
-    void close();
+  void close();
 
-    bool ping();
+  bool ping();
 
-    void signout(int64_t sessionId);
+  void signout(int64_t sessionId);
 
-private:
-    graph::cpp2::GraphServiceAsyncClient *client_{nullptr};
-    folly::ScopedEventBaseThread *clientLoopThread_{nullptr};
+ private:
+  graph::cpp2::GraphServiceAsyncClient *client_{nullptr};
+  folly::ScopedEventBaseThread *clientLoopThread_{nullptr};
 };
 
-}   // namespace nebula
+}  // namespace nebula

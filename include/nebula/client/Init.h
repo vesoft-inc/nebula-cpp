@@ -10,4 +10,4 @@ namespace nebula {
 
 void init(int *argc, char **argv[]);
 
-}   // namespace nebula
+}  // namespace nebula

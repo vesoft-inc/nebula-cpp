@@ -30,53 +30,39 @@ static const std::unordered_map<GeoShape, S2Region> kShapeTypeToS2Region = {
 // Do not construct a S2 object when constructing Geography. It's expensive.
 // We just construct S2 when doing computation.
 struct Geography {
-    std::string wkb;   // TODO(jie) Is it better to store Geometry* or S2Region* here?
+  std::string wkb;  // TODO(jie) Is it better to store Geometry* or S2Region* here?
 
-    Geography() = default;
+  Geography() = default;
 
-    std::string toString() const {
-        return wkb;
-    }
+  std::string toString() const { return wkb; }
 
-    void clear() {
-        wkb.clear();
-    }
+  void clear() { wkb.clear(); }
 
-    void __clear() {
-        clear();
-    }
+  void __clear() { clear(); }
 
-    bool operator==(const Geography& rhs) const {
-        return wkb == rhs.wkb;
-    }
+  bool operator==(const Geography& rhs) const { return wkb == rhs.wkb; }
 
-    bool operator!=(const Geography& rhs) const {
-        return !(wkb == rhs.wkb);
-    }
+  bool operator!=(const Geography& rhs) const { return !(wkb == rhs.wkb); }
 
-    bool operator<(const Geography& rhs) const {
-        return wkb < rhs.wkb;
-    }
+  bool operator<(const Geography& rhs) const { return wkb < rhs.wkb; }
 
-private:
-    explicit Geography(const std::string& bytes) {
-        // TODO(jie): Must ensure the bytes is valid
-        wkb = bytes;
-    }
+ private:
+  explicit Geography(const std::string& bytes) {
+    // TODO(jie): Must ensure the bytes is valid
+    wkb = bytes;
+  }
 };
 
-inline std::ostream& operator<<(std::ostream& os, const Geography& g) {
-    return os << g.wkb;
-}
+inline std::ostream& operator<<(std::ostream& os, const Geography& g) { return os << g.wkb; }
 
-}   // namespace nebula
+}  // namespace nebula
 
 namespace std {
 
 // Inject a customized hash function
 template <>
 struct hash<nebula::Geography> {
-    std::size_t operator()(const nebula::Geography& h) const noexcept;
+  std::size_t operator()(const nebula::Geography& h) const noexcept;
 };
 
-}   // namespace std
+}  // namespace std

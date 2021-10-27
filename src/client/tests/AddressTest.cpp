@@ -7,7 +7,6 @@
 #include <glog/logging.h>
 #include <gtest/gtest.h>
 #include <gtest/gtest_prod.h>
-
 #include <nebula/client/ConnectionPool.h>
 #include <nebula/client/Init.h>
 #include <nebula/client/Session.h>
@@ -21,21 +20,21 @@
 class AddressTest : public ClientTest {};
 
 TEST_F(AddressTest, One) {
-    nebula::ConnectionPool pool;
-    pool.init({kServerHost ":9669"}, nebula::Config{});
-    EXPECT_EQ(pool.size(), 10);
+  nebula::ConnectionPool pool;
+  pool.init({kServerHost ":9669"}, nebula::Config{});
+  EXPECT_EQ(pool.size(), 10);
 }
 
 TEST_F(AddressTest, Multiple) {
-    nebula::ConnectionPool pool;
-    pool.init({"graphd:9669", "graphd1:9669", "graphd2:9669"}, nebula::Config{});
-    EXPECT_EQ(pool.size(), 10);
+  nebula::ConnectionPool pool;
+  pool.init({"graphd:9669", "graphd1:9669", "graphd2:9669"}, nebula::Config{});
+  EXPECT_EQ(pool.size(), 10);
 }
 
 int main(int argc, char** argv) {
-    testing::InitGoogleTest(&argc, argv);
-    nebula::init(&argc, &argv);
-    google::SetStderrLogging(google::INFO);
+  testing::InitGoogleTest(&argc, argv);
+  nebula::init(&argc, &argv);
+  google::SetStderrLogging(google::INFO);
 
-    return RUN_ALL_TESTS();
+  return RUN_ALL_TESTS();
 }

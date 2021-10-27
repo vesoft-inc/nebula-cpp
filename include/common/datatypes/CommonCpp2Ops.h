@@ -25,7 +25,7 @@ struct Set;
 struct List;
 struct DataSet;
 struct Geography;
-}   // namespace nebula
+}  // namespace nebula
 
 namespace apache::thrift {
 
@@ -46,4 +46,4 @@ SPECIALIZE_CPP2OPS(nebula::List);
 SPECIALIZE_CPP2OPS(nebula::DataSet);
 SPECIALIZE_CPP2OPS(nebula::Geography);
 
-}   // namespace apache::thrift
+}  // namespace apache::thrift

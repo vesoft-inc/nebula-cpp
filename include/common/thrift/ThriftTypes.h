@@ -46,4 +46,4 @@ using ZoneID = int32_t;
 using SessionID = int64_t;
 
 using ExecutionPlanID = int64_t;
-}   // namespace nebula
+}  // namespace nebula
