@@ -5,6 +5,7 @@
  */
 
 #include <folly/synchronization/Baton.h>
+#include <folly/json.h>
 #include <glog/logging.h>
 #include <gtest/gtest.h>
 #include <gtest/gtest_prod.h>
@@ -174,6 +175,24 @@ TEST_F(SessionTest, Timeout) {
 
   resp = session.execute("DROP SPACE IF EXISTS session_test");
   ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+}
+
+TEST_F(SessionTest, JsonResult) {
+  nebula::ConnectionPool pool;
+  nebula::Config c{10, 0, 10, 0};
+  pool.init({kServerHost ":9669"}, c);
+  auto session = pool.getSession("root", "nebula");
+  ASSERT_TRUE(session.valid());
+
+  auto resp = session.executeJson("YIELD 1");
+  folly::parseJson(resp);
+
+  folly::Baton<> b;
+  session.asyncExecuteJson("YIELD 1", [&b](std::string&&resp) {
+    folly::parseJson(resp);
+    b.post();
+  });
+  b.wait();
 }
 
 int main(int argc, char** argv) {
