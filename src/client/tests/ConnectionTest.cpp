@@ -176,8 +176,8 @@ TEST_F(ConnectionTest, JsonResult) {
   folly::parseJson(resp);
 
   folly::Baton<> b1;
-  c.asyncExecuteJson(*authResp.sessionId, "YIELD 1", [&b1](std::string &&resp) {
-    folly::parseJson(resp);
+  c.asyncExecuteJson(*authResp.sessionId, "YIELD 1", [&b1](std::string &&asyncResp) {
+    folly::parseJson(asyncResp);
     b1.post();
   });
   b1.wait();
