@@ -92,7 +92,11 @@ void ConnectionPool::newConnection(std::size_t cursor, std::size_t count) {
       addrCursor = 0;
     }
     Connection conn;
-    if (conn.open(address_[addrCursor].first, address_[addrCursor].second, config_.timeout_)) {
+    if (conn.open(address_[addrCursor].first,
+                  address_[addrCursor].second,
+                  config_.timeout_,
+                  config_.enableSSL_,
+                  config_.CAPath_)) {
       ++connectionCount;
       conns_.emplace_back(std::move(conn));
     }

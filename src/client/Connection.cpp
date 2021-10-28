@@ -7,12 +7,14 @@
 #include "nebula/client/Connection.h"
 
 #include <folly/SocketAddress.h>
+#include <folly/io/async/AsyncSSLSocket.h>
 #include <folly/io/async/AsyncSocket.h>
 #include <folly/io/async/ScopedEventBaseThread.h>
 #include <thrift/lib/cpp2/async/HeaderClientChannel.h>
 
 #include <memory>
 
+#include "./SSLConfig.h"
 #include "interface/gen-cpp2/GraphServiceAsyncClient.h"
 
 namespace nebula {
@@ -37,18 +39,29 @@ Connection &Connection::operator=(Connection &&c) {
   return *this;
 }
 
-bool Connection::open(const std::string &address, int32_t port, uint32_t timeout) {
+bool Connection::open(const std::string &address,
+                      int32_t port,
+                      uint32_t timeout,
+                      bool enableSSL,
+                      const std::string &CAPath) {
   if (address.empty()) {
     return false;
   }
   bool complete{false};
   clientLoopThread_->getEventBase()->runInEventBaseThreadAndWait(
-      [this, &complete, &address, port, timeout]() {
+      [this, &complete, &address, port, timeout, enableSSL, &CAPath]() {
         try {
+          std::shared_ptr<folly::AsyncSocket> socket;
           auto socketAddr = folly::SocketAddress(address, port, true);
-          auto socket = folly::AsyncSocket::UniquePtr(new folly::AsyncSocket(
-              clientLoopThread_->getEventBase(), std::move(socketAddr), timeout));
-          auto channel = apache::thrift::HeaderClientChannel::newChannel(std::move(socket));
+          if (enableSSL) {
+            socket = folly::AsyncSSLSocket::newSocket(nebula::createSSLContext(CAPath),
+                                                      clientLoopThread_->getEventBase());
+            socket->connect(nullptr, std::move(socketAddr), timeout);
+          } else {
+            socket = folly::AsyncSocket::newSocket(
+                clientLoopThread_->getEventBase(), std::move(socketAddr), timeout);
+          }
+          auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
           channel->setTimeout(timeout);
           client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
           complete = true;
