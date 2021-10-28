@@ -105,8 +105,6 @@ jobs:
           git clone -b external_network https://github.com/Shylock-Hg/nebula-docker-compose.git
           pushd nebula-docker-compose/
           sed -i "s/\bdocker_nebula-net\b/$(docker network ls | grep github_network | tr -s [:blank:] | cut -d ' ' -f 2)/g" docker-compose.yaml
-          cat ../../tests/.env >> .env
-          cp ../../tests/test.* .
           docker-compose up -d
           docker network ls
           sleep 10
