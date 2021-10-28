@@ -114,7 +114,6 @@ jobs:
           EOF
           cp certs/* /usr/local/nebula/share/resources
           /usr/local/nebula/scripts/nebula.service start all
-          ;;
       - name: CTest
         env:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
