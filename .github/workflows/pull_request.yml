@@ -113,7 +113,7 @@ jobs:
           --enable_ssl=true
           EOF
           cp certs/* /usr/local/nebula/share/resources
-          /usr/local/nebula/script/nebula.service start all
+          /usr/local/nebula/scripts/nebula.service start all
           ;;
       - name: CTest
         env:
