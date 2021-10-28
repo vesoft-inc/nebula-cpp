@@ -4,8 +4,8 @@
  * attached with Common Clause Condition 1.0, found in the LICENSES directory.
  */
 
-#include <folly/synchronization/Baton.h>
 #include <folly/json.h>
+#include <folly/synchronization/Baton.h>
 #include <glog/logging.h>
 #include <gtest/gtest.h>
 #include <nebula/client/Connection.h>
