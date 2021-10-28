@@ -95,21 +95,26 @@ jobs:
         run: cmake --build build/ -j $(nproc)
       - name: Nebula Server
         run: |
-          sudo curl -sSL https://get.docker.com/ | sh
-          pip3 install --upgrade pip
-          pip3 install setuptools
-          pip3 install docker-compose
-          docker network ls
-          mkdir tmp
-          pushd tmp
-          git clone -b external_network https://github.com/Shylock-Hg/nebula-docker-compose.git
-          pushd nebula-docker-compose/
-          sed -i "s/\bdocker_nebula-net\b/$(docker network ls | grep github_network | tr -s [:blank:] | cut -d ' ' -f 2)/g" docker-compose.yaml
-          docker-compose up
-          docker network ls
-          sleep 10
-          popd
-          popd
+          case ${{ matrix.os }} in
+          centos7)
+            wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(date -u +%Y.%m.%d)/nebula-graph-$(date -u +%Y.%m.%d)-nightly.el7.x86_64.rpm
+            rpm -ivh nebula-graph-$(date -u +%Y.%m.%d)-nightly.el7.x86_64.rpm
+            ;;
+          ubuntu1804)
+            wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(date -u +%Y.%m.%d)/nebula-graph-$(date -u +%Y.%m.%d)-nightly.ubuntu1804.x86_64.rpm
+            dpkg -i nebula-graph-$(date -u +%Y.%m.%d)-nightly.ubuntu1804.x86_64.rpm
+            ;;
+          esac
+          chmod u+w /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          cat >> /usr/local/nebula/etc/nebula-graphd.conf >> /usr/local/nebula/etc/nebula-storaged.conf >> /usr/local/nebula/etc/nebula-metad.conf <<EOF
+          --cert_path=share/resources/test.ca.pem
+          --key_path=share/resources/test.ca.key
+          --password_path=share/resources/test.ca.password
+          --enable_ssl=true
+          EOF
+          cp certs/* /usr/local/nebula/share/resources
+          /usr/local/nebula/script/nebula.service start all
+          ;;
       - name: CTest
         env:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
