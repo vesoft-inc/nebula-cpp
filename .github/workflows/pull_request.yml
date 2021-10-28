@@ -101,8 +101,8 @@ jobs:
             rpm -ivh nebula-graph-$(date -u +%Y.%m.%d)-nightly.el7.x86_64.rpm
             ;;
           ubuntu1804)
-            wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(date -u +%Y.%m.%d)/nebula-graph-$(date -u +%Y.%m.%d)-nightly.ubuntu1804.x86_64.rpm
-            dpkg -i nebula-graph-$(date -u +%Y.%m.%d)-nightly.ubuntu1804.x86_64.rpm
+            wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(date -u +%Y.%m.%d)/nebula-graph-$(date -u +%Y.%m.%d)-nightly.ubuntu1804.amd64.deb
+            dpkg -i nebula-graph-$(date -u +%Y.%m.%d)-nightly.ubuntu1804.amd64.deb
             ;;
           esac
           chmod u+w /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
