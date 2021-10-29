@@ -84,7 +84,7 @@ AuthResponse Connection::authenticate(const std::string &user, const std::string
   } catch (const std::exception &ex) {
     resp = AuthResponse{ErrorCode::E_RPC_FAILURE,
                         nullptr,
-                        std::make_unique<std::string>("Unavailable connection.")};
+                        std::make_unique<std::string>(ex.what())};
   }
   return resp;
 }
@@ -106,7 +106,7 @@ ExecutionResponse Connection::execute(int64_t sessionId, const std::string &stmt
                              0,
                              nullptr,
                              nullptr,
-                             std::make_unique<std::string>("Unavailable connection.")};
+                             std::make_unique<std::string>(ex.what())};
   }
 
   return resp;

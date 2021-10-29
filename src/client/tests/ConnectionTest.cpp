@@ -126,7 +126,7 @@ TEST_F(ConnectionTest, Basic) {
 TEST_F(ConnectionTest, Timeout) {
   nebula::Connection c;
 
-  ASSERT_TRUE(c.open(kServerHost, 9669, 10, false, ""));
+  ASSERT_TRUE(c.open(kServerHost, 9669, 20, false, ""));
 
   // auth
   auto authResp = c.authenticate("root", "nebula");
@@ -169,7 +169,7 @@ TEST_F(ConnectionTest, SSL) {
 
   // auth
   auto authResp = c.authenticate("root", "nebula");
-  ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED);
+  ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED) << *authResp.errorMsg;
 
   // execute
   auto resp = c.execute(*authResp.sessionId, "YIELD 1");
