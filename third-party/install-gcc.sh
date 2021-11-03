@@ -2,7 +2,7 @@
 
 # Copyright (c) 2019 vesoft inc. All rights reserved.
 #
-# This source code is licensed under Apache 2.0 License,
+# This source code is licensed under Apache 2.0 License.
 
 # Usage: install-gcc.sh --prefix=/opt/nebula/toolset
 

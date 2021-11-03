@@ -2,7 +2,7 @@
 
 # Copyright (c) 2018 vesoft inc. All rights reserved.
 #
-# This source code is licensed under Apache 2.0 License,
+# This source code is licensed under Apache 2.0 License.
 
 CPPLINT=`dirname $0`/../../.linters/cpp/cpplint.py
 
