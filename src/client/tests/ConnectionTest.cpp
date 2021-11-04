@@ -43,7 +43,7 @@ class ConnectionTest : public ClientTest {
 
     // auth
     auto authResp = c.authenticate("root", "nebula");
-    ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED);
+    ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED) << *authResp.errorMsg;
 
     // execute
     resp = c.execute(*authResp.sessionId, "YIELD 1");
