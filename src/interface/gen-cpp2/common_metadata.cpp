@@ -30,6 +30,18 @@ void EnumMetadata<::nebula::cpp2::NullType>::gen(ThriftMetadata& metadata) {
     enum_metadata.elements_ref()->emplace(static_cast<int32_t>(EnumTraits::values[i]), EnumTraits::names[i].str());
   }
 }
+void EnumMetadata<::nebula::cpp2::PropertyType>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.enums_ref()->emplace("common.PropertyType", ::apache::thrift::metadata::ThriftEnum{});
+  if (!res.second) {
+    return;
+  }
+  ::apache::thrift::metadata::ThriftEnum& enum_metadata = res.first->second;
+  enum_metadata.name_ref() = "common.PropertyType";
+  using EnumTraits = TEnumTraits<::nebula::cpp2::PropertyType>;
+  for (std::size_t i = 0; i < EnumTraits::size; ++i) {
+    enum_metadata.elements_ref()->emplace(static_cast<int32_t>(EnumTraits::values[i]), EnumTraits::names[i].str());
+  }
+}
 void EnumMetadata<::nebula::cpp2::ErrorCode>::gen(ThriftMetadata& metadata) {
   auto res = metadata.enums_ref()->emplace("common.ErrorCode", ::apache::thrift::metadata::ThriftEnum{});
   if (!res.second) {
@@ -177,7 +189,7 @@ StructMetadata<::nebula::cpp2::Value>::gen(ThriftMetadata& metadata) {
     std::make_tuple(13, "mVal", false, std::make_unique<Typedef>("common.NMap", std::make_unique<Struct< ::nebula::cpp2::NMap>>("common.NMap")), std::vector<ThriftConstStruct>{}),
     std::make_tuple(14, "uVal", false, std::make_unique<Typedef>("common.NSet", std::make_unique<Struct< ::nebula::cpp2::NSet>>("common.NSet")), std::vector<ThriftConstStruct>{}),
     std::make_tuple(15, "gVal", false, std::make_unique<Typedef>("common.DataSet", std::make_unique<Struct< ::nebula::cpp2::DataSet>>("common.DataSet")), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(16, "ggVal", false, std::make_unique<Typedef>("common.Geography", std::make_unique<Struct< ::nebula::cpp2::Geography>>("common.Geography")), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(16, "ggVal", false, std::make_unique<Typedef>("common.Geography", std::make_unique<Union< ::nebula::cpp2::Geography>>("common.Geography")), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : common_Value_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -312,6 +324,103 @@ StructMetadata<::nebula::cpp2::DataSet>::gen(ThriftMetadata& metadata) {
   return res.first->second;
 }
 const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::cpp2::Coordinate>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("common.Coordinate", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& common_Coordinate = res.first->second;
+  common_Coordinate.name_ref() = "common.Coordinate";
+  common_Coordinate.is_union_ref() = false;
+  static const EncodedThriftField
+  common_Coordinate_fields[] = {
+    std::make_tuple(1, "x", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_DOUBLE_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "y", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_DOUBLE_TYPE), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : common_Coordinate_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    common_Coordinate.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::cpp2::Point>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("common.Point", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& common_Point = res.first->second;
+  common_Point.name_ref() = "common.Point";
+  common_Point.is_union_ref() = false;
+  static const EncodedThriftField
+  common_Point_fields[] = {
+    std::make_tuple(1, "coord", false, std::make_unique<Struct< ::nebula::cpp2::Coordinate>>("common.Coordinate"), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : common_Point_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    common_Point.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::cpp2::LineString>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("common.LineString", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& common_LineString = res.first->second;
+  common_LineString.name_ref() = "common.LineString";
+  common_LineString.is_union_ref() = false;
+  static const EncodedThriftField
+  common_LineString_fields[] = {
+    std::make_tuple(1, "coordList", false, std::make_unique<List>(std::make_unique<Struct< ::nebula::cpp2::Coordinate>>("common.Coordinate")), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : common_LineString_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    common_LineString.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::cpp2::Polygon>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("common.Polygon", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& common_Polygon = res.first->second;
+  common_Polygon.name_ref() = "common.Polygon";
+  common_Polygon.is_union_ref() = false;
+  static const EncodedThriftField
+  common_Polygon_fields[] = {
+    std::make_tuple(1, "coordListList", false, std::make_unique<List>(std::make_unique<List>(std::make_unique<Struct< ::nebula::cpp2::Coordinate>>("common.Coordinate"))), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : common_Polygon_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    common_Polygon.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
 StructMetadata<::nebula::cpp2::Geography>::gen(ThriftMetadata& metadata) {
   auto res = metadata.structs_ref()->emplace("common.Geography", ::apache::thrift::metadata::ThriftStruct{});
   if (!res.second) {
@@ -319,10 +428,12 @@ StructMetadata<::nebula::cpp2::Geography>::gen(ThriftMetadata& metadata) {
   }
   ::apache::thrift::metadata::ThriftStruct& common_Geography = res.first->second;
   common_Geography.name_ref() = "common.Geography";
-  common_Geography.is_union_ref() = false;
+  common_Geography.is_union_ref() = true;
   static const EncodedThriftField
   common_Geography_fields[] = {
-    std::make_tuple(1, "wkb", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_STRING_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(1, "ptVal", false, std::make_unique<Struct< ::nebula::cpp2::Point>>("common.Point"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "lsVal", false, std::make_unique<Struct< ::nebula::cpp2::LineString>>("common.LineString"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "pgVal", false, std::make_unique<Struct< ::nebula::cpp2::Polygon>>("common.Polygon"), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : common_Geography_fields) {
     ::apache::thrift::metadata::ThriftField field;

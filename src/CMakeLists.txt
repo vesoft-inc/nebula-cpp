@@ -25,6 +25,9 @@ set(NEBULA_CLIENT_SOURCES
     datatypes/Vertex.cpp
     graph/Response.cpp
     time/TimeConversion.cpp
+    geo/io/wkt/WKTWriter.cpp
+    geo/io/wkb/WKBWriter.cpp
+    geo/io/wkb/ByteOrderDataIOStream.cpp
 )
 
 set(NEBULA_CLIENT_LIBRARIES

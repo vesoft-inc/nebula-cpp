@@ -2249,28 +2249,6 @@ enum class GeoShape {
 
 
 
-enum class PropertyType {
-  UNKNOWN = 0,
-  BOOL = 1,
-  INT64 = 2,
-  VID = 3,
-  FLOAT = 4,
-  DOUBLE = 5,
-  STRING = 6,
-  FIXED_STRING = 7,
-  INT8 = 8,
-  INT16 = 9,
-  INT32 = 10,
-  TIMESTAMP = 21,
-  DATE = 24,
-  DATETIME = 25,
-  TIME = 26,
-  GEOGRAPHY = 31,
-};
-
-
-
-
 enum class IsolationLevel {
   DEFAULT = 0,
   TOSS = 1,
@@ -2426,10 +2404,6 @@ template<> struct hash<typename ::nebula::meta::cpp2::GeoShape> : public apache:
 template<> struct equal_to<typename ::nebula::meta::cpp2::GeoShape> : public apache::thrift::detail::enum_equal_to<typename ::nebula::meta::cpp2::GeoShape> {};
 
 
-template<> struct hash<typename ::nebula::meta::cpp2::PropertyType> : public apache::thrift::detail::enum_hash<typename ::nebula::meta::cpp2::PropertyType> {};
-template<> struct equal_to<typename ::nebula::meta::cpp2::PropertyType> : public apache::thrift::detail::enum_equal_to<typename ::nebula::meta::cpp2::PropertyType> {};
-
-
 template<> struct hash<typename ::nebula::meta::cpp2::IsolationLevel> : public apache::thrift::detail::enum_hash<typename ::nebula::meta::cpp2::IsolationLevel> {};
 template<> struct equal_to<typename ::nebula::meta::cpp2::IsolationLevel> : public apache::thrift::detail::enum_equal_to<typename ::nebula::meta::cpp2::IsolationLevel> {};
 
@@ -2539,23 +2513,6 @@ template <> struct TEnumTraits<::nebula::meta::cpp2::GeoShape> {
 
   static constexpr type min() { return type::ANY; }
   static constexpr type max() { return type::POLYGON; }
-};
-
-
-template <> struct TEnumDataStorage<::nebula::meta::cpp2::PropertyType>;
-
-template <> struct TEnumTraits<::nebula::meta::cpp2::PropertyType> {
-  using type = ::nebula::meta::cpp2::PropertyType;
-
-  static constexpr std::size_t const size = 16;
-  static folly::Range<type const*> const values;
-  static folly::Range<folly::StringPiece const*> const names;
-
-  static char const* findName(type value);
-  static bool findValue(char const* name, type* out);
-
-  static constexpr type min() { return type::UNKNOWN; }
-  static constexpr type max() { return type::GEOGRAPHY; }
 };
 
 
@@ -2818,12 +2775,6 @@ using _GeoShape_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<GeoShap
 extern const _GeoShape_EnumMapFactory::ValuesToNamesMapType _GeoShape_VALUES_TO_NAMES;
 [[deprecated("use apache::thrift::TEnumTraits")]]
 extern const _GeoShape_EnumMapFactory::NamesToValuesMapType _GeoShape_NAMES_TO_VALUES;
-
-using _PropertyType_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<PropertyType>;
-[[deprecated("use apache::thrift::util::enumNameSafe, apache::thrift::util::enumName, or apache::thrift::TEnumTraits")]]
-extern const _PropertyType_EnumMapFactory::ValuesToNamesMapType _PropertyType_VALUES_TO_NAMES;
-[[deprecated("use apache::thrift::TEnumTraits")]]
-extern const _PropertyType_EnumMapFactory::NamesToValuesMapType _PropertyType_NAMES_TO_VALUES;
 
 using _IsolationLevel_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<IsolationLevel>;
 [[deprecated("use apache::thrift::util::enumNameSafe, apache::thrift::util::enumName, or apache::thrift::TEnumTraits")]]
@@ -3571,12 +3522,12 @@ class ColumnTypeDef final  {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   ColumnTypeDef() :
-      type( ::nebula::meta::cpp2::PropertyType::UNKNOWN),
+      type( ::nebula::cpp2::PropertyType::UNKNOWN),
       type_length(static_cast<int16_t>(0)),
       geo_shape( ::nebula::meta::cpp2::GeoShape::ANY) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  ColumnTypeDef(apache::thrift::FragileConstructor,  ::nebula::meta::cpp2::PropertyType type__arg, int16_t type_length__arg,  ::nebula::meta::cpp2::GeoShape geo_shape__arg);
+  ColumnTypeDef(apache::thrift::FragileConstructor,  ::nebula::cpp2::PropertyType type__arg, int16_t type_length__arg,  ::nebula::meta::cpp2::GeoShape geo_shape__arg);
 
   ColumnTypeDef(ColumnTypeDef&&) = default;
 
@@ -3589,7 +3540,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
   void __clear();
  public:
-   ::nebula::meta::cpp2::PropertyType type;
+   ::nebula::cpp2::PropertyType type;
  private:
   int16_t type_length;
  private:
@@ -3619,22 +3570,22 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     return !(__x < __y);
   }
 #endif
-  template <typename..., typename T =  ::nebula::meta::cpp2::PropertyType>
+  template <typename..., typename T =  ::nebula::cpp2::PropertyType>
   FOLLY_ERASE ::apache::thrift::required_field_ref<const T&> type_ref() const& {
     return ::apache::thrift::required_field_ref<const T&>{this->type};
   }
 
-  template <typename..., typename T =  ::nebula::meta::cpp2::PropertyType>
+  template <typename..., typename T =  ::nebula::cpp2::PropertyType>
   FOLLY_ERASE ::apache::thrift::required_field_ref<const T&&> type_ref() const&& {
     return ::apache::thrift::required_field_ref<const T&&>{std::move(this->type)};
   }
 
-  template <typename..., typename T =  ::nebula::meta::cpp2::PropertyType>
+  template <typename..., typename T =  ::nebula::cpp2::PropertyType>
   FOLLY_ERASE ::apache::thrift::required_field_ref<T&> type_ref() & {
     return ::apache::thrift::required_field_ref<T&>{this->type};
   }
 
-  template <typename..., typename T =  ::nebula::meta::cpp2::PropertyType>
+  template <typename..., typename T =  ::nebula::cpp2::PropertyType>
   FOLLY_ERASE ::apache::thrift::required_field_ref<T&&> type_ref() && {
     return ::apache::thrift::required_field_ref<T&&>{std::move(this->type)};
   }
@@ -3683,11 +3634,11 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
-   ::nebula::meta::cpp2::PropertyType get_type() const {
+   ::nebula::cpp2::PropertyType get_type() const {
     return type;
   }
 
-   ::nebula::meta::cpp2::PropertyType& set_type( ::nebula::meta::cpp2::PropertyType type_) {
+   ::nebula::cpp2::PropertyType& set_type( ::nebula::cpp2::PropertyType type_) {
     type = type_;
     return type;
   }

@@ -33,6 +33,43 @@ const std::array<folly::StringPiece, 8> TEnumDataStorage<::nebula::cpp2::NullTyp
   "OUT_OF_RANGE",
 }};
 
+const std::array<::nebula::cpp2::PropertyType, 16> TEnumDataStorage<::nebula::cpp2::PropertyType>::values = {{
+  type::UNKNOWN,
+  type::BOOL,
+  type::INT64,
+  type::VID,
+  type::FLOAT,
+  type::DOUBLE,
+  type::STRING,
+  type::FIXED_STRING,
+  type::INT8,
+  type::INT16,
+  type::INT32,
+  type::TIMESTAMP,
+  type::DATE,
+  type::DATETIME,
+  type::TIME,
+  type::GEOGRAPHY,
+}};
+const std::array<folly::StringPiece, 16> TEnumDataStorage<::nebula::cpp2::PropertyType>::names = {{
+  "UNKNOWN",
+  "BOOL",
+  "INT64",
+  "VID",
+  "FLOAT",
+  "DOUBLE",
+  "STRING",
+  "FIXED_STRING",
+  "INT8",
+  "INT16",
+  "INT32",
+  "TIMESTAMP",
+  "DATE",
+  "DATETIME",
+  "TIME",
+  "GEOGRAPHY",
+}};
+
 const std::array<::nebula::cpp2::ErrorCode, 121> TEnumDataStorage<::nebula::cpp2::ErrorCode>::values = {{
   type::SUCCEEDED,
   type::E_DISCONNECTED,
@@ -326,6 +363,17 @@ const std::array<folly::StringPiece, 16> TEnumDataStorage<::nebula::cpp2::Value:
   "ggVal",
 }};
 
+const std::array<::nebula::cpp2::Geography::Type, 3> TEnumDataStorage<::nebula::cpp2::Geography::Type>::values = {{
+  type::ptVal,
+  type::lsVal,
+  type::pgVal,
+}};
+const std::array<folly::StringPiece, 3> TEnumDataStorage<::nebula::cpp2::Geography::Type>::names = {{
+  "ptVal",
+  "lsVal",
+  "pgVal",
+}};
+
 const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::cpp2::SchemaID>::fields_names = {{
   "tag_id",
   "edge_type",
@@ -510,14 +558,63 @@ const std::array<protocol::TType, 2> TStructDataStorage<::nebula::cpp2::DataSet>
   TType::T_LIST,
 }};
 
-const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::cpp2::Geography>::fields_names = {{
-  "wkb",
+const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::cpp2::Coordinate>::fields_names = {{
+  "x",
+  "y",
 }};
-const std::array<int16_t, 1> TStructDataStorage<::nebula::cpp2::Geography>::fields_ids = {{
+const std::array<int16_t, 2> TStructDataStorage<::nebula::cpp2::Coordinate>::fields_ids = {{
+  1,
+  2,
+}};
+const std::array<protocol::TType, 2> TStructDataStorage<::nebula::cpp2::Coordinate>::fields_types = {{
+  TType::T_DOUBLE,
+  TType::T_DOUBLE,
+}};
+
+const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::cpp2::Point>::fields_names = {{
+  "coord",
+}};
+const std::array<int16_t, 1> TStructDataStorage<::nebula::cpp2::Point>::fields_ids = {{
   1,
 }};
-const std::array<protocol::TType, 1> TStructDataStorage<::nebula::cpp2::Geography>::fields_types = {{
-  TType::T_STRING,
+const std::array<protocol::TType, 1> TStructDataStorage<::nebula::cpp2::Point>::fields_types = {{
+  TType::T_STRUCT,
+}};
+
+const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::cpp2::LineString>::fields_names = {{
+  "coordList",
+}};
+const std::array<int16_t, 1> TStructDataStorage<::nebula::cpp2::LineString>::fields_ids = {{
+  1,
+}};
+const std::array<protocol::TType, 1> TStructDataStorage<::nebula::cpp2::LineString>::fields_types = {{
+  TType::T_LIST,
+}};
+
+const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::cpp2::Polygon>::fields_names = {{
+  "coordListList",
+}};
+const std::array<int16_t, 1> TStructDataStorage<::nebula::cpp2::Polygon>::fields_ids = {{
+  1,
+}};
+const std::array<protocol::TType, 1> TStructDataStorage<::nebula::cpp2::Polygon>::fields_types = {{
+  TType::T_LIST,
+}};
+
+const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::cpp2::Geography>::fields_names = {{
+  "ptVal",
+  "lsVal",
+  "pgVal",
+}};
+const std::array<int16_t, 3> TStructDataStorage<::nebula::cpp2::Geography>::fields_ids = {{
+  1,
+  2,
+  3,
+}};
+const std::array<protocol::TType, 3> TStructDataStorage<::nebula::cpp2::Geography>::fields_types = {{
+  TType::T_STRUCT,
+  TType::T_STRUCT,
+  TType::T_STRUCT,
 }};
 
 const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::cpp2::Tag>::fields_names = {{
