@@ -97,6 +97,7 @@ jobs:
         run: |
           case ${{ matrix.os }} in
           centos7)
+            set +e
             for i in {0..10}; do
               wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
               rpm -ivh nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
@@ -104,8 +105,10 @@ jobs:
                 break;
               fi
             done
+            set -e
             ;;
           ubuntu1804)
+            set +e
             for i in {0..10}; do
               wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu1804.amd64.deb
               dpkg -i nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu1804.amd64.deb
@@ -113,6 +116,7 @@ jobs:
                 break;
               fi
             done
+            set -e
             ;;
           esac
           chmod u+w /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
