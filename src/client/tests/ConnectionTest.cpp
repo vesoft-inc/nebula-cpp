@@ -126,7 +126,7 @@ TEST_F(ConnectionTest, Basic) {
 TEST_F(ConnectionTest, Timeout) {
   nebula::Connection c;
 
-  ASSERT_TRUE(c.open(kServerHost, 9669, 20, false, ""));
+  ASSERT_TRUE(c.open(kServerHost, 9669, 30, false, ""));
 
   // auth
   auto authResp = c.authenticate("root", "nebula");
