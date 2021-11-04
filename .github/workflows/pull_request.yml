@@ -97,12 +97,22 @@ jobs:
         run: |
           case ${{ matrix.os }} in
           centos7)
-            wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(date -u +%Y.%m.%d)/nebula-graph-$(date -u +%Y.%m.%d)-nightly.el7.x86_64.rpm
-            rpm -ivh nebula-graph-$(date -u +%Y.%m.%d)-nightly.el7.x86_64.rpm
+            for i in {0..10}; do
+              wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
+              rpm -ivh nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
+              if [ $? -eq 0 ]; then
+                break;
+              fi
+            done
             ;;
           ubuntu1804)
-            wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(date -u +%Y.%m.%d)/nebula-graph-$(date -u +%Y.%m.%d)-nightly.ubuntu1804.amd64.deb
-            dpkg -i nebula-graph-$(date -u +%Y.%m.%d)-nightly.ubuntu1804.amd64.deb
+            for i in {0..10}; do
+              wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu1804.amd64.deb
+              dpkg -i nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu1804.amd64.deb
+              if [ $? -eq 0 ]; then
+                break;
+              fi
+            done
             ;;
           esac
           chmod u+w /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
