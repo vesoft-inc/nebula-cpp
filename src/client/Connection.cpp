@@ -13,11 +13,42 @@
 #include <thrift/lib/cpp2/async/HeaderClientChannel.h>
 
 #include <memory>
+#include <stdexcept>
 
 #include "./SSLConfig.h"
 #include "interface/gen-cpp2/GraphServiceAsyncClient.h"
 
 namespace nebula {
+
+class NebulaConnectionErrMessageCallback : public folly::AsyncSocket::ErrMessageCallback {
+ public:
+  /**
+   * errMessage() will be invoked when kernel puts a message to
+   * the error queue associated with the socket.
+   *
+   * @param cmsg      Reference to cmsghdr structure describing
+   *                  a message read from error queue associated
+   *                  with the socket.
+   */
+  void errMessage(const cmsghdr &cmsg) noexcept override {}
+
+  /**
+   * errMessageError() will be invoked if an error occurs reading a message
+   * from the socket error stream.
+   *
+   * @param ex        An exception describing the error that occurred.
+   */
+  void errMessageError(const folly::AsyncSocketException &ex) noexcept override {
+    DLOG(ERROR) << "Connection error: " << ex.what();
+  }
+
+  static auto &instance() { return cb_; }
+
+ private:
+  static NebulaConnectionErrMessageCallback cb_;
+};
+
+NebulaConnectionErrMessageCallback NebulaConnectionErrMessageCallback::cb_;
 
 Connection::Connection()
     : client_{nullptr}, clientLoopThread_(new folly::ScopedEventBaseThread()) {}
@@ -61,6 +92,7 @@ bool Connection::open(const std::string &address,
             socket = folly::AsyncSocket::newSocket(
                 clientLoopThread_->getEventBase(), std::move(socketAddr), timeout);
           }
+          socket->setErrMessageCB(&NebulaConnectionErrMessageCallback::instance());
           auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
           channel->setTimeout(timeout);
           client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
@@ -82,9 +114,8 @@ AuthResponse Connection::authenticate(const std::string &user, const std::string
   try {
     resp = client_->future_authenticate(user, password).get();
   } catch (const std::exception &ex) {
-    resp = AuthResponse{ErrorCode::E_RPC_FAILURE,
-                        nullptr,
-                        std::make_unique<std::string>(ex.what())};
+    resp =
+        AuthResponse{ErrorCode::E_RPC_FAILURE, nullptr, std::make_unique<std::string>(ex.what())};
   }
   return resp;
 }
@@ -102,11 +133,8 @@ ExecutionResponse Connection::execute(int64_t sessionId, const std::string &stmt
   try {
     resp = client_->future_execute(sessionId, stmt).get();
   } catch (const std::exception &ex) {
-    resp = ExecutionResponse{ErrorCode::E_RPC_FAILURE,
-                             0,
-                             nullptr,
-                             nullptr,
-                             std::make_unique<std::string>(ex.what())};
+    resp = ExecutionResponse{
+        ErrorCode::E_RPC_FAILURE, 0, nullptr, nullptr, std::make_unique<std::string>(ex.what())};
   }
 
   return resp;
