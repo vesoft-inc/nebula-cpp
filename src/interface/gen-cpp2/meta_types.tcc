@@ -129,13 +129,6 @@ namespace std {
 
 } // std
 
-namespace nebula { namespace meta { namespace cpp2 {
-
-}}} // nebula::meta::cpp2
-namespace std {
-
-} // std
-
 
 namespace apache {
 namespace thrift {
@@ -1563,7 +1556,7 @@ void ColumnTypeDef::readNoXfer(Protocol_* iprot) {
   }
 _readField_type:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::PropertyType>::readWithContext(*iprot, this->type, _readState);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::PropertyType>::readWithContext(*iprot, this->type, _readState);
   }
 
   if (UNLIKELY(!_readState.advanceToNextField(
@@ -1659,7 +1652,7 @@ uint32_t ColumnTypeDef::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("ColumnTypeDef");
   xfer += prot_->serializedFieldSize("type", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::PropertyType>::serializedSize<false>(*prot_, this->type);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::PropertyType>::serializedSize<false>(*prot_, this->type);
   if (this->type_length_ref().has_value()) {
     xfer += prot_->serializedFieldSize("type_length", apache::thrift::protocol::T_I16, 2);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int16_t>::serializedSize<false>(*prot_, this->type_length);
@@ -1677,7 +1670,7 @@ uint32_t ColumnTypeDef::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("ColumnTypeDef");
   xfer += prot_->serializedFieldSize("type", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::PropertyType>::serializedSize<false>(*prot_, this->type);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::PropertyType>::serializedSize<false>(*prot_, this->type);
   if (this->type_length_ref().has_value()) {
     xfer += prot_->serializedFieldSize("type_length", apache::thrift::protocol::T_I16, 2);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int16_t>::serializedSize<false>(*prot_, this->type_length);
@@ -1695,7 +1688,7 @@ uint32_t ColumnTypeDef::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->writeStructBegin("ColumnTypeDef");
   xfer += prot_->writeFieldBegin("type", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::PropertyType>::write(*prot_, this->type);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::PropertyType>::write(*prot_, this->type);
   xfer += prot_->writeFieldEnd();
   if (this->type_length_ref().has_value()) {
     xfer += prot_->writeFieldBegin("type_length", apache::thrift::protocol::T_I16, 2);

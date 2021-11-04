@@ -69,6 +69,22 @@ struct VisitUnion<::nebula::cpp2::Value> {
     }
   }
 };
+template <>
+struct VisitUnion<::nebula::cpp2::Geography> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, T&& t) const {
+    using Union = std::remove_reference_t<T>;
+    switch (t.getType()) {
+    case Union::Type::ptVal:
+      return f(0, *static_cast<T&&>(t).ptVal_ref());
+    case Union::Type::lsVal:
+      return f(1, *static_cast<T&&>(t).lsVal_ref());
+    case Union::Type::pgVal:
+      return f(2, *static_cast<T&&>(t).pgVal_ref());
+    case Union::Type::__EMPTY__: ;
+    }
+  }
+};
 } // namespace detail
 } // namespace thrift
 } // namespace apache

@@ -65,3 +65,11 @@ struct Map {
 inline std::ostream& operator<<(std::ostream& os, const Map& m) { return os << m.toString(); }
 
 }  // namespace nebula
+
+namespace std {
+template <>
+struct hash<nebula::Map> {
+  std::size_t operator()(const nebula::Map& m) const noexcept;
+};
+
+}  // namespace std

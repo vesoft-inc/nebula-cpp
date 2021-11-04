@@ -53,43 +53,6 @@ const std::array<folly::StringPiece, 4> TEnumDataStorage<::nebula::meta::cpp2::G
   "POLYGON",
 }};
 
-const std::array<::nebula::meta::cpp2::PropertyType, 16> TEnumDataStorage<::nebula::meta::cpp2::PropertyType>::values = {{
-  type::UNKNOWN,
-  type::BOOL,
-  type::INT64,
-  type::VID,
-  type::FLOAT,
-  type::DOUBLE,
-  type::STRING,
-  type::FIXED_STRING,
-  type::INT8,
-  type::INT16,
-  type::INT32,
-  type::TIMESTAMP,
-  type::DATE,
-  type::DATETIME,
-  type::TIME,
-  type::GEOGRAPHY,
-}};
-const std::array<folly::StringPiece, 16> TEnumDataStorage<::nebula::meta::cpp2::PropertyType>::names = {{
-  "UNKNOWN",
-  "BOOL",
-  "INT64",
-  "VID",
-  "FLOAT",
-  "DOUBLE",
-  "STRING",
-  "FIXED_STRING",
-  "INT8",
-  "INT16",
-  "INT32",
-  "TIMESTAMP",
-  "DATE",
-  "DATETIME",
-  "TIME",
-  "GEOGRAPHY",
-}};
-
 const std::array<::nebula::meta::cpp2::IsolationLevel, 2> TEnumDataStorage<::nebula::meta::cpp2::IsolationLevel>::values = {{
   type::DEFAULT,
   type::TOSS,
