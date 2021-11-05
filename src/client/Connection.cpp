@@ -30,7 +30,7 @@ class NebulaConnectionErrMessageCallback : public folly::AsyncSocket::ErrMessage
    *                  a message read from error queue associated
    *                  with the socket.
    */
-  void errMessage(const cmsghdr &cmsg) noexcept override {}
+  void errMessage(const cmsghdr &) noexcept override {}
 
   /**
    * errMessageError() will be invoked if an error occurs reading a message
