@@ -30,5 +30,8 @@ header:
     - 'third-party'
     - 'LICENSE'
     - 'NOTICE'
+    - 'certs'
+    - 'interface/gen-cpp2'
+    - '.gitkeep'
 
   comment: on-failure
