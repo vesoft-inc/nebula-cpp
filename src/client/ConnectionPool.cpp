@@ -1,7 +1,6 @@
 /* Copyright (c) 2020 vesoft inc. All rights reserved.
  *
- * This source code is licensed under Apache 2.0 License,
- * attached with Common Clause Condition 1.0, found in the LICENSES directory.
+ * This source code is licensed under Apache 2.0 License.
  */
 
 #include "nebula/client/ConnectionPool.h"
@@ -92,7 +91,11 @@ void ConnectionPool::newConnection(std::size_t cursor, std::size_t count) {
       addrCursor = 0;
     }
     Connection conn;
-    if (conn.open(address_[addrCursor].first, address_[addrCursor].second, config_.timeout_)) {
+    if (conn.open(address_[addrCursor].first,
+                  address_[addrCursor].second,
+                  config_.timeout_,
+                  config_.enableSSL_,
+                  config_.CAPath_)) {
       ++connectionCount;
       conns_.emplace_back(std::move(conn));
     }

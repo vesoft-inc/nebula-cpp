@@ -1,7 +1,6 @@
 # Copyright (c) 2020 vesoft inc. All rights reserved.
 #
-# This source code is licensed under Apache 2.0 License,
-# attached with Common Clause Condition 1.0, found in the LICENSES directory.
+# This source code is licensed under Apache 2.0 License.
 
 set(NEBULA_CLIENT_OBJS
     $<TARGET_OBJECTS:common_thrift_obj>
@@ -13,6 +12,7 @@ set(NEBULA_CLIENT_SOURCES
     client/Init.cpp
     client/ConnectionPool.cpp
     client/Session.cpp
+    client/SSLConfig.cpp
     datatypes/Date.cpp
     datatypes/Edge.cpp
     datatypes/Geography.cpp

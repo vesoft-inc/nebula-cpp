@@ -1,21 +1,55 @@
 /* Copyright (c) 2020 vesoft inc. All rights reserved.
  *
- * This source code is licensed under Apache 2.0 License,
- * attached with Common Clause Condition 1.0, found in the LICENSES directory.
+ * This source code is licensed under Apache 2.0 License.
  */
 
 #include "nebula/client/Connection.h"
 
 #include <folly/SocketAddress.h>
+#include <folly/io/async/AsyncSSLSocket.h>
 #include <folly/io/async/AsyncSocket.h>
 #include <folly/io/async/ScopedEventBaseThread.h>
 #include <thrift/lib/cpp2/async/HeaderClientChannel.h>
 
 #include <memory>
+#include <stdexcept>
 
+#include "./SSLConfig.h"
 #include "interface/gen-cpp2/GraphServiceAsyncClient.h"
 
 namespace nebula {
+
+class NebulaConnectionErrMessageCallback : public folly::AsyncSocket::ErrMessageCallback {
+ public:
+  /**
+   * errMessage() will be invoked when kernel puts a message to
+   * the error queue associated with the socket.
+   *
+   * @param cmsg      Reference to cmsghdr structure describing
+   *                  a message read from error queue associated
+   *                  with the socket.
+   */
+  void errMessage(const cmsghdr &) noexcept override {
+    DLOG(ERROR) << "Connection error.";
+  }
+
+  /**
+   * errMessageError() will be invoked if an error occurs reading a message
+   * from the socket error stream.
+   *
+   * @param ex        An exception describing the error that occurred.
+   */
+  void errMessageError(const folly::AsyncSocketException &ex) noexcept override {
+    DLOG(ERROR) << "Connection error: " << ex.what();
+  }
+
+  static auto &instance() { return cb_; }
+
+ private:
+  static NebulaConnectionErrMessageCallback cb_;
+};
+
+NebulaConnectionErrMessageCallback NebulaConnectionErrMessageCallback::cb_;
 
 Connection::Connection()
     : client_{nullptr}, clientLoopThread_(new folly::ScopedEventBaseThread()) {}
@@ -37,18 +71,30 @@ Connection &Connection::operator=(Connection &&c) {
   return *this;
 }
 
-bool Connection::open(const std::string &address, int32_t port, uint32_t timeout) {
+bool Connection::open(const std::string &address,
+                      int32_t port,
+                      uint32_t timeout,
+                      bool enableSSL,
+                      const std::string &CAPath) {
   if (address.empty()) {
     return false;
   }
   bool complete{false};
   clientLoopThread_->getEventBase()->runInEventBaseThreadAndWait(
-      [this, &complete, &address, port, timeout]() {
+      [this, &complete, &address, port, timeout, enableSSL, &CAPath]() {
         try {
+          std::shared_ptr<folly::AsyncSocket> socket;
           auto socketAddr = folly::SocketAddress(address, port, true);
-          auto socket = folly::AsyncSocket::UniquePtr(new folly::AsyncSocket(
-              clientLoopThread_->getEventBase(), std::move(socketAddr), timeout));
-          auto channel = apache::thrift::HeaderClientChannel::newChannel(std::move(socket));
+          if (enableSSL) {
+            socket = folly::AsyncSSLSocket::newSocket(nebula::createSSLContext(CAPath),
+                                                      clientLoopThread_->getEventBase());
+            socket->connect(nullptr, std::move(socketAddr), timeout);
+          } else {
+            socket = folly::AsyncSocket::newSocket(
+                clientLoopThread_->getEventBase(), std::move(socketAddr), timeout);
+          }
+          socket->setErrMessageCB(&NebulaConnectionErrMessageCallback::instance());
+          auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
           channel->setTimeout(timeout);
           client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
           complete = true;
@@ -69,9 +115,8 @@ AuthResponse Connection::authenticate(const std::string &user, const std::string
   try {
     resp = client_->future_authenticate(user, password).get();
   } catch (const std::exception &ex) {
-    resp = AuthResponse{ErrorCode::E_RPC_FAILURE,
-                        nullptr,
-                        std::make_unique<std::string>("Unavailable connection.")};
+    resp =
+        AuthResponse{ErrorCode::E_RPC_FAILURE, nullptr, std::make_unique<std::string>(ex.what())};
   }
   return resp;
 }
@@ -89,11 +134,8 @@ ExecutionResponse Connection::execute(int64_t sessionId, const std::string &stmt
   try {
     resp = client_->future_execute(sessionId, stmt).get();
   } catch (const std::exception &ex) {
-    resp = ExecutionResponse{ErrorCode::E_RPC_FAILURE,
-                             0,
-                             nullptr,
-                             nullptr,
-                             std::make_unique<std::string>("Unavailable connection.")};
+    resp = ExecutionResponse{
+        ErrorCode::E_RPC_FAILURE, 0, nullptr, nullptr, std::make_unique<std::string>(ex.what())};
   }
 
   return resp;

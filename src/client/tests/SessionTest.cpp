@@ -1,7 +1,6 @@
 /* Copyright (c) 2020 vesoft inc. All rights reserved.
  *
- * This source code is licensed under Apache 2.0 License,
- * attached with Common Clause Condition 1.0, found in the LICENSES directory.
+ * This source code is licensed under Apache 2.0 License.
  */
 
 #include <folly/json.h>
@@ -143,7 +142,7 @@ TEST_F(SessionTest, InvalidAddress) {
 
 TEST_F(SessionTest, Timeout) {
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 10, 0};
+  nebula::Config c{10, 0, 100, 0, "", false};
   pool.init({kServerHost ":9669"}, c);
   auto session = pool.getSession("root", "nebula");
   ASSERT_TRUE(session.valid());
@@ -177,9 +176,24 @@ TEST_F(SessionTest, Timeout) {
   ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 }
 
+TEST_F(SessionTest, SSL) {
+  nebula::ConnectionPool pool;
+  nebula::Config c{10, 0, 10, 0, "", true};
+  pool.init({kServerHost ":9669"}, c);
+  auto session = pool.getSession("root", "nebula");
+  ASSERT_TRUE(session.valid());
+
+  // execute
+  auto result = session.execute("YIELD 1");
+  ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
+  nebula::DataSet expected({"1"});
+  expected.emplace_back(nebula::List({1}));
+  EXPECT_TRUE(verifyResultWithoutOrder(*result.data, expected));
+}
+
 TEST_F(SessionTest, JsonResult) {
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 10, 0};
+  nebula::Config c{10, 0, 10, 0, "", false};
   pool.init({kServerHost ":9669"}, c);
   auto session = pool.getSession("root", "nebula");
   ASSERT_TRUE(session.valid());

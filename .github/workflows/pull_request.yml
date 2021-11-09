@@ -23,6 +23,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 2
+      - name: Check License Header
+        uses: apache/skywalking-eyes@main
       - name: Cpplint
         run: |
           ln -snf $PWD/.linters/cpp/hooks/pre-commit.sh $PWD/.linters/cpp/pre-commit.sh
@@ -95,21 +97,41 @@ jobs:
         run: cmake --build build/ -j $(nproc)
       - name: Nebula Server
         run: |
-          sudo curl -sSL https://get.docker.com/ | sh
-          pip3 install --upgrade pip
-          pip3 install setuptools
-          pip3 install docker-compose
-          docker network ls
-          mkdir tmp
-          pushd tmp
-          git clone -b external_network https://github.com/Shylock-Hg/nebula-docker-compose.git
-          pushd nebula-docker-compose/
-          sed -i "s/\bdocker_nebula-net\b/$(docker network ls | grep github_network | tr -s [:blank:] | cut -d ' ' -f 2)/g" docker-compose.yaml
-          docker-compose up -d
-          docker network ls
-          sleep 10
-          popd
-          popd
+          case ${{ matrix.os }} in
+          centos7)
+            set +e
+            for i in {0..10}; do
+              wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
+              rpm -ivh nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
+              if [ $? -eq 0 ]; then
+                break;
+              fi
+            done
+            set -e
+            ;;
+          ubuntu1804)
+            set +e
+            for i in {0..10}; do
+              wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu1804.amd64.deb
+              dpkg -i nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu1804.amd64.deb
+              if [ $? -eq 0 ]; then
+                break;
+              fi
+            done
+            set -e
+            ;;
+          esac
+          chmod u+w /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          echo '--cert_path=share/resources/test.ca.pem' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          echo '--key_path=share/resources/test.ca.key' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          echo '--password_path=share/resources/test.ca.password' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          echo '--enable_ssl=true' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          cp certs/* /usr/local/nebula/share/resources
+          /usr/local/nebula/scripts/nebula.service start all
+          /usr/local/nebula/scripts/nebula.service status all
+          echo '127.0.0.1 graphd' >> /etc/hosts
+          echo '127.0.0.1 graphd1' >> /etc/hosts
+          echo '127.0.0.1 graphd2' >> /etc/hosts
       - name: CTest
         env:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
