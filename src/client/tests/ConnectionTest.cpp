@@ -3,6 +3,7 @@
  * This source code is licensed under Apache 2.0 License.
  */
 
+#include <folly/json.h>
 #include <folly/synchronization/Baton.h>
 #include <glog/logging.h>
 #include <gtest/gtest.h>
@@ -176,6 +177,26 @@ TEST_F(ConnectionTest, SSL) {
   nebula::DataSet expected({"1"});
   expected.emplace_back(nebula::List({1}));
   EXPECT_TRUE(verifyResultWithoutOrder(*resp.data, expected));
+}
+
+TEST_F(ConnectionTest, JsonResult) {
+  nebula::Connection c;
+
+  ASSERT_TRUE(c.open(kServerHost, 9669, 10));
+
+  // auth
+  auto authResp = c.authenticate("root", "nebula");
+  ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
+  auto resp = c.executeJson(*authResp.sessionId, "YIELD 1");
+  folly::parseJson(resp);
+
+  folly::Baton<> b1;
+  c.asyncExecuteJson(*authResp.sessionId, "YIELD 1", [&b1](std::string &&asyncResp) {
+    folly::parseJson(asyncResp);
+    b1.post();
+  });
+  b1.wait();
 }
 
 int main(int argc, char **argv) {
