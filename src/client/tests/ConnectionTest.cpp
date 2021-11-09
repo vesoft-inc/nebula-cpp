@@ -36,14 +36,14 @@ class ConnectionTest : public ClientTest {
     });
 
     // open
-    ASSERT_TRUE(c.open(kServerHost, 9669, 0));
+    ASSERT_TRUE(c.open(kServerHost, 9669, 0, false, ""));
 
     // ping
     EXPECT_TRUE(c.ping());
 
     // auth
     auto authResp = c.authenticate("root", "nebula");
-    ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED);
+    ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED) << *authResp.errorMsg;
 
     // execute
     resp = c.execute(*authResp.sessionId, "YIELD 1");
@@ -126,7 +126,7 @@ TEST_F(ConnectionTest, Basic) {
 TEST_F(ConnectionTest, Timeout) {
   nebula::Connection c;
 
-  ASSERT_TRUE(c.open(kServerHost, 9669, 10));
+  ASSERT_TRUE(c.open(kServerHost, 9669, 100, false, ""));
 
   // auth
   auto authResp = c.authenticate("root", "nebula");
@@ -160,6 +160,23 @@ TEST_F(ConnectionTest, Timeout) {
 
   resp = c.execute(*authResp.sessionId, "DROP SPACE IF EXISTS conn_test");
   ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+}
+
+TEST_F(ConnectionTest, SSL) {
+  nebula::Connection c;
+
+  ASSERT_TRUE(c.open(kServerHost, 9669, 10, true, ""));
+
+  // auth
+  auto authResp = c.authenticate("root", "nebula");
+  ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED) << *authResp.errorMsg;
+
+  // execute
+  auto resp = c.execute(*authResp.sessionId, "YIELD 1");
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+  nebula::DataSet expected({"1"});
+  expected.emplace_back(nebula::List({1}));
+  EXPECT_TRUE(verifyResultWithoutOrder(*resp.data, expected));
 }
 
 int main(int argc, char **argv) {
