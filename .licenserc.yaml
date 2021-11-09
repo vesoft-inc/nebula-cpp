@@ -33,5 +33,6 @@ header:
     - 'certs'
     - 'src/interface/gen-cpp2'
     - '.gitkeep'
+    - 'include/common/datatypes/ValueOps-inl.h'
 
   comment: on-failure
