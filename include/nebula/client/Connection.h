@@ -46,7 +46,11 @@ class Connection {
 
   ~Connection();
 
-  bool open(const std::string &address, int32_t port, uint32_t timeout);
+  bool open(const std::string &address,
+            int32_t port,
+            uint32_t timeout,
+            bool enableSSL,
+            const std::string &CAPath);
 
   AuthResponse authenticate(const std::string &user, const std::string &password);
 

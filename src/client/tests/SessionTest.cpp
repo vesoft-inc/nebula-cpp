@@ -141,7 +141,7 @@ TEST_F(SessionTest, InvalidAddress) {
 
 TEST_F(SessionTest, Timeout) {
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 10, 0};
+  nebula::Config c{10, 0, 100, 0, "", false};
   pool.init({kServerHost ":9669"}, c);
   auto session = pool.getSession("root", "nebula");
   ASSERT_TRUE(session.valid());
@@ -173,6 +173,21 @@ TEST_F(SessionTest, Timeout) {
 
   resp = session.execute("DROP SPACE IF EXISTS session_test");
   ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+}
+
+TEST_F(SessionTest, SSL) {
+  nebula::ConnectionPool pool;
+  nebula::Config c{10, 0, 10, 0, "", true};
+  pool.init({kServerHost ":9669"}, c);
+  auto session = pool.getSession("root", "nebula");
+  ASSERT_TRUE(session.valid());
+
+  // execute
+  auto result = session.execute("YIELD 1");
+  ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
+  nebula::DataSet expected({"1"});
+  expected.emplace_back(nebula::List({1}));
+  EXPECT_TRUE(verifyResultWithoutOrder(*result.data, expected));
 }
 
 int main(int argc, char** argv) {

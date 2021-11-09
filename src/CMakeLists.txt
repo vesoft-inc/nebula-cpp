@@ -12,6 +12,7 @@ set(NEBULA_CLIENT_SOURCES
     client/Init.cpp
     client/ConnectionPool.cpp
     client/Session.cpp
+    client/SSLConfig.cpp
     datatypes/Date.cpp
     datatypes/Edge.cpp
     datatypes/Geography.cpp
