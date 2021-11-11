@@ -105,6 +105,7 @@ bool Connection::open(const std::string &address,
   }
   auto resp = verifyClientVersion(VerifyClientVersionReq{});
   if (resp.errorCode != ErrorCode::SUCCEEDED) {
+    DLOG(ERROR) << "Failed to verify client version: " << *resp.errorMsg;
     return false;
   }
   return true;
