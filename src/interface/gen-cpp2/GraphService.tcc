@@ -18,8 +18,8 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure, nebula::ExecutionResponse*>> GraphService_execute_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::integral, int64_t*>, apache::thrift::FieldData<2, ::apache::thrift::type_class::binary, ::std::string*>> GraphService_executeJson_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::binary, ::std::string*>> GraphService_executeJson_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::graph::cpp2::VerifyClientVersionReq*>> GraphService_verifyClientVersion_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::graph::cpp2::VerifyClientVersionResp*>> GraphService_verifyClientVersion_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure, nebula::VerifyClientVersionReq*>> GraphService_verifyClientVersion_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure, nebula::VerifyClientVersionResp*>> GraphService_verifyClientVersion_presult;
 template <typename ProtocolIn_, typename ProtocolOut_>
 void GraphServiceAsyncProcessor::setUpAndProcess_authenticate(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
@@ -244,7 +244,7 @@ void GraphServiceAsyncProcessor::process_verifyClientVersion(apache::thrift::Res
   // so async calls don't accidentally use it
   iface_->setRequestContext(nullptr);
   GraphService_verifyClientVersion_pargs args;
-   ::nebula::graph::cpp2::VerifyClientVersionReq uarg_req;
+  nebula::VerifyClientVersionReq uarg_req;
   args.get<0>().value = &uarg_req;
   std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "GraphService.verifyClientVersion", ctx));
   try {
@@ -256,7 +256,7 @@ void GraphServiceAsyncProcessor::process_verifyClientVersion(apache::thrift::Res
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::graph::cpp2::VerifyClientVersionResp>>(std::move(req), std::move(ctxStack), return_verifyClientVersion<ProtocolIn_,ProtocolOut_>, throw_wrapped_verifyClientVersion<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback<nebula::VerifyClientVersionResp>>(std::move(req), std::move(ctxStack), return_verifyClientVersion<ProtocolIn_,ProtocolOut_>, throw_wrapped_verifyClientVersion<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
@@ -264,10 +264,10 @@ void GraphServiceAsyncProcessor::process_verifyClientVersion(apache::thrift::Res
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue GraphServiceAsyncProcessor::return_verifyClientVersion(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::graph::cpp2::VerifyClientVersionResp const& _return) {
+folly::IOBufQueue GraphServiceAsyncProcessor::return_verifyClientVersion(int32_t protoSeqId, apache::thrift::ContextStack* ctx, nebula::VerifyClientVersionResp const& _return) {
   ProtocolOut_ prot;
   GraphService_verifyClientVersion_presult result;
-  result.get<0>().value = const_cast< ::nebula::graph::cpp2::VerifyClientVersionResp*>(&_return);
+  result.get<0>().value = const_cast<nebula::VerifyClientVersionResp*>(&_return);
   result.setIsSet(0, true);
   return serializeResponse("verifyClientVersion", &prot, protoSeqId, ctx, result);
 }

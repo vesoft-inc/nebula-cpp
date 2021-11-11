@@ -33,13 +33,6 @@ template <> struct TEnumDataStorage<::nebula::meta::cpp2::GeoShape> {
   static const std::array<folly::StringPiece, size> names;
 };
 
-template <> struct TEnumDataStorage<::nebula::meta::cpp2::PropertyType> {
-  using type = ::nebula::meta::cpp2::PropertyType;
-  static constexpr const std::size_t size = 16;
-  static const std::array<type, size> values;
-  static const std::array<folly::StringPiece, size> names;
-};
-
 template <> struct TEnumDataStorage<::nebula::meta::cpp2::IsolationLevel> {
   using type = ::nebula::meta::cpp2::IsolationLevel;
   static constexpr const std::size_t size = 2;

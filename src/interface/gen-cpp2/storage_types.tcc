@@ -6766,6 +6766,36 @@ _readField_end_value:
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
           4,
+          5,
+          apache::thrift::protocol::T_BOOL))) {
+    goto _loop;
+  }
+_readField_include_begin:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::readWithContext(*iprot, this->include_begin, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.include_begin = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          5,
+          6,
+          apache::thrift::protocol::T_BOOL))) {
+    goto _loop;
+  }
+_readField_include_end:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::readWithContext(*iprot, this->include_end, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.include_end = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          6,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -6818,6 +6848,22 @@ _loop:
         goto _skip;
       }
     }
+    case 5:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_BOOL))) {
+        goto _readField_include_begin;
+      } else {
+        goto _skip;
+      }
+    }
+    case 6:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_BOOL))) {
+        goto _readField_include_end;
+      } else {
+        goto _skip;
+      }
+    }
     default:
     {
 _skip:
@@ -6841,6 +6887,10 @@ uint32_t IndexColumnHint::serializedSize(Protocol_ const* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::variant, nebula::Value>::serializedSize<false>(*prot_, this->begin_value);
   xfer += prot_->serializedFieldSize("end_value", apache::thrift::protocol::T_STRUCT, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::variant, nebula::Value>::serializedSize<false>(*prot_, this->end_value);
+  xfer += prot_->serializedFieldSize("include_begin", apache::thrift::protocol::T_BOOL, 5);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->include_begin);
+  xfer += prot_->serializedFieldSize("include_end", apache::thrift::protocol::T_BOOL, 6);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->include_end);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -6857,6 +6907,10 @@ uint32_t IndexColumnHint::serializedSizeZC(Protocol_ const* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::variant, nebula::Value>::serializedSize<true>(*prot_, this->begin_value);
   xfer += prot_->serializedFieldSize("end_value", apache::thrift::protocol::T_STRUCT, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::variant, nebula::Value>::serializedSize<true>(*prot_, this->end_value);
+  xfer += prot_->serializedFieldSize("include_begin", apache::thrift::protocol::T_BOOL, 5);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->include_begin);
+  xfer += prot_->serializedFieldSize("include_end", apache::thrift::protocol::T_BOOL, 6);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->include_end);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -6876,6 +6930,12 @@ uint32_t IndexColumnHint::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldBegin("end_value", apache::thrift::protocol::T_STRUCT, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::variant, nebula::Value>::write(*prot_, this->end_value);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("include_begin", apache::thrift::protocol::T_BOOL, 5);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::write(*prot_, this->include_begin);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("include_end", apache::thrift::protocol::T_BOOL, 6);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::write(*prot_, this->include_end);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();

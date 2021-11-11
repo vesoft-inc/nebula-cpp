@@ -47,6 +47,39 @@ FOLLY_POP_WARNING
 
 namespace apache { namespace thrift {
 
+constexpr std::size_t const TEnumTraits<::nebula::cpp2::PropertyType>::size;
+folly::Range<::nebula::cpp2::PropertyType const*> const TEnumTraits<::nebula::cpp2::PropertyType>::values = folly::range(TEnumDataStorage<::nebula::cpp2::PropertyType>::values);
+folly::Range<folly::StringPiece const*> const TEnumTraits<::nebula::cpp2::PropertyType>::names = folly::range(TEnumDataStorage<::nebula::cpp2::PropertyType>::names);
+
+char const* TEnumTraits<::nebula::cpp2::PropertyType>::findName(type value) {
+  using factory = ::nebula::cpp2::_PropertyType_EnumMapFactory;
+  static folly::Indestructible<factory::ValuesToNamesMapType> const map{
+      factory::makeValuesToNamesMap()};
+  auto found = map->find(value);
+  return found == map->end() ? nullptr : found->second;
+}
+
+bool TEnumTraits<::nebula::cpp2::PropertyType>::findValue(char const* name, type* out) {
+  using factory = ::nebula::cpp2::_PropertyType_EnumMapFactory;
+  static folly::Indestructible<factory::NamesToValuesMapType> const map{
+      factory::makeNamesToValuesMap()};
+  auto found = map->find(name);
+  return found == map->end() ? false : (*out = found->second, true);
+}
+
+}} // apache::thrift
+
+namespace nebula { namespace cpp2 {
+FOLLY_PUSH_WARNING
+FOLLY_GNU_DISABLE_WARNING("-Wdeprecated-declarations")
+const _PropertyType_EnumMapFactory::ValuesToNamesMapType _PropertyType_VALUES_TO_NAMES = _PropertyType_EnumMapFactory::makeValuesToNamesMap();
+const _PropertyType_EnumMapFactory::NamesToValuesMapType _PropertyType_NAMES_TO_VALUES = _PropertyType_EnumMapFactory::makeNamesToValuesMap();
+FOLLY_POP_WARNING
+
+}} // nebula::cpp2
+
+namespace apache { namespace thrift {
+
 constexpr std::size_t const TEnumTraits<::nebula::cpp2::ErrorCode>::size;
 folly::Range<::nebula::cpp2::ErrorCode const*> const TEnumTraits<::nebula::cpp2::ErrorCode>::values = folly::range(TEnumDataStorage<::nebula::cpp2::ErrorCode>::values);
 folly::Range<folly::StringPiece const*> const TEnumTraits<::nebula::cpp2::ErrorCode>::names = folly::range(TEnumDataStorage<::nebula::cpp2::ErrorCode>::names);
@@ -871,7 +904,7 @@ static_assert(
 static_assert(
     ::apache::thrift::detail::st::gen_check_json<
         Value,
-        ::apache::thrift::type_class::structure,
+        ::apache::thrift::type_class::variant,
         nebula::Geography>,
     "inconsistent use of json option");
 
@@ -938,7 +971,7 @@ static_assert(
 static_assert(
     ::apache::thrift::detail::st::gen_check_nimble<
         Value,
-        ::apache::thrift::type_class::structure,
+        ::apache::thrift::type_class::variant,
         nebula::Geography>,
     "inconsistent use of nimble option");
 
@@ -1408,6 +1441,392 @@ namespace apache {
 namespace thrift {
 namespace detail {
 
+void TccStructTraits<::nebula::cpp2::Coordinate>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::cpp2::Coordinate>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+Coordinate::Coordinate(apache::thrift::FragileConstructor, double x__arg, double y__arg) :
+    x(std::move(x__arg)),
+    y(std::move(y__arg)) {
+  __isset.x = true;
+  __isset.y = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void Coordinate::__clear() {
+  // clear all fields
+  x = 0;
+  y = 0;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool Coordinate::operator==(const Coordinate& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.x == rhs.x)) {
+    return false;
+  }
+  if (!(lhs.y == rhs.y)) {
+    return false;
+  }
+  return true;
+}
+
+bool Coordinate::operator<(const Coordinate& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.x == rhs.x)) {
+    return lhs.x < rhs.x;
+  }
+  if (!(lhs.y == rhs.y)) {
+    return lhs.y < rhs.y;
+  }
+  return false;
+}
+
+
+void swap(Coordinate& a, Coordinate& b) {
+  using ::std::swap;
+  swap(a.x_ref().value(), b.x_ref().value());
+  swap(a.y_ref().value(), b.y_ref().value());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void Coordinate::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t Coordinate::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t Coordinate::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t Coordinate::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void Coordinate::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t Coordinate::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t Coordinate::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t Coordinate::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+
+
+}} // nebula::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits<::nebula::cpp2::Point>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::cpp2::Point>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+Point::Point(apache::thrift::FragileConstructor, nebula::Coordinate coord__arg) :
+    coord(std::move(coord__arg)) {
+  __isset.coord = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void Point::__clear() {
+  // clear all fields
+  coord.__clear();
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool Point::operator==(const Point& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.coord == rhs.coord)) {
+    return false;
+  }
+  return true;
+}
+
+bool Point::operator<(const Point& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.coord == rhs.coord)) {
+    return lhs.coord < rhs.coord;
+  }
+  return false;
+}
+
+const nebula::Coordinate& Point::get_coord() const& {
+  return coord;
+}
+
+nebula::Coordinate Point::get_coord() && {
+  return std::move(coord);
+}
+
+
+void swap(Point& a, Point& b) {
+  using ::std::swap;
+  swap(a.coord_ref().value(), b.coord_ref().value());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void Point::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t Point::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t Point::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t Point::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void Point::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t Point::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t Point::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t Point::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        Point,
+        ::apache::thrift::type_class::structure,
+        nebula::Coordinate>,
+    "inconsistent use of json option");
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        Point,
+        ::apache::thrift::type_class::structure,
+        nebula::Coordinate>,
+    "inconsistent use of nimble option");
+
+}} // nebula::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits<::nebula::cpp2::LineString>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::cpp2::LineString>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+LineString::LineString(apache::thrift::FragileConstructor, ::std::vector<nebula::Coordinate> coordList__arg) :
+    coordList(std::move(coordList__arg)) {
+  __isset.coordList = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void LineString::__clear() {
+  // clear all fields
+  coordList.clear();
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool LineString::operator==(const LineString& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.coordList == rhs.coordList)) {
+    return false;
+  }
+  return true;
+}
+
+bool LineString::operator<(const LineString& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.coordList == rhs.coordList)) {
+    return lhs.coordList < rhs.coordList;
+  }
+  return false;
+}
+
+const ::std::vector<nebula::Coordinate>& LineString::get_coordList() const& {
+  return coordList;
+}
+
+::std::vector<nebula::Coordinate> LineString::get_coordList() && {
+  return std::move(coordList);
+}
+
+
+void swap(LineString& a, LineString& b) {
+  using ::std::swap;
+  swap(a.coordList_ref().value(), b.coordList_ref().value());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void LineString::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t LineString::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t LineString::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t LineString::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void LineString::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t LineString::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t LineString::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t LineString::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        LineString,
+        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
+        ::std::vector<nebula::Coordinate>>,
+    "inconsistent use of json option");
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        LineString,
+        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
+        ::std::vector<nebula::Coordinate>>,
+    "inconsistent use of nimble option");
+
+}} // nebula::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits<::nebula::cpp2::Polygon>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::cpp2::Polygon>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+Polygon::Polygon(apache::thrift::FragileConstructor, ::std::vector<::std::vector<nebula::Coordinate>> coordListList__arg) :
+    coordListList(std::move(coordListList__arg)) {
+  __isset.coordListList = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void Polygon::__clear() {
+  // clear all fields
+  coordListList.clear();
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool Polygon::operator==(const Polygon& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.coordListList == rhs.coordListList)) {
+    return false;
+  }
+  return true;
+}
+
+bool Polygon::operator<(const Polygon& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.coordListList == rhs.coordListList)) {
+    return lhs.coordListList < rhs.coordListList;
+  }
+  return false;
+}
+
+const ::std::vector<::std::vector<nebula::Coordinate>>& Polygon::get_coordListList() const& {
+  return coordListList;
+}
+
+::std::vector<::std::vector<nebula::Coordinate>> Polygon::get_coordListList() && {
+  return std::move(coordListList);
+}
+
+
+void swap(Polygon& a, Polygon& b) {
+  using ::std::swap;
+  swap(a.coordListList_ref().value(), b.coordListList_ref().value());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void Polygon::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t Polygon::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t Polygon::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t Polygon::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void Polygon::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t Polygon::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t Polygon::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t Polygon::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        Polygon,
+        ::apache::thrift::type_class::list<::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>,
+        ::std::vector<::std::vector<nebula::Coordinate>>>,
+    "inconsistent use of json option");
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        Polygon,
+        ::apache::thrift::type_class::list<::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>,
+        ::std::vector<::std::vector<nebula::Coordinate>>>,
+    "inconsistent use of nimble option");
+
+}} // nebula::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
 void TccStructTraits<::nebula::cpp2::Geography>::translateFieldName(
     folly::StringPiece _fname,
     int16_t& fid,
@@ -1425,49 +1844,129 @@ void TccStructTraits<::nebula::cpp2::Geography>::translateFieldName(
 } // namespace thrift
 } // namespace apache
 
+namespace apache { namespace thrift {
+
+constexpr std::size_t const TEnumTraits<::nebula::cpp2::Geography::Type>::size;
+folly::Range<::nebula::cpp2::Geography::Type const*> const TEnumTraits<::nebula::cpp2::Geography::Type>::values = folly::range(TEnumDataStorage<::nebula::cpp2::Geography::Type>::values);
+folly::Range<folly::StringPiece const*> const TEnumTraits<::nebula::cpp2::Geography::Type>::names = folly::range(TEnumDataStorage<::nebula::cpp2::Geography::Type>::names);
+
+char const* TEnumTraits<::nebula::cpp2::Geography::Type>::findName(type value) {
+  using factory = detail::TEnumMapFactory<::nebula::cpp2::Geography::Type>;
+  static folly::Indestructible<factory::ValuesToNamesMapType> const map{
+      factory::makeValuesToNamesMap()};
+  auto found = map->find(value);
+  return found == map->end() ? nullptr : found->second;
+}
+
+bool TEnumTraits<::nebula::cpp2::Geography::Type>::findValue(char const* name, type* out) {
+  using factory = detail::TEnumMapFactory<::nebula::cpp2::Geography::Type>;
+  static folly::Indestructible<factory::NamesToValuesMapType> const map{
+      factory::makeNamesToValuesMap()};
+  auto found = map->find(name);
+  return found == map->end() ? false : (*out = found->second, true);
+}
+}} // apache::thrift
 namespace nebula { namespace cpp2 {
 
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-Geography::Geography(apache::thrift::FragileConstructor, ::std::string wkb__arg) :
-    wkb(std::move(wkb__arg)) {
-  __isset.wkb = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
 void Geography::__clear() {
   // clear all fields
-  wkb = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
+  if (type_ == Type::__EMPTY__) { return; }
+  switch(type_) {
+    case Type::ptVal:
+      destruct(value_.ptVal);
+      break;
+    case Type::lsVal:
+      destruct(value_.lsVal);
+      break;
+    case Type::pgVal:
+      destruct(value_.pgVal);
+      break;
+    default:
+      assert(false);
+      break;
+  }
+  type_ = Type::__EMPTY__;
 }
 
 bool Geography::operator==(const Geography& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!(lhs.wkb == rhs.wkb)) {
-    return false;
+  if (type_ != rhs.type_) { return false; }
+  switch(type_) {
+    case Type::ptVal:
+      return *value_.ptVal == *rhs.value_.ptVal;
+    case Type::lsVal:
+      return *value_.lsVal == *rhs.value_.lsVal;
+    case Type::pgVal:
+      return *value_.pgVal == *rhs.value_.pgVal;
+    default:
+      return true;
   }
-  return true;
 }
 
 bool Geography::operator<(const Geography& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.wkb == rhs.wkb)) {
-    return lhs.wkb < rhs.wkb;
+  if (lhs.type_ != rhs.type_) {
+    return lhs.type_ < rhs.type_;
   }
-  return false;
+  switch (lhs.type_) {
+    case Type::ptVal:
+      return lhs.value_.ptVal < rhs.value_.ptVal;
+    case Type::lsVal:
+      return lhs.value_.lsVal < rhs.value_.lsVal;
+    case Type::pgVal:
+      return lhs.value_.pgVal < rhs.value_.pgVal;
+    default:
+      return false;
+  }
 }
 
+std::unique_ptr<nebula::Point>& Geography::set_ptVal(nebula::Point const &t) {
+  __clear();
+  type_ = Type::ptVal;
+  ::new (std::addressof(value_.ptVal)) std::unique_ptr<nebula::Point>(new std::unique_ptr<nebula::Point>::element_type(t));
+  return value_.ptVal;
+}
+
+std::unique_ptr<nebula::Point>& Geography::set_ptVal(nebula::Point&& t) {
+  __clear();
+  type_ = Type::ptVal;
+  ::new (std::addressof(value_.ptVal)) std::unique_ptr<nebula::Point>(new std::unique_ptr<nebula::Point>::element_type(std::move(t)));
+  return value_.ptVal;
+}
+
+std::unique_ptr<nebula::LineString>& Geography::set_lsVal(nebula::LineString const &t) {
+  __clear();
+  type_ = Type::lsVal;
+  ::new (std::addressof(value_.lsVal)) std::unique_ptr<nebula::LineString>(new std::unique_ptr<nebula::LineString>::element_type(t));
+  return value_.lsVal;
+}
+
+std::unique_ptr<nebula::LineString>& Geography::set_lsVal(nebula::LineString&& t) {
+  __clear();
+  type_ = Type::lsVal;
+  ::new (std::addressof(value_.lsVal)) std::unique_ptr<nebula::LineString>(new std::unique_ptr<nebula::LineString>::element_type(std::move(t)));
+  return value_.lsVal;
+}
+
+std::unique_ptr<nebula::Polygon>& Geography::set_pgVal(nebula::Polygon const &t) {
+  __clear();
+  type_ = Type::pgVal;
+  ::new (std::addressof(value_.pgVal)) std::unique_ptr<nebula::Polygon>(new std::unique_ptr<nebula::Polygon>::element_type(t));
+  return value_.pgVal;
+}
+
+std::unique_ptr<nebula::Polygon>& Geography::set_pgVal(nebula::Polygon&& t) {
+  __clear();
+  type_ = Type::pgVal;
+  ::new (std::addressof(value_.pgVal)) std::unique_ptr<nebula::Polygon>(new std::unique_ptr<nebula::Polygon>::element_type(std::move(t)));
+  return value_.pgVal;
+}
 
 void swap(Geography& a, Geography& b) {
-  using ::std::swap;
-  swap(a.wkb_ref().value(), b.wkb_ref().value());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
+  Geography temp(std::move(a));
+  a = std::move(b);
+  b = std::move(temp);
 }
 
 template void Geography::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
@@ -1479,7 +1978,43 @@ template uint32_t Geography::write<>(apache::thrift::CompactProtocolWriter*) con
 template uint32_t Geography::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 template uint32_t Geography::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        Geography,
+        ::apache::thrift::type_class::structure,
+        nebula::Point>,
+    "inconsistent use of json option");
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        Geography,
+        ::apache::thrift::type_class::structure,
+        nebula::LineString>,
+    "inconsistent use of json option");
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        Geography,
+        ::apache::thrift::type_class::structure,
+        nebula::Polygon>,
+    "inconsistent use of json option");
 
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        Geography,
+        ::apache::thrift::type_class::structure,
+        nebula::Point>,
+    "inconsistent use of nimble option");
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        Geography,
+        ::apache::thrift::type_class::structure,
+        nebula::LineString>,
+    "inconsistent use of nimble option");
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        Geography,
+        ::apache::thrift::type_class::structure,
+        nebula::Polygon>,
+    "inconsistent use of nimble option");
 
 }} // nebula::cpp2
 

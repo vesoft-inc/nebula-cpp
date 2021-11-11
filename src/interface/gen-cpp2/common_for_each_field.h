@@ -122,10 +122,45 @@ struct ForEachField<::nebula::cpp2::DataSet> {
 };
 
 template <>
+struct ForEachField<::nebula::cpp2::Coordinate> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).x_ref()...);
+    f(1, static_cast<T&&>(t).y_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::cpp2::Point> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).coord_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::cpp2::LineString> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).coordList_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::cpp2::Polygon> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).coordListList_ref()...);
+  }
+};
+
+template <>
 struct ForEachField<::nebula::cpp2::Geography> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).wkb_ref()...);
+    f(0, static_cast<T&&>(t).ptVal_ref()...);
+    f(1, static_cast<T&&>(t).lsVal_ref()...);
+    f(2, static_cast<T&&>(t).pgVal_ref()...);
   }
 };
 

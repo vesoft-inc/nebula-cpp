@@ -918,6 +918,8 @@ StructMetadata<::nebula::storage::cpp2::IndexColumnHint>::gen(ThriftMetadata& me
     std::make_tuple(2, "scan_type", false, std::make_unique<Enum< ::nebula::storage::cpp2::ScanType>>("storage.ScanType"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(3, "begin_value", false, std::make_unique<Union< ::nebula::cpp2::Value>>("common.Value"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(4, "end_value", false, std::make_unique<Union< ::nebula::cpp2::Value>>("common.Value"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(5, "include_begin", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(6, "include_end", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_IndexColumnHint_fields) {
     ::apache::thrift::metadata::ThriftField field;

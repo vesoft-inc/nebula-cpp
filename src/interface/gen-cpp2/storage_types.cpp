@@ -4285,15 +4285,29 @@ void TccStructTraits<::nebula::storage::cpp2::IndexColumnHint>::translateFieldNa
 namespace nebula { namespace storage { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-IndexColumnHint::IndexColumnHint(apache::thrift::FragileConstructor, ::std::string column_name__arg,  ::nebula::storage::cpp2::ScanType scan_type__arg, nebula::Value begin_value__arg, nebula::Value end_value__arg) :
+IndexColumnHint::IndexColumnHint() :
+      scan_type(static_cast< ::nebula::storage::cpp2::ScanType>(0)),
+      include_begin(true),
+      include_end(false) {}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+
+IndexColumnHint::~IndexColumnHint() {}
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+IndexColumnHint::IndexColumnHint(apache::thrift::FragileConstructor, ::std::string column_name__arg,  ::nebula::storage::cpp2::ScanType scan_type__arg, nebula::Value begin_value__arg, nebula::Value end_value__arg, bool include_begin__arg, bool include_end__arg) :
     column_name(std::move(column_name__arg)),
     scan_type(std::move(scan_type__arg)),
     begin_value(std::move(begin_value__arg)),
-    end_value(std::move(end_value__arg)) {
+    end_value(std::move(end_value__arg)),
+    include_begin(std::move(include_begin__arg)),
+    include_end(std::move(include_end__arg)) {
   __isset.column_name = true;
   __isset.scan_type = true;
   __isset.begin_value = true;
   __isset.end_value = true;
+  __isset.include_begin = true;
+  __isset.include_end = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void IndexColumnHint::__clear() {
@@ -4302,6 +4316,8 @@ void IndexColumnHint::__clear() {
   scan_type = static_cast< ::nebula::storage::cpp2::ScanType>(0);
   begin_value.__clear();
   end_value.__clear();
+  include_begin = true;
+  include_end = false;
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -4321,6 +4337,12 @@ bool IndexColumnHint::operator==(const IndexColumnHint& rhs) const {
     return false;
   }
   if (!(lhs.end_value == rhs.end_value)) {
+    return false;
+  }
+  if (!(lhs.include_begin == rhs.include_begin)) {
+    return false;
+  }
+  if (!(lhs.include_end == rhs.include_end)) {
     return false;
   }
   return true;
@@ -4349,6 +4371,8 @@ void swap(IndexColumnHint& a, IndexColumnHint& b) {
   swap(a.scan_type_ref().value(), b.scan_type_ref().value());
   swap(a.begin_value_ref().value(), b.begin_value_ref().value());
   swap(a.end_value_ref().value(), b.end_value_ref().value());
+  swap(a.include_begin_ref().value(), b.include_begin_ref().value());
+  swap(a.include_end_ref().value(), b.include_end_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END

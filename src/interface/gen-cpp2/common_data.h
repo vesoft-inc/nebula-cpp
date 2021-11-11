@@ -19,6 +19,13 @@ template <> struct TEnumDataStorage<::nebula::cpp2::NullType> {
   static const std::array<folly::StringPiece, size> names;
 };
 
+template <> struct TEnumDataStorage<::nebula::cpp2::PropertyType> {
+  using type = ::nebula::cpp2::PropertyType;
+  static constexpr const std::size_t size = 16;
+  static const std::array<type, size> values;
+  static const std::array<folly::StringPiece, size> names;
+};
+
 template <> struct TEnumDataStorage<::nebula::cpp2::ErrorCode> {
   using type = ::nebula::cpp2::ErrorCode;
   static constexpr const std::size_t size = 121;
@@ -36,6 +43,13 @@ template <> struct TEnumDataStorage<::nebula::cpp2::SchemaID::Type> {
 template <> struct TEnumDataStorage<::nebula::cpp2::Value::Type> {
   using type = ::nebula::cpp2::Value::Type;
   static constexpr const std::size_t size = 16;
+  static const std::array<type, size> values;
+  static const std::array<folly::StringPiece, size> names;
+};
+
+template <> struct TEnumDataStorage<::nebula::cpp2::Geography::Type> {
+  using type = ::nebula::cpp2::Geography::Type;
+  static constexpr const std::size_t size = 3;
   static const std::array<type, size> values;
   static const std::array<folly::StringPiece, size> names;
 };
@@ -110,8 +124,36 @@ template <> struct TStructDataStorage<::nebula::cpp2::DataSet> {
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::cpp2::Geography> {
+template <> struct TStructDataStorage<::nebula::cpp2::Coordinate> {
+  static constexpr const std::size_t fields_size = 2;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::cpp2::Point> {
   static constexpr const std::size_t fields_size = 1;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::cpp2::LineString> {
+  static constexpr const std::size_t fields_size = 1;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::cpp2::Polygon> {
+  static constexpr const std::size_t fields_size = 1;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::cpp2::Geography> {
+  static constexpr const std::size_t fields_size = 3;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;

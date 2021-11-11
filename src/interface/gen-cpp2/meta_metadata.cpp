@@ -54,18 +54,6 @@ void EnumMetadata<::nebula::meta::cpp2::GeoShape>::gen(ThriftMetadata& metadata)
     enum_metadata.elements_ref()->emplace(static_cast<int32_t>(EnumTraits::values[i]), EnumTraits::names[i].str());
   }
 }
-void EnumMetadata<::nebula::meta::cpp2::PropertyType>::gen(ThriftMetadata& metadata) {
-  auto res = metadata.enums_ref()->emplace("meta.PropertyType", ::apache::thrift::metadata::ThriftEnum{});
-  if (!res.second) {
-    return;
-  }
-  ::apache::thrift::metadata::ThriftEnum& enum_metadata = res.first->second;
-  enum_metadata.name_ref() = "meta.PropertyType";
-  using EnumTraits = TEnumTraits<::nebula::meta::cpp2::PropertyType>;
-  for (std::size_t i = 0; i < EnumTraits::size; ++i) {
-    enum_metadata.elements_ref()->emplace(static_cast<int32_t>(EnumTraits::values[i]), EnumTraits::names[i].str());
-  }
-}
 void EnumMetadata<::nebula::meta::cpp2::IsolationLevel>::gen(ThriftMetadata& metadata) {
   auto res = metadata.enums_ref()->emplace("meta.IsolationLevel", ::apache::thrift::metadata::ThriftEnum{});
   if (!res.second) {
@@ -274,7 +262,7 @@ StructMetadata<::nebula::meta::cpp2::ColumnTypeDef>::gen(ThriftMetadata& metadat
   meta_ColumnTypeDef.is_union_ref() = false;
   static const EncodedThriftField
   meta_ColumnTypeDef_fields[] = {
-    std::make_tuple(1, "type", false, std::make_unique<Enum< ::nebula::meta::cpp2::PropertyType>>("meta.PropertyType"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(1, "type", false, std::make_unique<Enum< ::nebula::cpp2::PropertyType>>("common.PropertyType"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "type_length", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I16_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(3, "geo_shape", true, std::make_unique<Enum< ::nebula::meta::cpp2::GeoShape>>("meta.GeoShape"), std::vector<ThriftConstStruct>{}),
   };

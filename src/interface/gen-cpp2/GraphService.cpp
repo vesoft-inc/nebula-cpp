@@ -101,22 +101,22 @@ void GraphServiceSvIf::async_tm_executeJson(std::unique_ptr<apache::thrift::Hand
   });
 }
 
-void GraphServiceSvIf::verifyClientVersion( ::nebula::graph::cpp2::VerifyClientVersionResp& /*_return*/, const  ::nebula::graph::cpp2::VerifyClientVersionReq& /*req*/) {
+void GraphServiceSvIf::verifyClientVersion(nebula::VerifyClientVersionResp& /*_return*/, const nebula::VerifyClientVersionReq& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("verifyClientVersion");
 }
 
-folly::SemiFuture< ::nebula::graph::cpp2::VerifyClientVersionResp> GraphServiceSvIf::semifuture_verifyClientVersion(const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::graph::cpp2::VerifyClientVersionResp& _return) { verifyClientVersion(_return, p_req); });
+folly::SemiFuture<nebula::VerifyClientVersionResp> GraphServiceSvIf::semifuture_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&](nebula::VerifyClientVersionResp& _return) { verifyClientVersion(_return, p_req); });
 }
 
-folly::Future< ::nebula::graph::cpp2::VerifyClientVersionResp> GraphServiceSvIf::future_verifyClientVersion(const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req) {
+folly::Future<nebula::VerifyClientVersionResp> GraphServiceSvIf::future_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req) {
   using Source = apache::thrift::concurrency::ThreadManager::Source;
   auto scope = getRequestContext()->getRequestExecutionScope();
   auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
   return apache::thrift::detail::si::future(semifuture_verifyClientVersion(p_req), std::move(ka));
 }
 
-void GraphServiceSvIf::async_tm_verifyClientVersion(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::graph::cpp2::VerifyClientVersionResp>> callback, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req) {
+void GraphServiceSvIf::async_tm_verifyClientVersion(std::unique_ptr<apache::thrift::HandlerCallback<nebula::VerifyClientVersionResp>> callback, const nebula::VerifyClientVersionReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
     return future_verifyClientVersion(p_req);
   });
@@ -132,7 +132,7 @@ void GraphServiceSvNull::execute(nebula::ExecutionResponse& /*_return*/, int64_t
 
 void GraphServiceSvNull::executeJson(::std::string& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/) {}
 
-void GraphServiceSvNull::verifyClientVersion( ::nebula::graph::cpp2::VerifyClientVersionResp& /*_return*/, const  ::nebula::graph::cpp2::VerifyClientVersionReq& /*req*/) {}
+void GraphServiceSvNull::verifyClientVersion(nebula::VerifyClientVersionResp& /*_return*/, const nebula::VerifyClientVersionReq& /*req*/) {}
 
 
 

@@ -615,23 +615,29 @@ const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2:
   TType::T_STRUCT,
 }};
 
-const std::array<folly::StringPiece, 4> TStructDataStorage<::nebula::storage::cpp2::IndexColumnHint>::fields_names = {{
+const std::array<folly::StringPiece, 6> TStructDataStorage<::nebula::storage::cpp2::IndexColumnHint>::fields_names = {{
   "column_name",
   "scan_type",
   "begin_value",
   "end_value",
+  "include_begin",
+  "include_end",
 }};
-const std::array<int16_t, 4> TStructDataStorage<::nebula::storage::cpp2::IndexColumnHint>::fields_ids = {{
+const std::array<int16_t, 6> TStructDataStorage<::nebula::storage::cpp2::IndexColumnHint>::fields_ids = {{
   1,
   2,
   3,
   4,
+  5,
+  6,
 }};
-const std::array<protocol::TType, 4> TStructDataStorage<::nebula::storage::cpp2::IndexColumnHint>::fields_types = {{
+const std::array<protocol::TType, 6> TStructDataStorage<::nebula::storage::cpp2::IndexColumnHint>::fields_types = {{
   TType::T_STRING,
   TType::T_I32,
   TType::T_STRUCT,
   TType::T_STRUCT,
+  TType::T_BOOL,
+  TType::T_BOOL,
 }};
 
 const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::storage::cpp2::IndexQueryContext>::fields_names = {{

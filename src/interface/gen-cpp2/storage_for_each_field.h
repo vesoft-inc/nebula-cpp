@@ -349,6 +349,8 @@ struct ForEachField<::nebula::storage::cpp2::IndexColumnHint> {
     f(1, static_cast<T&&>(t).scan_type_ref()...);
     f(2, static_cast<T&&>(t).begin_value_ref()...);
     f(3, static_cast<T&&>(t).end_value_ref()...);
+    f(4, static_cast<T&&>(t).include_begin_ref()...);
+    f(5, static_cast<T&&>(t).include_end_ref()...);
   }
 };
 

@@ -130,6 +130,8 @@ struct column_name;
 struct scan_type;
 struct begin_value;
 struct end_value;
+struct include_begin;
+struct include_end;
 struct index_id;
 struct filter;
 struct column_hints;
@@ -711,6 +713,14 @@ APACHE_THRIFT_DEFINE_ACCESSOR(begin_value);
 #ifndef APACHE_THRIFT_ACCESSOR_end_value
 #define APACHE_THRIFT_ACCESSOR_end_value
 APACHE_THRIFT_DEFINE_ACCESSOR(end_value);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_include_begin
+#define APACHE_THRIFT_ACCESSOR_include_begin
+APACHE_THRIFT_DEFINE_ACCESSOR(include_begin);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_include_end
+#define APACHE_THRIFT_ACCESSOR_include_end
+APACHE_THRIFT_DEFINE_ACCESSOR(include_end);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_index_id
 #define APACHE_THRIFT_ACCESSOR_index_id
@@ -8193,12 +8203,12 @@ class IndexColumnHint final  {
 
  public:
 
+  IndexColumnHint();
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  IndexColumnHint() :
-      scan_type(static_cast< ::nebula::storage::cpp2::ScanType>(0)) {}
+
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  IndexColumnHint(apache::thrift::FragileConstructor, ::std::string column_name__arg,  ::nebula::storage::cpp2::ScanType scan_type__arg, nebula::Value begin_value__arg, nebula::Value end_value__arg);
+  IndexColumnHint(apache::thrift::FragileConstructor, ::std::string column_name__arg,  ::nebula::storage::cpp2::ScanType scan_type__arg, nebula::Value begin_value__arg, nebula::Value end_value__arg, bool include_begin__arg, bool include_end__arg);
 
   IndexColumnHint(IndexColumnHint&&) = default;
 
@@ -8210,6 +8220,9 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   IndexColumnHint& operator=(const IndexColumnHint&) = default;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
   void __clear();
+
+  ~IndexColumnHint();
+
  private:
   ::std::string column_name;
  private:
@@ -8218,6 +8231,10 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
   nebula::Value begin_value;
  private:
   nebula::Value end_value;
+ private:
+  bool include_begin;
+ private:
+  bool include_end;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
@@ -8226,6 +8243,8 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     bool scan_type;
     bool begin_value;
     bool end_value;
+    bool include_begin;
+    bool include_end;
   } __isset = {};
   bool operator==(const IndexColumnHint& rhs) const;
 #ifndef SWIG
@@ -8334,6 +8353,50 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> include_begin_ref() const& {
+    return {this->include_begin, __isset.include_begin};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> include_begin_ref() const&& {
+    return {std::move(this->include_begin), __isset.include_begin};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> include_begin_ref() & {
+    return {this->include_begin, __isset.include_begin};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> include_begin_ref() && {
+    return {std::move(this->include_begin), __isset.include_begin};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> include_end_ref() const& {
+    return {this->include_end, __isset.include_end};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> include_end_ref() const&& {
+    return {std::move(this->include_end), __isset.include_end};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> include_end_ref() & {
+    return {this->include_end, __isset.include_end};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> include_end_ref() && {
+    return {std::move(this->include_end), __isset.include_end};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
   const ::std::string& get_column_name() const& {
     return column_name;
   }
@@ -8383,6 +8446,30 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     __isset.end_value = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return end_value;
+  }
+
+  bool get_include_begin() const {
+    return include_begin;
+  }
+
+  bool& set_include_begin(bool include_begin_) {
+    include_begin = include_begin_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.include_begin = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return include_begin;
+  }
+
+  bool get_include_end() const {
+    return include_end;
+  }
+
+  bool& set_include_end(bool include_end_) {
+    include_end = include_end_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.include_end = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return include_end;
   }
 
   template <class Protocol_>

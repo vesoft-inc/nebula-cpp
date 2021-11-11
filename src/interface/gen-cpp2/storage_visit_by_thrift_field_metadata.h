@@ -589,6 +589,10 @@ struct VisitByThriftId<::nebula::storage::cpp2::IndexColumnHint> {
       return f(2, static_cast<T&&>(t).begin_value_ref());
     case 4:
       return f(3, static_cast<T&&>(t).end_value_ref());
+    case 5:
+      return f(4, static_cast<T&&>(t).include_begin_ref());
+    case 6:
+      return f(5, static_cast<T&&>(t).include_end_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::IndexColumnHint");
     }

@@ -62,6 +62,8 @@ class Connection {
 
   void asyncExecuteJson(int64_t sessionId, const std::string &stmt, ExecuteJsonCallback cb);
 
+  VerifyClientVersionResp verifyClientVersion(const VerifyClientVersionReq &req);
+
   bool isOpen();
 
   void close();

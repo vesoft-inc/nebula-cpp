@@ -113,39 +113,6 @@ FOLLY_POP_WARNING
 
 namespace apache { namespace thrift {
 
-constexpr std::size_t const TEnumTraits<::nebula::meta::cpp2::PropertyType>::size;
-folly::Range<::nebula::meta::cpp2::PropertyType const*> const TEnumTraits<::nebula::meta::cpp2::PropertyType>::values = folly::range(TEnumDataStorage<::nebula::meta::cpp2::PropertyType>::values);
-folly::Range<folly::StringPiece const*> const TEnumTraits<::nebula::meta::cpp2::PropertyType>::names = folly::range(TEnumDataStorage<::nebula::meta::cpp2::PropertyType>::names);
-
-char const* TEnumTraits<::nebula::meta::cpp2::PropertyType>::findName(type value) {
-  using factory = ::nebula::meta::cpp2::_PropertyType_EnumMapFactory;
-  static folly::Indestructible<factory::ValuesToNamesMapType> const map{
-      factory::makeValuesToNamesMap()};
-  auto found = map->find(value);
-  return found == map->end() ? nullptr : found->second;
-}
-
-bool TEnumTraits<::nebula::meta::cpp2::PropertyType>::findValue(char const* name, type* out) {
-  using factory = ::nebula::meta::cpp2::_PropertyType_EnumMapFactory;
-  static folly::Indestructible<factory::NamesToValuesMapType> const map{
-      factory::makeNamesToValuesMap()};
-  auto found = map->find(name);
-  return found == map->end() ? false : (*out = found->second, true);
-}
-
-}} // apache::thrift
-
-namespace nebula { namespace meta { namespace cpp2 {
-FOLLY_PUSH_WARNING
-FOLLY_GNU_DISABLE_WARNING("-Wdeprecated-declarations")
-const _PropertyType_EnumMapFactory::ValuesToNamesMapType _PropertyType_VALUES_TO_NAMES = _PropertyType_EnumMapFactory::makeValuesToNamesMap();
-const _PropertyType_EnumMapFactory::NamesToValuesMapType _PropertyType_NAMES_TO_VALUES = _PropertyType_EnumMapFactory::makeNamesToValuesMap();
-FOLLY_POP_WARNING
-
-}}} // nebula::meta::cpp2
-
-namespace apache { namespace thrift {
-
 constexpr std::size_t const TEnumTraits<::nebula::meta::cpp2::IsolationLevel>::size;
 folly::Range<::nebula::meta::cpp2::IsolationLevel const*> const TEnumTraits<::nebula::meta::cpp2::IsolationLevel>::values = folly::range(TEnumDataStorage<::nebula::meta::cpp2::IsolationLevel>::values);
 folly::Range<folly::StringPiece const*> const TEnumTraits<::nebula::meta::cpp2::IsolationLevel>::names = folly::range(TEnumDataStorage<::nebula::meta::cpp2::IsolationLevel>::names);
@@ -761,7 +728,7 @@ void TccStructTraits<::nebula::meta::cpp2::ColumnTypeDef>::translateFieldName(
 namespace nebula { namespace meta { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-ColumnTypeDef::ColumnTypeDef(apache::thrift::FragileConstructor,  ::nebula::meta::cpp2::PropertyType type__arg, int16_t type_length__arg,  ::nebula::meta::cpp2::GeoShape geo_shape__arg) :
+ColumnTypeDef::ColumnTypeDef(apache::thrift::FragileConstructor,  ::nebula::cpp2::PropertyType type__arg, int16_t type_length__arg,  ::nebula::meta::cpp2::GeoShape geo_shape__arg) :
     type(std::move(type__arg)),
     type_length(std::move(type_length__arg)),
     geo_shape(std::move(geo_shape__arg)) {
@@ -771,7 +738,7 @@ ColumnTypeDef::ColumnTypeDef(apache::thrift::FragileConstructor,  ::nebula::meta
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void ColumnTypeDef::__clear() {
   // clear all fields
-  type =  ::nebula::meta::cpp2::PropertyType::UNKNOWN;
+  type =  ::nebula::cpp2::PropertyType::UNKNOWN;
   type_length = static_cast<int16_t>(0);
   geo_shape =  ::nebula::meta::cpp2::GeoShape::ANY;
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
@@ -1384,7 +1351,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 SpaceDesc::SpaceDesc() :
       partition_num(0),
       replica_factor(0),
-      vid_type(::apache::thrift::detail::make_constant< ::nebula::meta::cpp2::ColumnTypeDef>(::apache::thrift::type_class::structure{}, ::apache::thrift::detail::wrap_struct_argument<::apache::thrift::tag::type>( ::nebula::meta::cpp2::PropertyType::FIXED_STRING), ::apache::thrift::detail::wrap_struct_argument<::apache::thrift::tag::type_length>(static_cast<int16_t>(8)))),
+      vid_type(::apache::thrift::detail::make_constant< ::nebula::meta::cpp2::ColumnTypeDef>(::apache::thrift::type_class::structure{}, ::apache::thrift::detail::wrap_struct_argument<::apache::thrift::tag::type>( ::nebula::cpp2::PropertyType::FIXED_STRING), ::apache::thrift::detail::wrap_struct_argument<::apache::thrift::tag::type_length>(static_cast<int16_t>(8)))),
       isolation_level( ::nebula::meta::cpp2::IsolationLevel::DEFAULT) {}
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 

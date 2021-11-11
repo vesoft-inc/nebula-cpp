@@ -64,7 +64,14 @@ struct values;
 struct values;
 struct column_names;
 struct rows;
-struct wkb;
+struct x;
+struct y;
+struct coord;
+struct coordList;
+struct coordListList;
+struct ptVal;
+struct lsVal;
+struct pgVal;
 struct name;
 struct props;
 struct vid;
@@ -249,9 +256,37 @@ APACHE_THRIFT_DEFINE_ACCESSOR(column_names);
 #define APACHE_THRIFT_ACCESSOR_rows
 APACHE_THRIFT_DEFINE_ACCESSOR(rows);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_wkb
-#define APACHE_THRIFT_ACCESSOR_wkb
-APACHE_THRIFT_DEFINE_ACCESSOR(wkb);
+#ifndef APACHE_THRIFT_ACCESSOR_x
+#define APACHE_THRIFT_ACCESSOR_x
+APACHE_THRIFT_DEFINE_ACCESSOR(x);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_y
+#define APACHE_THRIFT_ACCESSOR_y
+APACHE_THRIFT_DEFINE_ACCESSOR(y);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_coord
+#define APACHE_THRIFT_ACCESSOR_coord
+APACHE_THRIFT_DEFINE_ACCESSOR(coord);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_coordList
+#define APACHE_THRIFT_ACCESSOR_coordList
+APACHE_THRIFT_DEFINE_ACCESSOR(coordList);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_coordListList
+#define APACHE_THRIFT_ACCESSOR_coordListList
+APACHE_THRIFT_DEFINE_ACCESSOR(coordListList);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_ptVal
+#define APACHE_THRIFT_ACCESSOR_ptVal
+APACHE_THRIFT_DEFINE_ACCESSOR(ptVal);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_lsVal
+#define APACHE_THRIFT_ACCESSOR_lsVal
+APACHE_THRIFT_DEFINE_ACCESSOR(lsVal);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_pgVal
+#define APACHE_THRIFT_ACCESSOR_pgVal
+APACHE_THRIFT_DEFINE_ACCESSOR(pgVal);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_name
 #define APACHE_THRIFT_ACCESSOR_name
@@ -394,6 +429,28 @@ enum class NullType {
 
 
 
+enum class PropertyType {
+  UNKNOWN = 0,
+  BOOL = 1,
+  INT64 = 2,
+  VID = 3,
+  FLOAT = 4,
+  DOUBLE = 5,
+  STRING = 6,
+  FIXED_STRING = 7,
+  INT8 = 8,
+  INT16 = 9,
+  INT32 = 10,
+  TIMESTAMP = 21,
+  DATE = 24,
+  DATETIME = 25,
+  TIME = 26,
+  GEOGRAPHY = 31,
+};
+
+
+
+
 enum class ErrorCode {
   SUCCEEDED = 0,
   E_DISCONNECTED = -1,
@@ -529,6 +586,10 @@ template<> struct hash<typename ::nebula::cpp2::NullType> : public apache::thrif
 template<> struct equal_to<typename ::nebula::cpp2::NullType> : public apache::thrift::detail::enum_equal_to<typename ::nebula::cpp2::NullType> {};
 
 
+template<> struct hash<typename ::nebula::cpp2::PropertyType> : public apache::thrift::detail::enum_hash<typename ::nebula::cpp2::PropertyType> {};
+template<> struct equal_to<typename ::nebula::cpp2::PropertyType> : public apache::thrift::detail::enum_equal_to<typename ::nebula::cpp2::PropertyType> {};
+
+
 template<> struct hash<typename ::nebula::cpp2::ErrorCode> : public apache::thrift::detail::enum_hash<typename ::nebula::cpp2::ErrorCode> {};
 template<> struct equal_to<typename ::nebula::cpp2::ErrorCode> : public apache::thrift::detail::enum_equal_to<typename ::nebula::cpp2::ErrorCode> {};
 
@@ -552,6 +613,23 @@ template <> struct TEnumTraits<::nebula::cpp2::NullType> {
 
   static constexpr type min() { return type::__NULL__; }
   static constexpr type max() { return type::OUT_OF_RANGE; }
+};
+
+
+template <> struct TEnumDataStorage<::nebula::cpp2::PropertyType>;
+
+template <> struct TEnumTraits<::nebula::cpp2::PropertyType> {
+  using type = ::nebula::cpp2::PropertyType;
+
+  static constexpr std::size_t const size = 16;
+  static folly::Range<type const*> const values;
+  static folly::Range<folly::StringPiece const*> const names;
+
+  static char const* findName(type value);
+  static bool findValue(char const* name, type* out);
+
+  static constexpr type min() { return type::UNKNOWN; }
+  static constexpr type max() { return type::GEOGRAPHY; }
 };
 
 
@@ -582,6 +660,12 @@ extern const _NullType_EnumMapFactory::ValuesToNamesMapType _NullType_VALUES_TO_
 [[deprecated("use apache::thrift::TEnumTraits")]]
 extern const _NullType_EnumMapFactory::NamesToValuesMapType _NullType_NAMES_TO_VALUES;
 
+using _PropertyType_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<PropertyType>;
+[[deprecated("use apache::thrift::util::enumNameSafe, apache::thrift::util::enumName, or apache::thrift::TEnumTraits")]]
+extern const _PropertyType_EnumMapFactory::ValuesToNamesMapType _PropertyType_VALUES_TO_NAMES;
+[[deprecated("use apache::thrift::TEnumTraits")]]
+extern const _PropertyType_EnumMapFactory::NamesToValuesMapType _PropertyType_NAMES_TO_VALUES;
+
 using _ErrorCode_EnumMapFactory = apache::thrift::detail::TEnumMapFactory<ErrorCode>;
 [[deprecated("use apache::thrift::util::enumNameSafe, apache::thrift::util::enumName, or apache::thrift::TEnumTraits")]]
 extern const _ErrorCode_EnumMapFactory::ValuesToNamesMapType _ErrorCode_VALUES_TO_NAMES;
@@ -603,6 +687,10 @@ class NMap;
 class NSet;
 class Row;
 class DataSet;
+class Coordinate;
+class Point;
+class LineString;
+class Polygon;
 class Geography;
 class Tag;
 class Vertex;
@@ -3550,6 +3638,522 @@ uint32_t DataSet::read(Protocol_* iprot) {
 
 }} // nebula::cpp2
 namespace nebula { namespace cpp2 {
+class Coordinate final  {
+ private:
+  friend struct ::apache::thrift::detail::st::struct_private_access;
+
+  //  used by a static_assert in the corresponding source
+  static constexpr bool __fbthrift_cpp2_gen_json = false;
+  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
+  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
+
+ public:
+  using __fbthrift_cpp2_type = Coordinate;
+  static constexpr bool __fbthrift_cpp2_is_union =
+    false;
+
+
+ public:
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  Coordinate() :
+      x(0),
+      y(0) {}
+  // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
+  Coordinate(apache::thrift::FragileConstructor, double x__arg, double y__arg);
+
+  Coordinate(Coordinate&&) = default;
+
+  Coordinate(const Coordinate&) = default;
+
+
+  Coordinate& operator=(Coordinate&&) = default;
+
+  Coordinate& operator=(const Coordinate&) = default;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+  void __clear();
+ private:
+  double x;
+ private:
+  double y;
+
+ public:
+  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
+  struct __isset {
+    bool x;
+    bool y;
+  } __isset = {};
+  bool operator==(const Coordinate& rhs) const;
+#ifndef SWIG
+  friend bool operator!=(const Coordinate& __x, const Coordinate& __y) {
+    return !(__x == __y);
+  }
+#endif
+  bool operator<(const Coordinate& rhs) const;
+#ifndef SWIG
+  friend bool operator>(const Coordinate& __x, const Coordinate& __y) {
+    return __y < __x;
+  }
+  friend bool operator<=(const Coordinate& __x, const Coordinate& __y) {
+    return !(__y < __x);
+  }
+  friend bool operator>=(const Coordinate& __x, const Coordinate& __y) {
+    return !(__x < __y);
+  }
+#endif
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = double>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> x_ref() const& {
+    return {this->x, __isset.x};
+  }
+
+  template <typename..., typename T = double>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> x_ref() const&& {
+    return {std::move(this->x), __isset.x};
+  }
+
+  template <typename..., typename T = double>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> x_ref() & {
+    return {this->x, __isset.x};
+  }
+
+  template <typename..., typename T = double>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> x_ref() && {
+    return {std::move(this->x), __isset.x};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = double>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> y_ref() const& {
+    return {this->y, __isset.y};
+  }
+
+  template <typename..., typename T = double>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> y_ref() const&& {
+    return {std::move(this->y), __isset.y};
+  }
+
+  template <typename..., typename T = double>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> y_ref() & {
+    return {this->y, __isset.y};
+  }
+
+  template <typename..., typename T = double>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> y_ref() && {
+    return {std::move(this->y), __isset.y};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+  double get_x() const {
+    return x;
+  }
+
+  double& set_x(double x_) {
+    x = x_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.x = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return x;
+  }
+
+  double get_y() const {
+    return y;
+  }
+
+  double& set_y(double y_) {
+    y = y_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.y = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return y;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+
+ private:
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< Coordinate >;
+  friend void swap(Coordinate& a, Coordinate& b);
+};
+
+template <class Protocol_>
+uint32_t Coordinate::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCursorPosition();
+  readNoXfer(iprot);
+  return iprot->getCursorPosition() - _xferStart;
+}
+
+}} // nebula::cpp2
+namespace nebula { namespace cpp2 {
+class Point final  {
+ private:
+  friend struct ::apache::thrift::detail::st::struct_private_access;
+
+  //  used by a static_assert in the corresponding source
+  static constexpr bool __fbthrift_cpp2_gen_json = false;
+  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
+  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
+
+ public:
+  using __fbthrift_cpp2_type = Point;
+  static constexpr bool __fbthrift_cpp2_is_union =
+    false;
+
+
+ public:
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  Point() {}
+  // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
+  Point(apache::thrift::FragileConstructor, nebula::Coordinate coord__arg);
+
+  Point(Point&&) = default;
+
+  Point(const Point&) = default;
+
+
+  Point& operator=(Point&&) = default;
+
+  Point& operator=(const Point&) = default;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+  void __clear();
+ private:
+  nebula::Coordinate coord;
+
+ public:
+  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
+  struct __isset {
+    bool coord;
+  } __isset = {};
+  bool operator==(const Point& rhs) const;
+#ifndef SWIG
+  friend bool operator!=(const Point& __x, const Point& __y) {
+    return !(__x == __y);
+  }
+#endif
+  bool operator<(const Point& rhs) const;
+#ifndef SWIG
+  friend bool operator>(const Point& __x, const Point& __y) {
+    return __y < __x;
+  }
+  friend bool operator<=(const Point& __x, const Point& __y) {
+    return !(__y < __x);
+  }
+  friend bool operator>=(const Point& __x, const Point& __y) {
+    return !(__x < __y);
+  }
+#endif
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = nebula::Coordinate>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> coord_ref() const& {
+    return {this->coord, __isset.coord};
+  }
+
+  template <typename..., typename T = nebula::Coordinate>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> coord_ref() const&& {
+    return {std::move(this->coord), __isset.coord};
+  }
+
+  template <typename..., typename T = nebula::Coordinate>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> coord_ref() & {
+    return {this->coord, __isset.coord};
+  }
+
+  template <typename..., typename T = nebula::Coordinate>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> coord_ref() && {
+    return {std::move(this->coord), __isset.coord};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+  const nebula::Coordinate& get_coord() const&;
+  nebula::Coordinate get_coord() &&;
+
+  template <typename T_Point_coord_struct_setter = nebula::Coordinate>
+  nebula::Coordinate& set_coord(T_Point_coord_struct_setter&& coord_) {
+    coord = std::forward<T_Point_coord_struct_setter>(coord_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.coord = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return coord;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+
+ private:
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< Point >;
+  friend void swap(Point& a, Point& b);
+};
+
+template <class Protocol_>
+uint32_t Point::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCursorPosition();
+  readNoXfer(iprot);
+  return iprot->getCursorPosition() - _xferStart;
+}
+
+}} // nebula::cpp2
+namespace nebula { namespace cpp2 {
+class LineString final  {
+ private:
+  friend struct ::apache::thrift::detail::st::struct_private_access;
+
+  //  used by a static_assert in the corresponding source
+  static constexpr bool __fbthrift_cpp2_gen_json = false;
+  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
+  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
+
+ public:
+  using __fbthrift_cpp2_type = LineString;
+  static constexpr bool __fbthrift_cpp2_is_union =
+    false;
+
+
+ public:
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  LineString() {}
+  // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
+  LineString(apache::thrift::FragileConstructor, ::std::vector<nebula::Coordinate> coordList__arg);
+
+  LineString(LineString&&) = default;
+
+  LineString(const LineString&) = default;
+
+
+  LineString& operator=(LineString&&) = default;
+
+  LineString& operator=(const LineString&) = default;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+  void __clear();
+ private:
+  ::std::vector<nebula::Coordinate> coordList;
+
+ public:
+  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
+  struct __isset {
+    bool coordList;
+  } __isset = {};
+  bool operator==(const LineString& rhs) const;
+#ifndef SWIG
+  friend bool operator!=(const LineString& __x, const LineString& __y) {
+    return !(__x == __y);
+  }
+#endif
+  bool operator<(const LineString& rhs) const;
+#ifndef SWIG
+  friend bool operator>(const LineString& __x, const LineString& __y) {
+    return __y < __x;
+  }
+  friend bool operator<=(const LineString& __x, const LineString& __y) {
+    return !(__y < __x);
+  }
+  friend bool operator>=(const LineString& __x, const LineString& __y) {
+    return !(__x < __y);
+  }
+#endif
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::vector<nebula::Coordinate>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> coordList_ref() const& {
+    return {this->coordList, __isset.coordList};
+  }
+
+  template <typename..., typename T = ::std::vector<nebula::Coordinate>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> coordList_ref() const&& {
+    return {std::move(this->coordList), __isset.coordList};
+  }
+
+  template <typename..., typename T = ::std::vector<nebula::Coordinate>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> coordList_ref() & {
+    return {this->coordList, __isset.coordList};
+  }
+
+  template <typename..., typename T = ::std::vector<nebula::Coordinate>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> coordList_ref() && {
+    return {std::move(this->coordList), __isset.coordList};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+  const ::std::vector<nebula::Coordinate>& get_coordList() const&;
+  ::std::vector<nebula::Coordinate> get_coordList() &&;
+
+  template <typename T_LineString_coordList_struct_setter = ::std::vector<nebula::Coordinate>>
+  ::std::vector<nebula::Coordinate>& set_coordList(T_LineString_coordList_struct_setter&& coordList_) {
+    coordList = std::forward<T_LineString_coordList_struct_setter>(coordList_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.coordList = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return coordList;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+
+ private:
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< LineString >;
+  friend void swap(LineString& a, LineString& b);
+};
+
+template <class Protocol_>
+uint32_t LineString::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCursorPosition();
+  readNoXfer(iprot);
+  return iprot->getCursorPosition() - _xferStart;
+}
+
+}} // nebula::cpp2
+namespace nebula { namespace cpp2 {
+class Polygon final  {
+ private:
+  friend struct ::apache::thrift::detail::st::struct_private_access;
+
+  //  used by a static_assert in the corresponding source
+  static constexpr bool __fbthrift_cpp2_gen_json = false;
+  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
+  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
+
+ public:
+  using __fbthrift_cpp2_type = Polygon;
+  static constexpr bool __fbthrift_cpp2_is_union =
+    false;
+
+
+ public:
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  Polygon() {}
+  // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
+  Polygon(apache::thrift::FragileConstructor, ::std::vector<::std::vector<nebula::Coordinate>> coordListList__arg);
+
+  Polygon(Polygon&&) = default;
+
+  Polygon(const Polygon&) = default;
+
+
+  Polygon& operator=(Polygon&&) = default;
+
+  Polygon& operator=(const Polygon&) = default;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+  void __clear();
+ private:
+  ::std::vector<::std::vector<nebula::Coordinate>> coordListList;
+
+ public:
+  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
+  struct __isset {
+    bool coordListList;
+  } __isset = {};
+  bool operator==(const Polygon& rhs) const;
+#ifndef SWIG
+  friend bool operator!=(const Polygon& __x, const Polygon& __y) {
+    return !(__x == __y);
+  }
+#endif
+  bool operator<(const Polygon& rhs) const;
+#ifndef SWIG
+  friend bool operator>(const Polygon& __x, const Polygon& __y) {
+    return __y < __x;
+  }
+  friend bool operator<=(const Polygon& __x, const Polygon& __y) {
+    return !(__y < __x);
+  }
+  friend bool operator>=(const Polygon& __x, const Polygon& __y) {
+    return !(__x < __y);
+  }
+#endif
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::vector<::std::vector<nebula::Coordinate>>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> coordListList_ref() const& {
+    return {this->coordListList, __isset.coordListList};
+  }
+
+  template <typename..., typename T = ::std::vector<::std::vector<nebula::Coordinate>>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> coordListList_ref() const&& {
+    return {std::move(this->coordListList), __isset.coordListList};
+  }
+
+  template <typename..., typename T = ::std::vector<::std::vector<nebula::Coordinate>>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> coordListList_ref() & {
+    return {this->coordListList, __isset.coordListList};
+  }
+
+  template <typename..., typename T = ::std::vector<::std::vector<nebula::Coordinate>>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> coordListList_ref() && {
+    return {std::move(this->coordListList), __isset.coordListList};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+  const ::std::vector<::std::vector<nebula::Coordinate>>& get_coordListList() const&;
+  ::std::vector<::std::vector<nebula::Coordinate>> get_coordListList() &&;
+
+  template <typename T_Polygon_coordListList_struct_setter = ::std::vector<::std::vector<nebula::Coordinate>>>
+  ::std::vector<::std::vector<nebula::Coordinate>>& set_coordListList(T_Polygon_coordListList_struct_setter&& coordListList_) {
+    coordListList = std::forward<T_Polygon_coordListList_struct_setter>(coordListList_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.coordListList = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return coordListList;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+
+ private:
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< Polygon >;
+  friend void swap(Polygon& a, Polygon& b);
+};
+
+template <class Protocol_>
+uint32_t Polygon::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCursorPosition();
+  readNoXfer(iprot);
+  return iprot->getCursorPosition() - _xferStart;
+}
+
+}} // nebula::cpp2
+namespace nebula { namespace cpp2 {
 class Geography final  {
  private:
   friend struct ::apache::thrift::detail::st::struct_private_access;
@@ -3562,35 +4166,148 @@ class Geography final  {
  public:
   using __fbthrift_cpp2_type = Geography;
   static constexpr bool __fbthrift_cpp2_is_union =
-    false;
+    true;
 
 
  public:
+  enum Type : int {
+    __EMPTY__ = 0,
+    ptVal = 1,
+    lsVal = 2,
+    pgVal = 3,
+  } ;
 
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  Geography() {}
-  // FragileConstructor for use in initialization lists only.
-  [[deprecated("This constructor is deprecated")]]
-  Geography(apache::thrift::FragileConstructor, ::std::string wkb__arg);
+  Geography()
+      : type_(Type::__EMPTY__) {}
 
-  Geography(Geography&&) = default;
+  Geography(Geography&& rhs)
+      : type_(Type::__EMPTY__) {
+    if (this == &rhs) { return; }
+    if (rhs.type_ == Type::__EMPTY__) { return; }
+    switch (rhs.type_) {
+      case Type::ptVal:
+      {
+        set_ptVal(std::move(*rhs.value_.ptVal));
+        break;
+      }
+      case Type::lsVal:
+      {
+        set_lsVal(std::move(*rhs.value_.lsVal));
+        break;
+      }
+      case Type::pgVal:
+      {
+        set_pgVal(std::move(*rhs.value_.pgVal));
+        break;
+      }
+      default:
+      {
+        assert(false);
+        break;
+      }
+    }
+    rhs.__clear();
+  }
 
-  Geography(const Geography&) = default;
+  Geography(const Geography& rhs)
+      : type_(Type::__EMPTY__) {
+    if (this == &rhs) { return; }
+    if (rhs.type_ == Type::__EMPTY__) { return; }
+    switch (rhs.type_) {
+      case Type::ptVal:
+      {
+        set_ptVal(*rhs.value_.ptVal);
+        break;
+      }
+      case Type::lsVal:
+      {
+        set_lsVal(*rhs.value_.lsVal);
+        break;
+      }
+      case Type::pgVal:
+      {
+        set_pgVal(*rhs.value_.pgVal);
+        break;
+      }
+      default:
+      {
+        assert(false);
+        break;
+      }
+    }
+  }
 
+  Geography& operator=(Geography&& rhs) {
+    if (this == &rhs) { return *this; }
+    __clear();
+    if (rhs.type_ == Type::__EMPTY__) { return *this; }
+    switch (rhs.type_) {
+      case Type::ptVal:
+      {
+        set_ptVal(std::move(*rhs.value_.ptVal));
+        break;
+      }
+      case Type::lsVal:
+      {
+        set_lsVal(std::move(*rhs.value_.lsVal));
+        break;
+      }
+      case Type::pgVal:
+      {
+        set_pgVal(std::move(*rhs.value_.pgVal));
+        break;
+      }
+      default:
+      {
+        assert(false);
+        break;
+      }
+    }
+    rhs.__clear();
+    return *this;
+  }
 
-  Geography& operator=(Geography&&) = default;
-
-  Geography& operator=(const Geography&) = default;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
+  Geography& operator=(const Geography& rhs) {
+    if (this == &rhs) { return *this; }
+    __clear();
+    if (rhs.type_ == Type::__EMPTY__) { return *this; }
+    switch (rhs.type_) {
+      case Type::ptVal:
+      {
+        set_ptVal(*rhs.value_.ptVal);
+        break;
+      }
+      case Type::lsVal:
+      {
+        set_lsVal(*rhs.value_.lsVal);
+        break;
+      }
+      case Type::pgVal:
+      {
+        set_pgVal(*rhs.value_.pgVal);
+        break;
+      }
+      default:
+      {
+        assert(false);
+        break;
+      }
+    }
+    return *this;
+  }
   void __clear();
- private:
-  ::std::string wkb;
 
- public:
-  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
-  struct __isset {
-    bool wkb;
-  } __isset = {};
+  ~Geography() {
+    __clear();
+  }
+  union storage_type {
+    std::unique_ptr<nebula::Point> ptVal;
+    std::unique_ptr<nebula::LineString> lsVal;
+    std::unique_ptr<nebula::Polygon> pgVal;
+
+    storage_type() {}
+    ~storage_type() {}
+  } ;
   bool operator==(const Geography& rhs) const;
 #ifndef SWIG
   friend bool operator!=(const Geography& __x, const Geography& __y) {
@@ -3609,45 +4326,140 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     return !(__x < __y);
   }
 #endif
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> wkb_ref() const& {
-    return {this->wkb, __isset.wkb};
+  std::unique_ptr<nebula::Point>& set_ptVal(nebula::Point const &t);
+  std::unique_ptr<nebula::Point>& set_ptVal(nebula::Point&& t);
+  template<typename... T, typename = ::apache::thrift::safe_overload_t<nebula::Point, T...>> std::unique_ptr<nebula::Point>& set_ptVal(T&&... t) {
+    // defer resolution of ref_ in case ref_::element_type would here be incomplete
+    using ref_ = folly::conditional_t<(sizeof...(T) < size_t(-1)), std::unique_ptr<nebula::Point>, void>;
+    __clear();
+    type_ = Type::ptVal;
+    ::new (std::addressof(value_.ptVal)) ref_(new typename ref_::element_type(std::forward<T>(t)...));
+    return value_.ptVal;
+  }
+  std::unique_ptr<nebula::LineString>& set_lsVal(nebula::LineString const &t);
+  std::unique_ptr<nebula::LineString>& set_lsVal(nebula::LineString&& t);
+  template<typename... T, typename = ::apache::thrift::safe_overload_t<nebula::LineString, T...>> std::unique_ptr<nebula::LineString>& set_lsVal(T&&... t) {
+    // defer resolution of ref_ in case ref_::element_type would here be incomplete
+    using ref_ = folly::conditional_t<(sizeof...(T) < size_t(-1)), std::unique_ptr<nebula::LineString>, void>;
+    __clear();
+    type_ = Type::lsVal;
+    ::new (std::addressof(value_.lsVal)) ref_(new typename ref_::element_type(std::forward<T>(t)...));
+    return value_.lsVal;
+  }
+  std::unique_ptr<nebula::Polygon>& set_pgVal(nebula::Polygon const &t);
+  std::unique_ptr<nebula::Polygon>& set_pgVal(nebula::Polygon&& t);
+  template<typename... T, typename = ::apache::thrift::safe_overload_t<nebula::Polygon, T...>> std::unique_ptr<nebula::Polygon>& set_pgVal(T&&... t) {
+    // defer resolution of ref_ in case ref_::element_type would here be incomplete
+    using ref_ = folly::conditional_t<(sizeof...(T) < size_t(-1)), std::unique_ptr<nebula::Polygon>, void>;
+    __clear();
+    type_ = Type::pgVal;
+    ::new (std::addressof(value_.pgVal)) ref_(new typename ref_::element_type(std::forward<T>(t)...));
+    return value_.pgVal;
   }
 
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> wkb_ref() const&& {
-    return {std::move(this->wkb), __isset.wkb};
+  std::unique_ptr<nebula::Point> const & get_ptVal() const {
+    assert(type_ == Type::ptVal);
+    return value_.ptVal;
   }
 
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> wkb_ref() & {
-    return {this->wkb, __isset.wkb};
+  std::unique_ptr<nebula::LineString> const & get_lsVal() const {
+    assert(type_ == Type::lsVal);
+    return value_.lsVal;
   }
 
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> wkb_ref() && {
-    return {std::move(this->wkb), __isset.wkb};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-  const ::std::string& get_wkb() const& {
-    return wkb;
+  std::unique_ptr<nebula::Polygon> const & get_pgVal() const {
+    assert(type_ == Type::pgVal);
+    return value_.pgVal;
   }
 
-  ::std::string get_wkb() && {
-    return std::move(wkb);
+  std::unique_ptr<nebula::Point> & mutable_ptVal() {
+    assert(type_ == Type::ptVal);
+    return value_.ptVal;
   }
 
-  template <typename T_Geography_wkb_struct_setter = ::std::string>
-  ::std::string& set_wkb(T_Geography_wkb_struct_setter&& wkb_) {
-    wkb = std::forward<T_Geography_wkb_struct_setter>(wkb_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.wkb = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return wkb;
+  std::unique_ptr<nebula::LineString> & mutable_lsVal() {
+    assert(type_ == Type::lsVal);
+    return value_.lsVal;
   }
+
+  std::unique_ptr<nebula::Polygon> & mutable_pgVal() {
+    assert(type_ == Type::pgVal);
+    return value_.pgVal;
+  }
+
+  std::unique_ptr<nebula::Point> move_ptVal() {
+    assert(type_ == Type::ptVal);
+    return std::move(value_.ptVal);
+  }
+
+  std::unique_ptr<nebula::LineString> move_lsVal() {
+    assert(type_ == Type::lsVal);
+    return std::move(value_.lsVal);
+  }
+
+  std::unique_ptr<nebula::Polygon> move_pgVal() {
+    assert(type_ == Type::pgVal);
+    return std::move(value_.pgVal);
+  }
+
+  template <typename..., typename T = nebula::Point>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<const T&> ptVal_ref() const& {
+    return {value_.ptVal, type_, ptVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+
+  template <typename..., typename T = nebula::Point>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<const T&&> ptVal_ref() const&& {
+    return {std::move(value_.ptVal), type_, ptVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+
+  template <typename..., typename T = nebula::Point>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<T&> ptVal_ref() & {
+    return {value_.ptVal, type_, ptVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+
+  template <typename..., typename T = nebula::Point>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<T&&> ptVal_ref() && {
+    return {std::move(value_.ptVal), type_, ptVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+  template <typename..., typename T = nebula::LineString>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<const T&> lsVal_ref() const& {
+    return {value_.lsVal, type_, lsVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+
+  template <typename..., typename T = nebula::LineString>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<const T&&> lsVal_ref() const&& {
+    return {std::move(value_.lsVal), type_, lsVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+
+  template <typename..., typename T = nebula::LineString>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<T&> lsVal_ref() & {
+    return {value_.lsVal, type_, lsVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+
+  template <typename..., typename T = nebula::LineString>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<T&&> lsVal_ref() && {
+    return {std::move(value_.lsVal), type_, lsVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+  template <typename..., typename T = nebula::Polygon>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<const T&> pgVal_ref() const& {
+    return {value_.pgVal, type_, pgVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+
+  template <typename..., typename T = nebula::Polygon>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<const T&&> pgVal_ref() const&& {
+    return {std::move(value_.pgVal), type_, pgVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+
+  template <typename..., typename T = nebula::Polygon>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<T&> pgVal_ref() & {
+    return {value_.pgVal, type_, pgVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+
+  template <typename..., typename T = nebula::Polygon>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<T&&> pgVal_ref() && {
+    return {std::move(value_.pgVal), type_, pgVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+  Type getType() const { return static_cast<Type>(type_); }
 
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
@@ -3657,6 +4469,14 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
   uint32_t serializedSizeZC(Protocol_ const* prot_) const;
   template <class Protocol_>
   uint32_t write(Protocol_* prot_) const;
+ protected:
+  template <class T>
+  void destruct(T &val) {
+    (&val)->~T();
+  }
+
+  storage_type value_;
+  std::underlying_type_t<Type> type_;
 
  private:
   template <class Protocol_>
@@ -5839,6 +6659,20 @@ template <> struct TEnumTraits<::nebula::cpp2::Value::Type> {
   using type = ::nebula::cpp2::Value::Type;
 
   static constexpr std::size_t const size = 16;
+  static folly::Range<type const*> const values;
+  static folly::Range<folly::StringPiece const*> const names;
+
+  static char const* findName(type value);
+  static bool findValue(char const* name, type* out);
+
+};
+
+template <> struct TEnumDataStorage<::nebula::cpp2::Geography::Type>;
+
+template <> struct TEnumTraits<::nebula::cpp2::Geography::Type> {
+  using type = ::nebula::cpp2::Geography::Type;
+
+  static constexpr std::size_t const size = 3;
   static folly::Range<type const*> const values;
   static folly::Range<folly::StringPiece const*> const names;
 

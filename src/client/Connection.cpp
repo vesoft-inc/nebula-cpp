@@ -29,9 +29,7 @@ class NebulaConnectionErrMessageCallback : public folly::AsyncSocket::ErrMessage
    *                  a message read from error queue associated
    *                  with the socket.
    */
-  void errMessage(const cmsghdr &) noexcept override {
-    DLOG(ERROR) << "Connection error.";
-  }
+  void errMessage(const cmsghdr &) noexcept override { DLOG(ERROR) << "Connection error."; }
 
   /**
    * errMessageError() will be invoked if an error occurs reading a message
@@ -204,6 +202,13 @@ void Connection::signout(int64_t sessionId) {
   if (client_ != nullptr) {
     client_->future_signout(sessionId).wait();
   }
+}
+
+VerifyClientVersionResp Connection::verifyClientVersion(const VerifyClientVersionReq &req) {
+  if (client_ == nullptr) {
+    return VerifyClientVersionResp{ErrorCode::E_DISCONNECTED, "Not open connection."};
+  }
+  return client_->future_verifyClientVersion(req);
 }
 
 }  // namespace nebula

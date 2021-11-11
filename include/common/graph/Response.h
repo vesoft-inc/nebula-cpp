@@ -400,4 +400,14 @@ struct ExecutionResponse {
   std::unique_ptr<std::string> comment{nullptr};
 };
 
+struct VerifyClientVersionResp {
+  ErrorCode errorCode{ErrorCode::SUCCEEDED};
+  std::unique_ptr<std::string> errorMsg{nullptr};
+};
+
+struct VerifyClientVersionReq {
+  // TODO initialize when build
+  std::string version{"2.6.0"};
+};
+
 }  // namespace nebula
