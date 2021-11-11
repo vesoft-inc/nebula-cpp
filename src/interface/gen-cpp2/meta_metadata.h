@@ -37,11 +37,6 @@ class EnumMetadata<::nebula::meta::cpp2::GeoShape> {
   static void gen(ThriftMetadata& metadata);
 };
 template <>
-class EnumMetadata<::nebula::meta::cpp2::PropertyType> {
- public:
-  static void gen(ThriftMetadata& metadata);
-};
-template <>
 class EnumMetadata<::nebula::meta::cpp2::IsolationLevel> {
  public:
   static void gen(ThriftMetadata& metadata);

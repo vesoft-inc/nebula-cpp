@@ -21,6 +21,11 @@ class EnumMetadata<::nebula::cpp2::NullType> {
   static void gen(ThriftMetadata& metadata);
 };
 template <>
+class EnumMetadata<::nebula::cpp2::PropertyType> {
+ public:
+  static void gen(ThriftMetadata& metadata);
+};
+template <>
 class EnumMetadata<::nebula::cpp2::ErrorCode> {
  public:
   static void gen(ThriftMetadata& metadata);
@@ -72,6 +77,26 @@ class StructMetadata<::nebula::cpp2::Row> {
 };
 template <>
 class StructMetadata<::nebula::cpp2::DataSet> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
+class StructMetadata<::nebula::cpp2::Coordinate> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
+class StructMetadata<::nebula::cpp2::Point> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
+class StructMetadata<::nebula::cpp2::LineString> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
+class StructMetadata<::nebula::cpp2::Polygon> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };

@@ -200,12 +200,70 @@ struct VisitByThriftId<::nebula::cpp2::DataSet> {
 };
 
 template <>
+struct VisitByThriftId<::nebula::cpp2::Coordinate> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).x_ref());
+    case 2:
+      return f(1, static_cast<T&&>(t).y_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::cpp2::Coordinate");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::cpp2::Point> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).coord_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::cpp2::Point");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::cpp2::LineString> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).coordList_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::cpp2::LineString");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::cpp2::Polygon> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).coordListList_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::cpp2::Polygon");
+    }
+  }
+};
+
+template <>
 struct VisitByThriftId<::nebula::cpp2::Geography> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
     switch (id) {
     case 1:
-      return f(0, static_cast<T&&>(t).wkb_ref());
+      return f(0, static_cast<T&&>(t).ptVal_ref());
+    case 2:
+      return f(1, static_cast<T&&>(t).lsVal_ref());
+    case 3:
+      return f(2, static_cast<T&&>(t).pgVal_ref());
     default:
       throwInvalidThriftId(id, "::nebula::cpp2::Geography");
     }

@@ -24,6 +24,13 @@ namespace std {
 
 } // std
 
+namespace nebula { namespace cpp2 {
+
+}} // nebula::cpp2
+namespace std {
+
+} // std
+
 
 namespace apache {
 namespace thrift {
@@ -94,6 +101,34 @@ struct TccStructTraits<::nebula::cpp2::Row> {
 };
 template <>
 struct TccStructTraits<::nebula::cpp2::DataSet> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
+struct TccStructTraits<::nebula::cpp2::Coordinate> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
+struct TccStructTraits<::nebula::cpp2::Point> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
+struct TccStructTraits<::nebula::cpp2::LineString> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
+struct TccStructTraits<::nebula::cpp2::Polygon> {
   static void translateFieldName(
       folly::StringPiece _fname,
       int16_t& fid,
@@ -1196,7 +1231,7 @@ void Value::readNoXfer(Protocol_* iprot) {
           this->set_ggVal();
           _readState.beforeSubobject(iprot);
           std::unique_ptr<nebula::Geography> ptr = std::make_unique<nebula::Geography>();
-          ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Geography>::readWithContext(*iprot, *ptr, _readState);
+          ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::variant, nebula::Geography>::readWithContext(*iprot, *ptr, _readState);
           this->mutable_ggVal() = std::move(ptr);
           _readState.afterSubobject(iprot);
         } else {
@@ -1360,7 +1395,7 @@ uint32_t Value::serializedSize(Protocol_ const* prot_) const {
     {
       xfer += prot_->serializedFieldSize("ggVal", apache::thrift::protocol::T_STRUCT, 16);
       if (this->get_ggVal()) {
-        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Geography>::serializedSize<false>(*prot_, *this->get_ggVal());
+        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::variant, nebula::Geography>::serializedSize<false>(*prot_, *this->get_ggVal());
       }
       else {
         xfer += prot_->serializedStructSize("Geography");
@@ -1515,7 +1550,7 @@ uint32_t Value::serializedSizeZC(Protocol_ const* prot_) const {
     {
       xfer += prot_->serializedFieldSize("ggVal", apache::thrift::protocol::T_STRUCT, 16);
       if (this->get_ggVal()) {
-        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Geography>::serializedSize<true>(*prot_, *this->get_ggVal());
+        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::variant, nebula::Geography>::serializedSize<true>(*prot_, *this->get_ggVal());
       }
       else {
         xfer += prot_->serializedStructSize("Geography");
@@ -1692,7 +1727,7 @@ uint32_t Value::write(Protocol_* prot_) const {
     {
       xfer += prot_->writeFieldBegin("ggVal", apache::thrift::protocol::T_STRUCT, 16);
       if (this->get_ggVal()) {
-        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Geography>::write(*prot_, *this->get_ggVal());
+        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::variant, nebula::Geography>::write(*prot_, *this->get_ggVal());
       }
       else {
         xfer += prot_->writeStructBegin("Geography");
@@ -2320,7 +2355,7 @@ extern template uint32_t DataSet::serializedSizeZC<>(apache::thrift::CompactProt
 namespace nebula { namespace cpp2 {
 
 template <class Protocol_>
-void Geography::readNoXfer(Protocol_* iprot) {
+void Coordinate::readNoXfer(Protocol_* iprot) {
   apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
 
   _readState.readStructBegin(iprot);
@@ -2332,15 +2367,157 @@ void Geography::readNoXfer(Protocol_* iprot) {
           iprot,
           0,
           1,
-          apache::thrift::protocol::T_STRING))) {
+          apache::thrift::protocol::T_DOUBLE))) {
     goto _loop;
   }
-_readField_wkb:
+_readField_x:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::string, ::std::string>::readWithContext(*iprot, this->wkb, _readState);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::floating_point, double>::readWithContext(*iprot, this->x, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.wkb = true;
+    this->__isset.x = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          2,
+          apache::thrift::protocol::T_DOUBLE))) {
+    goto _loop;
+  }
+_readField_y:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::floating_point, double>::readWithContext(*iprot, this->y, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.y = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          2,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<Coordinate>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_DOUBLE))) {
+        goto _readField_x;
+      } else {
+        goto _skip;
+      }
+    }
+    case 2:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_DOUBLE))) {
+        goto _readField_y;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t Coordinate::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("Coordinate");
+  xfer += prot_->serializedFieldSize("x", apache::thrift::protocol::T_DOUBLE, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::floating_point, double>::serializedSize<false>(*prot_, this->x);
+  xfer += prot_->serializedFieldSize("y", apache::thrift::protocol::T_DOUBLE, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::floating_point, double>::serializedSize<false>(*prot_, this->y);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t Coordinate::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("Coordinate");
+  xfer += prot_->serializedFieldSize("x", apache::thrift::protocol::T_DOUBLE, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::floating_point, double>::serializedSize<false>(*prot_, this->x);
+  xfer += prot_->serializedFieldSize("y", apache::thrift::protocol::T_DOUBLE, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::floating_point, double>::serializedSize<false>(*prot_, this->y);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t Coordinate::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("Coordinate");
+  xfer += prot_->writeFieldBegin("x", apache::thrift::protocol::T_DOUBLE, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::floating_point, double>::write(*prot_, this->x);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("y", apache::thrift::protocol::T_DOUBLE, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::floating_point, double>::write(*prot_, this->y);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void Coordinate::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t Coordinate::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t Coordinate::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t Coordinate::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void Coordinate::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t Coordinate::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t Coordinate::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t Coordinate::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}} // nebula::cpp2
+namespace nebula { namespace cpp2 {
+
+template <class Protocol_>
+void Point::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_STRUCT))) {
+    goto _loop;
+  }
+_readField_coord:
+  {
+    _readState.beforeSubobject(iprot);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Coordinate>::readWithContext(*iprot, this->coord, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.coord = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
   }
 
   if (UNLIKELY(!_readState.advanceToNextField(
@@ -2362,14 +2539,14 @@ _loop:
     goto _end;
   }
   if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<Geography>>();
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<Point>>();
   }
 
   switch (_readState.fieldId) {
     case 1:
     {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_wkb;
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
+        goto _readField_coord;
       } else {
         goto _skip;
       }
@@ -2386,11 +2563,390 @@ _skip:
 }
 
 template <class Protocol_>
+uint32_t Point::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("Point");
+  xfer += prot_->serializedFieldSize("coord", apache::thrift::protocol::T_STRUCT, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Coordinate>::serializedSize<false>(*prot_, this->coord);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t Point::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("Point");
+  xfer += prot_->serializedFieldSize("coord", apache::thrift::protocol::T_STRUCT, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Coordinate>::serializedSize<true>(*prot_, this->coord);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t Point::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("Point");
+  xfer += prot_->writeFieldBegin("coord", apache::thrift::protocol::T_STRUCT, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Coordinate>::write(*prot_, this->coord);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void Point::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t Point::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t Point::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t Point::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void Point::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t Point::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t Point::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t Point::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}} // nebula::cpp2
+namespace nebula { namespace cpp2 {
+
+template <class Protocol_>
+void LineString::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_LIST))) {
+    goto _loop;
+  }
+_readField_coordList:
+  {
+    _readState.beforeSubobject(iprot);
+    this->coordList = ::std::vector<nebula::Coordinate>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::Coordinate>>::readWithContext(*iprot, this->coordList, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.coordList = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<LineString>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_coordList;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t LineString::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("LineString");
+  xfer += prot_->serializedFieldSize("coordList", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::Coordinate>>::serializedSize<false>(*prot_, this->coordList);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t LineString::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("LineString");
+  xfer += prot_->serializedFieldSize("coordList", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::Coordinate>>::serializedSize<false>(*prot_, this->coordList);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t LineString::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("LineString");
+  xfer += prot_->writeFieldBegin("coordList", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::Coordinate>>::write(*prot_, this->coordList);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void LineString::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t LineString::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t LineString::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t LineString::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void LineString::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t LineString::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t LineString::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t LineString::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}} // nebula::cpp2
+namespace nebula { namespace cpp2 {
+
+template <class Protocol_>
+void Polygon::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_LIST))) {
+    goto _loop;
+  }
+_readField_coordListList:
+  {
+    _readState.beforeSubobject(iprot);
+    this->coordListList = ::std::vector<::std::vector<nebula::Coordinate>>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>, ::std::vector<::std::vector<nebula::Coordinate>>>::readWithContext(*iprot, this->coordListList, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.coordListList = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<Polygon>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_coordListList;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t Polygon::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("Polygon");
+  xfer += prot_->serializedFieldSize("coordListList", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>, ::std::vector<::std::vector<nebula::Coordinate>>>::serializedSize<false>(*prot_, this->coordListList);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t Polygon::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("Polygon");
+  xfer += prot_->serializedFieldSize("coordListList", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>, ::std::vector<::std::vector<nebula::Coordinate>>>::serializedSize<false>(*prot_, this->coordListList);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t Polygon::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("Polygon");
+  xfer += prot_->writeFieldBegin("coordListList", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>, ::std::vector<::std::vector<nebula::Coordinate>>>::write(*prot_, this->coordListList);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void Polygon::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t Polygon::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t Polygon::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t Polygon::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void Polygon::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t Polygon::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t Polygon::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t Polygon::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}} // nebula::cpp2
+namespace nebula { namespace cpp2 {
+
+template <class Protocol_>
+void Geography::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+  _readState.fieldId = 0;
+
+  _readState.readStructBegin(iprot);
+
+  _readState.readFieldBegin(iprot);
+  if (_readState.atStop()) {
+    this->__clear();
+  } else {
+    if (iprot->kUsesFieldNames()) {
+      _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<Geography>>();
+    }
+    switch (_readState.fieldId) {
+      case 1:
+      {
+        if (_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT)) {
+          this->set_ptVal();
+          _readState.beforeSubobject(iprot);
+          std::unique_ptr<nebula::Point> ptr = std::make_unique<nebula::Point>();
+          ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Point>::readWithContext(*iprot, *ptr, _readState);
+          this->mutable_ptVal() = std::move(ptr);
+          _readState.afterSubobject(iprot);
+        } else {
+          _readState.skip(iprot);
+        }
+        break;
+      }
+      case 2:
+      {
+        if (_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT)) {
+          this->set_lsVal();
+          _readState.beforeSubobject(iprot);
+          std::unique_ptr<nebula::LineString> ptr = std::make_unique<nebula::LineString>();
+          ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::LineString>::readWithContext(*iprot, *ptr, _readState);
+          this->mutable_lsVal() = std::move(ptr);
+          _readState.afterSubobject(iprot);
+        } else {
+          _readState.skip(iprot);
+        }
+        break;
+      }
+      case 3:
+      {
+        if (_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT)) {
+          this->set_pgVal();
+          _readState.beforeSubobject(iprot);
+          std::unique_ptr<nebula::Polygon> ptr = std::make_unique<nebula::Polygon>();
+          ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Polygon>::readWithContext(*iprot, *ptr, _readState);
+          this->mutable_pgVal() = std::move(ptr);
+          _readState.afterSubobject(iprot);
+        } else {
+          _readState.skip(iprot);
+        }
+        break;
+      }
+      default:
+      {
+        _readState.skip(iprot);
+        break;
+      }
+    }
+    _readState.readFieldEnd(iprot);
+    _readState.readFieldBegin(iprot);
+    if (UNLIKELY(!_readState.atStop())) {
+      using apache::thrift::protocol::TProtocolException;
+      TProtocolException::throwUnionMissingStop();
+    }
+  }
+  _readState.readStructEnd(iprot);
+}
+template <class Protocol_>
 uint32_t Geography::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("Geography");
-  xfer += prot_->serializedFieldSize("wkb", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::string, ::std::string>::serializedSize<false>(*prot_, this->wkb);
+  switch(this->getType()) {
+    case Geography::Type::ptVal:
+    {
+      xfer += prot_->serializedFieldSize("ptVal", apache::thrift::protocol::T_STRUCT, 1);
+      if (this->get_ptVal()) {
+        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Point>::serializedSize<false>(*prot_, *this->get_ptVal());
+      }
+      else {
+        xfer += prot_->serializedStructSize("Point");
+        xfer += prot_->serializedSizeStop();
+      }
+      break;
+    }
+    case Geography::Type::lsVal:
+    {
+      xfer += prot_->serializedFieldSize("lsVal", apache::thrift::protocol::T_STRUCT, 2);
+      if (this->get_lsVal()) {
+        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::LineString>::serializedSize<false>(*prot_, *this->get_lsVal());
+      }
+      else {
+        xfer += prot_->serializedStructSize("LineString");
+        xfer += prot_->serializedSizeStop();
+      }
+      break;
+    }
+    case Geography::Type::pgVal:
+    {
+      xfer += prot_->serializedFieldSize("pgVal", apache::thrift::protocol::T_STRUCT, 3);
+      if (this->get_pgVal()) {
+        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Polygon>::serializedSize<false>(*prot_, *this->get_pgVal());
+      }
+      else {
+        xfer += prot_->serializedStructSize("Polygon");
+        xfer += prot_->serializedSizeStop();
+      }
+      break;
+    }
+    case Geography::Type::__EMPTY__:;
+  }
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -2399,8 +2955,45 @@ template <class Protocol_>
 uint32_t Geography::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("Geography");
-  xfer += prot_->serializedFieldSize("wkb", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::string, ::std::string>::serializedSize<false>(*prot_, this->wkb);
+  switch(this->getType()) {
+    case Geography::Type::ptVal:
+    {
+      xfer += prot_->serializedFieldSize("ptVal", apache::thrift::protocol::T_STRUCT, 1);
+      if (this->get_ptVal()) {
+        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Point>::serializedSize<true>(*prot_, *this->get_ptVal());
+      }
+      else {
+        xfer += prot_->serializedStructSize("Point");
+        xfer += prot_->serializedSizeStop();
+      }
+      break;
+    }
+    case Geography::Type::lsVal:
+    {
+      xfer += prot_->serializedFieldSize("lsVal", apache::thrift::protocol::T_STRUCT, 2);
+      if (this->get_lsVal()) {
+        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::LineString>::serializedSize<true>(*prot_, *this->get_lsVal());
+      }
+      else {
+        xfer += prot_->serializedStructSize("LineString");
+        xfer += prot_->serializedSizeStop();
+      }
+      break;
+    }
+    case Geography::Type::pgVal:
+    {
+      xfer += prot_->serializedFieldSize("pgVal", apache::thrift::protocol::T_STRUCT, 3);
+      if (this->get_pgVal()) {
+        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Polygon>::serializedSize<true>(*prot_, *this->get_pgVal());
+      }
+      else {
+        xfer += prot_->serializedStructSize("Polygon");
+        xfer += prot_->serializedSizeStop();
+      }
+      break;
+    }
+    case Geography::Type::__EMPTY__:;
+  }
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -2409,9 +3002,51 @@ template <class Protocol_>
 uint32_t Geography::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->writeStructBegin("Geography");
-  xfer += prot_->writeFieldBegin("wkb", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::string, ::std::string>::write(*prot_, this->wkb);
-  xfer += prot_->writeFieldEnd();
+  switch(this->getType()) {
+    case Geography::Type::ptVal:
+    {
+      xfer += prot_->writeFieldBegin("ptVal", apache::thrift::protocol::T_STRUCT, 1);
+      if (this->get_ptVal()) {
+        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Point>::write(*prot_, *this->get_ptVal());
+      }
+      else {
+        xfer += prot_->writeStructBegin("Point");
+        xfer += prot_->writeStructEnd();
+        xfer += prot_->writeFieldStop();
+      }
+      xfer += prot_->writeFieldEnd();
+      break;
+    }
+    case Geography::Type::lsVal:
+    {
+      xfer += prot_->writeFieldBegin("lsVal", apache::thrift::protocol::T_STRUCT, 2);
+      if (this->get_lsVal()) {
+        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::LineString>::write(*prot_, *this->get_lsVal());
+      }
+      else {
+        xfer += prot_->writeStructBegin("LineString");
+        xfer += prot_->writeStructEnd();
+        xfer += prot_->writeFieldStop();
+      }
+      xfer += prot_->writeFieldEnd();
+      break;
+    }
+    case Geography::Type::pgVal:
+    {
+      xfer += prot_->writeFieldBegin("pgVal", apache::thrift::protocol::T_STRUCT, 3);
+      if (this->get_pgVal()) {
+        xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::Polygon>::write(*prot_, *this->get_pgVal());
+      }
+      else {
+        xfer += prot_->writeStructBegin("Polygon");
+        xfer += prot_->writeStructEnd();
+        xfer += prot_->writeFieldStop();
+      }
+      xfer += prot_->writeFieldEnd();
+      break;
+    }
+    case Geography::Type::__EMPTY__:;
+  }
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
   return xfer;
