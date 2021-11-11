@@ -12,6 +12,7 @@
 #include <nebula/client/ConnectionPool.h>
 #include <nebula/client/Init.h>
 #include <nebula/client/Session.h>
+#include <common/datatypes/Geography.h>
 
 #include <atomic>
 #include <chrono>
@@ -138,6 +139,55 @@ TEST_F(SessionTest, InvalidAddress) {
   nebula::Config c;
   pool.init({"xxxx"}, c);
   EXPECT_EQ(pool.size(), 0);
+}
+
+TEST_F(SessionTest, Data) {
+  nebula::ConnectionPool pool;
+  nebula::Config c{10, 0, 100, 0, "", false};
+  pool.init({kServerHost ":9669"}, c);
+  auto session = pool.getSession("root", "nebula");
+  ASSERT_TRUE(session.valid());
+
+  auto resp = session.execute(
+      "CREATE SPACE IF NOT EXISTS data_test(vid_type = FIXED_STRING(16));"
+      "USE data_test;"
+      "CREATE TAG IF NOT EXISTS  geo(any_shape Geography, only_point Geography(point), "
+      "only_lineString Geography(linestring), only_polygon Geography(polygon));");
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
+  ::sleep(30);
+
+  resp = session.execute(
+      "INSERT VERTEX geo VALUES 'v101':(ST_Point(3, 8), ST_Point(4, 6), "
+      "ST_GeogFromText('LINESTRING(0 1, 2 3)'), ST_GeogFromText('POLYGON((0 1, 1 2, 2 3, 0 1))'))");
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
+  // execute
+  resp = session.execute(
+      "FETCH PROP ON geo 'v101' YIELD geo.any_shape, geo.only_point, geo.only_lineString, "
+      "geo.only_polygon");
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+  nebula::DataSet expected(
+      {"geo.any_shape", "geo.only_point", "geo.only_lineString", "geo.only_polygon"});
+  nebula::Geography geogPoint1(nebula::Point(nebula::Coordinate(3, 8)));
+  nebula::Geography geogPoint2(nebula::Point(nebula::Coordinate(4, 6)));
+  nebula::Geography geogLineString(nebula::LineString(
+      std::vector<nebula::Coordinate>{nebula::Coordinate(0, 1), nebula::Coordinate(2, 3)}));
+  nebula::Geography geogPolygon(nebula::Polygon(std::vector<std::vector<nebula::Coordinate>>{
+      std::vector<nebula::Coordinate>{nebula::Coordinate(0, 1),
+                                      nebula::Coordinate(1, 2),
+                                      nebula::Coordinate(2, 3),
+                                      nebula::Coordinate(0, 1)}}));
+  expected.emplace_back(
+      nebula::List({geogPoint1, geogPoint2, geogLineString, geogPolygon}));
+  EXPECT_TRUE(verifyResultWithoutOrder(*resp.data, expected));
+  EXPECT_EQ(geogPoint1.toString(), "POINT(3 8)");
+  EXPECT_EQ(geogPoint2.toString(), "POINT(4 6)");
+  EXPECT_EQ(geogLineString.toString(), "LINESTRING(0 1, 2 3)");
+  EXPECT_EQ(geogPolygon.toString(), "POLYGON((0 1, 1 2, 2 3, 0 1))");
+
+  resp = session.execute("DROP SPACE IF EXISTS data_test");
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 }
 
 TEST_F(SessionTest, Timeout) {
