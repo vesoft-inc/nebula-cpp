@@ -15,4 +15,3 @@ enum class ByteOrder : uint8_t {
 
 }  // namespace geo
 }  // namespace nebula
-

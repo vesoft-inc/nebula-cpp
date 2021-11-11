@@ -100,7 +100,14 @@ bool Connection::open(const std::string &address,
           complete = false;
         }
       });
-  return complete;
+  if (!complete) {
+    return complete;
+  }
+  auto resp = verifyClientVersion(VerifyClientVersionReq{});
+  if (resp.errorCode != ErrorCode::SUCCEEDED) {
+    return false;
+  }
+  return true;
 }
 
 AuthResponse Connection::authenticate(const std::string &user, const std::string &password) {
@@ -206,9 +213,15 @@ void Connection::signout(int64_t sessionId) {
 
 VerifyClientVersionResp Connection::verifyClientVersion(const VerifyClientVersionReq &req) {
   if (client_ == nullptr) {
-    return VerifyClientVersionResp{ErrorCode::E_DISCONNECTED, "Not open connection."};
+    return VerifyClientVersionResp{ErrorCode::E_DISCONNECTED,
+                                   std::make_unique<std::string>("Not open connection.")};
   }
-  return client_->future_verifyClientVersion(req);
+  try {
+    return client_->future_verifyClientVersion(req).get();
+  } catch (const std::exception &ex) {
+    return VerifyClientVersionResp{ErrorCode::E_RPC_FAILURE,
+                                   std::make_unique<std::string>(ex.what())};
+  }
 }
 
 }  // namespace nebula

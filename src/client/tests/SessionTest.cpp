@@ -3,6 +3,7 @@
  * This source code is licensed under Apache 2.0 License.
  */
 
+#include <common/datatypes/Geography.h>
 #include <folly/json.h>
 #include <folly/synchronization/Baton.h>
 #include <glog/logging.h>
@@ -12,7 +13,6 @@
 #include <nebula/client/ConnectionPool.h>
 #include <nebula/client/Init.h>
 #include <nebula/client/Session.h>
-#include <common/datatypes/Geography.h>
 
 #include <atomic>
 #include <chrono>
@@ -178,8 +178,7 @@ TEST_F(SessionTest, Data) {
                                       nebula::Coordinate(1, 2),
                                       nebula::Coordinate(2, 3),
                                       nebula::Coordinate(0, 1)}}));
-  expected.emplace_back(
-      nebula::List({geogPoint1, geogPoint2, geogLineString, geogPolygon}));
+  expected.emplace_back(nebula::List({geogPoint1, geogPoint2, geogLineString, geogPolygon}));
   EXPECT_TRUE(verifyResultWithoutOrder(*resp.data, expected));
   EXPECT_EQ(geogPoint1.toString(), "POINT(3 8)");
   EXPECT_EQ(geogPoint2.toString(), "POINT(4 6)");

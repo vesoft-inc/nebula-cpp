@@ -12,7 +12,7 @@
 #include <memory>
 
 #include "common/graph/GraphCpp2Ops.h"
-#include "common/graph/Reqonse.h"
+#include "common/graph/Response.h"
 #include "common/utils/utils.h"
 
 namespace apache {
