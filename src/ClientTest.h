@@ -5,6 +5,9 @@
 
 #pragma once
 
+#include "common/datatypes/DataSet.h"
+#include "common/graph/Response.h"
+
 #include <gtest/gtest.h>
 class ClientTest : public ::testing::Test {
  protected:

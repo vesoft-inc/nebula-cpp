@@ -10,7 +10,7 @@
 #include <nebula/client/Init.h>
 #include <nebula/client/Session.h>
 
-#include "./ClientTest.h"
+#include "../../ClientTest.h"
 
 // Require a nebula server could access
 

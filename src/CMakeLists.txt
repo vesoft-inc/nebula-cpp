@@ -7,6 +7,12 @@ set(NEBULA_CLIENT_OBJS
     $<TARGET_OBJECTS:graph_thrift_obj>
 )
 
+set(NEBULA_SCLIENT_OBJS
+    $<TARGET_OBJECTS:common_thrift_obj>
+    $<TARGET_OBJECTS:meta_thrift_obj>
+    $<TARGET_OBJECTS:storage_thrift_obj>
+)
+
 set(NEBULA_CLIENT_SOURCES
     client/Connection.cpp
     client/Init.cpp
@@ -25,6 +31,26 @@ set(NEBULA_CLIENT_SOURCES
     datatypes/Vertex.cpp
     graph/Response.cpp
     time/TimeConversion.cpp
+    geo/io/wkt/WKTWriter.cpp
+    geo/io/wkb/WKBWriter.cpp
+    geo/io/wkb/ByteOrderDataIOStream.cpp
+)
+
+set(NEBULA_SCLIENT_SOURCES
+    mclient/MetaClient.cpp
+    sclient/StorageClient.cpp
+    sclient/ScanEdgeIter.cpp
+    sclient/Init.cpp
+    datatypes/Date.cpp
+    datatypes/Edge.cpp
+    datatypes/Geography.cpp
+    datatypes/HostAddr.cpp
+    datatypes/List.cpp
+    datatypes/Map.cpp
+    datatypes/Path.cpp
+    datatypes/Set.cpp
+    datatypes/Value.cpp
+    datatypes/Vertex.cpp
     geo/io/wkt/WKTWriter.cpp
     geo/io/wkb/WKBWriter.cpp
     geo/io/wkb/ByteOrderDataIOStream.cpp
@@ -70,8 +96,19 @@ nebula_add_library(
     ${NEBULA_CLIENT_SOURCES}
 )
 
+nebula_add_library(
+    nebula_storage_client SHARED
+    ${NEBULA_SCLIENT_OBJS}
+    ${NEBULA_SCLIENT_SOURCES}
+)
+
 target_link_libraries(
     nebula_graph_client
+    ${NEBULA_CLIENT_LIBRARIES}
+)
+
+target_link_libraries(
+    nebula_storage_client
     ${NEBULA_CLIENT_LIBRARIES}
 )
 
@@ -80,9 +117,21 @@ install(
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )
 
+install(
+    TARGETS nebula_storage_client
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+)
+
 nebula_add_library(
     nebula_graph_client_obj OBJECT
     ${NEBULA_CLIENT_SOURCES}
 )
 
+nebula_add_library(
+    nebula_storage_client_obj OBJECT
+    ${NEBULA_SCLIENT_SOURCES}
+)
+
 nebula_add_subdirectory(client)
+nebula_add_subdirectory(sclient)
+nebula_add_subdirectory(mclient)

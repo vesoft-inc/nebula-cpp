@@ -15,7 +15,7 @@
 #include <chrono>
 #include <thread>
 
-#include "./ClientTest.h"
+#include "../../ClientTest.h"
 
 // Require a nebula server could access
 

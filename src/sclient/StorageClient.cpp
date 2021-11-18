@@ -1,0 +1,132 @@
+/* Copyright (c) 2020 vesoft inc. All rights reserved.
+ *
+ * This source code is licensed under Apache 2.0 License.
+ */
+
+#include "nebula/sclient/StorageClient.h"
+
+#include <folly/executors/IOThreadPoolExecutor.h>
+
+#include "../thrift/ThriftClientManager.h"
+#include "interface/gen-cpp2/GraphStorageServiceAsyncClient.h"
+#include "interface/gen-cpp2/storage_types.h"
+
+namespace nebula {
+
+StorageClient::StorageClient(const std::vector<std::string>& metaAddrs) {
+  mClient_ = std::make_unique<MetaClient>(metaAddrs);
+  ioExecutor_ = std::make_shared<folly::IOThreadPoolExecutor>(std::thread::hardware_concurrency());
+  clientsMan_ =
+      std::make_shared<thrift::ThriftClientManager<storage::cpp2::GraphStorageServiceAsyncClient>>(
+          false);
+}
+
+StorageClient::~StorageClient() = default;
+
+std::vector<PartitionID> StorageClient::getParts(const std::string& spaceName) {
+  auto spaceIdResult = mClient_->getSpaceIdByNameFromCache(spaceName);
+  if (!spaceIdResult.first) {
+    return {};
+  }
+  int32_t spaceId = spaceIdResult.second;
+  auto ret = mClient_->getPartsFromCache(spaceId);
+  if (!ret.first) {
+    return {};
+  }
+  return ret.second;
+}
+
+ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
+                                             PartitionID partId,
+                                             std::string edgeName,
+                                             std::vector<std::string> propNames,
+                                             int64_t limit,
+                                             int64_t startTime,
+                                             int64_t endTime,
+                                             std::string filter,
+                                             bool onlyLatestVersion,
+                                             bool enableReadFromFollower) {
+  auto spaceIdResult = mClient_->getSpaceIdByNameFromCache(spaceName);
+  if (!spaceIdResult.first) {
+    return ScanEdgeIter(nullptr, nullptr, false);
+  }
+  int32_t spaceId = spaceIdResult.second;
+  auto edgeTypeResult = mClient_->getEdgeTypeByNameFromCache(spaceId, edgeName);
+  if (!edgeTypeResult.second) {
+    return ScanEdgeIter(nullptr, nullptr, false);
+  }
+  int32_t edgeType = edgeTypeResult.second;
+
+  storage::cpp2::EdgeProp returnCols;
+  returnCols.set_type(edgeType);
+  returnCols.set_props(propNames);
+
+  auto* req = new storage::cpp2::ScanEdgeRequest;
+  req->set_space_id(spaceId);
+  // req->set_parts(std::unordered_map<PartitionID, storage::cpp2::ScanCursor>{{partId, ""}});
+  req->set_part_id(partId);
+  req->set_cursor("");
+  req->set_return_columns(returnCols);
+  req->set_limit(limit);
+  req->set_start_time(startTime);
+  req->set_end_time(endTime);
+  req->set_filter(filter);
+  req->set_only_latest_version(onlyLatestVersion);
+  req->set_enable_read_from_follower(enableReadFromFollower);
+
+  return ScanEdgeIter(this, req);
+}
+
+std::pair<bool, storage::cpp2::ScanEdgeResponse> StorageClient::doScanEdge(
+    const storage::cpp2::ScanEdgeRequest& req) {
+  std::pair<HostAddr, storage::cpp2::ScanEdgeRequest> request;
+  auto host = mClient_->getPartLeaderFromCache(req.get_space_id(), req.get_part_id());
+  if (!host.first) {
+    return {false, storage::cpp2::ScanEdgeResponse()};
+  }
+  request.first = host.second;
+  request.second = req;
+
+  folly::Promise<std::pair<bool, storage::cpp2::ScanEdgeResponse>> promise;
+  auto future = promise.getFuture();
+  getResponse(
+      std::move(request),
+      [](storage::cpp2::GraphStorageServiceAsyncClient* client,
+         const storage::cpp2::ScanEdgeRequest& r) { return client->future_scanEdge(r); },
+      std::move(promise));
+  return std::move(future).get();
+}
+
+template <typename Request, typename RemoteFunc, typename Response>
+void StorageClient::getResponse(std::pair<HostAddr, Request>&& request,
+                                RemoteFunc&& remoteFunc,
+                                folly::Promise<std::pair<bool, Response>> pro) {
+  auto* evb = DCHECK_NOTNULL(ioExecutor_)->getEventBase();
+  folly::via(
+      evb,
+      [evb,
+       request = std::move(request),
+       remoteFunc = std::move(remoteFunc),
+       pro = std::move(pro),
+       this]() mutable {
+        auto host = request.first;
+        auto client =
+            clientsMan_->client(host, evb, false, 60 * 1000);  // FLAGS_storage_client_timeout_ms
+        auto spaceId = request.second.get_space_id();
+        LOG(INFO) << "Send request to storage " << host;
+        remoteFunc(client.get(), request.second)
+            .via(evb)
+            .then([spaceId, pro = std::move(pro), host, this](folly::Try<Response>&& t) mutable {
+              // exception occurred during RPC
+              if (t.hasException()) {
+                LOG(ERROR) << "Send request to " << host << " failed";
+                pro.setValue(std::make_pair(false, Response()));
+                return;
+              }
+              auto&& resp = t.value();
+              pro.setValue(std::make_pair(true, std::move(resp)));
+            });
+      });  // via
+}
+
+}  // namespace nebula
