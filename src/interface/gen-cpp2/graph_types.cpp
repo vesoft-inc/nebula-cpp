@@ -591,7 +591,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 ExecutionResponse::~ExecutionResponse() {}
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-ExecutionResponse::ExecutionResponse(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode error_code__arg, int32_t latency_in_us__arg, nebula::DataSet data__arg, ::std::string space_name__arg, ::std::string error_msg__arg, nebula::PlanDescription plan_desc__arg, ::std::string comment__arg) :
+ExecutionResponse::ExecutionResponse(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode error_code__arg, int64_t latency_in_us__arg, nebula::DataSet data__arg, ::std::string space_name__arg, ::std::string error_msg__arg, nebula::PlanDescription plan_desc__arg, ::std::string comment__arg) :
     error_code(std::move(error_code__arg)),
     latency_in_us(std::move(latency_in_us__arg)),
     data(std::move(data__arg)),

@@ -63,7 +63,7 @@ template <> struct TEnumDataStorage<::nebula::meta::cpp2::AdminJobOp> {
 
 template <> struct TEnumDataStorage<::nebula::meta::cpp2::AdminCmd> {
   using type = ::nebula::meta::cpp2::AdminCmd;
-  static constexpr const std::size_t size = 10;
+  static constexpr const std::size_t size = 11;
   static const std::array<type, size> values;
   static const std::array<folly::StringPiece, size> names;
 };
@@ -754,29 +754,8 @@ template <> struct TStructDataStorage<::nebula::meta::cpp2::ChangePasswordReq> {
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::meta::cpp2::BalanceReq> {
-  static constexpr const std::size_t fields_size = 5;
-  static const std::array<folly::StringPiece, fields_size> fields_names;
-  static const std::array<int16_t, fields_size> fields_ids;
-  static const std::array<protocol::TType, fields_size> fields_types;
-};
-
 template <> struct TStructDataStorage<::nebula::meta::cpp2::BalanceTask> {
-  static constexpr const std::size_t fields_size = 2;
-  static const std::array<folly::StringPiece, fields_size> fields_names;
-  static const std::array<int16_t, fields_size> fields_ids;
-  static const std::array<protocol::TType, fields_size> fields_types;
-};
-
-template <> struct TStructDataStorage<::nebula::meta::cpp2::BalanceResp> {
-  static constexpr const std::size_t fields_size = 4;
-  static const std::array<folly::StringPiece, fields_size> fields_names;
-  static const std::array<int16_t, fields_size> fields_ids;
-  static const std::array<protocol::TType, fields_size> fields_types;
-};
-
-template <> struct TStructDataStorage<::nebula::meta::cpp2::LeaderBalanceReq> {
-  static constexpr const std::size_t fields_size = 0;
+  static constexpr const std::size_t fields_size = 5;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;

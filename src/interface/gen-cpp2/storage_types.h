@@ -130,6 +130,8 @@ struct column_name;
 struct scan_type;
 struct begin_value;
 struct end_value;
+struct include_begin;
+struct include_end;
 struct index_id;
 struct filter;
 struct column_hints;
@@ -146,9 +148,10 @@ struct parts;
 struct indices;
 struct traverse_spec;
 struct common;
+struct has_next;
+struct next_cursor;
 struct space_id;
-struct part_id;
-struct cursor;
+struct parts;
 struct return_columns;
 struct limit;
 struct start_time;
@@ -159,11 +162,9 @@ struct enable_read_from_follower;
 struct common;
 struct result;
 struct vertex_data;
-struct has_next;
-struct next_cursor;
+struct cursors;
 struct space_id;
-struct part_id;
-struct cursor;
+struct parts;
 struct return_columns;
 struct limit;
 struct start_time;
@@ -174,11 +175,10 @@ struct enable_read_from_follower;
 struct common;
 struct result;
 struct edge_data;
-struct has_next;
-struct next_cursor;
+struct cursors;
 struct space_id;
 struct parts;
-struct task_specfic_paras;
+struct task_specific_paras;
 struct cmd;
 struct job_id;
 struct task_id;
@@ -712,6 +712,14 @@ APACHE_THRIFT_DEFINE_ACCESSOR(begin_value);
 #define APACHE_THRIFT_ACCESSOR_end_value
 APACHE_THRIFT_DEFINE_ACCESSOR(end_value);
 #endif
+#ifndef APACHE_THRIFT_ACCESSOR_include_begin
+#define APACHE_THRIFT_ACCESSOR_include_begin
+APACHE_THRIFT_DEFINE_ACCESSOR(include_begin);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_include_end
+#define APACHE_THRIFT_ACCESSOR_include_end
+APACHE_THRIFT_DEFINE_ACCESSOR(include_end);
+#endif
 #ifndef APACHE_THRIFT_ACCESSOR_index_id
 #define APACHE_THRIFT_ACCESSOR_index_id
 APACHE_THRIFT_DEFINE_ACCESSOR(index_id);
@@ -776,17 +784,21 @@ APACHE_THRIFT_DEFINE_ACCESSOR(traverse_spec);
 #define APACHE_THRIFT_ACCESSOR_common
 APACHE_THRIFT_DEFINE_ACCESSOR(common);
 #endif
+#ifndef APACHE_THRIFT_ACCESSOR_has_next
+#define APACHE_THRIFT_ACCESSOR_has_next
+APACHE_THRIFT_DEFINE_ACCESSOR(has_next);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_next_cursor
+#define APACHE_THRIFT_ACCESSOR_next_cursor
+APACHE_THRIFT_DEFINE_ACCESSOR(next_cursor);
+#endif
 #ifndef APACHE_THRIFT_ACCESSOR_space_id
 #define APACHE_THRIFT_ACCESSOR_space_id
 APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_part_id
-#define APACHE_THRIFT_ACCESSOR_part_id
-APACHE_THRIFT_DEFINE_ACCESSOR(part_id);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_cursor
-#define APACHE_THRIFT_ACCESSOR_cursor
-APACHE_THRIFT_DEFINE_ACCESSOR(cursor);
+#ifndef APACHE_THRIFT_ACCESSOR_parts
+#define APACHE_THRIFT_ACCESSOR_parts
+APACHE_THRIFT_DEFINE_ACCESSOR(parts);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_return_columns
 #define APACHE_THRIFT_ACCESSOR_return_columns
@@ -828,25 +840,17 @@ APACHE_THRIFT_DEFINE_ACCESSOR(result);
 #define APACHE_THRIFT_ACCESSOR_vertex_data
 APACHE_THRIFT_DEFINE_ACCESSOR(vertex_data);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_has_next
-#define APACHE_THRIFT_ACCESSOR_has_next
-APACHE_THRIFT_DEFINE_ACCESSOR(has_next);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_next_cursor
-#define APACHE_THRIFT_ACCESSOR_next_cursor
-APACHE_THRIFT_DEFINE_ACCESSOR(next_cursor);
+#ifndef APACHE_THRIFT_ACCESSOR_cursors
+#define APACHE_THRIFT_ACCESSOR_cursors
+APACHE_THRIFT_DEFINE_ACCESSOR(cursors);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_space_id
 #define APACHE_THRIFT_ACCESSOR_space_id
 APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_part_id
-#define APACHE_THRIFT_ACCESSOR_part_id
-APACHE_THRIFT_DEFINE_ACCESSOR(part_id);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_cursor
-#define APACHE_THRIFT_ACCESSOR_cursor
-APACHE_THRIFT_DEFINE_ACCESSOR(cursor);
+#ifndef APACHE_THRIFT_ACCESSOR_parts
+#define APACHE_THRIFT_ACCESSOR_parts
+APACHE_THRIFT_DEFINE_ACCESSOR(parts);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_return_columns
 #define APACHE_THRIFT_ACCESSOR_return_columns
@@ -888,13 +892,9 @@ APACHE_THRIFT_DEFINE_ACCESSOR(result);
 #define APACHE_THRIFT_ACCESSOR_edge_data
 APACHE_THRIFT_DEFINE_ACCESSOR(edge_data);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_has_next
-#define APACHE_THRIFT_ACCESSOR_has_next
-APACHE_THRIFT_DEFINE_ACCESSOR(has_next);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_next_cursor
-#define APACHE_THRIFT_ACCESSOR_next_cursor
-APACHE_THRIFT_DEFINE_ACCESSOR(next_cursor);
+#ifndef APACHE_THRIFT_ACCESSOR_cursors
+#define APACHE_THRIFT_ACCESSOR_cursors
+APACHE_THRIFT_DEFINE_ACCESSOR(cursors);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_space_id
 #define APACHE_THRIFT_ACCESSOR_space_id
@@ -904,9 +904,9 @@ APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
 #define APACHE_THRIFT_ACCESSOR_parts
 APACHE_THRIFT_DEFINE_ACCESSOR(parts);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_task_specfic_paras
-#define APACHE_THRIFT_ACCESSOR_task_specfic_paras
-APACHE_THRIFT_DEFINE_ACCESSOR(task_specfic_paras);
+#ifndef APACHE_THRIFT_ACCESSOR_task_specific_paras
+#define APACHE_THRIFT_ACCESSOR_task_specific_paras
+APACHE_THRIFT_DEFINE_ACCESSOR(task_specific_paras);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_cmd
 #define APACHE_THRIFT_ACCESSOR_cmd
@@ -1432,6 +1432,7 @@ class IndexQueryContext;
 class IndexSpec;
 class LookupIndexRequest;
 class LookupAndTraverseRequest;
+class ScanCursor;
 class ScanVertexRequest;
 class ScanVertexResponse;
 class ScanEdgeRequest;
@@ -8193,12 +8194,12 @@ class IndexColumnHint final  {
 
  public:
 
+  IndexColumnHint();
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  IndexColumnHint() :
-      scan_type(static_cast< ::nebula::storage::cpp2::ScanType>(0)) {}
+
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  IndexColumnHint(apache::thrift::FragileConstructor, ::std::string column_name__arg,  ::nebula::storage::cpp2::ScanType scan_type__arg, nebula::Value begin_value__arg, nebula::Value end_value__arg);
+  IndexColumnHint(apache::thrift::FragileConstructor, ::std::string column_name__arg,  ::nebula::storage::cpp2::ScanType scan_type__arg, nebula::Value begin_value__arg, nebula::Value end_value__arg, bool include_begin__arg, bool include_end__arg);
 
   IndexColumnHint(IndexColumnHint&&) = default;
 
@@ -8210,6 +8211,9 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   IndexColumnHint& operator=(const IndexColumnHint&) = default;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
   void __clear();
+
+  ~IndexColumnHint();
+
  private:
   ::std::string column_name;
  private:
@@ -8218,6 +8222,10 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
   nebula::Value begin_value;
  private:
   nebula::Value end_value;
+ private:
+  bool include_begin;
+ private:
+  bool include_end;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
@@ -8226,6 +8234,8 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     bool scan_type;
     bool begin_value;
     bool end_value;
+    bool include_begin;
+    bool include_end;
   } __isset = {};
   bool operator==(const IndexColumnHint& rhs) const;
 #ifndef SWIG
@@ -8334,6 +8344,50 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> include_begin_ref() const& {
+    return {this->include_begin, __isset.include_begin};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> include_begin_ref() const&& {
+    return {std::move(this->include_begin), __isset.include_begin};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> include_begin_ref() & {
+    return {this->include_begin, __isset.include_begin};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> include_begin_ref() && {
+    return {std::move(this->include_begin), __isset.include_begin};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> include_end_ref() const& {
+    return {this->include_end, __isset.include_end};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> include_end_ref() const&& {
+    return {std::move(this->include_end), __isset.include_end};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> include_end_ref() & {
+    return {this->include_end, __isset.include_end};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> include_end_ref() && {
+    return {std::move(this->include_end), __isset.include_end};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
   const ::std::string& get_column_name() const& {
     return column_name;
   }
@@ -8383,6 +8437,30 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     __isset.end_value = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return end_value;
+  }
+
+  bool get_include_begin() const {
+    return include_begin;
+  }
+
+  bool& set_include_begin(bool include_begin_) {
+    include_begin = include_begin_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.include_begin = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return include_begin;
+  }
+
+  bool get_include_end() const {
+    return include_end;
+  }
+
+  bool& set_include_end(bool include_end_) {
+    include_end = include_end_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.include_end = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return include_end;
   }
 
   template <class Protocol_>
@@ -9311,6 +9389,170 @@ uint32_t LookupAndTraverseRequest::read(Protocol_* iprot) {
 
 }}} // nebula::storage::cpp2
 namespace nebula { namespace storage { namespace cpp2 {
+class ScanCursor final  {
+ private:
+  friend struct ::apache::thrift::detail::st::struct_private_access;
+
+  //  used by a static_assert in the corresponding source
+  static constexpr bool __fbthrift_cpp2_gen_json = false;
+  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
+  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
+
+ public:
+  using __fbthrift_cpp2_type = ScanCursor;
+  static constexpr bool __fbthrift_cpp2_is_union =
+    false;
+
+
+ public:
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  ScanCursor() :
+      has_next(0) {}
+  // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
+  ScanCursor(apache::thrift::FragileConstructor, bool has_next__arg, ::std::string next_cursor__arg);
+
+  ScanCursor(ScanCursor&&) = default;
+
+  ScanCursor(const ScanCursor&) = default;
+
+
+  ScanCursor& operator=(ScanCursor&&) = default;
+
+  ScanCursor& operator=(const ScanCursor&) = default;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+  void __clear();
+ private:
+  bool has_next;
+ private:
+  ::std::string next_cursor;
+
+ public:
+  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
+  struct __isset {
+    bool has_next;
+    bool next_cursor;
+  } __isset = {};
+  bool operator==(const ScanCursor& rhs) const;
+#ifndef SWIG
+  friend bool operator!=(const ScanCursor& __x, const ScanCursor& __y) {
+    return !(__x == __y);
+  }
+#endif
+  bool operator<(const ScanCursor& rhs) const;
+#ifndef SWIG
+  friend bool operator>(const ScanCursor& __x, const ScanCursor& __y) {
+    return __y < __x;
+  }
+  friend bool operator<=(const ScanCursor& __x, const ScanCursor& __y) {
+    return !(__y < __x);
+  }
+  friend bool operator>=(const ScanCursor& __x, const ScanCursor& __y) {
+    return !(__x < __y);
+  }
+#endif
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> has_next_ref() const& {
+    return {this->has_next, __isset.has_next};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> has_next_ref() const&& {
+    return {std::move(this->has_next), __isset.has_next};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> has_next_ref() & {
+    return {this->has_next, __isset.has_next};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> has_next_ref() && {
+    return {std::move(this->has_next), __isset.has_next};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> next_cursor_ref() const& {
+    return {this->next_cursor, __isset.next_cursor};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> next_cursor_ref() const&& {
+    return {std::move(this->next_cursor), __isset.next_cursor};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> next_cursor_ref() & {
+    return {this->next_cursor, __isset.next_cursor};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> next_cursor_ref() && {
+    return {std::move(this->next_cursor), __isset.next_cursor};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+  bool get_has_next() const {
+    return has_next;
+  }
+
+  bool& set_has_next(bool has_next_) {
+    has_next = has_next_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.has_next = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return has_next;
+  }
+
+  const ::std::string* get_next_cursor() const& {
+    return next_cursor_ref() ? std::addressof(next_cursor) : nullptr;
+  }
+
+  ::std::string* get_next_cursor() & {
+    return next_cursor_ref() ? std::addressof(next_cursor) : nullptr;
+  }
+  ::std::string* get_next_cursor() && = delete;
+
+  template <typename T_ScanCursor_next_cursor_struct_setter = ::std::string>
+  ::std::string& set_next_cursor(T_ScanCursor_next_cursor_struct_setter&& next_cursor_) {
+    next_cursor = std::forward<T_ScanCursor_next_cursor_struct_setter>(next_cursor_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.next_cursor = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return next_cursor;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+
+ private:
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< ScanCursor >;
+  friend void swap(ScanCursor& a, ScanCursor& b);
+};
+
+template <class Protocol_>
+uint32_t ScanCursor::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCursorPosition();
+  readNoXfer(iprot);
+  return iprot->getCursorPosition() - _xferStart;
+}
+
+}}} // nebula::storage::cpp2
+namespace nebula { namespace storage { namespace cpp2 {
 class ScanVertexRequest final  {
  private:
   friend struct ::apache::thrift::detail::st::struct_private_access;
@@ -9333,7 +9575,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  ScanVertexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg,  ::nebula::cpp2::PartitionID part_id__arg, ::std::string cursor__arg,  ::nebula::storage::cpp2::VertexProp return_columns__arg, int64_t limit__arg, int64_t start_time__arg, int64_t end_time__arg, ::std::string filter__arg, bool only_latest_version__arg, bool enable_read_from_follower__arg,  ::nebula::storage::cpp2::RequestCommon common__arg);
+  ScanVertexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> parts__arg, ::std::vector< ::nebula::storage::cpp2::VertexProp> return_columns__arg, int64_t limit__arg, int64_t start_time__arg, int64_t end_time__arg, ::std::string filter__arg, bool only_latest_version__arg, bool enable_read_from_follower__arg,  ::nebula::storage::cpp2::RequestCommon common__arg);
 
   ScanVertexRequest(ScanVertexRequest&&) = default;
 
@@ -9351,11 +9593,9 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
  private:
    ::nebula::cpp2::GraphSpaceID space_id;
  private:
-   ::nebula::cpp2::PartitionID part_id;
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> parts;
  private:
-  ::std::string cursor;
- private:
-   ::nebula::storage::cpp2::VertexProp return_columns;
+  ::std::vector< ::nebula::storage::cpp2::VertexProp> return_columns;
  private:
   int64_t limit;
  private:
@@ -9375,8 +9615,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
     bool space_id;
-    bool part_id;
-    bool cursor;
+    bool parts;
     bool return_columns;
     bool limit;
     bool start_time;
@@ -9428,66 +9667,44 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T =  ::nebula::cpp2::PartitionID>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> part_id_ref() const& {
-    return {this->part_id, __isset.part_id};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> parts_ref() const& {
+    return {this->parts, __isset.parts};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::PartitionID>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> part_id_ref() const&& {
-    return {std::move(this->part_id), __isset.part_id};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> parts_ref() const&& {
+    return {std::move(this->parts), __isset.parts};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::PartitionID>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> part_id_ref() & {
-    return {this->part_id, __isset.part_id};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> parts_ref() & {
+    return {this->parts, __isset.parts};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::PartitionID>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> part_id_ref() && {
-    return {std::move(this->part_id), __isset.part_id};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> cursor_ref() const& {
-    return {this->cursor, __isset.cursor};
-  }
-
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> cursor_ref() const&& {
-    return {std::move(this->cursor), __isset.cursor};
-  }
-
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> cursor_ref() & {
-    return {this->cursor, __isset.cursor};
-  }
-
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> cursor_ref() && {
-    return {std::move(this->cursor), __isset.cursor};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> parts_ref() && {
+    return {std::move(this->parts), __isset.parts};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T =  ::nebula::storage::cpp2::VertexProp>
+  template <typename..., typename T = ::std::vector< ::nebula::storage::cpp2::VertexProp>>
   FOLLY_ERASE ::apache::thrift::field_ref<const T&> return_columns_ref() const& {
     return {this->return_columns, __isset.return_columns};
   }
 
-  template <typename..., typename T =  ::nebula::storage::cpp2::VertexProp>
+  template <typename..., typename T = ::std::vector< ::nebula::storage::cpp2::VertexProp>>
   FOLLY_ERASE ::apache::thrift::field_ref<const T&&> return_columns_ref() const&& {
     return {std::move(this->return_columns), __isset.return_columns};
   }
 
-  template <typename..., typename T =  ::nebula::storage::cpp2::VertexProp>
+  template <typename..., typename T = ::std::vector< ::nebula::storage::cpp2::VertexProp>>
   FOLLY_ERASE ::apache::thrift::field_ref<T&> return_columns_ref() & {
     return {this->return_columns, __isset.return_columns};
   }
 
-  template <typename..., typename T =  ::nebula::storage::cpp2::VertexProp>
+  template <typename..., typename T = ::std::vector< ::nebula::storage::cpp2::VertexProp>>
   FOLLY_ERASE ::apache::thrift::field_ref<T&&> return_columns_ref() && {
     return {std::move(this->return_columns), __isset.return_columns};
   }
@@ -9658,41 +9875,22 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return space_id;
   }
+  const std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>& get_parts() const&;
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> get_parts() &&;
 
-   ::nebula::cpp2::PartitionID get_part_id() const {
-    return part_id;
-  }
-
-   ::nebula::cpp2::PartitionID& set_part_id( ::nebula::cpp2::PartitionID part_id_) {
-    part_id = part_id_;
+  template <typename T_ScanVertexRequest_parts_struct_setter = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>& set_parts(T_ScanVertexRequest_parts_struct_setter&& parts_) {
+    parts = std::forward<T_ScanVertexRequest_parts_struct_setter>(parts_);
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.part_id = true;
+    __isset.parts = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return part_id;
+    return parts;
   }
+  const ::std::vector< ::nebula::storage::cpp2::VertexProp>& get_return_columns() const&;
+  ::std::vector< ::nebula::storage::cpp2::VertexProp> get_return_columns() &&;
 
-  const ::std::string* get_cursor() const& {
-    return cursor_ref() ? std::addressof(cursor) : nullptr;
-  }
-
-  ::std::string* get_cursor() & {
-    return cursor_ref() ? std::addressof(cursor) : nullptr;
-  }
-  ::std::string* get_cursor() && = delete;
-
-  template <typename T_ScanVertexRequest_cursor_struct_setter = ::std::string>
-  ::std::string& set_cursor(T_ScanVertexRequest_cursor_struct_setter&& cursor_) {
-    cursor = std::forward<T_ScanVertexRequest_cursor_struct_setter>(cursor_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.cursor = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return cursor;
-  }
-  const  ::nebula::storage::cpp2::VertexProp& get_return_columns() const&;
-   ::nebula::storage::cpp2::VertexProp get_return_columns() &&;
-
-  template <typename T_ScanVertexRequest_return_columns_struct_setter =  ::nebula::storage::cpp2::VertexProp>
-   ::nebula::storage::cpp2::VertexProp& set_return_columns(T_ScanVertexRequest_return_columns_struct_setter&& return_columns_) {
+  template <typename T_ScanVertexRequest_return_columns_struct_setter = ::std::vector< ::nebula::storage::cpp2::VertexProp>>
+  ::std::vector< ::nebula::storage::cpp2::VertexProp>& set_return_columns(T_ScanVertexRequest_return_columns_struct_setter&& return_columns_) {
     return_columns = std::forward<T_ScanVertexRequest_return_columns_struct_setter>(return_columns_);
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     __isset.return_columns = true;
@@ -9844,11 +10042,10 @@ class ScanVertexResponse final  {
  public:
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  ScanVertexResponse() :
-      has_next(0) {}
+  ScanVertexResponse() {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  ScanVertexResponse(apache::thrift::FragileConstructor,  ::nebula::storage::cpp2::ResponseCommon result__arg, nebula::DataSet vertex_data__arg, bool has_next__arg, ::std::string next_cursor__arg);
+  ScanVertexResponse(apache::thrift::FragileConstructor,  ::nebula::storage::cpp2::ResponseCommon result__arg, nebula::DataSet vertex_data__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> cursors__arg);
 
   ScanVertexResponse(ScanVertexResponse&&) = default;
 
@@ -9865,16 +10062,13 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
  private:
   nebula::DataSet vertex_data;
  private:
-  bool has_next;
- private:
-  ::std::string next_cursor;
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> cursors;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
     bool vertex_data;
-    bool has_next;
-    bool next_cursor;
+    bool cursors;
   } __isset = {};
   bool operator==(const ScanVertexResponse& rhs) const;
 #ifndef SWIG
@@ -9937,46 +10131,24 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> has_next_ref() const& {
-    return {this->has_next, __isset.has_next};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> cursors_ref() const& {
+    return {this->cursors, __isset.cursors};
   }
 
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> has_next_ref() const&& {
-    return {std::move(this->has_next), __isset.has_next};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> cursors_ref() const&& {
+    return {std::move(this->cursors), __isset.cursors};
   }
 
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> has_next_ref() & {
-    return {this->has_next, __isset.has_next};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> cursors_ref() & {
+    return {this->cursors, __isset.cursors};
   }
 
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> has_next_ref() && {
-    return {std::move(this->has_next), __isset.has_next};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> next_cursor_ref() const& {
-    return {this->next_cursor, __isset.next_cursor};
-  }
-
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> next_cursor_ref() const&& {
-    return {std::move(this->next_cursor), __isset.next_cursor};
-  }
-
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> next_cursor_ref() & {
-    return {this->next_cursor, __isset.next_cursor};
-  }
-
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> next_cursor_ref() && {
-    return {std::move(this->next_cursor), __isset.next_cursor};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> cursors_ref() && {
+    return {std::move(this->cursors), __isset.cursors};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
   const  ::nebula::storage::cpp2::ResponseCommon& get_result() const&;
@@ -9998,35 +10170,16 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return vertex_data;
   }
+  const std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>& get_cursors() const&;
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> get_cursors() &&;
 
-  bool get_has_next() const {
-    return has_next;
-  }
-
-  bool& set_has_next(bool has_next_) {
-    has_next = has_next_;
+  template <typename T_ScanVertexResponse_cursors_struct_setter = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>& set_cursors(T_ScanVertexResponse_cursors_struct_setter&& cursors_) {
+    cursors = std::forward<T_ScanVertexResponse_cursors_struct_setter>(cursors_);
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.has_next = true;
+    __isset.cursors = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return has_next;
-  }
-
-  const ::std::string* get_next_cursor() const& {
-    return next_cursor_ref() ? std::addressof(next_cursor) : nullptr;
-  }
-
-  ::std::string* get_next_cursor() & {
-    return next_cursor_ref() ? std::addressof(next_cursor) : nullptr;
-  }
-  ::std::string* get_next_cursor() && = delete;
-
-  template <typename T_ScanVertexResponse_next_cursor_struct_setter = ::std::string>
-  ::std::string& set_next_cursor(T_ScanVertexResponse_next_cursor_struct_setter&& next_cursor_) {
-    next_cursor = std::forward<T_ScanVertexResponse_next_cursor_struct_setter>(next_cursor_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.next_cursor = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return next_cursor;
+    return cursors;
   }
 
   template <class Protocol_>
@@ -10077,7 +10230,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  ScanEdgeRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg,  ::nebula::cpp2::PartitionID part_id__arg, ::std::string cursor__arg,  ::nebula::storage::cpp2::EdgeProp return_columns__arg, int64_t limit__arg, int64_t start_time__arg, int64_t end_time__arg, ::std::string filter__arg, bool only_latest_version__arg, bool enable_read_from_follower__arg,  ::nebula::storage::cpp2::RequestCommon common__arg);
+  ScanEdgeRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> parts__arg,  ::nebula::storage::cpp2::EdgeProp return_columns__arg, int64_t limit__arg, int64_t start_time__arg, int64_t end_time__arg, ::std::string filter__arg, bool only_latest_version__arg, bool enable_read_from_follower__arg,  ::nebula::storage::cpp2::RequestCommon common__arg);
 
   ScanEdgeRequest(ScanEdgeRequest&&) = default;
 
@@ -10095,9 +10248,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
  private:
    ::nebula::cpp2::GraphSpaceID space_id;
  private:
-   ::nebula::cpp2::PartitionID part_id;
- private:
-  ::std::string cursor;
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> parts;
  private:
    ::nebula::storage::cpp2::EdgeProp return_columns;
  private:
@@ -10119,8 +10270,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
     bool space_id;
-    bool part_id;
-    bool cursor;
+    bool parts;
     bool return_columns;
     bool limit;
     bool start_time;
@@ -10172,46 +10322,24 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T =  ::nebula::cpp2::PartitionID>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> part_id_ref() const& {
-    return {this->part_id, __isset.part_id};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> parts_ref() const& {
+    return {this->parts, __isset.parts};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::PartitionID>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> part_id_ref() const&& {
-    return {std::move(this->part_id), __isset.part_id};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> parts_ref() const&& {
+    return {std::move(this->parts), __isset.parts};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::PartitionID>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> part_id_ref() & {
-    return {this->part_id, __isset.part_id};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> parts_ref() & {
+    return {this->parts, __isset.parts};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::PartitionID>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> part_id_ref() && {
-    return {std::move(this->part_id), __isset.part_id};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> cursor_ref() const& {
-    return {this->cursor, __isset.cursor};
-  }
-
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> cursor_ref() const&& {
-    return {std::move(this->cursor), __isset.cursor};
-  }
-
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> cursor_ref() & {
-    return {this->cursor, __isset.cursor};
-  }
-
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> cursor_ref() && {
-    return {std::move(this->cursor), __isset.cursor};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> parts_ref() && {
+    return {std::move(this->parts), __isset.parts};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
@@ -10402,35 +10530,16 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return space_id;
   }
+  const std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>& get_parts() const&;
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> get_parts() &&;
 
-   ::nebula::cpp2::PartitionID get_part_id() const {
-    return part_id;
-  }
-
-   ::nebula::cpp2::PartitionID& set_part_id( ::nebula::cpp2::PartitionID part_id_) {
-    part_id = part_id_;
+  template <typename T_ScanEdgeRequest_parts_struct_setter = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>& set_parts(T_ScanEdgeRequest_parts_struct_setter&& parts_) {
+    parts = std::forward<T_ScanEdgeRequest_parts_struct_setter>(parts_);
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.part_id = true;
+    __isset.parts = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return part_id;
-  }
-
-  const ::std::string* get_cursor() const& {
-    return cursor_ref() ? std::addressof(cursor) : nullptr;
-  }
-
-  ::std::string* get_cursor() & {
-    return cursor_ref() ? std::addressof(cursor) : nullptr;
-  }
-  ::std::string* get_cursor() && = delete;
-
-  template <typename T_ScanEdgeRequest_cursor_struct_setter = ::std::string>
-  ::std::string& set_cursor(T_ScanEdgeRequest_cursor_struct_setter&& cursor_) {
-    cursor = std::forward<T_ScanEdgeRequest_cursor_struct_setter>(cursor_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.cursor = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return cursor;
+    return parts;
   }
   const  ::nebula::storage::cpp2::EdgeProp& get_return_columns() const&;
    ::nebula::storage::cpp2::EdgeProp get_return_columns() &&;
@@ -10588,11 +10697,10 @@ class ScanEdgeResponse final  {
  public:
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  ScanEdgeResponse() :
-      has_next(0) {}
+  ScanEdgeResponse() {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  ScanEdgeResponse(apache::thrift::FragileConstructor,  ::nebula::storage::cpp2::ResponseCommon result__arg, nebula::DataSet edge_data__arg, bool has_next__arg, ::std::string next_cursor__arg);
+  ScanEdgeResponse(apache::thrift::FragileConstructor,  ::nebula::storage::cpp2::ResponseCommon result__arg, nebula::DataSet edge_data__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> cursors__arg);
 
   ScanEdgeResponse(ScanEdgeResponse&&) = default;
 
@@ -10609,16 +10717,13 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
  private:
   nebula::DataSet edge_data;
  private:
-  bool has_next;
- private:
-  ::std::string next_cursor;
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> cursors;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
     bool edge_data;
-    bool has_next;
-    bool next_cursor;
+    bool cursors;
   } __isset = {};
   bool operator==(const ScanEdgeResponse& rhs) const;
 #ifndef SWIG
@@ -10681,46 +10786,24 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> has_next_ref() const& {
-    return {this->has_next, __isset.has_next};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> cursors_ref() const& {
+    return {this->cursors, __isset.cursors};
   }
 
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> has_next_ref() const&& {
-    return {std::move(this->has_next), __isset.has_next};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> cursors_ref() const&& {
+    return {std::move(this->cursors), __isset.cursors};
   }
 
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> has_next_ref() & {
-    return {this->has_next, __isset.has_next};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> cursors_ref() & {
+    return {this->cursors, __isset.cursors};
   }
 
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> has_next_ref() && {
-    return {std::move(this->has_next), __isset.has_next};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> next_cursor_ref() const& {
-    return {this->next_cursor, __isset.next_cursor};
-  }
-
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> next_cursor_ref() const&& {
-    return {std::move(this->next_cursor), __isset.next_cursor};
-  }
-
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> next_cursor_ref() & {
-    return {this->next_cursor, __isset.next_cursor};
-  }
-
-  template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> next_cursor_ref() && {
-    return {std::move(this->next_cursor), __isset.next_cursor};
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> cursors_ref() && {
+    return {std::move(this->cursors), __isset.cursors};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
   const  ::nebula::storage::cpp2::ResponseCommon& get_result() const&;
@@ -10742,35 +10825,16 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return edge_data;
   }
+  const std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>& get_cursors() const&;
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> get_cursors() &&;
 
-  bool get_has_next() const {
-    return has_next;
-  }
-
-  bool& set_has_next(bool has_next_) {
-    has_next = has_next_;
+  template <typename T_ScanEdgeResponse_cursors_struct_setter = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>>
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor>& set_cursors(T_ScanEdgeResponse_cursors_struct_setter&& cursors_) {
+    cursors = std::forward<T_ScanEdgeResponse_cursors_struct_setter>(cursors_);
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.has_next = true;
+    __isset.cursors = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return has_next;
-  }
-
-  const ::std::string* get_next_cursor() const& {
-    return next_cursor_ref() ? std::addressof(next_cursor) : nullptr;
-  }
-
-  ::std::string* get_next_cursor() & {
-    return next_cursor_ref() ? std::addressof(next_cursor) : nullptr;
-  }
-  ::std::string* get_next_cursor() && = delete;
-
-  template <typename T_ScanEdgeResponse_next_cursor_struct_setter = ::std::string>
-  ::std::string& set_next_cursor(T_ScanEdgeResponse_next_cursor_struct_setter&& next_cursor_) {
-    next_cursor = std::forward<T_ScanEdgeResponse_next_cursor_struct_setter>(next_cursor_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.next_cursor = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return next_cursor;
+    return cursors;
   }
 
   template <class Protocol_>
@@ -10821,7 +10885,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
       space_id(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  TaskPara(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::vector< ::nebula::cpp2::PartitionID> parts__arg, ::std::vector<::std::string> task_specfic_paras__arg);
+  TaskPara(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::vector< ::nebula::cpp2::PartitionID> parts__arg, ::std::vector<::std::string> task_specific_paras__arg);
 
   TaskPara(TaskPara&&) = default;
 
@@ -10838,14 +10902,14 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
  private:
   ::std::vector< ::nebula::cpp2::PartitionID> parts;
  private:
-  ::std::vector<::std::string> task_specfic_paras;
+  ::std::vector<::std::string> task_specific_paras;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
     bool space_id;
     bool parts;
-    bool task_specfic_paras;
+    bool task_specific_paras;
   } __isset = {};
   bool operator==(const TaskPara& rhs) const;
 #ifndef SWIG
@@ -10912,23 +10976,23 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   template <typename..., typename T = ::std::vector<::std::string>>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> task_specfic_paras_ref() const& {
-    return {this->task_specfic_paras, __isset.task_specfic_paras};
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> task_specific_paras_ref() const& {
+    return {this->task_specific_paras, __isset.task_specific_paras};
   }
 
   template <typename..., typename T = ::std::vector<::std::string>>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> task_specfic_paras_ref() const&& {
-    return {std::move(this->task_specfic_paras), __isset.task_specfic_paras};
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> task_specific_paras_ref() const&& {
+    return {std::move(this->task_specific_paras), __isset.task_specific_paras};
   }
 
   template <typename..., typename T = ::std::vector<::std::string>>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> task_specfic_paras_ref() & {
-    return {this->task_specfic_paras, __isset.task_specfic_paras};
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> task_specific_paras_ref() & {
+    return {this->task_specific_paras, __isset.task_specific_paras};
   }
 
   template <typename..., typename T = ::std::vector<::std::string>>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> task_specfic_paras_ref() && {
-    return {std::move(this->task_specfic_paras), __isset.task_specfic_paras};
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> task_specific_paras_ref() && {
+    return {std::move(this->task_specific_paras), __isset.task_specific_paras};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
@@ -10955,17 +11019,17 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return parts;
   }
-  const ::std::vector<::std::string>* get_task_specfic_paras() const&;
-  ::std::vector<::std::string>* get_task_specfic_paras() &;
-  ::std::vector<::std::string>* get_task_specfic_paras() && = delete;
+  const ::std::vector<::std::string>* get_task_specific_paras() const&;
+  ::std::vector<::std::string>* get_task_specific_paras() &;
+  ::std::vector<::std::string>* get_task_specific_paras() && = delete;
 
-  template <typename T_TaskPara_task_specfic_paras_struct_setter = ::std::vector<::std::string>>
-  ::std::vector<::std::string>& set_task_specfic_paras(T_TaskPara_task_specfic_paras_struct_setter&& task_specfic_paras_) {
-    task_specfic_paras = std::forward<T_TaskPara_task_specfic_paras_struct_setter>(task_specfic_paras_);
+  template <typename T_TaskPara_task_specific_paras_struct_setter = ::std::vector<::std::string>>
+  ::std::vector<::std::string>& set_task_specific_paras(T_TaskPara_task_specific_paras_struct_setter&& task_specific_paras_) {
+    task_specific_paras = std::forward<T_TaskPara_task_specific_paras_struct_setter>(task_specific_paras_);
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.task_specfic_paras = true;
+    __isset.task_specific_paras = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return task_specfic_paras;
+    return task_specific_paras;
   }
 
   template <class Protocol_>

@@ -165,7 +165,7 @@ StructMetadata<::nebula::graph::cpp2::ExecutionResponse>::gen(ThriftMetadata& me
   static const EncodedThriftField
   graph_ExecutionResponse_fields[] = {
     std::make_tuple(1, "error_code", false, std::make_unique<Enum< ::nebula::cpp2::ErrorCode>>("common.ErrorCode"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(2, "latency_in_us", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "latency_in_us", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(3, "data", true, std::make_unique<Struct< ::nebula::cpp2::DataSet>>("common.DataSet"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(4, "space_name", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(5, "error_msg", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),

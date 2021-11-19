@@ -3342,3 +3342,92 @@ static_assert(
     "inconsistent use of nimble option");
 
 }} // nebula::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits<::nebula::cpp2::LogEntry>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::cpp2::LogEntry>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+LogEntry::LogEntry(apache::thrift::FragileConstructor,  ::nebula::cpp2::ClusterID cluster__arg, ::std::string log_str__arg) :
+    cluster(std::move(cluster__arg)),
+    log_str(std::move(log_str__arg)) {
+  __isset.cluster = true;
+  __isset.log_str = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void LogEntry::__clear() {
+  // clear all fields
+  cluster = 0;
+  log_str = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool LogEntry::operator==(const LogEntry& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.cluster == rhs.cluster)) {
+    return false;
+  }
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.log_str, rhs.log_str)) {
+    return false;
+  }
+  return true;
+}
+
+bool LogEntry::operator<(const LogEntry& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.cluster == rhs.cluster)) {
+    return lhs.cluster < rhs.cluster;
+  }
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.log_str, rhs.log_str)) {
+    return apache::thrift::StringTraits<std::string>::isLess(lhs.log_str, rhs.log_str);
+  }
+  return false;
+}
+
+
+void swap(LogEntry& a, LogEntry& b) {
+  using ::std::swap;
+  swap(a.cluster_ref().value(), b.cluster_ref().value());
+  swap(a.log_str_ref().value(), b.log_str_ref().value());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void LogEntry::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t LogEntry::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t LogEntry::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t LogEntry::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void LogEntry::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t LogEntry::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t LogEntry::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t LogEntry::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+
+
+}} // nebula::cpp2

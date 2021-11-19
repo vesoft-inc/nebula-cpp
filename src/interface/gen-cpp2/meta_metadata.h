@@ -547,22 +547,7 @@ class StructMetadata<::nebula::meta::cpp2::ChangePasswordReq> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::meta::cpp2::BalanceReq> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
 class StructMetadata<::nebula::meta::cpp2::BalanceTask> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::BalanceResp> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::LeaderBalanceReq> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
@@ -997,8 +982,6 @@ class ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf> {
   static void gen_getUserRoles(ThriftMetadata& metadata, ThriftService& context);
   static void gen_changePassword(ThriftMetadata& metadata, ThriftService& context);
   static void gen_heartBeat(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_balance(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_leaderBalance(ThriftMetadata& metadata, ThriftService& context);
   static void gen_regConfig(ThriftMetadata& metadata, ThriftService& context);
   static void gen_getConfig(ThriftMetadata& metadata, ThriftService& context);
   static void gen_setConfig(ThriftMetadata& metadata, ThriftService& context);

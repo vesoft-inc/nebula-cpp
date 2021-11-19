@@ -225,6 +225,13 @@ struct TccStructTraits<::nebula::cpp2::CheckpointInfo> {
       int16_t& fid,
       apache::thrift::protocol::TType& _ftype) noexcept;
 };
+template <>
+struct TccStructTraits<::nebula::cpp2::LogEntry> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
 
 } // namespace detail
 } // namespace thrift
@@ -4957,5 +4964,145 @@ extern template void CheckpointInfo::readNoXfer<>(apache::thrift::CompactProtoco
 extern template uint32_t CheckpointInfo::write<>(apache::thrift::CompactProtocolWriter*) const;
 extern template uint32_t CheckpointInfo::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 extern template uint32_t CheckpointInfo::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}} // nebula::cpp2
+namespace nebula { namespace cpp2 {
+
+template <class Protocol_>
+void LogEntry::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_I64))) {
+    goto _loop;
+  }
+_readField_cluster:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::ClusterID>::readWithContext(*iprot, this->cluster, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.cluster = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          2,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_log_str:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->log_str, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.log_str = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          2,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<LogEntry>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
+        goto _readField_cluster;
+      } else {
+        goto _skip;
+      }
+    }
+    case 2:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_log_str;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t LogEntry::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("LogEntry");
+  xfer += prot_->serializedFieldSize("cluster", apache::thrift::protocol::T_I64, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::ClusterID>::serializedSize<false>(*prot_, this->cluster);
+  xfer += prot_->serializedFieldSize("log_str", apache::thrift::protocol::T_STRING, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->log_str);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t LogEntry::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("LogEntry");
+  xfer += prot_->serializedFieldSize("cluster", apache::thrift::protocol::T_I64, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::ClusterID>::serializedSize<false>(*prot_, this->cluster);
+  xfer += prot_->serializedFieldSize("log_str", apache::thrift::protocol::T_STRING, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->log_str);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t LogEntry::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("LogEntry");
+  xfer += prot_->writeFieldBegin("cluster", apache::thrift::protocol::T_I64, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::ClusterID>::write(*prot_, this->cluster);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("log_str", apache::thrift::protocol::T_STRING, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->log_str);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void LogEntry::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t LogEntry::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t LogEntry::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t LogEntry::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void LogEntry::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t LogEntry::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t LogEntry::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t LogEntry::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }} // nebula::cpp2

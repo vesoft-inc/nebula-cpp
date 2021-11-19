@@ -752,6 +752,31 @@ StructMetadata<::nebula::cpp2::CheckpointInfo>::gen(ThriftMetadata& metadata) {
   }
   return res.first->second;
 }
+const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::cpp2::LogEntry>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("common.LogEntry", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& common_LogEntry = res.first->second;
+  common_LogEntry.name_ref() = "common.LogEntry";
+  common_LogEntry.is_union_ref() = false;
+  static const EncodedThriftField
+  common_LogEntry_fields[] = {
+    std::make_tuple(1, "cluster", false, std::make_unique<Typedef>("common.ClusterID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE)), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "log_str", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : common_LogEntry_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    common_LogEntry.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
 
 } // namespace md
 } // namespace detail

@@ -1088,12 +1088,12 @@ _readField_error_code:
           iprot,
           1,
           2,
-          apache::thrift::protocol::T_I32))) {
+          apache::thrift::protocol::T_I64))) {
     goto _loop;
   }
 _readField_latency_in_us:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::readWithContext(*iprot, this->latency_in_us, _readState);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::readWithContext(*iprot, this->latency_in_us, _readState);
   }
 
   if (UNLIKELY(!_readState.advanceToNextField(
@@ -1208,7 +1208,7 @@ _loop:
     }
     case 2:
     {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
         goto _readField_latency_in_us;
       } else {
         goto _skip;
@@ -1271,8 +1271,8 @@ uint32_t ExecutionResponse::serializedSize(Protocol_ const* prot_) const {
   xfer += prot_->serializedStructSize("ExecutionResponse");
   xfer += prot_->serializedFieldSize("error_code", apache::thrift::protocol::T_I32, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->error_code);
-  xfer += prot_->serializedFieldSize("latency_in_us", apache::thrift::protocol::T_I32, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->latency_in_us);
+  xfer += prot_->serializedFieldSize("latency_in_us", apache::thrift::protocol::T_I64, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->latency_in_us);
   if (this->data_ref().has_value()) {
     xfer += prot_->serializedFieldSize("data", apache::thrift::protocol::T_STRUCT, 3);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::DataSet>::serializedSize<false>(*prot_, this->data);
@@ -1303,8 +1303,8 @@ uint32_t ExecutionResponse::serializedSizeZC(Protocol_ const* prot_) const {
   xfer += prot_->serializedStructSize("ExecutionResponse");
   xfer += prot_->serializedFieldSize("error_code", apache::thrift::protocol::T_I32, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->error_code);
-  xfer += prot_->serializedFieldSize("latency_in_us", apache::thrift::protocol::T_I32, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->latency_in_us);
+  xfer += prot_->serializedFieldSize("latency_in_us", apache::thrift::protocol::T_I64, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->latency_in_us);
   if (this->data_ref().has_value()) {
     xfer += prot_->serializedFieldSize("data", apache::thrift::protocol::T_STRUCT, 3);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::DataSet>::serializedSize<true>(*prot_, this->data);
@@ -1336,8 +1336,8 @@ uint32_t ExecutionResponse::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldBegin("error_code", apache::thrift::protocol::T_I32, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::write(*prot_, this->error_code);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("latency_in_us", apache::thrift::protocol::T_I32, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::write(*prot_, this->latency_in_us);
+  xfer += prot_->writeFieldBegin("latency_in_us", apache::thrift::protocol::T_I64, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::write(*prot_, this->latency_in_us);
   xfer += prot_->writeFieldEnd();
   if (this->data_ref().has_value()) {
     xfer += prot_->writeFieldBegin("data", apache::thrift::protocol::T_STRUCT, 3);

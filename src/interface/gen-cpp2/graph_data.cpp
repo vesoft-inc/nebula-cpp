@@ -124,7 +124,7 @@ const std::array<int16_t, 7> TStructDataStorage<::nebula::graph::cpp2::Execution
 }};
 const std::array<protocol::TType, 7> TStructDataStorage<::nebula::graph::cpp2::ExecutionResponse>::fields_types = {{
   TType::T_I32,
-  TType::T_I32,
+  TType::T_I64,
   TType::T_STRUCT,
   TType::T_STRING,
   TType::T_STRING,

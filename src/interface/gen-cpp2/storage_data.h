@@ -265,7 +265,7 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::LookupIndexResp> 
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::IndexColumnHint> {
-  static constexpr const std::size_t fields_size = 4;
+  static constexpr const std::size_t fields_size = 6;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
@@ -299,29 +299,36 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::LookupAndTraverse
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
+template <> struct TStructDataStorage<::nebula::storage::cpp2::ScanCursor> {
+  static constexpr const std::size_t fields_size = 2;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
 template <> struct TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest> {
-  static constexpr const std::size_t fields_size = 11;
+  static constexpr const std::size_t fields_size = 10;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::ScanVertexResponse> {
-  static constexpr const std::size_t fields_size = 4;
+  static constexpr const std::size_t fields_size = 3;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest> {
-  static constexpr const std::size_t fields_size = 11;
+  static constexpr const std::size_t fields_size = 10;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::ScanEdgeResponse> {
-  static constexpr const std::size_t fields_size = 4;
+  static constexpr const std::size_t fields_size = 3;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
