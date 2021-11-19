@@ -25,10 +25,14 @@ DataSet ScanEdgeIter::next() {
     return DataSet();
   }
   DCHECK(!!req_);
-  auto partCursorMapReq = req_->get_parts();
-  DCHECK_EQ(partCursorMapReq.size(), 1);
-  partCursorMapReq.begin()->second.set_next_cursor(nextCursor_);
-  req_->set_parts(partCursorMapReq);
+  if (firstScan_) {
+    firstScan_ = false;
+  } else {
+    auto partCursorMapReq = req_->get_parts();
+    DCHECK_EQ(partCursorMapReq.size(), 1);
+    partCursorMapReq.begin()->second.set_next_cursor(nextCursor_);
+    req_->set_parts(partCursorMapReq);
+  }
   auto r = client_->doScanEdge(*req_);
   if (!r.first) {
     LOG(ERROR) << "Scan edge failed";

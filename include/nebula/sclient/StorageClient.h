@@ -56,7 +56,7 @@ class ScanEdgeResponse;
 #define DEFAULT_END_TIME std::numeric_limits<int64_t>::max()
 
 class StorageClient {
-friend class ScanEdgeIter;
+friend struct ScanEdgeIter;
  public:
   explicit StorageClient(const std::vector<std::string>& metaAddrs);
 

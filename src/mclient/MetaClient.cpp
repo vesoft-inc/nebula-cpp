@@ -198,7 +198,7 @@ void MetaClient::getResponse(Request req,
                LOG(INFO) << "Send request to meta " << host;
                remoteFunc(client, req)
                    .via(evb)
-                   .then([host, respGen = std::move(respGen), pro = std::move(pro), this](
+                   .then([host, respGen = std::move(respGen), pro = std::move(pro)](
                              folly::Try<RpcResponse>&& t) mutable {
                      // exception occurred during RPC
                      if (t.hasException()) {

@@ -67,7 +67,7 @@ std::shared_ptr<ClientType> ThriftClientManager<ClientType>::client(const HostAd
 
   VLOG(2) << "Connecting to " << host << " for " << ++connectionCount << " times";
   std::shared_ptr<folly::AsyncSocket> socket;
-  evb->runImmediatelyOrRunInEventBaseThreadAndWait([this, &socket, evb, resolved]() {
+  evb->runImmediatelyOrRunInEventBaseThreadAndWait([&socket, evb, resolved]() {
     // if (enableSSL_) {
     //   socket = folly::AsyncSSLSocket::newSocket(nebula::createSSLContext(), evb);
     //   socket->connect(nullptr, resolved.host, resolved.port, 1000);  // FLAGS_conn_timeout_ms

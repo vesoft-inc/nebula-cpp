@@ -68,7 +68,7 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
   // req->set_cursor("");
   // new interface
   storage::cpp2::ScanCursor scanCursor;
-  scanCursor.set_next_cursor("");
+  scanCursor.set_has_next(false);
   req->set_parts(std::unordered_map<PartitionID, storage::cpp2::ScanCursor>{
       {partId, scanCursor}});
   req->set_return_columns(returnCols);
@@ -120,11 +120,10 @@ void StorageClient::getResponse(std::pair<HostAddr, Request>&& request,
         auto host = request.first;
         auto client =
             clientsMan_->client(host, evb, false, 60 * 1000);  // FLAGS_storage_client_timeout_ms
-        auto spaceId = request.second.get_space_id();
         LOG(INFO) << "Send request to storage " << host;
         remoteFunc(client.get(), request.second)
             .via(evb)
-            .then([spaceId, pro = std::move(pro), host, this](folly::Try<Response>&& t) mutable {
+            .then([pro = std::move(pro), host](folly::Try<Response>&& t) mutable {
               // exception occurred during RPC
               if (t.hasException()) {
                 LOG(ERROR) << "Send request to " << host << " failed";
