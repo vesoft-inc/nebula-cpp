@@ -20,12 +20,15 @@ bool ScanEdgeIter::hasNext() { return hasNext_; }
 ScanEdgeIter::~ScanEdgeIter() { delete req_; }
 
 DataSet ScanEdgeIter::next() {
-  if (!hasNext_) {
+  if (!hasNext()) {
     LOG(ERROR) << "hasNext() == false !";
     return DataSet();
   }
   DCHECK(!!req_);
-  req_->set_cursor(std::move(nextCursor_));
+  auto partCursorMapReq = req_->get_parts();
+  DCHECK_EQ(partCursorMapReq.size(), 1);
+  partCursorMapReq.begin()->second.set_next_cursor(nextCursor_);
+  req_->set_parts(partCursorMapReq);
   auto r = client_->doScanEdge(*req_);
   if (!r.first) {
     LOG(ERROR) << "Scan edge failed";
@@ -39,11 +42,14 @@ DataSet ScanEdgeIter::next() {
     this->hasNext_ = false;
     return DataSet();
   }
-  this->hasNext_ = scanResponse.get_has_next();
-  std::string* cursor = scanResponse.get_next_cursor();
-  if (cursor) {
-    this->nextCursor_ = *cursor;
-  }
+  auto partCursorMapResp = scanResponse.get_cursors();
+  DCHECK_EQ(partCursorMapResp.size(), 1);
+  auto scanCursor = partCursorMapResp.begin()->second;
+  hasNext_ = scanCursor.get_has_next();
+  LOG(INFO) << "hasNext: " << hasNext_;
+  nextCursor_ = *scanCursor.get_next_cursor();
+  LOG(INFO) << "nextCursor_: " << nextCursor_;
+
   return scanResponse.get_edge_data();
 }
 

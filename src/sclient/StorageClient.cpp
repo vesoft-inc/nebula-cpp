@@ -63,9 +63,14 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
 
   auto* req = new storage::cpp2::ScanEdgeRequest;
   req->set_space_id(spaceId);
-  // req->set_parts(std::unordered_map<PartitionID, storage::cpp2::ScanCursor>{{partId, ""}});
-  req->set_part_id(partId);
-  req->set_cursor("");
+  // old interface
+  // req->set_part_id(partId);
+  // req->set_cursor("");
+  // new interface
+  storage::cpp2::ScanCursor scanCursor;
+  scanCursor.set_next_cursor("");
+  req->set_parts(std::unordered_map<PartitionID, storage::cpp2::ScanCursor>{
+      {partId, scanCursor}});
   req->set_return_columns(returnCols);
   req->set_limit(limit);
   req->set_start_time(startTime);
@@ -80,7 +85,10 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
 std::pair<bool, storage::cpp2::ScanEdgeResponse> StorageClient::doScanEdge(
     const storage::cpp2::ScanEdgeRequest& req) {
   std::pair<HostAddr, storage::cpp2::ScanEdgeRequest> request;
-  auto host = mClient_->getPartLeaderFromCache(req.get_space_id(), req.get_part_id());
+  auto partCursorMap = req.get_parts();
+  DCHECK_EQ(partCursorMap.size(), 1);
+  PartitionID partId = partCursorMap.begin()->first;
+  auto host = mClient_->getPartLeaderFromCache(req.get_space_id(), partId);
   if (!host.first) {
     return {false, storage::cpp2::ScanEdgeResponse()};
   }
