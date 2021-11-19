@@ -2491,34 +2491,6 @@ StructMetadata<::nebula::meta::cpp2::ChangePasswordReq>::gen(ThriftMetadata& met
   return res.first->second;
 }
 const ::apache::thrift::metadata::ThriftStruct&
-StructMetadata<::nebula::meta::cpp2::BalanceReq>::gen(ThriftMetadata& metadata) {
-  auto res = metadata.structs_ref()->emplace("meta.BalanceReq", ::apache::thrift::metadata::ThriftStruct{});
-  if (!res.second) {
-    return res.first->second;
-  }
-  ::apache::thrift::metadata::ThriftStruct& meta_BalanceReq = res.first->second;
-  meta_BalanceReq.name_ref() = "meta.BalanceReq";
-  meta_BalanceReq.is_union_ref() = false;
-  static const EncodedThriftField
-  meta_BalanceReq_fields[] = {
-    std::make_tuple(1, "space_id", true, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(2, "id", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(3, "host_del", true, std::make_unique<List>(std::make_unique<Struct< ::nebula::cpp2::HostAddr>>("common.HostAddr")), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(4, "stop", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(5, "reset", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
-  };
-  for (const auto& f : meta_BalanceReq_fields) {
-    ::apache::thrift::metadata::ThriftField field;
-    field.id_ref() = std::get<0>(f);
-    field.name_ref() = std::get<1>(f);
-    field.is_optional_ref() = std::get<2>(f);
-    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
-    field.structured_annotations_ref() = std::get<4>(f);
-    meta_BalanceReq.fields_ref()->push_back(std::move(field));
-  }
-  return res.first->second;
-}
-const ::apache::thrift::metadata::ThriftStruct&
 StructMetadata<::nebula::meta::cpp2::BalanceTask>::gen(ThriftMetadata& metadata) {
   auto res = metadata.structs_ref()->emplace("meta.BalanceTask", ::apache::thrift::metadata::ThriftStruct{});
   if (!res.second) {
@@ -2530,7 +2502,10 @@ StructMetadata<::nebula::meta::cpp2::BalanceTask>::gen(ThriftMetadata& metadata)
   static const EncodedThriftField
   meta_BalanceTask_fields[] = {
     std::make_tuple(1, "id", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(2, "result", false, std::make_unique<Enum< ::nebula::meta::cpp2::TaskResult>>("meta.TaskResult"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "command", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "result", false, std::make_unique<Enum< ::nebula::meta::cpp2::TaskResult>>("meta.TaskResult"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(4, "start_time", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(5, "stop_time", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : meta_BalanceTask_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -2541,44 +2516,6 @@ StructMetadata<::nebula::meta::cpp2::BalanceTask>::gen(ThriftMetadata& metadata)
     field.structured_annotations_ref() = std::get<4>(f);
     meta_BalanceTask.fields_ref()->push_back(std::move(field));
   }
-  return res.first->second;
-}
-const ::apache::thrift::metadata::ThriftStruct&
-StructMetadata<::nebula::meta::cpp2::BalanceResp>::gen(ThriftMetadata& metadata) {
-  auto res = metadata.structs_ref()->emplace("meta.BalanceResp", ::apache::thrift::metadata::ThriftStruct{});
-  if (!res.second) {
-    return res.first->second;
-  }
-  ::apache::thrift::metadata::ThriftStruct& meta_BalanceResp = res.first->second;
-  meta_BalanceResp.name_ref() = "meta.BalanceResp";
-  meta_BalanceResp.is_union_ref() = false;
-  static const EncodedThriftField
-  meta_BalanceResp_fields[] = {
-    std::make_tuple(1, "code", false, std::make_unique<Enum< ::nebula::cpp2::ErrorCode>>("common.ErrorCode"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(2, "id", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(3, "leader", false, std::make_unique<Struct< ::nebula::cpp2::HostAddr>>("common.HostAddr"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(4, "tasks", false, std::make_unique<List>(std::make_unique<Struct< ::nebula::meta::cpp2::BalanceTask>>("meta.BalanceTask")), std::vector<ThriftConstStruct>{}),
-  };
-  for (const auto& f : meta_BalanceResp_fields) {
-    ::apache::thrift::metadata::ThriftField field;
-    field.id_ref() = std::get<0>(f);
-    field.name_ref() = std::get<1>(f);
-    field.is_optional_ref() = std::get<2>(f);
-    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
-    field.structured_annotations_ref() = std::get<4>(f);
-    meta_BalanceResp.fields_ref()->push_back(std::move(field));
-  }
-  return res.first->second;
-}
-const ::apache::thrift::metadata::ThriftStruct&
-StructMetadata<::nebula::meta::cpp2::LeaderBalanceReq>::gen(ThriftMetadata& metadata) {
-  auto res = metadata.structs_ref()->emplace("meta.LeaderBalanceReq", ::apache::thrift::metadata::ThriftStruct{});
-  if (!res.second) {
-    return res.first->second;
-  }
-  ::apache::thrift::metadata::ThriftStruct& meta_LeaderBalanceReq = res.first->second;
-  meta_LeaderBalanceReq.name_ref() = "meta.LeaderBalanceReq";
-  meta_LeaderBalanceReq.is_union_ref() = false;
   return res.first->second;
 }
 const ::apache::thrift::metadata::ThriftStruct&
@@ -5107,38 +5044,6 @@ void ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen_heartBeat(Thrif
   func.is_oneway_ref() = false;
   service.functions_ref()->push_back(std::move(func));
 }
-void ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen_balance(ThriftMetadata& metadata, ThriftService& service) {
-  ::apache::thrift::metadata::ThriftFunction func;
-  (void)metadata;
-  func.name_ref() = "balance";
-  auto func_ret_type = std::make_unique<Struct< ::nebula::meta::cpp2::BalanceResp>>("meta.BalanceResp");
-  func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
-  ::apache::thrift::metadata::ThriftField meta_MetaService_balance_req_1;
-  meta_MetaService_balance_req_1.id_ref() = 1;
-  meta_MetaService_balance_req_1.name_ref() = "req";
-  meta_MetaService_balance_req_1.is_optional_ref() = false;
-  auto meta_MetaService_balance_req_1_type = std::make_unique<Struct< ::nebula::meta::cpp2::BalanceReq>>("meta.BalanceReq");
-  meta_MetaService_balance_req_1_type->writeAndGenType(*meta_MetaService_balance_req_1.type_ref(), metadata);
-  func.arguments_ref()->push_back(std::move(meta_MetaService_balance_req_1));
-  func.is_oneway_ref() = false;
-  service.functions_ref()->push_back(std::move(func));
-}
-void ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen_leaderBalance(ThriftMetadata& metadata, ThriftService& service) {
-  ::apache::thrift::metadata::ThriftFunction func;
-  (void)metadata;
-  func.name_ref() = "leaderBalance";
-  auto func_ret_type = std::make_unique<Struct< ::nebula::meta::cpp2::ExecResp>>("meta.ExecResp");
-  func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
-  ::apache::thrift::metadata::ThriftField meta_MetaService_leaderBalance_req_1;
-  meta_MetaService_leaderBalance_req_1.id_ref() = 1;
-  meta_MetaService_leaderBalance_req_1.name_ref() = "req";
-  meta_MetaService_leaderBalance_req_1.is_optional_ref() = false;
-  auto meta_MetaService_leaderBalance_req_1_type = std::make_unique<Struct< ::nebula::meta::cpp2::LeaderBalanceReq>>("meta.LeaderBalanceReq");
-  meta_MetaService_leaderBalance_req_1_type->writeAndGenType(*meta_MetaService_leaderBalance_req_1.type_ref(), metadata);
-  func.arguments_ref()->push_back(std::move(meta_MetaService_leaderBalance_req_1));
-  func.is_oneway_ref() = false;
-  service.functions_ref()->push_back(std::move(func));
-}
 void ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen_regConfig(ThriftMetadata& metadata, ThriftService& service) {
   ::apache::thrift::metadata::ThriftFunction func;
   (void)metadata;
@@ -5863,8 +5768,6 @@ void ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen(ThriftMetadata&
     ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen_getUserRoles,
     ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen_changePassword,
     ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen_heartBeat,
-    ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen_balance,
-    ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen_leaderBalance,
     ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen_regConfig,
     ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen_getConfig,
     ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf>::gen_setConfig,

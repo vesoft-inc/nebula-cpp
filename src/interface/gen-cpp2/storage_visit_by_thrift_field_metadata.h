@@ -589,6 +589,10 @@ struct VisitByThriftId<::nebula::storage::cpp2::IndexColumnHint> {
       return f(2, static_cast<T&&>(t).begin_value_ref());
     case 4:
       return f(3, static_cast<T&&>(t).end_value_ref());
+    case 5:
+      return f(4, static_cast<T&&>(t).include_begin_ref());
+    case 6:
+      return f(5, static_cast<T&&>(t).include_end_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::IndexColumnHint");
     }
@@ -672,6 +676,21 @@ struct VisitByThriftId<::nebula::storage::cpp2::LookupAndTraverseRequest> {
 };
 
 template <>
+struct VisitByThriftId<::nebula::storage::cpp2::ScanCursor> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 3:
+      return f(0, static_cast<T&&>(t).has_next_ref());
+    case 4:
+      return f(1, static_cast<T&&>(t).next_cursor_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::ScanCursor");
+    }
+  }
+};
+
+template <>
 struct VisitByThriftId<::nebula::storage::cpp2::ScanVertexRequest> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
@@ -679,25 +698,23 @@ struct VisitByThriftId<::nebula::storage::cpp2::ScanVertexRequest> {
     case 1:
       return f(0, static_cast<T&&>(t).space_id_ref());
     case 2:
-      return f(1, static_cast<T&&>(t).part_id_ref());
+      return f(1, static_cast<T&&>(t).parts_ref());
     case 3:
-      return f(2, static_cast<T&&>(t).cursor_ref());
+      return f(2, static_cast<T&&>(t).return_columns_ref());
     case 4:
-      return f(3, static_cast<T&&>(t).return_columns_ref());
+      return f(3, static_cast<T&&>(t).limit_ref());
     case 5:
-      return f(4, static_cast<T&&>(t).limit_ref());
+      return f(4, static_cast<T&&>(t).start_time_ref());
     case 6:
-      return f(5, static_cast<T&&>(t).start_time_ref());
+      return f(5, static_cast<T&&>(t).end_time_ref());
     case 7:
-      return f(6, static_cast<T&&>(t).end_time_ref());
+      return f(6, static_cast<T&&>(t).filter_ref());
     case 8:
-      return f(7, static_cast<T&&>(t).filter_ref());
+      return f(7, static_cast<T&&>(t).only_latest_version_ref());
     case 9:
-      return f(8, static_cast<T&&>(t).only_latest_version_ref());
+      return f(8, static_cast<T&&>(t).enable_read_from_follower_ref());
     case 10:
-      return f(9, static_cast<T&&>(t).enable_read_from_follower_ref());
-    case 11:
-      return f(10, static_cast<T&&>(t).common_ref());
+      return f(9, static_cast<T&&>(t).common_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::ScanVertexRequest");
     }
@@ -714,9 +731,7 @@ struct VisitByThriftId<::nebula::storage::cpp2::ScanVertexResponse> {
     case 2:
       return f(1, static_cast<T&&>(t).vertex_data_ref());
     case 3:
-      return f(2, static_cast<T&&>(t).has_next_ref());
-    case 4:
-      return f(3, static_cast<T&&>(t).next_cursor_ref());
+      return f(2, static_cast<T&&>(t).cursors_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::ScanVertexResponse");
     }
@@ -731,25 +746,23 @@ struct VisitByThriftId<::nebula::storage::cpp2::ScanEdgeRequest> {
     case 1:
       return f(0, static_cast<T&&>(t).space_id_ref());
     case 2:
-      return f(1, static_cast<T&&>(t).part_id_ref());
+      return f(1, static_cast<T&&>(t).parts_ref());
     case 3:
-      return f(2, static_cast<T&&>(t).cursor_ref());
+      return f(2, static_cast<T&&>(t).return_columns_ref());
     case 4:
-      return f(3, static_cast<T&&>(t).return_columns_ref());
+      return f(3, static_cast<T&&>(t).limit_ref());
     case 5:
-      return f(4, static_cast<T&&>(t).limit_ref());
+      return f(4, static_cast<T&&>(t).start_time_ref());
     case 6:
-      return f(5, static_cast<T&&>(t).start_time_ref());
+      return f(5, static_cast<T&&>(t).end_time_ref());
     case 7:
-      return f(6, static_cast<T&&>(t).end_time_ref());
+      return f(6, static_cast<T&&>(t).filter_ref());
     case 8:
-      return f(7, static_cast<T&&>(t).filter_ref());
+      return f(7, static_cast<T&&>(t).only_latest_version_ref());
     case 9:
-      return f(8, static_cast<T&&>(t).only_latest_version_ref());
+      return f(8, static_cast<T&&>(t).enable_read_from_follower_ref());
     case 10:
-      return f(9, static_cast<T&&>(t).enable_read_from_follower_ref());
-    case 11:
-      return f(10, static_cast<T&&>(t).common_ref());
+      return f(9, static_cast<T&&>(t).common_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::ScanEdgeRequest");
     }
@@ -766,9 +779,7 @@ struct VisitByThriftId<::nebula::storage::cpp2::ScanEdgeResponse> {
     case 2:
       return f(1, static_cast<T&&>(t).edge_data_ref());
     case 3:
-      return f(2, static_cast<T&&>(t).has_next_ref());
-    case 4:
-      return f(3, static_cast<T&&>(t).next_cursor_ref());
+      return f(2, static_cast<T&&>(t).cursors_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::ScanEdgeResponse");
     }
@@ -785,7 +796,7 @@ struct VisitByThriftId<::nebula::storage::cpp2::TaskPara> {
     case 2:
       return f(1, static_cast<T&&>(t).parts_ref());
     case 3:
-      return f(2, static_cast<T&&>(t).task_specfic_paras_ref());
+      return f(2, static_cast<T&&>(t).task_specific_paras_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::TaskPara");
     }

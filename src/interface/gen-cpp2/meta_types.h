@@ -281,17 +281,11 @@ struct account;
 struct account;
 struct new_encoded_pwd;
 struct old_encoded_pwd;
-struct space_id;
 struct id;
-struct host_del;
-struct stop;
-struct reset;
-struct id;
+struct command;
 struct result;
-struct code;
-struct id;
-struct leader;
-struct tasks;
+struct start_time;
+struct stop_time;
 struct module;
 struct name;
 struct mode;
@@ -1523,49 +1517,25 @@ APACHE_THRIFT_DEFINE_ACCESSOR(new_encoded_pwd);
 #define APACHE_THRIFT_ACCESSOR_old_encoded_pwd
 APACHE_THRIFT_DEFINE_ACCESSOR(old_encoded_pwd);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_space_id
-#define APACHE_THRIFT_ACCESSOR_space_id
-APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
-#endif
 #ifndef APACHE_THRIFT_ACCESSOR_id
 #define APACHE_THRIFT_ACCESSOR_id
 APACHE_THRIFT_DEFINE_ACCESSOR(id);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_host_del
-#define APACHE_THRIFT_ACCESSOR_host_del
-APACHE_THRIFT_DEFINE_ACCESSOR(host_del);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_stop
-#define APACHE_THRIFT_ACCESSOR_stop
-APACHE_THRIFT_DEFINE_ACCESSOR(stop);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_reset
-#define APACHE_THRIFT_ACCESSOR_reset
-APACHE_THRIFT_DEFINE_ACCESSOR(reset);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_id
-#define APACHE_THRIFT_ACCESSOR_id
-APACHE_THRIFT_DEFINE_ACCESSOR(id);
+#ifndef APACHE_THRIFT_ACCESSOR_command
+#define APACHE_THRIFT_ACCESSOR_command
+APACHE_THRIFT_DEFINE_ACCESSOR(command);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_result
 #define APACHE_THRIFT_ACCESSOR_result
 APACHE_THRIFT_DEFINE_ACCESSOR(result);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_code
-#define APACHE_THRIFT_ACCESSOR_code
-APACHE_THRIFT_DEFINE_ACCESSOR(code);
+#ifndef APACHE_THRIFT_ACCESSOR_start_time
+#define APACHE_THRIFT_ACCESSOR_start_time
+APACHE_THRIFT_DEFINE_ACCESSOR(start_time);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_id
-#define APACHE_THRIFT_ACCESSOR_id
-APACHE_THRIFT_DEFINE_ACCESSOR(id);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_leader
-#define APACHE_THRIFT_ACCESSOR_leader
-APACHE_THRIFT_DEFINE_ACCESSOR(leader);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_tasks
-#define APACHE_THRIFT_ACCESSOR_tasks
-APACHE_THRIFT_DEFINE_ACCESSOR(tasks);
+#ifndef APACHE_THRIFT_ACCESSOR_stop_time
+#define APACHE_THRIFT_ACCESSOR_stop_time
+APACHE_THRIFT_DEFINE_ACCESSOR(stop_time);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_module
 #define APACHE_THRIFT_ACCESSOR_module
@@ -2295,6 +2265,7 @@ enum class AdminCmd {
   DATA_BALANCE = 6,
   DOWNLOAD = 7,
   INGEST = 8,
+  LEADER_BALANCE = 9,
   UNKNOWN = 99,
 };
 
@@ -2589,7 +2560,7 @@ template <> struct TEnumDataStorage<::nebula::meta::cpp2::AdminCmd>;
 template <> struct TEnumTraits<::nebula::meta::cpp2::AdminCmd> {
   using type = ::nebula::meta::cpp2::AdminCmd;
 
-  static constexpr std::size_t const size = 10;
+  static constexpr std::size_t const size = 11;
   static folly::Range<type const*> const values;
   static folly::Range<folly::StringPiece const*> const names;
 
@@ -2953,10 +2924,7 @@ class ListRolesReq;
 class ListRolesResp;
 class GetUserRolesReq;
 class ChangePasswordReq;
-class BalanceReq;
 class BalanceTask;
-class BalanceResp;
-class LeaderBalanceReq;
 class ConfigItem;
 class RegConfigReq;
 class GetConfigReq;
@@ -20802,298 +20770,6 @@ uint32_t ChangePasswordReq::read(Protocol_* iprot) {
 
 }}} // nebula::meta::cpp2
 namespace nebula { namespace meta { namespace cpp2 {
-class BalanceReq final  {
- private:
-  friend struct ::apache::thrift::detail::st::struct_private_access;
-
-  //  used by a static_assert in the corresponding source
-  static constexpr bool __fbthrift_cpp2_gen_json = false;
-  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
-  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
-
- public:
-  using __fbthrift_cpp2_type = BalanceReq;
-  static constexpr bool __fbthrift_cpp2_is_union =
-    false;
-
-
- public:
-
-  BalanceReq();
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-
-  // FragileConstructor for use in initialization lists only.
-  [[deprecated("This constructor is deprecated")]]
-  BalanceReq(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, int64_t id__arg, ::std::vector<nebula::HostAddr> host_del__arg, bool stop__arg, bool reset__arg);
-
-  BalanceReq(BalanceReq&&) = default;
-
-  BalanceReq(const BalanceReq&) = default;
-
-
-  BalanceReq& operator=(BalanceReq&&) = default;
-
-  BalanceReq& operator=(const BalanceReq&) = default;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-  void __clear();
-
-  ~BalanceReq();
-
- private:
-   ::nebula::cpp2::GraphSpaceID space_id;
- private:
-  int64_t id;
- private:
-  ::std::vector<nebula::HostAddr> host_del;
- private:
-  bool stop;
- private:
-  bool reset;
-
- public:
-  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
-  struct __isset {
-    bool space_id;
-    bool id;
-    bool host_del;
-    bool stop;
-    bool reset;
-  } __isset = {};
-  bool operator==(const BalanceReq& rhs) const;
-#ifndef SWIG
-  friend bool operator!=(const BalanceReq& __x, const BalanceReq& __y) {
-    return !(__x == __y);
-  }
-#endif
-  bool operator<(const BalanceReq& rhs) const;
-#ifndef SWIG
-  friend bool operator>(const BalanceReq& __x, const BalanceReq& __y) {
-    return __y < __x;
-  }
-  friend bool operator<=(const BalanceReq& __x, const BalanceReq& __y) {
-    return !(__y < __x);
-  }
-  friend bool operator>=(const BalanceReq& __x, const BalanceReq& __y) {
-    return !(__x < __y);
-  }
-#endif
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> space_id_ref() const& {
-    return {this->space_id, __isset.space_id};
-  }
-
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> space_id_ref() const&& {
-    return {std::move(this->space_id), __isset.space_id};
-  }
-
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> space_id_ref() & {
-    return {this->space_id, __isset.space_id};
-  }
-
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> space_id_ref() && {
-    return {std::move(this->space_id), __isset.space_id};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = int64_t>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> id_ref() const& {
-    return {this->id, __isset.id};
-  }
-
-  template <typename..., typename T = int64_t>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> id_ref() const&& {
-    return {std::move(this->id), __isset.id};
-  }
-
-  template <typename..., typename T = int64_t>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> id_ref() & {
-    return {this->id, __isset.id};
-  }
-
-  template <typename..., typename T = int64_t>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> id_ref() && {
-    return {std::move(this->id), __isset.id};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = ::std::vector<nebula::HostAddr>>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> host_del_ref() const& {
-    return {this->host_del, __isset.host_del};
-  }
-
-  template <typename..., typename T = ::std::vector<nebula::HostAddr>>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> host_del_ref() const&& {
-    return {std::move(this->host_del), __isset.host_del};
-  }
-
-  template <typename..., typename T = ::std::vector<nebula::HostAddr>>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> host_del_ref() & {
-    return {this->host_del, __isset.host_del};
-  }
-
-  template <typename..., typename T = ::std::vector<nebula::HostAddr>>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> host_del_ref() && {
-    return {std::move(this->host_del), __isset.host_del};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> stop_ref() const& {
-    return {this->stop, __isset.stop};
-  }
-
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> stop_ref() const&& {
-    return {std::move(this->stop), __isset.stop};
-  }
-
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> stop_ref() & {
-    return {this->stop, __isset.stop};
-  }
-
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> stop_ref() && {
-    return {std::move(this->stop), __isset.stop};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> reset_ref() const& {
-    return {this->reset, __isset.reset};
-  }
-
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> reset_ref() const&& {
-    return {std::move(this->reset), __isset.reset};
-  }
-
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> reset_ref() & {
-    return {this->reset, __isset.reset};
-  }
-
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> reset_ref() && {
-    return {std::move(this->reset), __isset.reset};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-  const  ::nebula::cpp2::GraphSpaceID* get_space_id() const& {
-    return space_id_ref() ? std::addressof(space_id) : nullptr;
-  }
-
-   ::nebula::cpp2::GraphSpaceID* get_space_id() & {
-    return space_id_ref() ? std::addressof(space_id) : nullptr;
-  }
-   ::nebula::cpp2::GraphSpaceID* get_space_id() && = delete;
-
-   ::nebula::cpp2::GraphSpaceID& set_space_id( ::nebula::cpp2::GraphSpaceID space_id_) {
-    space_id = space_id_;
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.space_id = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return space_id;
-  }
-
-  const int64_t* get_id() const& {
-    return id_ref() ? std::addressof(id) : nullptr;
-  }
-
-  int64_t* get_id() & {
-    return id_ref() ? std::addressof(id) : nullptr;
-  }
-  int64_t* get_id() && = delete;
-
-  int64_t& set_id(int64_t id_) {
-    id = id_;
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.id = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return id;
-  }
-  const ::std::vector<nebula::HostAddr>* get_host_del() const&;
-  ::std::vector<nebula::HostAddr>* get_host_del() &;
-  ::std::vector<nebula::HostAddr>* get_host_del() && = delete;
-
-  template <typename T_BalanceReq_host_del_struct_setter = ::std::vector<nebula::HostAddr>>
-  ::std::vector<nebula::HostAddr>& set_host_del(T_BalanceReq_host_del_struct_setter&& host_del_) {
-    host_del = std::forward<T_BalanceReq_host_del_struct_setter>(host_del_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.host_del = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return host_del;
-  }
-
-  const bool* get_stop() const& {
-    return stop_ref() ? std::addressof(stop) : nullptr;
-  }
-
-  bool* get_stop() & {
-    return stop_ref() ? std::addressof(stop) : nullptr;
-  }
-  bool* get_stop() && = delete;
-
-  bool& set_stop(bool stop_) {
-    stop = stop_;
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.stop = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return stop;
-  }
-
-  const bool* get_reset() const& {
-    return reset_ref() ? std::addressof(reset) : nullptr;
-  }
-
-  bool* get_reset() & {
-    return reset_ref() ? std::addressof(reset) : nullptr;
-  }
-  bool* get_reset() && = delete;
-
-  bool& set_reset(bool reset_) {
-    reset = reset_;
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.reset = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return reset;
-  }
-
-  template <class Protocol_>
-  uint32_t read(Protocol_* iprot);
-  template <class Protocol_>
-  uint32_t serializedSize(Protocol_ const* prot_) const;
-  template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
-  template <class Protocol_>
-  uint32_t write(Protocol_* prot_) const;
-
- private:
-  template <class Protocol_>
-  void readNoXfer(Protocol_* iprot);
-
-  friend class ::apache::thrift::Cpp2Ops< BalanceReq >;
-  friend void swap(BalanceReq& a, BalanceReq& b);
-};
-
-template <class Protocol_>
-uint32_t BalanceReq::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCursorPosition();
-  readNoXfer(iprot);
-  return iprot->getCursorPosition() - _xferStart;
-}
-
-}}} // nebula::meta::cpp2
-namespace nebula { namespace meta { namespace cpp2 {
 class BalanceTask final  {
  private:
   friend struct ::apache::thrift::detail::st::struct_private_access;
@@ -21111,12 +20787,12 @@ class BalanceTask final  {
 
  public:
 
+  BalanceTask();
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  BalanceTask() :
-      result( ::nebula::meta::cpp2::TaskResult::SUCCEEDED) {}
+
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  BalanceTask(apache::thrift::FragileConstructor, ::std::string id__arg,  ::nebula::meta::cpp2::TaskResult result__arg);
+  BalanceTask(apache::thrift::FragileConstructor, ::std::string id__arg, ::std::string command__arg,  ::nebula::meta::cpp2::TaskResult result__arg, int64_t start_time__arg, int64_t stop_time__arg);
 
   BalanceTask(BalanceTask&&) = default;
 
@@ -21128,16 +20804,28 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   BalanceTask& operator=(const BalanceTask&) = default;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
   void __clear();
+
+  ~BalanceTask();
+
  private:
   ::std::string id;
  private:
+  ::std::string command;
+ private:
    ::nebula::meta::cpp2::TaskResult result;
+ private:
+  int64_t start_time;
+ private:
+  int64_t stop_time;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
     bool id;
+    bool command;
     bool result;
+    bool start_time;
+    bool stop_time;
   } __isset = {};
   bool operator==(const BalanceTask& rhs) const;
 #ifndef SWIG
@@ -21181,6 +20869,28 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> command_ref() const& {
+    return {this->command, __isset.command};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> command_ref() const&& {
+    return {std::move(this->command), __isset.command};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> command_ref() & {
+    return {this->command, __isset.command};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> command_ref() && {
+    return {std::move(this->command), __isset.command};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   template <typename..., typename T =  ::nebula::meta::cpp2::TaskResult>
   FOLLY_ERASE ::apache::thrift::field_ref<const T&> result_ref() const& {
     return {this->result, __isset.result};
@@ -21202,6 +20912,50 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> start_time_ref() const& {
+    return {this->start_time, __isset.start_time};
+  }
+
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> start_time_ref() const&& {
+    return {std::move(this->start_time), __isset.start_time};
+  }
+
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> start_time_ref() & {
+    return {this->start_time, __isset.start_time};
+  }
+
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> start_time_ref() && {
+    return {std::move(this->start_time), __isset.start_time};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> stop_time_ref() const& {
+    return {this->stop_time, __isset.stop_time};
+  }
+
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> stop_time_ref() const&& {
+    return {std::move(this->stop_time), __isset.stop_time};
+  }
+
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> stop_time_ref() & {
+    return {this->stop_time, __isset.stop_time};
+  }
+
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> stop_time_ref() && {
+    return {std::move(this->stop_time), __isset.stop_time};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
   const ::std::string& get_id() const& {
     return id;
   }
@@ -21219,6 +20973,23 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     return id;
   }
 
+  const ::std::string& get_command() const& {
+    return command;
+  }
+
+  ::std::string get_command() && {
+    return std::move(command);
+  }
+
+  template <typename T_BalanceTask_command_struct_setter = ::std::string>
+  ::std::string& set_command(T_BalanceTask_command_struct_setter&& command_) {
+    command = std::forward<T_BalanceTask_command_struct_setter>(command_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.command = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return command;
+  }
+
    ::nebula::meta::cpp2::TaskResult get_result() const {
     return result;
   }
@@ -21229,6 +21000,30 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     __isset.result = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return result;
+  }
+
+  int64_t get_start_time() const {
+    return start_time;
+  }
+
+  int64_t& set_start_time(int64_t start_time_) {
+    start_time = start_time_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.start_time = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return start_time;
+  }
+
+  int64_t get_stop_time() const {
+    return stop_time;
+  }
+
+  int64_t& set_stop_time(int64_t stop_time_) {
+    stop_time = stop_time_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.stop_time = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return stop_time;
   }
 
   template <class Protocol_>
@@ -21250,315 +21045,6 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 template <class Protocol_>
 uint32_t BalanceTask::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCursorPosition();
-  readNoXfer(iprot);
-  return iprot->getCursorPosition() - _xferStart;
-}
-
-}}} // nebula::meta::cpp2
-namespace nebula { namespace meta { namespace cpp2 {
-class BalanceResp final  {
- private:
-  friend struct ::apache::thrift::detail::st::struct_private_access;
-
-  //  used by a static_assert in the corresponding source
-  static constexpr bool __fbthrift_cpp2_gen_json = false;
-  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
-  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
-
- public:
-  using __fbthrift_cpp2_type = BalanceResp;
-  static constexpr bool __fbthrift_cpp2_is_union =
-    false;
-
-
- public:
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  BalanceResp() :
-      code( ::nebula::cpp2::ErrorCode::SUCCEEDED),
-      id(0) {}
-  // FragileConstructor for use in initialization lists only.
-  [[deprecated("This constructor is deprecated")]]
-  BalanceResp(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg, int64_t id__arg, nebula::HostAddr leader__arg, ::std::vector< ::nebula::meta::cpp2::BalanceTask> tasks__arg);
-
-  BalanceResp(BalanceResp&&) = default;
-
-  BalanceResp(const BalanceResp&) = default;
-
-
-  BalanceResp& operator=(BalanceResp&&) = default;
-
-  BalanceResp& operator=(const BalanceResp&) = default;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-  void __clear();
- private:
-   ::nebula::cpp2::ErrorCode code;
- private:
-  int64_t id;
- private:
-  nebula::HostAddr leader;
- private:
-  ::std::vector< ::nebula::meta::cpp2::BalanceTask> tasks;
-
- public:
-  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
-  struct __isset {
-    bool code;
-    bool id;
-    bool leader;
-    bool tasks;
-  } __isset = {};
-  bool operator==(const BalanceResp& rhs) const;
-#ifndef SWIG
-  friend bool operator!=(const BalanceResp& __x, const BalanceResp& __y) {
-    return !(__x == __y);
-  }
-#endif
-  bool operator<(const BalanceResp& rhs) const;
-#ifndef SWIG
-  friend bool operator>(const BalanceResp& __x, const BalanceResp& __y) {
-    return __y < __x;
-  }
-  friend bool operator<=(const BalanceResp& __x, const BalanceResp& __y) {
-    return !(__y < __x);
-  }
-  friend bool operator>=(const BalanceResp& __x, const BalanceResp& __y) {
-    return !(__x < __y);
-  }
-#endif
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T =  ::nebula::cpp2::ErrorCode>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> code_ref() const& {
-    return {this->code, __isset.code};
-  }
-
-  template <typename..., typename T =  ::nebula::cpp2::ErrorCode>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> code_ref() const&& {
-    return {std::move(this->code), __isset.code};
-  }
-
-  template <typename..., typename T =  ::nebula::cpp2::ErrorCode>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> code_ref() & {
-    return {this->code, __isset.code};
-  }
-
-  template <typename..., typename T =  ::nebula::cpp2::ErrorCode>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> code_ref() && {
-    return {std::move(this->code), __isset.code};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = int64_t>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> id_ref() const& {
-    return {this->id, __isset.id};
-  }
-
-  template <typename..., typename T = int64_t>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> id_ref() const&& {
-    return {std::move(this->id), __isset.id};
-  }
-
-  template <typename..., typename T = int64_t>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> id_ref() & {
-    return {this->id, __isset.id};
-  }
-
-  template <typename..., typename T = int64_t>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> id_ref() && {
-    return {std::move(this->id), __isset.id};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = nebula::HostAddr>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> leader_ref() const& {
-    return {this->leader, __isset.leader};
-  }
-
-  template <typename..., typename T = nebula::HostAddr>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> leader_ref() const&& {
-    return {std::move(this->leader), __isset.leader};
-  }
-
-  template <typename..., typename T = nebula::HostAddr>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> leader_ref() & {
-    return {this->leader, __isset.leader};
-  }
-
-  template <typename..., typename T = nebula::HostAddr>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> leader_ref() && {
-    return {std::move(this->leader), __isset.leader};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = ::std::vector< ::nebula::meta::cpp2::BalanceTask>>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> tasks_ref() const& {
-    return {this->tasks, __isset.tasks};
-  }
-
-  template <typename..., typename T = ::std::vector< ::nebula::meta::cpp2::BalanceTask>>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> tasks_ref() const&& {
-    return {std::move(this->tasks), __isset.tasks};
-  }
-
-  template <typename..., typename T = ::std::vector< ::nebula::meta::cpp2::BalanceTask>>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> tasks_ref() & {
-    return {this->tasks, __isset.tasks};
-  }
-
-  template <typename..., typename T = ::std::vector< ::nebula::meta::cpp2::BalanceTask>>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> tasks_ref() && {
-    return {std::move(this->tasks), __isset.tasks};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-   ::nebula::cpp2::ErrorCode get_code() const {
-    return code;
-  }
-
-   ::nebula::cpp2::ErrorCode& set_code( ::nebula::cpp2::ErrorCode code_) {
-    code = code_;
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.code = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return code;
-  }
-
-  int64_t get_id() const {
-    return id;
-  }
-
-  int64_t& set_id(int64_t id_) {
-    id = id_;
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.id = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return id;
-  }
-  const nebula::HostAddr& get_leader() const&;
-  nebula::HostAddr get_leader() &&;
-
-  template <typename T_BalanceResp_leader_struct_setter = nebula::HostAddr>
-  nebula::HostAddr& set_leader(T_BalanceResp_leader_struct_setter&& leader_) {
-    leader = std::forward<T_BalanceResp_leader_struct_setter>(leader_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.leader = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return leader;
-  }
-  const ::std::vector< ::nebula::meta::cpp2::BalanceTask>& get_tasks() const&;
-  ::std::vector< ::nebula::meta::cpp2::BalanceTask> get_tasks() &&;
-
-  template <typename T_BalanceResp_tasks_struct_setter = ::std::vector< ::nebula::meta::cpp2::BalanceTask>>
-  ::std::vector< ::nebula::meta::cpp2::BalanceTask>& set_tasks(T_BalanceResp_tasks_struct_setter&& tasks_) {
-    tasks = std::forward<T_BalanceResp_tasks_struct_setter>(tasks_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.tasks = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return tasks;
-  }
-
-  template <class Protocol_>
-  uint32_t read(Protocol_* iprot);
-  template <class Protocol_>
-  uint32_t serializedSize(Protocol_ const* prot_) const;
-  template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
-  template <class Protocol_>
-  uint32_t write(Protocol_* prot_) const;
-
- private:
-  template <class Protocol_>
-  void readNoXfer(Protocol_* iprot);
-
-  friend class ::apache::thrift::Cpp2Ops< BalanceResp >;
-  friend void swap(BalanceResp& a, BalanceResp& b);
-};
-
-template <class Protocol_>
-uint32_t BalanceResp::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCursorPosition();
-  readNoXfer(iprot);
-  return iprot->getCursorPosition() - _xferStart;
-}
-
-}}} // nebula::meta::cpp2
-namespace nebula { namespace meta { namespace cpp2 {
-class LeaderBalanceReq final  {
- private:
-  friend struct ::apache::thrift::detail::st::struct_private_access;
-
-  //  used by a static_assert in the corresponding source
-  static constexpr bool __fbthrift_cpp2_gen_json = false;
-  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
-  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
-
- public:
-  using __fbthrift_cpp2_type = LeaderBalanceReq;
-  static constexpr bool __fbthrift_cpp2_is_union =
-    false;
-
-
- public:
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  LeaderBalanceReq() {}
-  // FragileConstructor for use in initialization lists only.
-  [[deprecated("This constructor is deprecated")]]
-  LeaderBalanceReq(apache::thrift::FragileConstructor);
-
-  LeaderBalanceReq(LeaderBalanceReq&&) = default;
-
-  LeaderBalanceReq(const LeaderBalanceReq&) = default;
-
-
-  LeaderBalanceReq& operator=(LeaderBalanceReq&&) = default;
-
-  LeaderBalanceReq& operator=(const LeaderBalanceReq&) = default;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-  void __clear();
-  bool operator==(const LeaderBalanceReq& rhs) const;
-#ifndef SWIG
-  friend bool operator!=(const LeaderBalanceReq& __x, const LeaderBalanceReq& __y) {
-    return !(__x == __y);
-  }
-#endif
-  bool operator<(const LeaderBalanceReq& rhs) const;
-#ifndef SWIG
-  friend bool operator>(const LeaderBalanceReq& __x, const LeaderBalanceReq& __y) {
-    return __y < __x;
-  }
-  friend bool operator<=(const LeaderBalanceReq& __x, const LeaderBalanceReq& __y) {
-    return !(__y < __x);
-  }
-  friend bool operator>=(const LeaderBalanceReq& __x, const LeaderBalanceReq& __y) {
-    return !(__x < __y);
-  }
-#endif
-
-  template <class Protocol_>
-  uint32_t read(Protocol_* iprot);
-  template <class Protocol_>
-  uint32_t serializedSize(Protocol_ const* prot_) const;
-  template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
-  template <class Protocol_>
-  uint32_t write(Protocol_* prot_) const;
-
- private:
-  template <class Protocol_>
-  void readNoXfer(Protocol_* iprot);
-
-  friend class ::apache::thrift::Cpp2Ops< LeaderBalanceReq >;
-  friend void swap(LeaderBalanceReq& a, LeaderBalanceReq& b);
-};
-
-template <class Protocol_>
-uint32_t LeaderBalanceReq::read(Protocol_* iprot) {
   auto _xferStart = iprot->getCursorPosition();
   readNoXfer(iprot);
   return iprot->getCursorPosition() - _xferStart;

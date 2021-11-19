@@ -97,7 +97,7 @@ const std::array<folly::StringPiece, 5> TEnumDataStorage<::nebula::meta::cpp2::A
   "RECOVER",
 }};
 
-const std::array<::nebula::meta::cpp2::AdminCmd, 10> TEnumDataStorage<::nebula::meta::cpp2::AdminCmd>::values = {{
+const std::array<::nebula::meta::cpp2::AdminCmd, 11> TEnumDataStorage<::nebula::meta::cpp2::AdminCmd>::values = {{
   type::COMPACT,
   type::FLUSH,
   type::REBUILD_TAG_INDEX,
@@ -107,9 +107,10 @@ const std::array<::nebula::meta::cpp2::AdminCmd, 10> TEnumDataStorage<::nebula::
   type::DATA_BALANCE,
   type::DOWNLOAD,
   type::INGEST,
+  type::LEADER_BALANCE,
   type::UNKNOWN,
 }};
-const std::array<folly::StringPiece, 10> TEnumDataStorage<::nebula::meta::cpp2::AdminCmd>::names = {{
+const std::array<folly::StringPiece, 11> TEnumDataStorage<::nebula::meta::cpp2::AdminCmd>::names = {{
   "COMPACT",
   "FLUSH",
   "REBUILD_TAG_INDEX",
@@ -119,6 +120,7 @@ const std::array<folly::StringPiece, 10> TEnumDataStorage<::nebula::meta::cpp2::
   "DATA_BALANCE",
   "DOWNLOAD",
   "INGEST",
+  "LEADER_BALANCE",
   "UNKNOWN",
 }};
 
@@ -1665,65 +1667,26 @@ const std::array<protocol::TType, 3> TStructDataStorage<::nebula::meta::cpp2::Ch
   TType::T_STRING,
 }};
 
-const std::array<folly::StringPiece, 5> TStructDataStorage<::nebula::meta::cpp2::BalanceReq>::fields_names = {{
-  "space_id",
+const std::array<folly::StringPiece, 5> TStructDataStorage<::nebula::meta::cpp2::BalanceTask>::fields_names = {{
   "id",
-  "host_del",
-  "stop",
-  "reset",
+  "command",
+  "result",
+  "start_time",
+  "stop_time",
 }};
-const std::array<int16_t, 5> TStructDataStorage<::nebula::meta::cpp2::BalanceReq>::fields_ids = {{
+const std::array<int16_t, 5> TStructDataStorage<::nebula::meta::cpp2::BalanceTask>::fields_ids = {{
   1,
   2,
   3,
   4,
   5,
 }};
-const std::array<protocol::TType, 5> TStructDataStorage<::nebula::meta::cpp2::BalanceReq>::fields_types = {{
-  TType::T_I32,
-  TType::T_I64,
-  TType::T_LIST,
-  TType::T_BOOL,
-  TType::T_BOOL,
-}};
-
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::meta::cpp2::BalanceTask>::fields_names = {{
-  "id",
-  "result",
-}};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::meta::cpp2::BalanceTask>::fields_ids = {{
-  1,
-  2,
-}};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::BalanceTask>::fields_types = {{
+const std::array<protocol::TType, 5> TStructDataStorage<::nebula::meta::cpp2::BalanceTask>::fields_types = {{
+  TType::T_STRING,
   TType::T_STRING,
   TType::T_I32,
-}};
-
-const std::array<folly::StringPiece, 4> TStructDataStorage<::nebula::meta::cpp2::BalanceResp>::fields_names = {{
-  "code",
-  "id",
-  "leader",
-  "tasks",
-}};
-const std::array<int16_t, 4> TStructDataStorage<::nebula::meta::cpp2::BalanceResp>::fields_ids = {{
-  1,
-  2,
-  3,
-  4,
-}};
-const std::array<protocol::TType, 4> TStructDataStorage<::nebula::meta::cpp2::BalanceResp>::fields_types = {{
-  TType::T_I32,
   TType::T_I64,
-  TType::T_STRUCT,
-  TType::T_LIST,
-}};
-
-const std::array<folly::StringPiece, 0> TStructDataStorage<::nebula::meta::cpp2::LeaderBalanceReq>::fields_names = {{
-}};
-const std::array<int16_t, 0> TStructDataStorage<::nebula::meta::cpp2::LeaderBalanceReq>::fields_ids = {{
-}};
-const std::array<protocol::TType, 0> TStructDataStorage<::nebula::meta::cpp2::LeaderBalanceReq>::fields_types = {{
+  TType::T_I64,
 }};
 
 const std::array<folly::StringPiece, 4> TStructDataStorage<::nebula::meta::cpp2::ConfigItem>::fields_names = {{

@@ -897,41 +897,14 @@ struct ForEachField<::nebula::meta::cpp2::ChangePasswordReq> {
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::BalanceReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).space_id_ref()...);
-    f(1, static_cast<T&&>(t).id_ref()...);
-    f(2, static_cast<T&&>(t).host_del_ref()...);
-    f(3, static_cast<T&&>(t).stop_ref()...);
-    f(4, static_cast<T&&>(t).reset_ref()...);
-  }
-};
-
-template <>
 struct ForEachField<::nebula::meta::cpp2::BalanceTask> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).id_ref()...);
-    f(1, static_cast<T&&>(t).result_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::BalanceResp> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).code_ref()...);
-    f(1, static_cast<T&&>(t).id_ref()...);
-    f(2, static_cast<T&&>(t).leader_ref()...);
-    f(3, static_cast<T&&>(t).tasks_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::LeaderBalanceReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(1, static_cast<T&&>(t).command_ref()...);
+    f(2, static_cast<T&&>(t).result_ref()...);
+    f(3, static_cast<T&&>(t).start_time_ref()...);
+    f(4, static_cast<T&&>(t).stop_time_ref()...);
   }
 };
 

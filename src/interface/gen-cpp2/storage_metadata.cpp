@@ -918,6 +918,8 @@ StructMetadata<::nebula::storage::cpp2::IndexColumnHint>::gen(ThriftMetadata& me
     std::make_tuple(2, "scan_type", false, std::make_unique<Enum< ::nebula::storage::cpp2::ScanType>>("storage.ScanType"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(3, "begin_value", false, std::make_unique<Union< ::nebula::cpp2::Value>>("common.Value"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(4, "end_value", false, std::make_unique<Union< ::nebula::cpp2::Value>>("common.Value"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(5, "include_begin", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(6, "include_end", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_IndexColumnHint_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -1039,6 +1041,31 @@ StructMetadata<::nebula::storage::cpp2::LookupAndTraverseRequest>::gen(ThriftMet
   return res.first->second;
 }
 const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::storage::cpp2::ScanCursor>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.ScanCursor", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& storage_ScanCursor = res.first->second;
+  storage_ScanCursor.name_ref() = "storage.ScanCursor";
+  storage_ScanCursor.is_union_ref() = false;
+  static const EncodedThriftField
+  storage_ScanCursor_fields[] = {
+    std::make_tuple(3, "has_next", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(4, "next_cursor", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : storage_ScanCursor_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    storage_ScanCursor.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
 StructMetadata<::nebula::storage::cpp2::ScanVertexRequest>::gen(ThriftMetadata& metadata) {
   auto res = metadata.structs_ref()->emplace("storage.ScanVertexRequest", ::apache::thrift::metadata::ThriftStruct{});
   if (!res.second) {
@@ -1050,16 +1077,15 @@ StructMetadata<::nebula::storage::cpp2::ScanVertexRequest>::gen(ThriftMetadata& 
   static const EncodedThriftField
   storage_ScanVertexRequest_fields[] = {
     std::make_tuple(1, "space_id", false, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(2, "part_id", false, std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(3, "cursor", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(4, "return_columns", false, std::make_unique<Struct< ::nebula::storage::cpp2::VertexProp>>("storage.VertexProp"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(5, "limit", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(6, "start_time", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(7, "end_time", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(8, "filter", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(9, "only_latest_version", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(10, "enable_read_from_follower", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(11, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "parts", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<Struct< ::nebula::storage::cpp2::ScanCursor>>("storage.ScanCursor")), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "return_columns", false, std::make_unique<List>(std::make_unique<Struct< ::nebula::storage::cpp2::VertexProp>>("storage.VertexProp")), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(4, "limit", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(5, "start_time", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(6, "end_time", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(7, "filter", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(8, "only_latest_version", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(9, "enable_read_from_follower", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(10, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_ScanVertexRequest_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -1085,8 +1111,7 @@ StructMetadata<::nebula::storage::cpp2::ScanVertexResponse>::gen(ThriftMetadata&
   storage_ScanVertexResponse_fields[] = {
     std::make_tuple(1, "result", false, std::make_unique<Struct< ::nebula::storage::cpp2::ResponseCommon>>("storage.ResponseCommon"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "vertex_data", false, std::make_unique<Struct< ::nebula::cpp2::DataSet>>("common.DataSet"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(3, "has_next", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(4, "next_cursor", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "cursors", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<Struct< ::nebula::storage::cpp2::ScanCursor>>("storage.ScanCursor")), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_ScanVertexResponse_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -1111,16 +1136,15 @@ StructMetadata<::nebula::storage::cpp2::ScanEdgeRequest>::gen(ThriftMetadata& me
   static const EncodedThriftField
   storage_ScanEdgeRequest_fields[] = {
     std::make_tuple(1, "space_id", false, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(2, "part_id", false, std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(3, "cursor", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(4, "return_columns", false, std::make_unique<Struct< ::nebula::storage::cpp2::EdgeProp>>("storage.EdgeProp"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(5, "limit", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(6, "start_time", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(7, "end_time", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(8, "filter", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(9, "only_latest_version", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(10, "enable_read_from_follower", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(11, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "parts", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<Struct< ::nebula::storage::cpp2::ScanCursor>>("storage.ScanCursor")), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "return_columns", false, std::make_unique<Struct< ::nebula::storage::cpp2::EdgeProp>>("storage.EdgeProp"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(4, "limit", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(5, "start_time", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(6, "end_time", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(7, "filter", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(8, "only_latest_version", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(9, "enable_read_from_follower", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(10, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_ScanEdgeRequest_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -1146,8 +1170,7 @@ StructMetadata<::nebula::storage::cpp2::ScanEdgeResponse>::gen(ThriftMetadata& m
   storage_ScanEdgeResponse_fields[] = {
     std::make_tuple(1, "result", false, std::make_unique<Struct< ::nebula::storage::cpp2::ResponseCommon>>("storage.ResponseCommon"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "edge_data", false, std::make_unique<Struct< ::nebula::cpp2::DataSet>>("common.DataSet"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(3, "has_next", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(4, "next_cursor", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "cursors", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<Struct< ::nebula::storage::cpp2::ScanCursor>>("storage.ScanCursor")), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_ScanEdgeResponse_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -1173,7 +1196,7 @@ StructMetadata<::nebula::storage::cpp2::TaskPara>::gen(ThriftMetadata& metadata)
   storage_TaskPara_fields[] = {
     std::make_tuple(1, "space_id", false, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "parts", true, std::make_unique<List>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE))), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(3, "task_specfic_paras", true, std::make_unique<List>(std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE)), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "task_specific_paras", true, std::make_unique<List>(std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE)), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_TaskPara_fields) {
     ::apache::thrift::metadata::ThriftField field;

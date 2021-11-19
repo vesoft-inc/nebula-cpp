@@ -103,10 +103,6 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_changePassword_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::HBReq*>> MetaService_heartBeat_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::HBResp*>> MetaService_heartBeat_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::BalanceReq*>> MetaService_balance_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::BalanceResp*>> MetaService_balance_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::LeaderBalanceReq*>> MetaService_leaderBalance_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_leaderBalance_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RegConfigReq*>> MetaService_regConfig_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_regConfig_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetConfigReq*>> MetaService_getConfig_pargs;
@@ -2809,120 +2805,6 @@ void MetaServiceAsyncProcessor::throw_wrapped_heartBeat(apache::thrift::Response
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
         ew, std::move(req), reqCtx, ctx, "heartBeat");
-    return;
-  }
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::setUpAndProcess_balance(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
-    return;
-  }
-  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
-  ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_balance<ProtocolIn_, ProtocolOut_>, this);
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::process_balance(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  // make sure getRequestContext is null
-  // so async calls don't accidentally use it
-  iface_->setRequestContext(nullptr);
-  MetaService_balance_pargs args;
-   ::nebula::meta::cpp2::BalanceReq uarg_req;
-  args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.balance", ctx));
-  try {
-    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
-  }
-  catch (const std::exception& ex) {
-    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "balance");
-    return;
-  }
-  req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::BalanceResp>>(std::move(req), std::move(ctxStack), return_balance<ProtocolIn_,ProtocolOut_>, throw_wrapped_balance<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
-  if (!callback->isRequestActive()) {
-    return;
-  }
-  iface_->async_tm_balance(std::move(callback), args.get<0>().ref());
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue MetaServiceAsyncProcessor::return_balance(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::BalanceResp const& _return) {
-  ProtocolOut_ prot;
-  MetaService_balance_presult result;
-  result.get<0>().value = const_cast< ::nebula::meta::cpp2::BalanceResp*>(&_return);
-  result.setIsSet(0, true);
-  return serializeResponse("balance", &prot, protoSeqId, ctx, result);
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-void MetaServiceAsyncProcessor::throw_wrapped_balance(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
-  if (!ew) {
-    return;
-  }
-  {
-    (void)protoSeqId;
-    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "balance");
-    return;
-  }
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::setUpAndProcess_leaderBalance(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
-    return;
-  }
-  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
-  ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_leaderBalance<ProtocolIn_, ProtocolOut_>, this);
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::process_leaderBalance(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  // make sure getRequestContext is null
-  // so async calls don't accidentally use it
-  iface_->setRequestContext(nullptr);
-  MetaService_leaderBalance_pargs args;
-   ::nebula::meta::cpp2::LeaderBalanceReq uarg_req;
-  args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.leaderBalance", ctx));
-  try {
-    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
-  }
-  catch (const std::exception& ex) {
-    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "leaderBalance");
-    return;
-  }
-  req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_leaderBalance<ProtocolIn_,ProtocolOut_>, throw_wrapped_leaderBalance<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
-  if (!callback->isRequestActive()) {
-    return;
-  }
-  iface_->async_tm_leaderBalance(std::move(callback), args.get<0>().ref());
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue MetaServiceAsyncProcessor::return_leaderBalance(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
-  ProtocolOut_ prot;
-  MetaService_leaderBalance_presult result;
-  result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
-  result.setIsSet(0, true);
-  return serializeResponse("leaderBalance", &prot, protoSeqId, ctx, result);
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-void MetaServiceAsyncProcessor::throw_wrapped_leaderBalance(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
-  if (!ew) {
-    return;
-  }
-  {
-    (void)protoSeqId;
-    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "leaderBalance");
     return;
   }
 }

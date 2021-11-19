@@ -461,6 +461,21 @@ struct VisitByThriftId<::nebula::cpp2::CheckpointInfo> {
     }
   }
 };
+
+template <>
+struct VisitByThriftId<::nebula::cpp2::LogEntry> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).cluster_ref());
+    case 2:
+      return f(1, static_cast<T&&>(t).log_str_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::cpp2::LogEntry");
+    }
+  }
+};
 } // namespace detail
 } // namespace thrift
 } // namespace apache

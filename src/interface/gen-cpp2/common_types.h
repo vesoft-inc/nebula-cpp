@@ -102,6 +102,8 @@ struct dir;
 struct info;
 struct partition_info;
 struct path;
+struct cluster;
+struct log_str;
 } // namespace tag
 namespace detail {
 #ifndef APACHE_THRIFT_ACCESSOR_tag_id
@@ -408,6 +410,14 @@ APACHE_THRIFT_DEFINE_ACCESSOR(partition_info);
 #define APACHE_THRIFT_ACCESSOR_path
 APACHE_THRIFT_DEFINE_ACCESSOR(path);
 #endif
+#ifndef APACHE_THRIFT_ACCESSOR_cluster
+#define APACHE_THRIFT_ACCESSOR_cluster
+APACHE_THRIFT_DEFINE_ACCESSOR(cluster);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_log_str
+#define APACHE_THRIFT_ACCESSOR_log_str
+APACHE_THRIFT_DEFINE_ACCESSOR(log_str);
+#endif
 } // namespace detail
 } // namespace thrift
 } // namespace apache
@@ -505,7 +515,7 @@ enum class ErrorCode {
   E_BALANCED = -2024,
   E_NO_RUNNING_BALANCE_PLAN = -2025,
   E_NO_VALID_HOST = -2026,
-  E_CORRUPTTED_BALANCE_PLAN = -2027,
+  E_CORRUPTED_BALANCE_PLAN = -2027,
   E_NO_INVALID_BALANCE_PLAN = -2028,
   E_IMPROPER_ROLE = -2030,
   E_INVALID_PARTITION_NUM = -2031,
@@ -704,10 +714,12 @@ class DirInfo;
 class NodeInfo;
 class PartitionBackupInfo;
 class CheckpointInfo;
+class LogEntry;
 }} // nebula::cpp2
 // END forward_declare
 // BEGIN typedefs
 namespace nebula { namespace cpp2 {
+typedef nebula::ClusterID ClusterID;
 typedef nebula::GraphSpaceID GraphSpaceID;
 typedef nebula::PartitionID PartitionID;
 typedef nebula::TagID TagID;
@@ -6630,6 +6642,169 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 template <class Protocol_>
 uint32_t CheckpointInfo::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCursorPosition();
+  readNoXfer(iprot);
+  return iprot->getCursorPosition() - _xferStart;
+}
+
+}} // nebula::cpp2
+namespace nebula { namespace cpp2 {
+class LogEntry final  {
+ private:
+  friend struct ::apache::thrift::detail::st::struct_private_access;
+
+  //  used by a static_assert in the corresponding source
+  static constexpr bool __fbthrift_cpp2_gen_json = false;
+  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
+  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
+
+ public:
+  using __fbthrift_cpp2_type = LogEntry;
+  static constexpr bool __fbthrift_cpp2_is_union =
+    false;
+
+
+ public:
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  LogEntry() :
+      cluster(0) {}
+  // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
+  LogEntry(apache::thrift::FragileConstructor,  ::nebula::cpp2::ClusterID cluster__arg, ::std::string log_str__arg);
+
+  LogEntry(LogEntry&&) = default;
+
+  LogEntry(const LogEntry&) = default;
+
+
+  LogEntry& operator=(LogEntry&&) = default;
+
+  LogEntry& operator=(const LogEntry&) = default;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+  void __clear();
+ private:
+   ::nebula::cpp2::ClusterID cluster;
+ private:
+  ::std::string log_str;
+
+ public:
+  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
+  struct __isset {
+    bool cluster;
+    bool log_str;
+  } __isset = {};
+  bool operator==(const LogEntry& rhs) const;
+#ifndef SWIG
+  friend bool operator!=(const LogEntry& __x, const LogEntry& __y) {
+    return !(__x == __y);
+  }
+#endif
+  bool operator<(const LogEntry& rhs) const;
+#ifndef SWIG
+  friend bool operator>(const LogEntry& __x, const LogEntry& __y) {
+    return __y < __x;
+  }
+  friend bool operator<=(const LogEntry& __x, const LogEntry& __y) {
+    return !(__y < __x);
+  }
+  friend bool operator>=(const LogEntry& __x, const LogEntry& __y) {
+    return !(__x < __y);
+  }
+#endif
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T =  ::nebula::cpp2::ClusterID>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> cluster_ref() const& {
+    return {this->cluster, __isset.cluster};
+  }
+
+  template <typename..., typename T =  ::nebula::cpp2::ClusterID>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> cluster_ref() const&& {
+    return {std::move(this->cluster), __isset.cluster};
+  }
+
+  template <typename..., typename T =  ::nebula::cpp2::ClusterID>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> cluster_ref() & {
+    return {this->cluster, __isset.cluster};
+  }
+
+  template <typename..., typename T =  ::nebula::cpp2::ClusterID>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> cluster_ref() && {
+    return {std::move(this->cluster), __isset.cluster};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> log_str_ref() const& {
+    return {this->log_str, __isset.log_str};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> log_str_ref() const&& {
+    return {std::move(this->log_str), __isset.log_str};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> log_str_ref() & {
+    return {this->log_str, __isset.log_str};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> log_str_ref() && {
+    return {std::move(this->log_str), __isset.log_str};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+   ::nebula::cpp2::ClusterID get_cluster() const {
+    return cluster;
+  }
+
+   ::nebula::cpp2::ClusterID& set_cluster( ::nebula::cpp2::ClusterID cluster_) {
+    cluster = cluster_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.cluster = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return cluster;
+  }
+
+  const ::std::string& get_log_str() const& {
+    return log_str;
+  }
+
+  ::std::string get_log_str() && {
+    return std::move(log_str);
+  }
+
+  template <typename T_LogEntry_log_str_struct_setter = ::std::string>
+  ::std::string& set_log_str(T_LogEntry_log_str_struct_setter&& log_str_) {
+    log_str = std::forward<T_LogEntry_log_str_struct_setter>(log_str_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.log_str = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return log_str;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+
+ private:
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< LogEntry >;
+  friend void swap(LogEntry& a, LogEntry& b);
+};
+
+template <class Protocol_>
+uint32_t LogEntry::read(Protocol_* iprot) {
   auto _xferStart = iprot->getCursorPosition();
   readNoXfer(iprot);
   return iprot->getCursorPosition() - _xferStart;

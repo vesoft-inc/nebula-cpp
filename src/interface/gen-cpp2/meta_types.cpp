@@ -10897,156 +10897,6 @@ namespace apache {
 namespace thrift {
 namespace detail {
 
-void TccStructTraits<::nebula::meta::cpp2::BalanceReq>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::BalanceReq>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace meta { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-BalanceReq::BalanceReq() :
-      space_id(0),
-      id(0),
-      stop(0),
-      reset(0) {}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-
-BalanceReq::~BalanceReq() {}
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-BalanceReq::BalanceReq(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, int64_t id__arg, ::std::vector<nebula::HostAddr> host_del__arg, bool stop__arg, bool reset__arg) :
-    space_id(std::move(space_id__arg)),
-    id(std::move(id__arg)),
-    host_del(std::move(host_del__arg)),
-    stop(std::move(stop__arg)),
-    reset(std::move(reset__arg)) {
-  __isset.space_id = true;
-  __isset.id = true;
-  __isset.host_del = true;
-  __isset.stop = true;
-  __isset.reset = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void BalanceReq::__clear() {
-  // clear all fields
-  space_id = 0;
-  id = 0;
-  host_del.clear();
-  stop = 0;
-  reset = 0;
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-bool BalanceReq::operator==(const BalanceReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (lhs.space_id_ref() != rhs.space_id_ref()) {
-    return false;
-  }
-  if (lhs.id_ref() != rhs.id_ref()) {
-    return false;
-  }
-  if (lhs.host_del_ref() != rhs.host_del_ref()) {
-    return false;
-  }
-  if (lhs.stop_ref() != rhs.stop_ref()) {
-    return false;
-  }
-  if (lhs.reset_ref() != rhs.reset_ref()) {
-    return false;
-  }
-  return true;
-}
-
-bool BalanceReq::operator<(const BalanceReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (lhs.space_id_ref() != rhs.space_id_ref()) {
-    return lhs.space_id_ref() < rhs.space_id_ref();
-  }
-  if (lhs.id_ref() != rhs.id_ref()) {
-    return lhs.id_ref() < rhs.id_ref();
-  }
-  if (lhs.host_del_ref() != rhs.host_del_ref()) {
-    return lhs.host_del_ref() < rhs.host_del_ref();
-  }
-  if (lhs.stop_ref() != rhs.stop_ref()) {
-    return lhs.stop_ref() < rhs.stop_ref();
-  }
-  if (lhs.reset_ref() != rhs.reset_ref()) {
-    return lhs.reset_ref() < rhs.reset_ref();
-  }
-  return false;
-}
-
-const ::std::vector<nebula::HostAddr>* BalanceReq::get_host_del() const& {
-  return host_del_ref().has_value() ? std::addressof(host_del) : nullptr;
-}
-
-::std::vector<nebula::HostAddr>* BalanceReq::get_host_del() & {
-  return host_del_ref().has_value() ? std::addressof(host_del) : nullptr;
-}
-
-
-void swap(BalanceReq& a, BalanceReq& b) {
-  using ::std::swap;
-  swap(a.space_id_ref().value_unchecked(), b.space_id_ref().value_unchecked());
-  swap(a.id_ref().value_unchecked(), b.id_ref().value_unchecked());
-  swap(a.host_del_ref().value_unchecked(), b.host_del_ref().value_unchecked());
-  swap(a.stop_ref().value_unchecked(), b.stop_ref().value_unchecked());
-  swap(a.reset_ref().value_unchecked(), b.reset_ref().value_unchecked());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-template void BalanceReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t BalanceReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t BalanceReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t BalanceReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void BalanceReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t BalanceReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t BalanceReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t BalanceReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        BalanceReq,
-        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
-        ::std::vector<nebula::HostAddr>>,
-    "inconsistent use of json option");
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        BalanceReq,
-        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
-        ::std::vector<nebula::HostAddr>>,
-    "inconsistent use of nimble option");
-
-}}} // nebula::meta::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
 void TccStructTraits<::nebula::meta::cpp2::BalanceTask>::translateFieldName(
     folly::StringPiece _fname,
     int16_t& fid,
@@ -11067,17 +10917,36 @@ void TccStructTraits<::nebula::meta::cpp2::BalanceTask>::translateFieldName(
 namespace nebula { namespace meta { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-BalanceTask::BalanceTask(apache::thrift::FragileConstructor, ::std::string id__arg,  ::nebula::meta::cpp2::TaskResult result__arg) :
+BalanceTask::BalanceTask() :
+      result( ::nebula::meta::cpp2::TaskResult::SUCCEEDED),
+      start_time(0),
+      stop_time(0) {}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+
+BalanceTask::~BalanceTask() {}
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+BalanceTask::BalanceTask(apache::thrift::FragileConstructor, ::std::string id__arg, ::std::string command__arg,  ::nebula::meta::cpp2::TaskResult result__arg, int64_t start_time__arg, int64_t stop_time__arg) :
     id(std::move(id__arg)),
-    result(std::move(result__arg)) {
+    command(std::move(command__arg)),
+    result(std::move(result__arg)),
+    start_time(std::move(start_time__arg)),
+    stop_time(std::move(stop_time__arg)) {
   __isset.id = true;
+  __isset.command = true;
   __isset.result = true;
+  __isset.start_time = true;
+  __isset.stop_time = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void BalanceTask::__clear() {
   // clear all fields
   id = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  command = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
   result =  ::nebula::meta::cpp2::TaskResult::SUCCEEDED;
+  start_time = 0;
+  stop_time = 0;
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -11090,7 +10959,16 @@ bool BalanceTask::operator==(const BalanceTask& rhs) const {
   if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.id, rhs.id)) {
     return false;
   }
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.command, rhs.command)) {
+    return false;
+  }
   if (!(lhs.result == rhs.result)) {
+    return false;
+  }
+  if (!(lhs.start_time == rhs.start_time)) {
+    return false;
+  }
+  if (!(lhs.stop_time == rhs.stop_time)) {
     return false;
   }
   return true;
@@ -11103,8 +10981,17 @@ bool BalanceTask::operator<(const BalanceTask& rhs) const {
   if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.id, rhs.id)) {
     return apache::thrift::StringTraits<std::string>::isLess(lhs.id, rhs.id);
   }
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.command, rhs.command)) {
+    return apache::thrift::StringTraits<std::string>::isLess(lhs.command, rhs.command);
+  }
   if (!(lhs.result == rhs.result)) {
     return lhs.result < rhs.result;
+  }
+  if (!(lhs.start_time == rhs.start_time)) {
+    return lhs.start_time < rhs.start_time;
+  }
+  if (!(lhs.stop_time == rhs.stop_time)) {
+    return lhs.stop_time < rhs.stop_time;
   }
   return false;
 }
@@ -11113,7 +11000,10 @@ bool BalanceTask::operator<(const BalanceTask& rhs) const {
 void swap(BalanceTask& a, BalanceTask& b) {
   using ::std::swap;
   swap(a.id_ref().value(), b.id_ref().value());
+  swap(a.command_ref().value(), b.command_ref().value());
   swap(a.result_ref().value(), b.result_ref().value());
+  swap(a.start_time_ref().value(), b.start_time_ref().value());
+  swap(a.stop_time_ref().value(), b.stop_time_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -11127,219 +11017,6 @@ template void BalanceTask::readNoXfer<>(apache::thrift::CompactProtocolReader*);
 template uint32_t BalanceTask::write<>(apache::thrift::CompactProtocolWriter*) const;
 template uint32_t BalanceTask::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 template uint32_t BalanceTask::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-
-
-}}} // nebula::meta::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
-void TccStructTraits<::nebula::meta::cpp2::BalanceResp>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::BalanceResp>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace meta { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-BalanceResp::BalanceResp(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg, int64_t id__arg, nebula::HostAddr leader__arg, ::std::vector< ::nebula::meta::cpp2::BalanceTask> tasks__arg) :
-    code(std::move(code__arg)),
-    id(std::move(id__arg)),
-    leader(std::move(leader__arg)),
-    tasks(std::move(tasks__arg)) {
-  __isset.code = true;
-  __isset.id = true;
-  __isset.leader = true;
-  __isset.tasks = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void BalanceResp::__clear() {
-  // clear all fields
-  code =  ::nebula::cpp2::ErrorCode::SUCCEEDED;
-  id = 0;
-  leader.__clear();
-  tasks.clear();
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-bool BalanceResp::operator==(const BalanceResp& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!(lhs.code == rhs.code)) {
-    return false;
-  }
-  if (!(lhs.id == rhs.id)) {
-    return false;
-  }
-  if (!(lhs.leader == rhs.leader)) {
-    return false;
-  }
-  if (!(lhs.tasks == rhs.tasks)) {
-    return false;
-  }
-  return true;
-}
-
-bool BalanceResp::operator<(const BalanceResp& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!(lhs.code == rhs.code)) {
-    return lhs.code < rhs.code;
-  }
-  if (!(lhs.id == rhs.id)) {
-    return lhs.id < rhs.id;
-  }
-  if (!(lhs.leader == rhs.leader)) {
-    return lhs.leader < rhs.leader;
-  }
-  if (!(lhs.tasks == rhs.tasks)) {
-    return lhs.tasks < rhs.tasks;
-  }
-  return false;
-}
-
-const nebula::HostAddr& BalanceResp::get_leader() const& {
-  return leader;
-}
-
-nebula::HostAddr BalanceResp::get_leader() && {
-  return std::move(leader);
-}
-
-const ::std::vector< ::nebula::meta::cpp2::BalanceTask>& BalanceResp::get_tasks() const& {
-  return tasks;
-}
-
-::std::vector< ::nebula::meta::cpp2::BalanceTask> BalanceResp::get_tasks() && {
-  return std::move(tasks);
-}
-
-
-void swap(BalanceResp& a, BalanceResp& b) {
-  using ::std::swap;
-  swap(a.code_ref().value(), b.code_ref().value());
-  swap(a.id_ref().value(), b.id_ref().value());
-  swap(a.leader_ref().value(), b.leader_ref().value());
-  swap(a.tasks_ref().value(), b.tasks_ref().value());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-template void BalanceResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t BalanceResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t BalanceResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t BalanceResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void BalanceResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t BalanceResp::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t BalanceResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t BalanceResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        BalanceResp,
-        ::apache::thrift::type_class::structure,
-        nebula::HostAddr>,
-    "inconsistent use of json option");
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        BalanceResp,
-        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
-        ::std::vector< ::nebula::meta::cpp2::BalanceTask>>,
-    "inconsistent use of json option");
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        BalanceResp,
-        ::apache::thrift::type_class::structure,
-        nebula::HostAddr>,
-    "inconsistent use of nimble option");
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        BalanceResp,
-        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
-        ::std::vector< ::nebula::meta::cpp2::BalanceTask>>,
-    "inconsistent use of nimble option");
-
-}}} // nebula::meta::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
-void TccStructTraits<::nebula::meta::cpp2::LeaderBalanceReq>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::LeaderBalanceReq>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace meta { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-LeaderBalanceReq::LeaderBalanceReq(apache::thrift::FragileConstructor) {}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void LeaderBalanceReq::__clear() {
-  // clear all fields
-}
-
-bool LeaderBalanceReq::operator==(const LeaderBalanceReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  return true;
-}
-
-bool LeaderBalanceReq::operator<(const LeaderBalanceReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  return false;
-}
-
-
-void swap(LeaderBalanceReq& a, LeaderBalanceReq& b) {
-  using ::std::swap;
-  (void)a;
-  (void)b;
-}
-
-template void LeaderBalanceReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t LeaderBalanceReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t LeaderBalanceReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t LeaderBalanceReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void LeaderBalanceReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t LeaderBalanceReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t LeaderBalanceReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t LeaderBalanceReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 
 

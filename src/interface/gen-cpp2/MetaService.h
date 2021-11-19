@@ -166,12 +166,6 @@ class MetaServiceSvAsyncIf {
   virtual void async_tm_heartBeat(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::HBResp>> callback, const  ::nebula::meta::cpp2::HBReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::HBResp> future_heartBeat(const  ::nebula::meta::cpp2::HBReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::HBResp> semifuture_heartBeat(const  ::nebula::meta::cpp2::HBReq& p_req) = 0;
-  virtual void async_tm_balance(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::BalanceResp>> callback, const  ::nebula::meta::cpp2::BalanceReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::BalanceResp> future_balance(const  ::nebula::meta::cpp2::BalanceReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::BalanceResp> semifuture_balance(const  ::nebula::meta::cpp2::BalanceReq& p_req) = 0;
-  virtual void async_tm_leaderBalance(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::LeaderBalanceReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_leaderBalance(const  ::nebula::meta::cpp2::LeaderBalanceReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_leaderBalance(const  ::nebula::meta::cpp2::LeaderBalanceReq& p_req) = 0;
   virtual void async_tm_regConfig(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RegConfigReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_regConfig(const  ::nebula::meta::cpp2::RegConfigReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_regConfig(const  ::nebula::meta::cpp2::RegConfigReq& p_req) = 0;
@@ -492,14 +486,6 @@ class MetaServiceSvIf : public MetaServiceSvAsyncIf, public apache::thrift::Serv
   folly::Future< ::nebula::meta::cpp2::HBResp> future_heartBeat(const  ::nebula::meta::cpp2::HBReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::HBResp> semifuture_heartBeat(const  ::nebula::meta::cpp2::HBReq& p_req) override;
   void async_tm_heartBeat(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::HBResp>> callback, const  ::nebula::meta::cpp2::HBReq& p_req) override;
-  virtual void balance( ::nebula::meta::cpp2::BalanceResp& /*_return*/, const  ::nebula::meta::cpp2::BalanceReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::BalanceResp> future_balance(const  ::nebula::meta::cpp2::BalanceReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::BalanceResp> semifuture_balance(const  ::nebula::meta::cpp2::BalanceReq& p_req) override;
-  void async_tm_balance(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::BalanceResp>> callback, const  ::nebula::meta::cpp2::BalanceReq& p_req) override;
-  virtual void leaderBalance( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::LeaderBalanceReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_leaderBalance(const  ::nebula::meta::cpp2::LeaderBalanceReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_leaderBalance(const  ::nebula::meta::cpp2::LeaderBalanceReq& p_req) override;
-  void async_tm_leaderBalance(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::LeaderBalanceReq& p_req) override;
   virtual void regConfig( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RegConfigReq& /*req*/);
   folly::Future< ::nebula::meta::cpp2::ExecResp> future_regConfig(const  ::nebula::meta::cpp2::RegConfigReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_regConfig(const  ::nebula::meta::cpp2::RegConfigReq& p_req) override;
@@ -718,8 +704,6 @@ class MetaServiceSvNull : public MetaServiceSvIf {
   void getUserRoles( ::nebula::meta::cpp2::ListRolesResp& /*_return*/, const  ::nebula::meta::cpp2::GetUserRolesReq& /*req*/) override;
   void changePassword( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::ChangePasswordReq& /*req*/) override;
   void heartBeat( ::nebula::meta::cpp2::HBResp& /*_return*/, const  ::nebula::meta::cpp2::HBReq& /*req*/) override;
-  void balance( ::nebula::meta::cpp2::BalanceResp& /*_return*/, const  ::nebula::meta::cpp2::BalanceReq& /*req*/) override;
-  void leaderBalance( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::LeaderBalanceReq& /*req*/) override;
   void regConfig( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RegConfigReq& /*req*/) override;
   void getConfig( ::nebula::meta::cpp2::GetConfigResp& /*_return*/, const  ::nebula::meta::cpp2::GetConfigReq& /*req*/) override;
   void setConfig( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SetConfigReq& /*req*/) override;
@@ -1152,22 +1136,6 @@ class MetaServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcess
   static folly::IOBufQueue return_heartBeat(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::HBResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_heartBeat(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_balance(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_balance(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_balance(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::BalanceResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_balance(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_leaderBalance(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_leaderBalance(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_leaderBalance(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_leaderBalance(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
   void setUpAndProcess_regConfig(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>

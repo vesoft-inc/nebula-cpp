@@ -243,6 +243,11 @@ class StructMetadata<::nebula::storage::cpp2::LookupAndTraverseRequest> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
+class StructMetadata<::nebula::storage::cpp2::ScanCursor> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
 class StructMetadata<::nebula::storage::cpp2::ScanVertexRequest> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);

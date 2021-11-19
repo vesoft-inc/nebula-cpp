@@ -981,48 +981,6 @@ void MetaServiceSvIf::async_tm_heartBeat(std::unique_ptr<apache::thrift::Handler
   });
 }
 
-void MetaServiceSvIf::balance( ::nebula::meta::cpp2::BalanceResp& /*_return*/, const  ::nebula::meta::cpp2::BalanceReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("balance");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::BalanceResp> MetaServiceSvIf::semifuture_balance(const  ::nebula::meta::cpp2::BalanceReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::BalanceResp& _return) { balance(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::BalanceResp> MetaServiceSvIf::future_balance(const  ::nebula::meta::cpp2::BalanceReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_balance(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_balance(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::BalanceResp>> callback, const  ::nebula::meta::cpp2::BalanceReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_balance(p_req);
-  });
-}
-
-void MetaServiceSvIf::leaderBalance( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::LeaderBalanceReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("leaderBalance");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_leaderBalance(const  ::nebula::meta::cpp2::LeaderBalanceReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { leaderBalance(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_leaderBalance(const  ::nebula::meta::cpp2::LeaderBalanceReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_leaderBalance(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_leaderBalance(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::LeaderBalanceReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_leaderBalance(p_req);
-  });
-}
-
 void MetaServiceSvIf::regConfig( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RegConfigReq& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("regConfig");
 }
@@ -1997,10 +1955,6 @@ void MetaServiceSvNull::changePassword( ::nebula::meta::cpp2::ExecResp& /*_retur
 
 void MetaServiceSvNull::heartBeat( ::nebula::meta::cpp2::HBResp& /*_return*/, const  ::nebula::meta::cpp2::HBReq& /*req*/) {}
 
-void MetaServiceSvNull::balance( ::nebula::meta::cpp2::BalanceResp& /*_return*/, const  ::nebula::meta::cpp2::BalanceReq& /*req*/) {}
-
-void MetaServiceSvNull::leaderBalance( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::LeaderBalanceReq& /*req*/) {}
-
 void MetaServiceSvNull::regConfig( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RegConfigReq& /*req*/) {}
 
 void MetaServiceSvNull::getConfig( ::nebula::meta::cpp2::GetConfigResp& /*_return*/, const  ::nebula::meta::cpp2::GetConfigReq& /*req*/) {}
@@ -2154,8 +2108,6 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::binaryPro
   {"getUserRoles", &MetaServiceAsyncProcessor::setUpAndProcess_getUserRoles<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"changePassword", &MetaServiceAsyncProcessor::setUpAndProcess_changePassword<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"heartBeat", &MetaServiceAsyncProcessor::setUpAndProcess_heartBeat<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"balance", &MetaServiceAsyncProcessor::setUpAndProcess_balance<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"leaderBalance", &MetaServiceAsyncProcessor::setUpAndProcess_leaderBalance<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"regConfig", &MetaServiceAsyncProcessor::setUpAndProcess_regConfig<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getConfig", &MetaServiceAsyncProcessor::setUpAndProcess_getConfig<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"setConfig", &MetaServiceAsyncProcessor::setUpAndProcess_setConfig<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -2251,8 +2203,6 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::compactPr
   {"getUserRoles", &MetaServiceAsyncProcessor::setUpAndProcess_getUserRoles<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"changePassword", &MetaServiceAsyncProcessor::setUpAndProcess_changePassword<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"heartBeat", &MetaServiceAsyncProcessor::setUpAndProcess_heartBeat<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"balance", &MetaServiceAsyncProcessor::setUpAndProcess_balance<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"leaderBalance", &MetaServiceAsyncProcessor::setUpAndProcess_leaderBalance<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"regConfig", &MetaServiceAsyncProcessor::setUpAndProcess_regConfig<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getConfig", &MetaServiceAsyncProcessor::setUpAndProcess_getConfig<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"setConfig", &MetaServiceAsyncProcessor::setUpAndProcess_setConfig<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
