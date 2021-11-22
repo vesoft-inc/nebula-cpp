@@ -3,12 +3,12 @@
  * This source code is licensed under Apache 2.0 License.
  */
 
+#include <common/Init.h>
 #include <folly/synchronization/Baton.h>
 #include <glog/logging.h>
 #include <gtest/gtest.h>
 #include <gtest/gtest_prod.h>
 #include <nebula/client/ConnectionPool.h>
-#include <nebula/client/Init.h>
 #include <nebula/client/Session.h>
 
 #include <atomic>

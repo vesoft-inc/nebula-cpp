@@ -9,8 +9,11 @@ nebula_add_test(
         StorageClientTest.cpp
     OBJECTS
         ${NEBULA_SCLIENT_OBJS}
+        $<TARGET_OBJECTS:graph_thrift_obj>
+        $<TARGET_OBJECTS:nebula_common_obj>
+        $<TARGET_OBJECTS:nebula_graph_client_obj>
         $<TARGET_OBJECTS:nebula_storage_client_obj>
     LIBRARIES
         gtest
-        ${NEBULA_CLIENT_LIBRARIES}
+        ${NEBULA_THIRD_PARTY_LIBRARIES}
 )

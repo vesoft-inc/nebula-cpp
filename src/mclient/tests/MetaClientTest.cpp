@@ -3,15 +3,15 @@
  * This source code is licensed under Apache 2.0 License.
  */
 
+#include <common/Init.h>
 #include <folly/synchronization/Baton.h>
 #include <glog/logging.h>
 #include <gtest/gtest.h>
+#include <nebula/client/Config.h>
+#include <nebula/client/ConnectionPool.h>
+#include <nebula/client/Session.h>
 #include <nebula/mclient/MetaClient.h>
 #include <nebula/sclient/Init.h>
-// #include <nebula/client/Config.h>
-// #include <nebula/client/ConnectionPool.h>
-// #include <nebula/client/Init.h>
-// #include <nebula/client/Session.h>
 
 #include "../../ClientTest.h"
 #include "common/datatypes/HostAddr.h"
@@ -23,21 +23,22 @@
 
 class MetaClientTest : public ClientTest {
  protected:
-  // static void prepare() {
-  //   nebula::ConnectionPool pool;
-  //   pool.init({kServerHost ":38996"}, nebula::Config{});
-  //   auto session = pool.getSession("root", "nebula");
-  //   ASSERT_TRUE(session.valid());
-  //   // ping
-  //   EXPECT_TRUE(session.ping());
-  //   // execute
-  //   auto result = session.execute("CREATE SPACE meta_client_test(vid_type=FIXED_STRING(8),
-  //   partition_num=3);USE meta_client_test"); ASSERT_EQ(result.errorCode,
-  //   nebula::ErrorCode::SUCCEEDED);
+  static void prepare() {
+    nebula::ConnectionPool pool;
+    pool.init({kServerHost ":38996"}, nebula::Config{});
+    auto session = pool.getSession("root", "nebula");
+    ASSERT_TRUE(session.valid());
+    // ping
+    EXPECT_TRUE(session.ping());
+    // execute
+    auto result = session.execute(
+        "CREATE SPACE meta_client_test(vid_type=FIXED_STRING(8),"
+        "partition_num=3);USE meta_client_test");
+    ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
 
-  //   auto result2 = session.execute("CREATE EDGE like(likeness int)");
-  //   ASSERT_EQ(result2.errorCode, nebula::ErrorCode::SUCCEEDED);
-  // }
+    auto result2 = session.execute("CREATE EDGE like(likeness int)");
+    ASSERT_EQ(result2.errorCode, nebula::ErrorCode::SUCCEEDED);
+  }
 
   static void runOnce(nebula::MetaClient &c) {
     auto ret = c.getSpaceIdByNameFromCache("nba");
@@ -69,7 +70,7 @@ class MetaClientTest : public ClientTest {
 
 TEST_F(MetaClientTest, Basic) {
   nebula::MetaClient c({kServerHost ":45996"});
-  // prepare();
+  prepare();
   runOnce(c);
 }
 

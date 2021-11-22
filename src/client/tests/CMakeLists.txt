@@ -13,7 +13,7 @@
         # $<TARGET_OBJECTS:nebula_graph_client_obj>
     # LIBRARIES
         # gtest
-        # ${NEBULA_CLIENT_LIBRARIES}
+        # ${NEBULA_THIRD_PARTY_LIBRARIES}
 # )
 
 nebula_add_test(
@@ -23,10 +23,11 @@ nebula_add_test(
         SessionTest.cpp
     OBJECTS
         ${NEBULA_CLIENT_OBJS}
+        $<TARGET_OBJECTS:nebula_common_obj>
         $<TARGET_OBJECTS:nebula_graph_client_obj>
     LIBRARIES
         gtest
-        ${NEBULA_CLIENT_LIBRARIES}
+        ${NEBULA_THIRD_PARTY_LIBRARIES}
 )
 
 nebula_add_test(
@@ -36,10 +37,11 @@ nebula_add_test(
         AddressTest.cpp
     OBJECTS
         ${NEBULA_CLIENT_OBJS}
+        $<TARGET_OBJECTS:nebula_common_obj>
         $<TARGET_OBJECTS:nebula_graph_client_obj>
     LIBRARIES
         gtest
-        ${NEBULA_CLIENT_LIBRARIES}
+        ${NEBULA_THIRD_PARTY_LIBRARIES}
 )
 
 nebula_add_test(
@@ -49,10 +51,11 @@ nebula_add_test(
         ConfigTest.cpp
     OBJECTS
         ${NEBULA_CLIENT_OBJS}
+        $<TARGET_OBJECTS:nebula_common_obj>
         $<TARGET_OBJECTS:nebula_graph_client_obj>
     LIBRARIES
         gtest
-        ${NEBULA_CLIENT_LIBRARIES}
+        ${NEBULA_THIRD_PARTY_LIBRARIES}
 )
 
 nebula_add_test(
@@ -62,8 +65,9 @@ nebula_add_test(
         TimezoneConversionTest.cpp
     OBJECTS
         ${NEBULA_CLIENT_OBJS}
+        $<TARGET_OBJECTS:nebula_common_obj>
         $<TARGET_OBJECTS:nebula_graph_client_obj>
     LIBRARIES
         gtest
-        ${NEBULA_CLIENT_LIBRARIES}
+        ${NEBULA_THIRD_PARTY_LIBRARIES}
 )
