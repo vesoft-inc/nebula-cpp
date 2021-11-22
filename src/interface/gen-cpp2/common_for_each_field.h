@@ -277,6 +277,15 @@ struct ForEachField<::nebula::cpp2::CheckpointInfo> {
     f(1, static_cast<T&&>(t).path_ref()...);
   }
 };
+
+template <>
+struct ForEachField<::nebula::cpp2::LogEntry> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).cluster_ref()...);
+    f(1, static_cast<T&&>(t).log_str_ref()...);
+  }
+};
 } // namespace detail
 } // namespace thrift
 } // namespace apache

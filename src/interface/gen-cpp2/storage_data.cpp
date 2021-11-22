@@ -716,10 +716,22 @@ const std::array<protocol::TType, 5> TStructDataStorage<::nebula::storage::cpp2:
   TType::T_STRUCT,
 }};
 
-const std::array<folly::StringPiece, 11> TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest>::fields_names = {{
+const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::ScanCursor>::fields_names = {{
+  "has_next",
+  "next_cursor",
+}};
+const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::ScanCursor>::fields_ids = {{
+  3,
+  4,
+}};
+const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::ScanCursor>::fields_types = {{
+  TType::T_BOOL,
+  TType::T_STRING,
+}};
+
+const std::array<folly::StringPiece, 10> TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest>::fields_names = {{
   "space_id",
-  "part_id",
-  "cursor",
+  "parts",
   "return_columns",
   "limit",
   "start_time",
@@ -729,7 +741,7 @@ const std::array<folly::StringPiece, 11> TStructDataStorage<::nebula::storage::c
   "enable_read_from_follower",
   "common",
 }};
-const std::array<int16_t, 11> TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest>::fields_ids = {{
+const std::array<int16_t, 10> TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest>::fields_ids = {{
   1,
   2,
   3,
@@ -740,13 +752,11 @@ const std::array<int16_t, 11> TStructDataStorage<::nebula::storage::cpp2::ScanVe
   8,
   9,
   10,
-  11,
 }};
-const std::array<protocol::TType, 11> TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest>::fields_types = {{
+const std::array<protocol::TType, 10> TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest>::fields_types = {{
   TType::T_I32,
-  TType::T_I32,
-  TType::T_STRING,
-  TType::T_STRUCT,
+  TType::T_MAP,
+  TType::T_LIST,
   TType::T_I64,
   TType::T_I64,
   TType::T_I64,
@@ -756,29 +766,25 @@ const std::array<protocol::TType, 11> TStructDataStorage<::nebula::storage::cpp2
   TType::T_STRUCT,
 }};
 
-const std::array<folly::StringPiece, 4> TStructDataStorage<::nebula::storage::cpp2::ScanVertexResponse>::fields_names = {{
+const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::storage::cpp2::ScanVertexResponse>::fields_names = {{
   "result",
   "vertex_data",
-  "has_next",
-  "next_cursor",
+  "cursors",
 }};
-const std::array<int16_t, 4> TStructDataStorage<::nebula::storage::cpp2::ScanVertexResponse>::fields_ids = {{
+const std::array<int16_t, 3> TStructDataStorage<::nebula::storage::cpp2::ScanVertexResponse>::fields_ids = {{
   1,
   2,
   3,
-  4,
 }};
-const std::array<protocol::TType, 4> TStructDataStorage<::nebula::storage::cpp2::ScanVertexResponse>::fields_types = {{
+const std::array<protocol::TType, 3> TStructDataStorage<::nebula::storage::cpp2::ScanVertexResponse>::fields_types = {{
   TType::T_STRUCT,
   TType::T_STRUCT,
-  TType::T_BOOL,
-  TType::T_STRING,
+  TType::T_MAP,
 }};
 
-const std::array<folly::StringPiece, 11> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_names = {{
+const std::array<folly::StringPiece, 10> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_names = {{
   "space_id",
-  "part_id",
-  "cursor",
+  "parts",
   "return_columns",
   "limit",
   "start_time",
@@ -788,7 +794,7 @@ const std::array<folly::StringPiece, 11> TStructDataStorage<::nebula::storage::c
   "enable_read_from_follower",
   "common",
 }};
-const std::array<int16_t, 11> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_ids = {{
+const std::array<int16_t, 10> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_ids = {{
   1,
   2,
   3,
@@ -799,12 +805,10 @@ const std::array<int16_t, 11> TStructDataStorage<::nebula::storage::cpp2::ScanEd
   8,
   9,
   10,
-  11,
 }};
-const std::array<protocol::TType, 11> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_types = {{
+const std::array<protocol::TType, 10> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_types = {{
   TType::T_I32,
-  TType::T_I32,
-  TType::T_STRING,
+  TType::T_MAP,
   TType::T_STRUCT,
   TType::T_I64,
   TType::T_I64,
@@ -815,29 +819,26 @@ const std::array<protocol::TType, 11> TStructDataStorage<::nebula::storage::cpp2
   TType::T_STRUCT,
 }};
 
-const std::array<folly::StringPiece, 4> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeResponse>::fields_names = {{
+const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeResponse>::fields_names = {{
   "result",
   "edge_data",
-  "has_next",
-  "next_cursor",
+  "cursors",
 }};
-const std::array<int16_t, 4> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeResponse>::fields_ids = {{
+const std::array<int16_t, 3> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeResponse>::fields_ids = {{
   1,
   2,
   3,
-  4,
 }};
-const std::array<protocol::TType, 4> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeResponse>::fields_types = {{
+const std::array<protocol::TType, 3> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeResponse>::fields_types = {{
   TType::T_STRUCT,
   TType::T_STRUCT,
-  TType::T_BOOL,
-  TType::T_STRING,
+  TType::T_MAP,
 }};
 
 const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::storage::cpp2::TaskPara>::fields_names = {{
   "space_id",
   "parts",
-  "task_specfic_paras",
+  "task_specific_paras",
 }};
 const std::array<int16_t, 3> TStructDataStorage<::nebula::storage::cpp2::TaskPara>::fields_ids = {{
   1,

@@ -165,6 +165,11 @@ class StructMetadata<::nebula::cpp2::CheckpointInfo> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
+template <>
+class StructMetadata<::nebula::cpp2::LogEntry> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
 } // namespace md
 } // namespace detail
 } // namespace thrift

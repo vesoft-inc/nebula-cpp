@@ -1287,7 +1287,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  ExecutionResponse(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode error_code__arg, int32_t latency_in_us__arg, nebula::DataSet data__arg, ::std::string space_name__arg, ::std::string error_msg__arg, nebula::PlanDescription plan_desc__arg, ::std::string comment__arg);
+  ExecutionResponse(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode error_code__arg, int64_t latency_in_us__arg, nebula::DataSet data__arg, ::std::string space_name__arg, ::std::string error_msg__arg, nebula::PlanDescription plan_desc__arg, ::std::string comment__arg);
 
   ExecutionResponse(ExecutionResponse&&) = default;
 
@@ -1305,7 +1305,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
  public:
    ::nebula::cpp2::ErrorCode error_code;
  public:
-  int32_t latency_in_us;
+  int64_t latency_in_us;
  private:
   nebula::DataSet data;
  private:
@@ -1363,22 +1363,22 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
   FOLLY_ERASE ::apache::thrift::required_field_ref<T&&> error_code_ref() && {
     return ::apache::thrift::required_field_ref<T&&>{std::move(this->error_code)};
   }
-  template <typename..., typename T = int32_t>
+  template <typename..., typename T = int64_t>
   FOLLY_ERASE ::apache::thrift::required_field_ref<const T&> latency_in_us_ref() const& {
     return ::apache::thrift::required_field_ref<const T&>{this->latency_in_us};
   }
 
-  template <typename..., typename T = int32_t>
+  template <typename..., typename T = int64_t>
   FOLLY_ERASE ::apache::thrift::required_field_ref<const T&&> latency_in_us_ref() const&& {
     return ::apache::thrift::required_field_ref<const T&&>{std::move(this->latency_in_us)};
   }
 
-  template <typename..., typename T = int32_t>
+  template <typename..., typename T = int64_t>
   FOLLY_ERASE ::apache::thrift::required_field_ref<T&> latency_in_us_ref() & {
     return ::apache::thrift::required_field_ref<T&>{this->latency_in_us};
   }
 
-  template <typename..., typename T = int32_t>
+  template <typename..., typename T = int64_t>
   FOLLY_ERASE ::apache::thrift::required_field_ref<T&&> latency_in_us_ref() && {
     return ::apache::thrift::required_field_ref<T&&>{std::move(this->latency_in_us)};
   }
@@ -1502,11 +1502,11 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     return error_code;
   }
 
-  int32_t get_latency_in_us() const {
+  int64_t get_latency_in_us() const {
     return latency_in_us;
   }
 
-  int32_t& set_latency_in_us(int32_t latency_in_us_) {
+  int64_t& set_latency_in_us(int64_t latency_in_us_) {
     latency_in_us = latency_in_us_;
     return latency_in_us;
   }

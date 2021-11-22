@@ -124,7 +124,7 @@ const std::array<::nebula::cpp2::ErrorCode, 121> TEnumDataStorage<::nebula::cpp2
   type::E_BALANCED,
   type::E_NO_RUNNING_BALANCE_PLAN,
   type::E_NO_VALID_HOST,
-  type::E_CORRUPTTED_BALANCE_PLAN,
+  type::E_CORRUPTED_BALANCE_PLAN,
   type::E_NO_INVALID_BALANCE_PLAN,
   type::E_IMPROPER_ROLE,
   type::E_INVALID_PARTITION_NUM,
@@ -247,7 +247,7 @@ const std::array<folly::StringPiece, 121> TEnumDataStorage<::nebula::cpp2::Error
   "E_BALANCED",
   "E_NO_RUNNING_BALANCE_PLAN",
   "E_NO_VALID_HOST",
-  "E_CORRUPTTED_BALANCE_PLAN",
+  "E_CORRUPTED_BALANCE_PLAN",
   "E_NO_INVALID_BALANCE_PLAN",
   "E_IMPROPER_ROLE",
   "E_INVALID_PARTITION_NUM",
@@ -788,6 +788,19 @@ const std::array<int16_t, 2> TStructDataStorage<::nebula::cpp2::CheckpointInfo>:
 }};
 const std::array<protocol::TType, 2> TStructDataStorage<::nebula::cpp2::CheckpointInfo>::fields_types = {{
   TType::T_STRUCT,
+  TType::T_STRING,
+}};
+
+const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::cpp2::LogEntry>::fields_names = {{
+  "cluster",
+  "log_str",
+}};
+const std::array<int16_t, 2> TStructDataStorage<::nebula::cpp2::LogEntry>::fields_ids = {{
+  1,
+  2,
+}};
+const std::array<protocol::TType, 2> TStructDataStorage<::nebula::cpp2::LogEntry>::fields_types = {{
+  TType::T_I64,
   TType::T_STRING,
 }};
 

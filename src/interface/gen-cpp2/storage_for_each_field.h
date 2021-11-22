@@ -399,20 +399,28 @@ struct ForEachField<::nebula::storage::cpp2::LookupAndTraverseRequest> {
 };
 
 template <>
+struct ForEachField<::nebula::storage::cpp2::ScanCursor> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).has_next_ref()...);
+    f(1, static_cast<T&&>(t).next_cursor_ref()...);
+  }
+};
+
+template <>
 struct ForEachField<::nebula::storage::cpp2::ScanVertexRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).space_id_ref()...);
-    f(1, static_cast<T&&>(t).part_id_ref()...);
-    f(2, static_cast<T&&>(t).cursor_ref()...);
-    f(3, static_cast<T&&>(t).return_columns_ref()...);
-    f(4, static_cast<T&&>(t).limit_ref()...);
-    f(5, static_cast<T&&>(t).start_time_ref()...);
-    f(6, static_cast<T&&>(t).end_time_ref()...);
-    f(7, static_cast<T&&>(t).filter_ref()...);
-    f(8, static_cast<T&&>(t).only_latest_version_ref()...);
-    f(9, static_cast<T&&>(t).enable_read_from_follower_ref()...);
-    f(10, static_cast<T&&>(t).common_ref()...);
+    f(1, static_cast<T&&>(t).parts_ref()...);
+    f(2, static_cast<T&&>(t).return_columns_ref()...);
+    f(3, static_cast<T&&>(t).limit_ref()...);
+    f(4, static_cast<T&&>(t).start_time_ref()...);
+    f(5, static_cast<T&&>(t).end_time_ref()...);
+    f(6, static_cast<T&&>(t).filter_ref()...);
+    f(7, static_cast<T&&>(t).only_latest_version_ref()...);
+    f(8, static_cast<T&&>(t).enable_read_from_follower_ref()...);
+    f(9, static_cast<T&&>(t).common_ref()...);
   }
 };
 
@@ -422,8 +430,7 @@ struct ForEachField<::nebula::storage::cpp2::ScanVertexResponse> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).result_ref()...);
     f(1, static_cast<T&&>(t).vertex_data_ref()...);
-    f(2, static_cast<T&&>(t).has_next_ref()...);
-    f(3, static_cast<T&&>(t).next_cursor_ref()...);
+    f(2, static_cast<T&&>(t).cursors_ref()...);
   }
 };
 
@@ -432,16 +439,15 @@ struct ForEachField<::nebula::storage::cpp2::ScanEdgeRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).space_id_ref()...);
-    f(1, static_cast<T&&>(t).part_id_ref()...);
-    f(2, static_cast<T&&>(t).cursor_ref()...);
-    f(3, static_cast<T&&>(t).return_columns_ref()...);
-    f(4, static_cast<T&&>(t).limit_ref()...);
-    f(5, static_cast<T&&>(t).start_time_ref()...);
-    f(6, static_cast<T&&>(t).end_time_ref()...);
-    f(7, static_cast<T&&>(t).filter_ref()...);
-    f(8, static_cast<T&&>(t).only_latest_version_ref()...);
-    f(9, static_cast<T&&>(t).enable_read_from_follower_ref()...);
-    f(10, static_cast<T&&>(t).common_ref()...);
+    f(1, static_cast<T&&>(t).parts_ref()...);
+    f(2, static_cast<T&&>(t).return_columns_ref()...);
+    f(3, static_cast<T&&>(t).limit_ref()...);
+    f(4, static_cast<T&&>(t).start_time_ref()...);
+    f(5, static_cast<T&&>(t).end_time_ref()...);
+    f(6, static_cast<T&&>(t).filter_ref()...);
+    f(7, static_cast<T&&>(t).only_latest_version_ref()...);
+    f(8, static_cast<T&&>(t).enable_read_from_follower_ref()...);
+    f(9, static_cast<T&&>(t).common_ref()...);
   }
 };
 
@@ -451,8 +457,7 @@ struct ForEachField<::nebula::storage::cpp2::ScanEdgeResponse> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).result_ref()...);
     f(1, static_cast<T&&>(t).edge_data_ref()...);
-    f(2, static_cast<T&&>(t).has_next_ref()...);
-    f(3, static_cast<T&&>(t).next_cursor_ref()...);
+    f(2, static_cast<T&&>(t).cursors_ref()...);
   }
 };
 
@@ -462,7 +467,7 @@ struct ForEachField<::nebula::storage::cpp2::TaskPara> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).space_id_ref()...);
     f(1, static_cast<T&&>(t).parts_ref()...);
-    f(2, static_cast<T&&>(t).task_specfic_paras_ref()...);
+    f(2, static_cast<T&&>(t).task_specific_paras_ref()...);
   }
 };
 
