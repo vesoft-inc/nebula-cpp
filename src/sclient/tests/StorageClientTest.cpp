@@ -19,7 +19,7 @@
 
 // Require a nebula server could access
 
-#define kServerHost "127.0.0.1"
+#define kServerHost "server"
 
 class StorageClientTest : public ClientTest {
  protected:
@@ -37,7 +37,7 @@ class StorageClientTest : public ClientTest {
     auto result2 = session.execute("CREATE EDGE IF NOT EXISTS like(likeness int)");
     ASSERT_EQ(result2.errorCode, nebula::ErrorCode::SUCCEEDED);
 
-    ::sleep(30);
+    ::sleep(10);
 
     auto result3 = session.execute(
         "INSERT EDGE like(likeness) VALUES '101'->'102':(78), '102'->'103':(99), "
@@ -107,8 +107,9 @@ class StorageClientTest : public ClientTest {
 };
 
 TEST_F(StorageClientTest, Basic) {
-  nebula::StorageClient c({kServerHost ":9559"});
+  LOG(INFO) << "Prepare data.";
   prepare();
+  nebula::StorageClient c({kServerHost ":9559"});
   LOG(INFO) << "Testing run get parts.";
   runGetParts(c);
   LOG(INFO) << "Testing run scan edge with part.";
