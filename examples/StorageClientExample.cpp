@@ -15,7 +15,7 @@
 int main(int argc, char* argv[]) {
     nebula::init(&argc, &argv);
 
-    nebula::StorageClient c({"127.0.0.1:45996"});
+    nebula::StorageClient c({"127.0.0.1:9559"});
 
     nebula::ScanEdgeIter scanEdgeIter = c.scanEdgeWithPart("nba",
                                            1,

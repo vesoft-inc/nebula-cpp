@@ -25,7 +25,7 @@ class MetaClientTest : public ClientTest {
  protected:
   static void prepare() {
     nebula::ConnectionPool pool;
-    pool.init({kServerHost ":38996"}, nebula::Config{});
+    pool.init({kServerHost ":9669"}, nebula::Config{});
     auto session = pool.getSession("root", "nebula");
     ASSERT_TRUE(session.valid());
     EXPECT_TRUE(session.ping());
@@ -58,12 +58,12 @@ class MetaClientTest : public ClientTest {
 
     auto ret4 = c.getPartLeaderFromCache(spaceId, 1);
     ASSERT_TRUE(ret4.first);
-    EXPECT_EQ(ret4.second, nebula::HostAddr("127.0.0.1", 48856));
+    EXPECT_EQ(ret4.second, nebula::HostAddr("127.0.0.1", 9779));
   }
 };
 
 TEST_F(MetaClientTest, Basic) {
-  nebula::MetaClient c({kServerHost ":45996"});
+  nebula::MetaClient c({kServerHost ":9559"});
   prepare();
   runOnce(c);
 }
