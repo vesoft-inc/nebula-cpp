@@ -28,20 +28,18 @@ class MetaClientTest : public ClientTest {
     pool.init({kServerHost ":38996"}, nebula::Config{});
     auto session = pool.getSession("root", "nebula");
     ASSERT_TRUE(session.valid());
-    // ping
     EXPECT_TRUE(session.ping());
-    // execute
     auto result = session.execute(
-        "CREATE SPACE meta_client_test(vid_type=FIXED_STRING(8),"
+        "CREATE SPACE IF NOT EXISTS meta_client_test(vid_type=FIXED_STRING(8),"
         "partition_num=3);USE meta_client_test");
     ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
 
-    auto result2 = session.execute("CREATE EDGE like(likeness int)");
+    auto result2 = session.execute("CREATE EDGE IF NOT EXISTS like(likeness int)");
     ASSERT_EQ(result2.errorCode, nebula::ErrorCode::SUCCEEDED);
   }
 
   static void runOnce(nebula::MetaClient &c) {
-    auto ret = c.getSpaceIdByNameFromCache("nba");
+    auto ret = c.getSpaceIdByNameFromCache("meta_client_test");
     ASSERT_TRUE(ret.first);
     nebula::GraphSpaceID spaceId = ret.second;
     LOG(INFO) << "spaceId of nba: " << spaceId;
@@ -56,10 +54,6 @@ class MetaClientTest : public ClientTest {
     auto ret3 = c.getPartsFromCache(spaceId);
     ASSERT_TRUE(ret3.first);
     auto parts = ret3.second;
-    LOG(INFO) << "parts id: ";
-    for (auto partId : parts) {
-      LOG(INFO) << partId << ",";
-    }
     EXPECT_EQ(parts, (std::vector<nebula::PartitionID>{1, 2, 3}));
 
     auto ret4 = c.getPartLeaderFromCache(spaceId, 1);
