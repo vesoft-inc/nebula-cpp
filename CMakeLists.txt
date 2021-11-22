@@ -89,7 +89,7 @@ install(
 
 add_custom_target(
   format
-  COMMAND "find" "include" "src/client" "src/datatypes" "src/time" "src/graph" "-type" "f" "\\(" "-iname" "\\*.h" "-o" "-iname" "\\*.cpp" "\\)" "|" "xargs" "clang-format" "-i"
+  COMMAND "find" "include" "src/client" "src/mclient" "src/sclient" "src/thrift" "src/datatypes" "src/time" "src/geo" "src/graph" "-type" "f" "\\(" "-iname" "\\*.h" "-o" "-iname" "\\*.cpp" "\\)" "|" "xargs" "clang-format" "-i"
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
 )
 

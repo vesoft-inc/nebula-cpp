@@ -1,7 +1,6 @@
-/* Copyright (c) 2021 vesoft inc. All rights reserved.
+/* Copyright (c) 2020 vesoft inc. All rights reserved.
  *
- * This source code is licensed under Apache 2.0 License,
- * attached with Common Clause Condition 1.0, found in the LICENSES directory.
+ * This source code is licensed under Apache 2.0 License.
  */
 
 #pragma once
@@ -21,21 +20,19 @@ class ScanEdgeRequest;
 }  // namespace storage
 
 struct ScanEdgeIter {
-    ScanEdgeIter(StorageClient* client,
-                 storage::cpp2::ScanEdgeRequest* req,
-                 bool hasNext = true);
+  ScanEdgeIter(StorageClient* client, storage::cpp2::ScanEdgeRequest* req, bool hasNext = true);
 
-    ~ScanEdgeIter();
+  ~ScanEdgeIter();
 
-    bool hasNext();
+  bool hasNext();
 
-    DataSet next();
+  DataSet next();
 
-    StorageClient* client_;
-    storage::cpp2::ScanEdgeRequest* req_;
-    bool hasNext_;
-    std::string nextCursor_;
-    bool firstScan_{true};
+  StorageClient* client_;
+  storage::cpp2::ScanEdgeRequest* req_;
+  bool hasNext_;
+  std::string nextCursor_;
+  bool firstScan_{true};
 };
 
 }  // namespace nebula

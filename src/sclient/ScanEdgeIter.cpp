@@ -4,15 +4,13 @@
  */
 
 #include "nebula/sclient/ScanEdgeIter.h"
-#include "nebula/sclient/StorageClient.h"
 
 #include "../interface/gen-cpp2/storage_types.h"
+#include "nebula/sclient/StorageClient.h"
 
 namespace nebula {
 
-ScanEdgeIter::ScanEdgeIter(StorageClient* client,
-                           storage::cpp2::ScanEdgeRequest* req,
-                           bool hasNext)
+ScanEdgeIter::ScanEdgeIter(StorageClient* client, storage::cpp2::ScanEdgeRequest* req, bool hasNext)
     : client_(client), req_(req), hasNext_(hasNext) {}
 
 bool ScanEdgeIter::hasNext() { return hasNext_; }

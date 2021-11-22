@@ -69,8 +69,7 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
   // new interface
   storage::cpp2::ScanCursor scanCursor;
   scanCursor.set_has_next(false);
-  req->set_parts(std::unordered_map<PartitionID, storage::cpp2::ScanCursor>{
-      {partId, scanCursor}});
+  req->set_parts(std::unordered_map<PartitionID, storage::cpp2::ScanCursor>{{partId, scanCursor}});
   req->set_return_columns(returnCols);
   req->set_limit(limit);
   req->set_start_time(startTime);
@@ -110,30 +109,29 @@ void StorageClient::getResponse(std::pair<HostAddr, Request>&& request,
                                 RemoteFunc&& remoteFunc,
                                 folly::Promise<std::pair<bool, Response>> pro) {
   auto* evb = DCHECK_NOTNULL(ioExecutor_)->getEventBase();
-  folly::via(
-      evb,
-      [evb,
-       request = std::move(request),
-       remoteFunc = std::move(remoteFunc),
-       pro = std::move(pro),
-       this]() mutable {
-        auto host = request.first;
-        auto client =
-            clientsMan_->client(host, evb, false, 60 * 1000);  // FLAGS_storage_client_timeout_ms
-        LOG(INFO) << "Send request to storage " << host;
-        remoteFunc(client.get(), request.second)
-            .via(evb)
-            .then([pro = std::move(pro), host](folly::Try<Response>&& t) mutable {
-              // exception occurred during RPC
-              if (t.hasException()) {
-                LOG(ERROR) << "Send request to " << host << " failed";
-                pro.setValue(std::make_pair(false, Response()));
-                return;
-              }
-              auto&& resp = t.value();
-              pro.setValue(std::make_pair(true, std::move(resp)));
-            });
-      });  // via
+  folly::via(evb,
+             [evb,
+              request = std::move(request),
+              remoteFunc = std::move(remoteFunc),
+              pro = std::move(pro),
+              this]() mutable {
+               auto host = request.first;
+               auto client = clientsMan_->client(
+                   host, evb, false, 60 * 1000);  // FLAGS_storage_client_timeout_ms
+               LOG(INFO) << "Send request to storage " << host;
+               remoteFunc(client.get(), request.second)
+                   .via(evb)
+                   .then([pro = std::move(pro), host](folly::Try<Response>&& t) mutable {
+                     // exception occurred during RPC
+                     if (t.hasException()) {
+                       LOG(ERROR) << "Send request to " << host << " failed";
+                       pro.setValue(std::make_pair(false, Response()));
+                       return;
+                     }
+                     auto&& resp = t.value();
+                     pro.setValue(std::make_pair(true, std::move(resp)));
+                   });
+             });  // via
 }
 
 }  // namespace nebula

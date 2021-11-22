@@ -4,14 +4,15 @@
  */
 
 #include "common/datatypes/Geography.h"
-#include "common/geo/io/wkt/WKTWriter.h"
-#include "common/geo/io/wkb/WKBWriter.h"
 
 #include <folly/String.h>
 #include <folly/hash/Hash.h>
 #include <glog/logging.h>
 
 #include <cstdint>
+
+#include "common/geo/io/wkb/WKBWriter.h"
+#include "common/geo/io/wkt/WKTWriter.h"
 
 namespace nebula {
 
