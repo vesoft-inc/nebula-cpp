@@ -19,7 +19,7 @@
 
 // Require a nebula server could access
 
-#define kServerHost "server"
+#define kServerHost "127.0.0.1"
 
 class MetaClientTest : public ClientTest {
  protected:

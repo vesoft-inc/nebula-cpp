@@ -26,11 +26,13 @@ StorageClient::~StorageClient() = default;
 std::vector<PartitionID> StorageClient::getParts(const std::string& spaceName) {
   auto spaceIdResult = mClient_->getSpaceIdByNameFromCache(spaceName);
   if (!spaceIdResult.first) {
+    LOG(ERROR) << "Get space id from cache for space name " << spaceName << " failed";
     return {};
   }
   int32_t spaceId = spaceIdResult.second;
   auto ret = mClient_->getPartsFromCache(spaceId);
   if (!ret.first) {
+    LOG(ERROR) << "Get parts from cache for space id " << spaceId << " failed";
     return {};
   }
   return ret.second;

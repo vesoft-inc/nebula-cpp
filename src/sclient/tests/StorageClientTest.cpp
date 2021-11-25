@@ -19,7 +19,7 @@
 
 // Require a nebula server could access
 
-#define kServerHost "server"
+#define kServerHost "127.0.0.1"
 
 class StorageClientTest : public ClientTest {
  protected:
@@ -43,7 +43,10 @@ class StorageClientTest : public ClientTest {
         "INSERT EDGE like(likeness) VALUES '101'->'102':(78), '102'->'103':(99), "
         "'103'->'201':(43), '201'->'202':(56), '202'->'203':(-13), '203'->'301':(431), "
         "'301'->'302':(457)");
-    ASSERT_EQ(result3.errorCode, nebula::ErrorCode::SUCCEEDED);
+    ASSERT_EQ(result3.errorCode, nebula::ErrorCode::SUCCEEDED)
+        << (result2.errorMsg ? *result2.errorMsg : "");
+
+    ::sleep(10);
   }
 
   static void runGetParts(nebula::StorageClient &c) {
