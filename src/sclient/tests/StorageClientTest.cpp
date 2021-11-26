@@ -37,16 +37,37 @@ class StorageClientTest : public ClientTest {
     auto result2 = session.execute("CREATE EDGE IF NOT EXISTS like(likeness int)");
     ASSERT_EQ(result2.errorCode, nebula::ErrorCode::SUCCEEDED);
 
-    ::sleep(10);
+    ::sleep(30);
 
     auto result3 = session.execute(
         "INSERT EDGE like(likeness) VALUES '101'->'102':(78), '102'->'103':(99), "
         "'103'->'201':(43), '201'->'202':(56), '202'->'203':(-13), '203'->'301':(431), "
         "'301'->'302':(457)");
     ASSERT_EQ(result3.errorCode, nebula::ErrorCode::SUCCEEDED)
-        << (result2.errorMsg ? *result2.errorMsg : "");
+        << (result3.errorMsg ? *result3.errorMsg : "");
+  }
 
-    ::sleep(10);
+  static void runOnce(nebula::MetaClient &c) {
+    auto ret = c.getSpaceIdByNameFromCache("storage_client_test");
+    ASSERT_TRUE(ret.first);
+    nebula::GraphSpaceID spaceId = ret.second;
+    LOG(INFO) << "spaceId of nba: " << spaceId;
+    EXPECT_GT(spaceId, 0);
+
+    auto ret2 = c.getEdgeTypeByNameFromCache(spaceId, "like");
+    ASSERT_TRUE(ret2.first);
+    nebula::EdgeType edgeType = ret2.second;
+    LOG(INFO) << "edgeType of like: " << edgeType;
+    EXPECT_GT(edgeType, 0);
+
+    auto ret3 = c.getPartsFromCache(spaceId);
+    ASSERT_TRUE(ret3.first);
+    auto parts = ret3.second;
+    EXPECT_EQ(parts, (std::vector<nebula::PartitionID>{1}));
+
+    auto ret4 = c.getPartLeaderFromCache(spaceId, 1);
+    ASSERT_TRUE(ret4.first);
+    EXPECT_EQ(ret4.second, nebula::HostAddr(kServerHost, 9779));
   }
 
   static void runGetParts(nebula::StorageClient &c) {
@@ -113,6 +134,9 @@ TEST_F(StorageClientTest, Basic) {
   LOG(INFO) << "Prepare data.";
   prepare();
   nebula::StorageClient c({kServerHost ":9559"});
+  auto* m = c.getMetaClient();
+  LOG(INFO) << "Testing run once of meta client";
+  runOnce(*m);
   LOG(INFO) << "Testing run get parts.";
   runGetParts(c);
   LOG(INFO) << "Testing run scan edge with part.";

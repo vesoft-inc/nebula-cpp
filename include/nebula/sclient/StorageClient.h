@@ -76,6 +76,8 @@ class StorageClient {
                                 bool onlyLatestVersion = false,
                                 bool enableReadFromFollower = true);  // plato needed
 
+  MetaClient* getMetaClient() { return mClient_.get(); }
+
  private:
   std::pair<bool, storage::cpp2::ScanEdgeResponse> doScanEdge(
       const storage::cpp2::ScanEdgeRequest& req);

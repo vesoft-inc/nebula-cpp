@@ -37,15 +37,13 @@ class MetaClientTest : public ClientTest {
     auto result2 = session.execute("CREATE EDGE IF NOT EXISTS like(likeness int)");
     ASSERT_EQ(result2.errorCode, nebula::ErrorCode::SUCCEEDED);
 
-    ::sleep(10);
+    ::sleep(30);
 
     auto result3 = session.execute(
         "INSERT EDGE like(likeness) VALUES '101'->'102':(78), '102'->'103':(99), "
         "'103'->'201':(43), '201'->'202':(56), '202'->'203':(-13), '203'->'301':(431), "
         "'301'->'302':(457)");
     ASSERT_EQ(result3.errorCode, nebula::ErrorCode::SUCCEEDED);
-
-    ::sleep(10);
   }
 
   static void runOnce(nebula::MetaClient &c) {
