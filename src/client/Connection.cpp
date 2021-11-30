@@ -94,6 +94,10 @@ bool Connection::open(const std::string &address,
           socket->setErrMessageCB(&NebulaConnectionErrMessageCallback::instance());
           auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
           channel->setTimeout(timeout);
+          // The connection is not stable in some environments so wait here
+          while (!channel->good()) {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+          }
           client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
           complete = true;
         } catch (const std::exception &) {
@@ -103,9 +107,6 @@ bool Connection::open(const std::string &address,
   if (!complete) {
     return complete;
   }
-  // The connection is not stable in some environments so wait here
-  // TODO remove this
-  std::this_thread::sleep_for(std::chrono::milliseconds(300));
   auto resp = verifyClientVersion(VerifyClientVersionReq{});
   if (resp.errorCode != ErrorCode::SUCCEEDED) {
     DLOG(ERROR) << "Failed to verify client version: " << *resp.errorMsg;
