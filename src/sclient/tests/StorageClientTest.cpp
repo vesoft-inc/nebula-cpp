@@ -134,7 +134,7 @@ TEST_F(StorageClientTest, Basic) {
   LOG(INFO) << "Prepare data.";
   prepare();
   nebula::StorageClient c({kServerHost ":9559"});
-  auto* m = c.getMetaClient();
+  auto *m = c.getMetaClient();
   LOG(INFO) << "Testing run once of meta client";
   runOnce(*m);
   LOG(INFO) << "Testing run get parts.";
