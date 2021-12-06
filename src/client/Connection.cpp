@@ -95,6 +95,7 @@ bool Connection::open(const std::string &address,
           auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
           channel->setTimeout(timeout);
           // The connection is not stable in some environments so wait here
+          DLOG(ERROR) << "DEBUG POINT: Connection stable " << channel->good();
           while (!channel->good()) {
             DLOG(ERROR) << "DEBUG POINT: Connection is not stable, wait for a while.";
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
@@ -108,6 +109,8 @@ bool Connection::open(const std::string &address,
   if (!complete) {
     return complete;
   }
+  auto *channel = dynamic_cast<apache::thrift::HeaderClientChannel*>(client_->getChannel());
+  DLOG(ERROR) << "DEBUG POINT: Connection stable " << channel->good();
   auto resp = verifyClientVersion(VerifyClientVersionReq{});
   if (resp.errorCode != ErrorCode::SUCCEEDED) {
     DLOG(ERROR) << "Failed to verify client version: " << *resp.errorMsg;
