@@ -143,6 +143,21 @@ TEST_F(StorageClientTest, Basic) {
   runScanEdgeWithPart(c);
 }
 
+TEST_F(StorageClientTest, SSL) {
+  LOG(INFO) << "Prepare data.";
+  prepare();
+  nebula::MConfig mConfig{1000, 60*1000, true, ""};
+  nebula::SConfig sConfig{1000, 60*1000, true, ""};
+  nebula::StorageClient c({kServerHost ":9559"}, mConfig, sConfig);
+  auto *m = c.getMetaClient();
+  LOG(INFO) << "Testing run once of meta client";
+  runOnce(*m);
+  LOG(INFO) << "Testing run get parts.";
+  runGetParts(c);
+  LOG(INFO) << "Testing run scan edge with part.";
+  runScanEdgeWithPart(c);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   nebula::init(&argc, &argv);

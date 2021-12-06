@@ -78,6 +78,16 @@ TEST_F(MetaClientTest, Basic) {
   runOnce(c);
 }
 
+TEST_F(MetaClientTest, SSL) {
+  LOG(INFO) << "Prepare data.";
+  prepare();
+
+  LOG(INFO) << "Run once.";
+  nebula::MConfig mConfig{1000, 60*1000, true, ""};
+  nebula::MetaClient c({kServerHost ":9559"}, mConfig);
+  runOnce(c);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   nebula::init(&argc, &argv);

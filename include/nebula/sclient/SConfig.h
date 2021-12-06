@@ -11,9 +11,10 @@
 namespace nebula {
 
 struct SConfig {
-  int32_t connTimeoutInMs_{1000};  // in ms. It's as same as FLAGS_conn_timeout_ms in nebula
-  int32_t clientTimeoutInMs_{60 *
-                             1000};  // in ms. It's as same as FLAG_meta_client_timeout_ms in nebula
+  // It's as same as FLAGS_conn_timeout_ms in nebula
+  int32_t connTimeoutInMs_{1000};
+  // It's as same as FLAG_meta_client_timeout_ms in nebula
+  int32_t clientTimeoutInMs_{60 * 1000};
   bool enableSSL_{false};
   std::string CAPath_;
 };
