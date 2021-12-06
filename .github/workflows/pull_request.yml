@@ -140,7 +140,7 @@ jobs:
           ctest -j $(nproc) --timeout 10000 --output-on-failure
           make install
           popd
-        timeout-minutes: 4
+        timeout-minutes: 10
       - name: Build example
         run: |
           case ${{ matrix.os }} in
