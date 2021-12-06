@@ -96,6 +96,7 @@ bool Connection::open(const std::string &address,
           channel->setTimeout(timeout);
           // The connection is not stable in some environments so wait here
           while (!channel->good()) {
+            DLOG(ERROR) << "DEBUG POINT: Connection is not stable, wait for a while.";
             std::this_thread::sleep_for(std::chrono::milliseconds(100));
           }
           client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
