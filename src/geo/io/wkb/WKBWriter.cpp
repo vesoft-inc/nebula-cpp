@@ -3,10 +3,10 @@
  * This source code is licensed under Apache 2.0 License.
  */
 
+#include "common/geo/io/wkb/WKBWriter.h"
+
 #include <folly/Conv.h>
 #include <glog/logging.h>
-
-#include "common/geo/io/wkb/WKBWriter.h"
 
 namespace nebula {
 namespace geo {

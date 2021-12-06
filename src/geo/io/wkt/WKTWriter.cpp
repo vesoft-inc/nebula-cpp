@@ -5,8 +5,8 @@
 
 #include "common/geo/io/wkt/WKTWriter.h"
 
-#include <glog/logging.h>
 #include <folly/Conv.h>
+#include <glog/logging.h>
 
 namespace nebula {
 namespace geo {

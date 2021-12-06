@@ -37,3 +37,6 @@ modules
 
 # IDE
 .vscode/
+
+# Coredump
+core.*

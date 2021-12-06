@@ -14,7 +14,7 @@
 #include <memory>
 #include <stdexcept>
 
-#include "./SSLConfig.h"
+#include "../SSLConfig.h"
 #include "interface/gen-cpp2/GraphServiceAsyncClient.h"
 
 namespace nebula {
