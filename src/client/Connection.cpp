@@ -78,7 +78,7 @@ bool Connection::open(const std::string &address,
     return false;
   }
   bool complete{false};
-  clientLoopThread_->getEventBase()->runInEventBaseThreadAndWait(
+  clientLoopThread_->getEventBase()->runImmediatelyOrRunInEventBaseThreadAndWait(
       [this, &complete, &address, port, timeout, enableSSL, &CAPath]() {
         try {
           std::shared_ptr<folly::AsyncSocket> socket;

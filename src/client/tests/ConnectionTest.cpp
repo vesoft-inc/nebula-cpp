@@ -182,7 +182,7 @@ TEST_F(ConnectionTest, SSL) {
 TEST_F(ConnectionTest, JsonResult) {
   nebula::Connection c;
 
-  ASSERT_TRUE(c.open(kServerHost, 9669, 10));
+  ASSERT_TRUE(c.open(kServerHost, 9669, 10, false, ""));
 
   // auth
   auto authResp = c.authenticate("root", "nebula");
