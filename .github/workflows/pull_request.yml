@@ -125,6 +125,7 @@ jobs:
           echo '--cert_path=share/resources/test.ca.pem' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
           echo '--key_path=share/resources/test.ca.key' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
           echo '--password_path=share/resources/test.ca.password' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          echo '--enable_ssl=true' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
           cp certs/* /usr/local/nebula/share/resources
           /usr/local/nebula/scripts/nebula.service start all
           /usr/local/nebula/scripts/nebula.service status all
