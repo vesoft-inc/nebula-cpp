@@ -93,7 +93,9 @@ bool Connection::open(const std::string &address,
           }
           socket->setErrMessageCB(&NebulaConnectionErrMessageCallback::instance());
           auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
-          channel->setTimeout(timeout);
+          if (timeout > 0) {
+            channel->setTimeout(timeout);
+          }
           client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
           complete = true;
         } catch (const std::exception &) {
