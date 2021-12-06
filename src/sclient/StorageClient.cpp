@@ -50,12 +50,12 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
                                              bool enableReadFromFollower) {
   auto spaceIdResult = mClient_->getSpaceIdByNameFromCache(spaceName);
   if (!spaceIdResult.first) {
-    return ScanEdgeIter(nullptr, nullptr, false);
+    return {nullptr, nullptr, false};
   }
   int32_t spaceId = spaceIdResult.second;
   auto edgeTypeResult = mClient_->getEdgeTypeByNameFromCache(spaceId, edgeName);
   if (!edgeTypeResult.second) {
-    return ScanEdgeIter(nullptr, nullptr, false);
+    return {nullptr, nullptr, false};
   }
   int32_t edgeType = edgeTypeResult.second;
 
@@ -80,7 +80,7 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
   req->set_only_latest_version(onlyLatestVersion);
   req->set_enable_read_from_follower(enableReadFromFollower);
 
-  return ScanEdgeIter(this, req);
+  return {this, req};
 }
 
 std::pair<bool, storage::cpp2::ScanEdgeResponse> StorageClient::doScanEdge(

@@ -87,7 +87,6 @@ class StorageClient {
                    RemoteFunc&& remoteFunc,
                    folly::Promise<std::pair<bool, Response>> pro);
 
- private:
   std::unique_ptr<MetaClient> mClient_;
   std::shared_ptr<folly::IOThreadPoolExecutor> ioExecutor_;
   std::shared_ptr<thrift::ThriftClientManager<storage::cpp2::GraphStorageServiceAsyncClient>>

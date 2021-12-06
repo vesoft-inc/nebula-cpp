@@ -29,13 +29,7 @@ MetaClient::MetaClient(const std::vector<std::string>& metaAddrs) {
       std::make_shared<thrift::ThriftClientManager<meta::cpp2::MetaServiceAsyncClient>>(false);
   bool b = loadData();  // load data into cache
   if (!b) {
-    LOG(INFO) << "load data failed";
-  } else {
-    LOG(INFO) << "load data succecced";
-    LOG(INFO) << spaceIndexByName_.size();
-    LOG(INFO) << spaceEdgeIndexByName_.size();
-    LOG(INFO) << spacePartLeaderMap_.size();
-    LOG(INFO) << spacePartsMap_.size();
+    LOG(ERROR) << "load data failed";
   }
 }
 
@@ -54,22 +48,16 @@ std::pair<bool, EdgeType> MetaClient::getEdgeTypeByNameFromCache(GraphSpaceID sp
                                                                  const std::string& name) {
   auto it = spaceEdgeIndexByName_.find(std::make_pair(space, name));
   if (it == spaceEdgeIndexByName_.end()) {
-    LOG(ERROR) << "Get edge type for " << name << " failed";
+    LOG(ERROR) << "getEdgeTypeByNameFromCache(" << space << ", " << name << ") failed";
     return {false, -1};
   }
   return {true, it->second};
 }
 
 std::pair<bool, std::vector<PartitionID>> MetaClient::getPartsFromCache(GraphSpaceID spaceId) {
-  LOG(INFO) << "getPartsFromCache(" << spaceId << ")";
-  for (auto kv : spacePartsMap_) {
-    LOG(INFO) << kv.first << ", ";
-    for (auto partId : kv.second) {
-      LOG(INFO) << partId;
-    }
-  }
   auto iter = spacePartsMap_.find(spaceId);
   if (iter == spacePartsMap_.end()) {
+    LOG(ERROR) << "getPartsFromCache(" << spaceId << ") failed";
     return {false, {}};
   }
 
@@ -80,6 +68,7 @@ std::pair<bool, HostAddr> MetaClient::getPartLeaderFromCache(GraphSpaceID spaceI
                                                              PartitionID partId) {
   auto iter = spacePartLeaderMap_.find({spaceId, partId});
   if (iter == spacePartLeaderMap_.end()) {
+    LOG(ERROR) << "getPartLeaderFromCache(" << spaceId << ", " << partId << ") failed";
     return {false, HostAddr()};
   }
 
@@ -165,30 +154,20 @@ std::pair<bool, std::vector<meta::cpp2::EdgeItem>> MetaClient::listEdgeSchemas(
 
 void MetaClient::loadLeader(const std::vector<meta::cpp2::HostItem>& hostItems,
                             const SpaceNameIdMap& spaceIndexByName) {
-  LOG(INFO) << "loadLeader start";
   for (auto& item : hostItems) {
-    LOG(INFO) << "item.get_leader_parts().size()=" << item.get_leader_parts().size();
-    LOG(INFO) << "item.get_all_parts().size()=" << item.get_all_parts().size();
     for (auto& spaceEntry : item.get_leader_parts()) {
       auto spaceName = spaceEntry.first;
-      LOG(INFO) << "[" << spaceName << "]";
       auto iter = spaceIndexByName.find(spaceName);
       if (iter == spaceIndexByName.end()) {
-        LOG(INFO) << "dont' find " << spaceName;
         continue;
       }
       auto spaceId = iter->second;
-      LOG(INFO) << "spaceId:" << spaceId;
-      LOG(INFO) << "spaceEntry.second.size()" << spaceEntry.second.size();
       for (const auto& partId : spaceEntry.second) {
-        LOG(INFO) << "spaceId: " << spaceId << ", partId: " << partId
-                  << ", host: " << item.get_hostAddr();
         spacePartLeaderMap_[{spaceId, partId}] = item.get_hostAddr();
         spacePartsMap_[spaceId].emplace_back(partId);
       }
     }
   }
-  LOG(INFO) << "loadLeader end";
 }
 
 std::vector<SpaceIdName> MetaClient::toSpaceIdName(
