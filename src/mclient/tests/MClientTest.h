@@ -5,11 +5,11 @@
 
 #pragma once
 
+#include <gtest/gtest.h>
+
 #include "common/datatypes/DataSet.h"
 #include "common/graph/Response.h"
-
-#include <gtest/gtest.h>
-class ClientTest : public ::testing::Test {
+class MClientTest : public ::testing::Test {
  protected:
   static ::testing::AssertionResult verifyResultWithoutOrder(const nebula::DataSet& resp,
                                                              const nebula::DataSet& expect) {

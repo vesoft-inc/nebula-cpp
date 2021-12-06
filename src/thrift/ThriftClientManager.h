@@ -23,7 +23,8 @@ class ThriftClientManager final {
 
   ~ThriftClientManager() { VLOG(3) << "~ThriftClientManager"; }
 
-  explicit ThriftClientManager(bool enableSSL = false) : enableSSL_(enableSSL) {
+  explicit ThriftClientManager(int32_t connTimeoutInMs, bool enableSSL, const std::string& CAPath)
+      : connTimeoutInMs_(connTimeoutInMs), enableSSL_(enableSSL), CAPath_(CAPath) {
     VLOG(3) << "ThriftClientManager";
   }
 
@@ -32,8 +33,10 @@ class ThriftClientManager final {
       std::unordered_map<std::pair<HostAddr, folly::EventBase*>, std::shared_ptr<ClientType>>;
 
   folly::ThreadLocal<ClientMap> clientMap_;
+  int32_t connTimeoutInMs_;
   // whether enable ssl
-  bool enableSSL_{false};
+  bool enableSSL_;
+  std::string CAPath_;
 };
 
 }  // namespace thrift

@@ -15,6 +15,7 @@
 #include "common/datatypes/HostAddr.h"
 #include "common/thrift/ThriftTypes.h"
 #include "nebula/mclient/MetaClient.h"
+#include "nebula/sclient/SConfig.h"
 #include "nebula/sclient/ScanEdgeIter.h"
 
 namespace folly {
@@ -51,7 +52,7 @@ class ScanEdgeResponse;
 }  // namespace cpp2
 }  // namespace storage
 
-#define DEFAULT_LIMIT 1000
+#define DEFAULT_LIMIT std::numeric_limits<int64_t>::max()
 #define DEFAULT_START_TIME 0
 #define DEFAULT_END_TIME std::numeric_limits<int64_t>::max()
 
@@ -59,7 +60,9 @@ class StorageClient {
   friend struct ScanEdgeIter;
 
  public:
-  explicit StorageClient(const std::vector<std::string>& metaAddrs);
+  explicit StorageClient(const std::vector<std::string>& metaAddrs,
+                         const MConfig& mConfig = MConfig{},
+                         const SConfig& sConfig = SConfig{});
 
   ~StorageClient();
 
@@ -88,6 +91,7 @@ class StorageClient {
                    folly::Promise<std::pair<bool, Response>> pro);
 
   std::unique_ptr<MetaClient> mClient_;
+  SConfig sConfig_;
   std::shared_ptr<folly::IOThreadPoolExecutor> ioExecutor_;
   std::shared_ptr<thrift::ThriftClientManager<storage::cpp2::GraphStorageServiceAsyncClient>>
       clientsMan_;

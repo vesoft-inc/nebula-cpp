@@ -11,9 +11,8 @@
 #include <nebula/client/ConnectionPool.h>
 #include <nebula/client/Session.h>
 #include <nebula/mclient/MetaClient.h>
-#include <nebula/sclient/Init.h>
 
-#include "../../ClientTest.h"
+#include "./MClientTest.h"
 #include "common/datatypes/HostAddr.h"
 #include "common/thrift/ThriftTypes.h"
 
@@ -21,7 +20,7 @@
 
 #define kServerHost "127.0.0.1"
 
-class MetaClientTest : public ClientTest {
+class MetaClientTest : public MClientTest {
  protected:
   static void prepare() {
     nebula::ConnectionPool pool;

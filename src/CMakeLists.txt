@@ -35,13 +35,13 @@ set(NEBULA_COMMON_SOURCES
     geo/io/wkb/WKBWriter.cpp
     geo/io/wkb/ByteOrderDataIOStream.cpp
     Init.cpp
+    SSLConfig.cpp
 )
 
 set(NEBULA_CLIENT_SOURCES
     client/Connection.cpp
     client/ConnectionPool.cpp
     client/Session.cpp
-    client/SSLConfig.cpp
 )
 
 set(NEBULA_MCLIENT_SOURCES

@@ -15,7 +15,7 @@
 
 namespace nebula {
 
-MetaClient::MetaClient(const std::vector<std::string>& metaAddrs) {
+MetaClient::MetaClient(const std::vector<std::string>& metaAddrs, const MConfig& mConfig) {
   for (const auto& addr : metaAddrs) {
     std::vector<std::string> ip_port;
     folly::split(':', addr, ip_port, true);
@@ -23,10 +23,11 @@ MetaClient::MetaClient(const std::vector<std::string>& metaAddrs) {
     metaAddrs_.emplace_back(ip_port[0], folly::to<int32_t>(ip_port[1]));
   }
   CHECK(!metaAddrs_.empty()) << "metaAddrs_ is empty";
+  mConfig_ = mConfig;
 
   ioExecutor_ = std::make_shared<folly::IOThreadPoolExecutor>(std::thread::hardware_concurrency());
-  clientsMan_ =
-      std::make_shared<thrift::ThriftClientManager<meta::cpp2::MetaServiceAsyncClient>>(false);
+  clientsMan_ = std::make_shared<thrift::ThriftClientManager<meta::cpp2::MetaServiceAsyncClient>>(
+      mConfig_.connTimeoutInMs_, mConfig_.enableSSL_, mConfig_.CAPath_);
   bool b = loadData();  // load data into cache
   if (!b) {
     LOG(ERROR) << "load data failed";
@@ -199,8 +200,7 @@ void MetaClient::getResponse(Request req,
               respGen = std::move(respGen),
               pro = std::move(pro),
               this]() mutable {
-               auto client = clientsMan_->client(
-                   host, evb, false, 60 * 1000);  // FLAGS_meta_client_timeout_ms
+               auto client = clientsMan_->client(host, evb, false, mConfig_.clientTimeoutInMs_);
                LOG(INFO) << "Send request to meta " << host;
                remoteFunc(client, req)
                    .via(evb)

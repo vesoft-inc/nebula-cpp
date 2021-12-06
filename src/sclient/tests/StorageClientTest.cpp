@@ -3,6 +3,7 @@
  * This source code is licensed under Apache 2.0 License.
  */
 
+#include <common/Init.h>
 #include <common/datatypes/DataSet.h>
 #include <folly/synchronization/Baton.h>
 #include <glog/logging.h>
@@ -11,17 +12,16 @@
 #include <nebula/client/ConnectionPool.h>
 #include <nebula/client/Session.h>
 #include <nebula/mclient/MetaClient.h>
-#include <nebula/sclient/Init.h>
 #include <nebula/sclient/ScanEdgeIter.h>
 #include <nebula/sclient/StorageClient.h>
 
-#include "../../ClientTest.h"
+#include "./SClientTest.h"
 
 // Require a nebula server could access
 
 #define kServerHost "127.0.0.1"
 
-class StorageClientTest : public ClientTest {
+class StorageClientTest : public SClientTest {
  protected:
   static void prepare() {
     nebula::ConnectionPool pool;

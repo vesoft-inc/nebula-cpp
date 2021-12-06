@@ -9,7 +9,7 @@
 #include <thread>
 
 #include <nebula/sclient/ScanEdgeIter.h>
-#include <nebula/sclient/Init.h>
+#include <common/Init.h>
 #include <nebula/sclient/StorageClient.h>
 
 int main(int argc, char* argv[]) {

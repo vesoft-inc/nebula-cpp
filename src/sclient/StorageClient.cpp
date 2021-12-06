@@ -13,12 +13,15 @@
 
 namespace nebula {
 
-StorageClient::StorageClient(const std::vector<std::string>& metaAddrs) {
-  mClient_ = std::make_unique<MetaClient>(metaAddrs);
+StorageClient::StorageClient(const std::vector<std::string>& metaAddrs,
+                             const MConfig& mConfig,
+                             const SConfig& sConfig) {
+  mClient_ = std::make_unique<MetaClient>(metaAddrs, mConfig);
+  sConfig_ = sConfig;
   ioExecutor_ = std::make_shared<folly::IOThreadPoolExecutor>(std::thread::hardware_concurrency());
   clientsMan_ =
       std::make_shared<thrift::ThriftClientManager<storage::cpp2::GraphStorageServiceAsyncClient>>(
-          false);
+          sConfig.connTimeoutInMs_, sConfig.enableSSL_, sConfig.CAPath_);
 }
 
 StorageClient::~StorageClient() = default;
@@ -118,8 +121,7 @@ void StorageClient::getResponse(std::pair<HostAddr, Request>&& request,
               pro = std::move(pro),
               this]() mutable {
                auto host = request.first;
-               auto client = clientsMan_->client(
-                   host, evb, false, 60 * 1000);  // FLAGS_storage_client_timeout_ms
+               auto client = clientsMan_->client(host, evb, false, sConfig_.clientTimeoutInMs_);
                LOG(INFO) << "Send request to storage " << host;
                remoteFunc(client.get(), request.second)
                    .via(evb)

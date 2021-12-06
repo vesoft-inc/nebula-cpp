@@ -14,7 +14,7 @@
 
 #include "common/datatypes/HostAddr.h"
 #include "common/thrift/ThriftTypes.h"
-#include "nebula/sclient/ScanEdgeIter.h"
+#include "nebula/mclient/MConfig.h"
 
 struct pair_hash {
   template <class T1, class T2>
@@ -63,7 +63,8 @@ using SpaceEdgeNameTypeMap =
 
 class MetaClient {
  public:
-  explicit MetaClient(const std::vector<std::string> &metaAddrs);
+  explicit MetaClient(const std::vector<std::string> &metaAddrs,
+                      const MConfig &mConfig = MConfig{});
 
   ~MetaClient();
 
@@ -103,6 +104,7 @@ class MetaClient {
 
  private:
   std::vector<HostAddr> metaAddrs_;
+  MConfig mConfig_;
   SpaceNameIdMap spaceIndexByName_;
   SpaceEdgeNameTypeMap spaceEdgeIndexByName_;
   std::unordered_map<std::pair<GraphSpaceID, PartitionID>, HostAddr, pair_hash> spacePartLeaderMap_;

@@ -32,7 +32,6 @@ struct ScanEdgeIter {
   storage::cpp2::ScanEdgeRequest* req_;
   bool hasNext_;
   std::string nextCursor_;
-  bool firstScan_{true};
 };
 
 }  // namespace nebula

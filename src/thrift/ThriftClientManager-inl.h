@@ -10,6 +10,8 @@
 #include <folly/system/ThreadName.h>
 #include <thrift/lib/cpp2/async/HeaderClientChannel.h>
 
+#include "../SSLConfig.h"
+
 namespace nebula {
 namespace thrift {
 
@@ -67,14 +69,13 @@ std::shared_ptr<ClientType> ThriftClientManager<ClientType>::client(const HostAd
 
   VLOG(2) << "Connecting to " << host << " for " << ++connectionCount << " times";
   std::shared_ptr<folly::AsyncSocket> socket;
-  evb->runImmediatelyOrRunInEventBaseThreadAndWait([&socket, evb, resolved]() {
-    // if (enableSSL_) {
-    //   socket = folly::AsyncSSLSocket::newSocket(nebula::createSSLContext(), evb);
-    //   socket->connect(nullptr, resolved.host, resolved.port, 1000);  // FLAGS_conn_timeout_ms
-    // } else {
-    socket = folly::AsyncSocket::newSocket(
-        evb, resolved.host, resolved.port, 1000);  // FLAGS_conn_timeout_ms
-    // }
+  evb->runImmediatelyOrRunInEventBaseThreadAndWait([this, &socket, evb, resolved]() {
+    if (enableSSL_) {
+      socket = folly::AsyncSSLSocket::newSocket(nebula::createSSLContext(CAPath_), evb);
+      socket->connect(nullptr, resolved.host, resolved.port, connTimeoutInMs_);
+    } else {
+      socket = folly::AsyncSocket::newSocket(evb, resolved.host, resolved.port, connTimeoutInMs_);
+    }
   });
   auto headerClientChannel = apache::thrift::HeaderClientChannel::newChannel(socket);
   if (timeout > 0) {
