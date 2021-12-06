@@ -6,7 +6,7 @@ if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
     add_compile_options(-Wno-maybe-uninitialized)
 endif()
 
-foreach(mod "common" "graph")
+foreach(mod "common" "graph" "meta" "storage")
     set(${mod}-cpp2-HEADERS
     ${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/${mod}_constants.h
     ${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/${mod}_data.h
@@ -38,6 +38,38 @@ ${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/GraphService_processmap_binary.cpp
 ${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/GraphService_processmap_compact.cpp
 )
 
+set(meta-cpp2-HEADERS
+${meta-cpp2-HEADERS}
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/MetaService.h
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/MetaService.tcc
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/MetaServiceAsyncClient.h
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/MetaService_custom_protocol.h
+)
+set(meta-cpp2-SOURCES
+${meta-cpp2-SOURCES}
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/MetaService.cpp
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/MetaServiceAsyncClient.cpp
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/MetaService_processmap_binary.cpp
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/MetaService_processmap_compact.cpp
+)
+
+
+set(storage-cpp2-HEADERS
+${storage-cpp2-HEADERS}
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/GraphStorageService.h
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/GraphStorageService.tcc
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/GraphStorageServiceAsyncClient.h
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/GraphStorageService_custom_protocol.h
+)
+set(storage-cpp2-SOURCES
+${storage-cpp2-SOURCES}
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/GraphStorageService.cpp
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/GraphStorageServiceAsyncClient.cpp
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/GraphStorageService_processmap_binary.cpp
+${CMAKE_SOURCE_DIR}/src/interface/gen-cpp2/GraphStorageService_processmap_compact.cpp
+)
+
+
 add_compile_options(-fPIC)
 
 add_library(
@@ -50,4 +82,16 @@ add_library(
   "graph_thrift_obj"
   OBJECT
   ${graph-cpp2-SOURCES}
+)
+
+add_library(
+  "meta_thrift_obj"
+  OBJECT
+  ${meta-cpp2-SOURCES}
+)
+
+add_library(
+  "storage_thrift_obj"
+  OBJECT
+  ${storage-cpp2-SOURCES}
 )

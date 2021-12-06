@@ -9,7 +9,7 @@
 
 #include "common/datatypes/DataSet.h"
 #include "common/graph/Response.h"
-class ClientTest : public ::testing::Test {
+class SClientTest : public ::testing::Test {
  protected:
   static ::testing::AssertionResult verifyResultWithoutOrder(const nebula::DataSet& resp,
                                                              const nebula::DataSet& expect) {

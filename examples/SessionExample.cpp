@@ -9,7 +9,7 @@
 
 #include <nebula/client/Config.h>
 #include <nebula/client/ConnectionPool.h>
-#include <nebula/client/Init.h>
+#include <common/Init.h>
 
 int main(int argc, char* argv[]) {
     nebula::init(&argc, &argv);

@@ -5,10 +5,11 @@
 
 #pragma once
 
-#include "common/datatypes/Value.h"
-#include <vector>
-#include <variant>
 #include <string>
+#include <variant>
+#include <vector>
+
+#include "common/datatypes/Value.h"
 
 // Do not include <s2/s2polygon.h> here, it will indirectly includes a header file which defines a
 // enum `BEGIN`(not enum class). While Geography.h is indirectly included by parser.yy, which has a

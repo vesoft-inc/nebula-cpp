@@ -101,7 +101,7 @@ jobs:
           centos7)
             set +e
             for i in {0..10}; do
-              wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
+              wget https://oss-cdn.nebula-graph.com.cn/package/nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
               rpm -ivh nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
               if [ $? -eq 0 ]; then
                 break;
@@ -112,7 +112,7 @@ jobs:
           ubuntu1804)
             set +e
             for i in {0..10}; do
-              wget https://oss-cdn.nebula-graph.com.cn/package/v2-nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu1804.amd64.deb
+              wget https://oss-cdn.nebula-graph.com.cn/package/nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu1804.amd64.deb
               dpkg -i nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu1804.amd64.deb
               if [ $? -eq 0 ]; then
                 break;

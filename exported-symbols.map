@@ -31,6 +31,8 @@ global:
         nebula::PlanNodeDescription::*;
         nebula::PlanDescription::*;
         nebula::ExecutionResponse::*;
+        nebula::StorageClient::*;
+        nebula::ScanEdgeIter::*;
         *::_S_empty_rep_storage;
     };
 local:

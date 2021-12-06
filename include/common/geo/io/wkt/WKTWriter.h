@@ -5,8 +5,8 @@
 
 #pragma once
 
-#include <vector>
 #include <string>
+#include <vector>
 
 #include "common/datatypes/Geography.h"
 

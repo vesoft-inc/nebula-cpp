@@ -5,8 +5,9 @@
 
 #include "common/geo/io/wkb/ByteOrderDataIOStream.h"
 
-#include <boost/endian/conversion.hpp>
 #include <glog/logging.h>
+
+#include <boost/endian/conversion.hpp>
 
 namespace nebula {
 namespace geo {
@@ -45,17 +46,17 @@ struct ByteOrderData {
 
 void ByteOrderDataOutStream::writeUint8(uint8_t v) {
   buf_[0] = v;
-  stream_.write(reinterpret_cast<char*>(buf_), 1);
+  stream_.write(reinterpret_cast<char *>(buf_), 1);
 }
 
 void ByteOrderDataOutStream::writeUint32(uint32_t v) {
   ByteOrderData::putUint32(buf_, byteOrder_, v);
-  stream_.write(reinterpret_cast<char*>(buf_), 4);
+  stream_.write(reinterpret_cast<char *>(buf_), 4);
 }
 
 void ByteOrderDataOutStream::writeDouble(double v) {
   ByteOrderData::putDouble(buf_, byteOrder_, v);
-  stream_.write(reinterpret_cast<char*>(buf_), 8);
+  stream_.write(reinterpret_cast<char *>(buf_), 8);
 }
 
 }  // namespace geo
