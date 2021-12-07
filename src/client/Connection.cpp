@@ -10,7 +10,6 @@
 #include <folly/io/async/AsyncSocket.h>
 #include <folly/io/async/ScopedEventBaseThread.h>
 #include <thrift/lib/cpp2/async/HeaderClientChannel.h>
-#include <glog/logging.h>
 
 #include <memory>
 #include <stdexcept>
