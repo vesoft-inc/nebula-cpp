@@ -187,7 +187,8 @@ bool Connection::isOpen() { return ping(); }
 
 void Connection::close() {
   if (client_ != nullptr) {
-    clientLoopThread_->getEventBase()->runInEventBaseThreadAndWait([this]() { delete client_; });
+    clientLoopThread_->getEventBase()->runImmediatelyOrRunInEventBaseThreadAndWait(
+        [this]() { delete client_; });
     client_ = nullptr;
   }
 }
