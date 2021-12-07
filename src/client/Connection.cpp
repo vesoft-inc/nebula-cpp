@@ -101,7 +101,7 @@ bool Connection::open(const std::string &address,
         }
       });
   // Connection is not stable in some environments, so we need to wait a while
-  std::this_thread::sleep_for(std::chrono::milliseconds(300));
+  std::this_thread::sleep_for(std::chrono::milliseconds(500));
   return complete;
 }
 
