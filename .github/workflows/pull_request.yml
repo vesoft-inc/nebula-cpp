@@ -132,6 +132,7 @@ jobs:
           echo '127.0.0.1 graphd' >> /etc/hosts
           echo '127.0.0.1 graphd1' >> /etc/hosts
           echo '127.0.0.1 graphd2' >> /etc/hosts
+          # The connection maybe unstable, so we wait a while
           sleep 10
       - name: CTest
         env:

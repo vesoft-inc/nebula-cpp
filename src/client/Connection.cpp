@@ -105,8 +105,6 @@ bool Connection::open(const std::string &address,
   auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
   channel->setTimeout(timeout);
   client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
-  // Connection is not stable in some environments, so we need to wait a while
-  // std::this_thread::sleep_for(std::chrono::milliseconds(500));
   return true;
 }
 
