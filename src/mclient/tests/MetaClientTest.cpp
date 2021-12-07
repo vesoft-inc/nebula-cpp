@@ -83,7 +83,7 @@ TEST_F(MetaClientTest, SSL) {
   prepare();
 
   LOG(INFO) << "Run once.";
-  nebula::MConfig mConfig{1000, 60*1000, true, ""};
+  nebula::MConfig mConfig{1000, 60 * 1000, true, ""};
   nebula::MetaClient c({kServerHost ":9559"}, mConfig);
   runOnce(c);
 }

@@ -78,11 +78,11 @@ bool Connection::open(const std::string &address,
     return false;
   }
   bool complete{false};
-  clientLoopThread_->getEventBase()->runInEventBaseThreadAndWait(
-      [this, &complete, &address, port, timeout, enableSSL, &CAPath]() {
+  std::shared_ptr<folly::AsyncSocket> socket;
+  auto socketAddr = folly::SocketAddress(address, port, true);
+  clientLoopThread_->getEventBase()->runImmediatelyOrRunInEventBaseThreadAndWait(
+      [this, &complete, &socket, timeout, &socketAddr, enableSSL, &CAPath]() {
         try {
-          std::shared_ptr<folly::AsyncSocket> socket;
-          auto socketAddr = folly::SocketAddress(address, port, true);
           if (enableSSL) {
             socket = folly::AsyncSSLSocket::newSocket(nebula::createSSLContext(CAPath),
                                                       clientLoopThread_->getEventBase());
@@ -91,25 +91,19 @@ bool Connection::open(const std::string &address,
             socket = folly::AsyncSocket::newSocket(
                 clientLoopThread_->getEventBase(), std::move(socketAddr), timeout);
           }
-          socket->setErrMessageCB(&NebulaConnectionErrMessageCallback::instance());
-          auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
-          channel->setTimeout(timeout);
-          client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
           complete = true;
-        } catch (const std::exception &) {
+        } catch (const std::exception &e) {
+          DLOG(ERROR) << "Connect failed: " << e.what();
           complete = false;
         }
       });
   if (!complete) {
-    return complete;
+    return false;
   }
-  auto *channel = dynamic_cast<apache::thrift::HeaderClientChannel*>(client_->getChannel());
-  // The connection is not stable in some environments so wait here
-  while (!channel->good()) {
-    DLOG(ERROR) << "DEBUG POINT: Connection is not stable, wait for a while.";
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
-  }
-  DLOG(ERROR) << "DEBUG POINT: Connection stable " << channel->good();
+  socket->setErrMessageCB(&NebulaConnectionErrMessageCallback::instance());
+  auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
+  channel->setTimeout(timeout);
+  client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
   auto resp = verifyClientVersion(VerifyClientVersionReq{});
   if (resp.errorCode != ErrorCode::SUCCEEDED) {
     DLOG(ERROR) << "Failed to verify client version: " << *resp.errorMsg;
@@ -200,7 +194,8 @@ bool Connection::isOpen() { return ping(); }
 
 void Connection::close() {
   if (client_ != nullptr) {
-    clientLoopThread_->getEventBase()->runInEventBaseThreadAndWait([this]() { delete client_; });
+    clientLoopThread_->getEventBase()->runImmediatelyOrRunInEventBaseThreadAndWait(
+        [this]() { delete client_; });
     client_ = nullptr;
   }
 }
