@@ -78,11 +78,11 @@ bool Connection::open(const std::string &address,
     return false;
   }
   bool complete{false};
+  std::shared_ptr<folly::AsyncSocket> socket;
+  auto socketAddr = folly::SocketAddress(address, port, true);
   clientLoopThread_->getEventBase()->runImmediatelyOrRunInEventBaseThreadAndWait(
-      [this, &complete, &address, port, timeout, enableSSL, &CAPath]() {
+      [this, &complete, &socket, timeout, &socketAddr, enableSSL, &CAPath]() {
         try {
-          std::shared_ptr<folly::AsyncSocket> socket;
-          auto socketAddr = folly::SocketAddress(address, port, true);
           if (enableSSL) {
             socket = folly::AsyncSSLSocket::newSocket(nebula::createSSLContext(CAPath),
                                                       clientLoopThread_->getEventBase());
@@ -91,18 +91,21 @@ bool Connection::open(const std::string &address,
             socket = folly::AsyncSocket::newSocket(
                 clientLoopThread_->getEventBase(), std::move(socketAddr), timeout);
           }
-          socket->setErrMessageCB(&NebulaConnectionErrMessageCallback::instance());
-          auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
-          channel->setTimeout(timeout);
-          client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
           complete = true;
         } catch (const std::exception &) {
           complete = false;
         }
       });
+  if (!complete) {
+    return false;
+  }
+  socket->setErrMessageCB(&NebulaConnectionErrMessageCallback::instance());
+  auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
+  channel->setTimeout(timeout);
+  client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
   // Connection is not stable in some environments, so we need to wait a while
   std::this_thread::sleep_for(std::chrono::milliseconds(500));
-  return complete;
+  return true;
 }
 
 AuthResponse Connection::authenticate(const std::string &user, const std::string &password) {
