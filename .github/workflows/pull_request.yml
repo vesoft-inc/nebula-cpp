@@ -132,9 +132,6 @@ jobs:
           echo '127.0.0.1 graphd' >> /etc/hosts
           echo '127.0.0.1 graphd1' >> /etc/hosts
           echo '127.0.0.1 graphd2' >> /etc/hosts
-          ping -c 3 graphd
-          ping -c 3 graphd1
-          ping -c 3 graphd2
       - name: CTest
         env:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
