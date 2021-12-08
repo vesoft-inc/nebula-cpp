@@ -18,6 +18,8 @@
 #include "common/graph/PlanDescriptionOps-inl.h"
 #include "common/graph/ExecutionResponseOps-inl.h"
 #include "common/graph/AuthResponseOps-inl.h"
+#include "common/graph/VerifyClientVersionRespOps-inl.h"
+#include "common/graph/VerifyClientVersionReqOps-inl.h"
 
 namespace folly {
   class IOBuf;
@@ -47,9 +49,9 @@ class GraphServiceSvAsyncIf {
   virtual void async_tm_executeJson(std::unique_ptr<apache::thrift::HandlerCallback<::std::string>> callback, int64_t p_sessionId, const ::std::string& p_stmt) = 0;
   virtual folly::Future<::std::string> future_executeJson(int64_t p_sessionId, const ::std::string& p_stmt) = 0;
   virtual folly::SemiFuture<::std::string> semifuture_executeJson(int64_t p_sessionId, const ::std::string& p_stmt) = 0;
-  virtual void async_tm_verifyClientVersion(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::graph::cpp2::VerifyClientVersionResp>> callback, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req) = 0;
-  virtual folly::Future< ::nebula::graph::cpp2::VerifyClientVersionResp> future_verifyClientVersion(const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::graph::cpp2::VerifyClientVersionResp> semifuture_verifyClientVersion(const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req) = 0;
+  virtual void async_tm_verifyClientVersion(std::unique_ptr<apache::thrift::HandlerCallback<nebula::VerifyClientVersionResp>> callback, const nebula::VerifyClientVersionReq& p_req) = 0;
+  virtual folly::Future<nebula::VerifyClientVersionResp> future_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req) = 0;
+  virtual folly::SemiFuture<nebula::VerifyClientVersionResp> semifuture_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req) = 0;
 };
 
 class GraphServiceAsyncProcessor;
@@ -76,10 +78,10 @@ class GraphServiceSvIf : public GraphServiceSvAsyncIf, public apache::thrift::Se
   folly::Future<::std::string> future_executeJson(int64_t p_sessionId, const ::std::string& p_stmt) override;
   folly::SemiFuture<::std::string> semifuture_executeJson(int64_t p_sessionId, const ::std::string& p_stmt) override;
   void async_tm_executeJson(std::unique_ptr<apache::thrift::HandlerCallback<::std::string>> callback, int64_t p_sessionId, const ::std::string& p_stmt) override;
-  virtual void verifyClientVersion( ::nebula::graph::cpp2::VerifyClientVersionResp& /*_return*/, const  ::nebula::graph::cpp2::VerifyClientVersionReq& /*req*/);
-  folly::Future< ::nebula::graph::cpp2::VerifyClientVersionResp> future_verifyClientVersion(const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req) override;
-  folly::SemiFuture< ::nebula::graph::cpp2::VerifyClientVersionResp> semifuture_verifyClientVersion(const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req) override;
-  void async_tm_verifyClientVersion(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::graph::cpp2::VerifyClientVersionResp>> callback, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req) override;
+  virtual void verifyClientVersion(nebula::VerifyClientVersionResp& /*_return*/, const nebula::VerifyClientVersionReq& /*req*/);
+  folly::Future<nebula::VerifyClientVersionResp> future_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req) override;
+  folly::SemiFuture<nebula::VerifyClientVersionResp> semifuture_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req) override;
+  void async_tm_verifyClientVersion(std::unique_ptr<apache::thrift::HandlerCallback<nebula::VerifyClientVersionResp>> callback, const nebula::VerifyClientVersionReq& p_req) override;
 };
 
 class GraphServiceSvNull : public GraphServiceSvIf {
@@ -88,7 +90,7 @@ class GraphServiceSvNull : public GraphServiceSvIf {
   void signout(int64_t /*sessionId*/) override;
   void execute(nebula::ExecutionResponse& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/) override;
   void executeJson(::std::string& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/) override;
-  void verifyClientVersion( ::nebula::graph::cpp2::VerifyClientVersionResp& /*_return*/, const  ::nebula::graph::cpp2::VerifyClientVersionReq& /*req*/) override;
+  void verifyClientVersion(nebula::VerifyClientVersionResp& /*_return*/, const nebula::VerifyClientVersionReq& /*req*/) override;
 };
 
 class GraphServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcessor {
@@ -144,7 +146,7 @@ class GraphServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProces
   template <typename ProtocolIn_, typename ProtocolOut_>
   void process_verifyClientVersion(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_verifyClientVersion(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::graph::cpp2::VerifyClientVersionResp const& _return);
+  static folly::IOBufQueue return_verifyClientVersion(int32_t protoSeqId, apache::thrift::ContextStack* ctx, nebula::VerifyClientVersionResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_verifyClientVersion(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
  public:

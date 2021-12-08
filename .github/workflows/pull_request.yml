@@ -33,7 +33,7 @@ jobs:
   build:
     name: build
     needs: lint
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -139,10 +139,10 @@ jobs:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
         run: |
           pushd build
-          ctest -j $(($(nproc)/2+1)) --timeout 400 --output-on-failure
+          ctest -j $(nproc) --timeout 10000 --output-on-failure
           make install
           popd
-        timeout-minutes: 4
+        timeout-minutes: 10
       - name: Build example
         run: |
           case ${{ matrix.os }} in

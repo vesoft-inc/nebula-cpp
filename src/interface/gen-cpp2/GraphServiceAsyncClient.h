@@ -17,6 +17,8 @@
 #include "common/graph/PlanDescriptionOps-inl.h"
 #include "common/graph/ExecutionResponseOps-inl.h"
 #include "common/graph/AuthResponseOps-inl.h"
+#include "common/graph/VerifyClientVersionRespOps-inl.h"
+#include "common/graph/VerifyClientVersionReqOps-inl.h"
 
 namespace apache { namespace thrift {
   class Cpp2RequestContext;
@@ -343,34 +345,34 @@ class GraphServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   void executeJsonT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, int64_t p_sessionId, const ::std::string& p_stmt);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> executeJsonCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
-  virtual void verifyClientVersion(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
-  virtual void verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
+  virtual void verifyClientVersion(std::unique_ptr<apache::thrift::RequestCallback> callback, const nebula::VerifyClientVersionReq& p_req);
+  virtual void verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const nebula::VerifyClientVersionReq& p_req);
  protected:
-  void verifyClientVersionImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
+  void verifyClientVersionImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const nebula::VerifyClientVersionReq& p_req);
  public:
 
-  virtual void sync_verifyClientVersion( ::nebula::graph::cpp2::VerifyClientVersionResp& _return, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
-  virtual void sync_verifyClientVersion(apache::thrift::RpcOptions& rpcOptions,  ::nebula::graph::cpp2::VerifyClientVersionResp& _return, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
+  virtual void sync_verifyClientVersion(nebula::VerifyClientVersionResp& _return, const nebula::VerifyClientVersionReq& p_req);
+  virtual void sync_verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, nebula::VerifyClientVersionResp& _return, const nebula::VerifyClientVersionReq& p_req);
 
-  virtual folly::Future< ::nebula::graph::cpp2::VerifyClientVersionResp> future_verifyClientVersion(const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
-  virtual folly::SemiFuture< ::nebula::graph::cpp2::VerifyClientVersionResp> semifuture_verifyClientVersion(const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
-  virtual folly::Future< ::nebula::graph::cpp2::VerifyClientVersionResp> future_verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
-  virtual folly::SemiFuture< ::nebula::graph::cpp2::VerifyClientVersionResp> semifuture_verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
-  virtual folly::Future<std::pair< ::nebula::graph::cpp2::VerifyClientVersionResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
-  virtual folly::SemiFuture<std::pair< ::nebula::graph::cpp2::VerifyClientVersionResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
+  virtual folly::Future<nebula::VerifyClientVersionResp> future_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req);
+  virtual folly::SemiFuture<nebula::VerifyClientVersionResp> semifuture_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req);
+  virtual folly::Future<nebula::VerifyClientVersionResp> future_verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, const nebula::VerifyClientVersionReq& p_req);
+  virtual folly::SemiFuture<nebula::VerifyClientVersionResp> semifuture_verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, const nebula::VerifyClientVersionReq& p_req);
+  virtual folly::Future<std::pair<nebula::VerifyClientVersionResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, const nebula::VerifyClientVersionReq& p_req);
+  virtual folly::SemiFuture<std::pair<nebula::VerifyClientVersionResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, const nebula::VerifyClientVersionReq& p_req);
 
 #if FOLLY_HAS_COROUTINES
   template <int = 0>
-  folly::coro::Task< ::nebula::graph::cpp2::VerifyClientVersionResp> co_verifyClientVersion(const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req) {
+  folly::coro::Task<nebula::VerifyClientVersionResp> co_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req) {
     return co_verifyClientVersion<false>(nullptr, p_req);
   }
   template <int = 0>
-  folly::coro::Task< ::nebula::graph::cpp2::VerifyClientVersionResp> co_verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req) {
+  folly::coro::Task<nebula::VerifyClientVersionResp> co_verifyClientVersion(apache::thrift::RpcOptions& rpcOptions, const nebula::VerifyClientVersionReq& p_req) {
     return co_verifyClientVersion<true>(&rpcOptions, p_req);
   }
  private:
   template <bool hasRpcOptions>
-  folly::coro::Task< ::nebula::graph::cpp2::VerifyClientVersionResp> co_verifyClientVersion(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req) {
+  folly::coro::Task<nebula::VerifyClientVersionResp> co_verifyClientVersion(apache::thrift::RpcOptions* rpcOptions, const nebula::VerifyClientVersionReq& p_req) {
     const folly::CancellationToken& cancelToken =
         co_await folly::coro::co_current_cancellation_token;
     const bool cancellable = cancelToken.canBeCancelled();
@@ -403,7 +405,7 @@ class GraphServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
         rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
       }
     };
-     ::nebula::graph::cpp2::VerifyClientVersionResp _return;
+    nebula::VerifyClientVersionResp _return;
     if (auto ew = recv_wrapped_verifyClientVersion(_return, returnState)) {
       co_yield folly::coro::co_error(std::move(ew));
     }
@@ -412,17 +414,17 @@ class GraphServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
  public:
 #endif // FOLLY_HAS_COROUTINES
 
-  virtual void verifyClientVersion(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
+  virtual void verifyClientVersion(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const nebula::VerifyClientVersionReq& p_req);
 
 
-  static folly::exception_wrapper recv_wrapped_verifyClientVersion( ::nebula::graph::cpp2::VerifyClientVersionResp& _return, ::apache::thrift::ClientReceiveState& state);
-  static void recv_verifyClientVersion( ::nebula::graph::cpp2::VerifyClientVersionResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static folly::exception_wrapper recv_wrapped_verifyClientVersion(nebula::VerifyClientVersionResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_verifyClientVersion(nebula::VerifyClientVersionResp& _return, ::apache::thrift::ClientReceiveState& state);
   // Mock friendly virtual instance method
-  virtual void recv_instance_verifyClientVersion( ::nebula::graph::cpp2::VerifyClientVersionResp& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual folly::exception_wrapper recv_instance_wrapped_verifyClientVersion( ::nebula::graph::cpp2::VerifyClientVersionResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual void recv_instance_verifyClientVersion(nebula::VerifyClientVersionResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_verifyClientVersion(nebula::VerifyClientVersionResp& _return, ::apache::thrift::ClientReceiveState& state);
  private:
   template <typename Protocol_>
-  void verifyClientVersionT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::graph::cpp2::VerifyClientVersionReq& p_req);
+  void verifyClientVersionT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const nebula::VerifyClientVersionReq& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> verifyClientVersionCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
 };

@@ -17,6 +17,8 @@
 #include "common/graph/PlanDescriptionOps-inl.h"
 #include "common/graph/ExecutionResponseOps-inl.h"
 #include "common/graph/AuthResponseOps-inl.h"
+#include "common/graph/VerifyClientVersionRespOps-inl.h"
+#include "common/graph/VerifyClientVersionReqOps-inl.h"
 
 namespace apache {
 namespace thrift {

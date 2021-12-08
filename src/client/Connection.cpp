@@ -104,6 +104,11 @@ bool Connection::open(const std::string &address,
   auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
   channel->setTimeout(timeout);
   client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
+  auto resp = verifyClientVersion(VerifyClientVersionReq{});
+  if (resp.errorCode != ErrorCode::SUCCEEDED) {
+    DLOG(ERROR) << "Failed to verify client version: " << *resp.errorMsg;
+    return false;
+  }
   return true;
 }
 
@@ -206,6 +211,19 @@ bool Connection::ping() {
 void Connection::signout(int64_t sessionId) {
   if (client_ != nullptr) {
     client_->future_signout(sessionId).wait();
+  }
+}
+
+VerifyClientVersionResp Connection::verifyClientVersion(const VerifyClientVersionReq &req) {
+  if (client_ == nullptr) {
+    return VerifyClientVersionResp{ErrorCode::E_DISCONNECTED,
+                                   std::make_unique<std::string>("Not open connection.")};
+  }
+  try {
+    return client_->future_verifyClientVersion(req).get();
+  } catch (const std::exception &ex) {
+    return VerifyClientVersionResp{ErrorCode::E_RPC_FAILURE,
+                                   std::make_unique<std::string>(ex.what())};
   }
 }
 
