@@ -212,6 +212,7 @@ void Connection::close() {
 bool Connection::ping() {
   auto resp = execute(0 /*Only check connection*/, "YIELD 1");
   if (resp.errorCode == ErrorCode::E_RPC_FAILURE || resp.errorCode == ErrorCode::E_DISCONNECTED) {
+    DLOG(ERROR) << "Ping failed: " << *resp.errorMsg;
     return false;
   }
   return true;
