@@ -425,16 +425,6 @@ struct ForEachField<::nebula::storage::cpp2::ScanVertexRequest> {
 };
 
 template <>
-struct ForEachField<::nebula::storage::cpp2::ScanVertexResponse> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).result_ref()...);
-    f(1, static_cast<T&&>(t).vertex_data_ref()...);
-    f(2, static_cast<T&&>(t).cursors_ref()...);
-  }
-};
-
-template <>
 struct ForEachField<::nebula::storage::cpp2::ScanEdgeRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
@@ -452,11 +442,11 @@ struct ForEachField<::nebula::storage::cpp2::ScanEdgeRequest> {
 };
 
 template <>
-struct ForEachField<::nebula::storage::cpp2::ScanEdgeResponse> {
+struct ForEachField<::nebula::storage::cpp2::ScanResponse> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).result_ref()...);
-    f(1, static_cast<T&&>(t).edge_data_ref()...);
+    f(1, static_cast<T&&>(t).props_ref()...);
     f(2, static_cast<T&&>(t).cursors_ref()...);
   }
 };
@@ -472,23 +462,39 @@ struct ForEachField<::nebula::storage::cpp2::TaskPara> {
 };
 
 template <>
-struct ForEachField<::nebula::storage::cpp2::AddAdminTaskRequest> {
+struct ForEachField<::nebula::storage::cpp2::KVGetRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).cmd_ref()...);
-    f(1, static_cast<T&&>(t).job_id_ref()...);
-    f(2, static_cast<T&&>(t).task_id_ref()...);
-    f(3, static_cast<T&&>(t).para_ref()...);
-    f(4, static_cast<T&&>(t).concurrency_ref()...);
+    f(0, static_cast<T&&>(t).space_id_ref()...);
+    f(1, static_cast<T&&>(t).parts_ref()...);
+    f(2, static_cast<T&&>(t).return_partly_ref()...);
   }
 };
 
 template <>
-struct ForEachField<::nebula::storage::cpp2::StopAdminTaskRequest> {
+struct ForEachField<::nebula::storage::cpp2::KVGetResponse> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).job_id_ref()...);
-    f(1, static_cast<T&&>(t).task_id_ref()...);
+    f(0, static_cast<T&&>(t).result_ref()...);
+    f(1, static_cast<T&&>(t).key_values_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::storage::cpp2::KVPutRequest> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).space_id_ref()...);
+    f(1, static_cast<T&&>(t).parts_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::storage::cpp2::KVRemoveRequest> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).space_id_ref()...);
+    f(1, static_cast<T&&>(t).parts_ref()...);
   }
 };
 
@@ -651,39 +657,23 @@ struct ForEachField<::nebula::storage::cpp2::ListClusterInfoReq> {
 };
 
 template <>
-struct ForEachField<::nebula::storage::cpp2::KVGetRequest> {
+struct ForEachField<::nebula::storage::cpp2::AddAdminTaskRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).space_id_ref()...);
-    f(1, static_cast<T&&>(t).parts_ref()...);
-    f(2, static_cast<T&&>(t).return_partly_ref()...);
+    f(0, static_cast<T&&>(t).cmd_ref()...);
+    f(1, static_cast<T&&>(t).job_id_ref()...);
+    f(2, static_cast<T&&>(t).task_id_ref()...);
+    f(3, static_cast<T&&>(t).para_ref()...);
+    f(4, static_cast<T&&>(t).concurrency_ref()...);
   }
 };
 
 template <>
-struct ForEachField<::nebula::storage::cpp2::KVGetResponse> {
+struct ForEachField<::nebula::storage::cpp2::StopAdminTaskRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).result_ref()...);
-    f(1, static_cast<T&&>(t).key_values_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::storage::cpp2::KVPutRequest> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).space_id_ref()...);
-    f(1, static_cast<T&&>(t).parts_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::storage::cpp2::KVRemoveRequest> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).space_id_ref()...);
-    f(1, static_cast<T&&>(t).parts_ref()...);
+    f(0, static_cast<T&&>(t).job_id_ref()...);
+    f(1, static_cast<T&&>(t).task_id_ref()...);
   }
 };
 

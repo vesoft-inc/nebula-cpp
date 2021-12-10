@@ -1275,132 +1275,6 @@ void MetaServiceSvIf::async_tm_listZones(std::unique_ptr<apache::thrift::Handler
   });
 }
 
-void MetaServiceSvIf::addGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddGroupReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("addGroup");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_addGroup(const  ::nebula::meta::cpp2::AddGroupReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { addGroup(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_addGroup(const  ::nebula::meta::cpp2::AddGroupReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_addGroup(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_addGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddGroupReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_addGroup(p_req);
-  });
-}
-
-void MetaServiceSvIf::dropGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropGroupReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("dropGroup");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_dropGroup(const  ::nebula::meta::cpp2::DropGroupReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { dropGroup(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_dropGroup(const  ::nebula::meta::cpp2::DropGroupReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_dropGroup(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_dropGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropGroupReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_dropGroup(p_req);
-  });
-}
-
-void MetaServiceSvIf::addZoneIntoGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("addZoneIntoGroup");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_addZoneIntoGroup(const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { addZoneIntoGroup(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_addZoneIntoGroup(const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_addZoneIntoGroup(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_addZoneIntoGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_addZoneIntoGroup(p_req);
-  });
-}
-
-void MetaServiceSvIf::dropZoneFromGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropZoneFromGroupReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("dropZoneFromGroup");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_dropZoneFromGroup(const  ::nebula::meta::cpp2::DropZoneFromGroupReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { dropZoneFromGroup(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_dropZoneFromGroup(const  ::nebula::meta::cpp2::DropZoneFromGroupReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_dropZoneFromGroup(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_dropZoneFromGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropZoneFromGroupReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_dropZoneFromGroup(p_req);
-  });
-}
-
-void MetaServiceSvIf::getGroup( ::nebula::meta::cpp2::GetGroupResp& /*_return*/, const  ::nebula::meta::cpp2::GetGroupReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("getGroup");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::GetGroupResp> MetaServiceSvIf::semifuture_getGroup(const  ::nebula::meta::cpp2::GetGroupReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::GetGroupResp& _return) { getGroup(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::GetGroupResp> MetaServiceSvIf::future_getGroup(const  ::nebula::meta::cpp2::GetGroupReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_getGroup(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_getGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetGroupResp>> callback, const  ::nebula::meta::cpp2::GetGroupReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_getGroup(p_req);
-  });
-}
-
-void MetaServiceSvIf::listGroups( ::nebula::meta::cpp2::ListGroupsResp& /*_return*/, const  ::nebula::meta::cpp2::ListGroupsReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("listGroups");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ListGroupsResp> MetaServiceSvIf::semifuture_listGroups(const  ::nebula::meta::cpp2::ListGroupsReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ListGroupsResp& _return) { listGroups(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::ListGroupsResp> MetaServiceSvIf::future_listGroups(const  ::nebula::meta::cpp2::ListGroupsReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_listGroups(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_listGroups(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListGroupsResp>> callback, const  ::nebula::meta::cpp2::ListGroupsReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_listGroups(p_req);
-  });
-}
-
 void MetaServiceSvIf::createBackup( ::nebula::meta::cpp2::CreateBackupResp& /*_return*/, const  ::nebula::meta::cpp2::CreateBackupReq& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("createBackup");
 }
@@ -1983,18 +1857,6 @@ void MetaServiceSvNull::getZone( ::nebula::meta::cpp2::GetZoneResp& /*_return*/,
 
 void MetaServiceSvNull::listZones( ::nebula::meta::cpp2::ListZonesResp& /*_return*/, const  ::nebula::meta::cpp2::ListZonesReq& /*req*/) {}
 
-void MetaServiceSvNull::addGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddGroupReq& /*req*/) {}
-
-void MetaServiceSvNull::dropGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropGroupReq& /*req*/) {}
-
-void MetaServiceSvNull::addZoneIntoGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& /*req*/) {}
-
-void MetaServiceSvNull::dropZoneFromGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropZoneFromGroupReq& /*req*/) {}
-
-void MetaServiceSvNull::getGroup( ::nebula::meta::cpp2::GetGroupResp& /*_return*/, const  ::nebula::meta::cpp2::GetGroupReq& /*req*/) {}
-
-void MetaServiceSvNull::listGroups( ::nebula::meta::cpp2::ListGroupsResp& /*_return*/, const  ::nebula::meta::cpp2::ListGroupsReq& /*req*/) {}
-
 void MetaServiceSvNull::createBackup( ::nebula::meta::cpp2::CreateBackupResp& /*_return*/, const  ::nebula::meta::cpp2::CreateBackupReq& /*req*/) {}
 
 void MetaServiceSvNull::restoreMeta( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/) {}
@@ -2122,12 +1984,6 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::binaryPro
   {"dropHostFromZone", &MetaServiceAsyncProcessor::setUpAndProcess_dropHostFromZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getZone", &MetaServiceAsyncProcessor::setUpAndProcess_getZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listZones", &MetaServiceAsyncProcessor::setUpAndProcess_listZones<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"addGroup", &MetaServiceAsyncProcessor::setUpAndProcess_addGroup<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"dropGroup", &MetaServiceAsyncProcessor::setUpAndProcess_dropGroup<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"addZoneIntoGroup", &MetaServiceAsyncProcessor::setUpAndProcess_addZoneIntoGroup<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"dropZoneFromGroup", &MetaServiceAsyncProcessor::setUpAndProcess_dropZoneFromGroup<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"getGroup", &MetaServiceAsyncProcessor::setUpAndProcess_getGroup<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"listGroups", &MetaServiceAsyncProcessor::setUpAndProcess_listGroups<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"createBackup", &MetaServiceAsyncProcessor::setUpAndProcess_createBackup<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"restoreMeta", &MetaServiceAsyncProcessor::setUpAndProcess_restoreMeta<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"addListener", &MetaServiceAsyncProcessor::setUpAndProcess_addListener<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -2217,12 +2073,6 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::compactPr
   {"dropHostFromZone", &MetaServiceAsyncProcessor::setUpAndProcess_dropHostFromZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getZone", &MetaServiceAsyncProcessor::setUpAndProcess_getZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listZones", &MetaServiceAsyncProcessor::setUpAndProcess_listZones<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"addGroup", &MetaServiceAsyncProcessor::setUpAndProcess_addGroup<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"dropGroup", &MetaServiceAsyncProcessor::setUpAndProcess_dropGroup<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"addZoneIntoGroup", &MetaServiceAsyncProcessor::setUpAndProcess_addZoneIntoGroup<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"dropZoneFromGroup", &MetaServiceAsyncProcessor::setUpAndProcess_dropZoneFromGroup<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"getGroup", &MetaServiceAsyncProcessor::setUpAndProcess_getGroup<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"listGroups", &MetaServiceAsyncProcessor::setUpAndProcess_listGroups<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"createBackup", &MetaServiceAsyncProcessor::setUpAndProcess_createBackup<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"restoreMeta", &MetaServiceAsyncProcessor::setUpAndProcess_restoreMeta<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"addListener", &MetaServiceAsyncProcessor::setUpAndProcess_addListener<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},

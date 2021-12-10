@@ -208,24 +208,6 @@ class MetaServiceSvAsyncIf {
   virtual void async_tm_listZones(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListZonesResp>> callback, const  ::nebula::meta::cpp2::ListZonesReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::ListZonesResp> future_listZones(const  ::nebula::meta::cpp2::ListZonesReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::ListZonesResp> semifuture_listZones(const  ::nebula::meta::cpp2::ListZonesReq& p_req) = 0;
-  virtual void async_tm_addGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddGroupReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addGroup(const  ::nebula::meta::cpp2::AddGroupReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addGroup(const  ::nebula::meta::cpp2::AddGroupReq& p_req) = 0;
-  virtual void async_tm_dropGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropGroupReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropGroup(const  ::nebula::meta::cpp2::DropGroupReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropGroup(const  ::nebula::meta::cpp2::DropGroupReq& p_req) = 0;
-  virtual void async_tm_addZoneIntoGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addZoneIntoGroup(const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addZoneIntoGroup(const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& p_req) = 0;
-  virtual void async_tm_dropZoneFromGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropZoneFromGroupReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropZoneFromGroup(const  ::nebula::meta::cpp2::DropZoneFromGroupReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropZoneFromGroup(const  ::nebula::meta::cpp2::DropZoneFromGroupReq& p_req) = 0;
-  virtual void async_tm_getGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetGroupResp>> callback, const  ::nebula::meta::cpp2::GetGroupReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::GetGroupResp> future_getGroup(const  ::nebula::meta::cpp2::GetGroupReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::GetGroupResp> semifuture_getGroup(const  ::nebula::meta::cpp2::GetGroupReq& p_req) = 0;
-  virtual void async_tm_listGroups(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListGroupsResp>> callback, const  ::nebula::meta::cpp2::ListGroupsReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ListGroupsResp> future_listGroups(const  ::nebula::meta::cpp2::ListGroupsReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ListGroupsResp> semifuture_listGroups(const  ::nebula::meta::cpp2::ListGroupsReq& p_req) = 0;
   virtual void async_tm_createBackup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::CreateBackupResp>> callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::CreateBackupResp> future_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::CreateBackupResp> semifuture_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) = 0;
@@ -542,30 +524,6 @@ class MetaServiceSvIf : public MetaServiceSvAsyncIf, public apache::thrift::Serv
   folly::Future< ::nebula::meta::cpp2::ListZonesResp> future_listZones(const  ::nebula::meta::cpp2::ListZonesReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::ListZonesResp> semifuture_listZones(const  ::nebula::meta::cpp2::ListZonesReq& p_req) override;
   void async_tm_listZones(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListZonesResp>> callback, const  ::nebula::meta::cpp2::ListZonesReq& p_req) override;
-  virtual void addGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddGroupReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_addGroup(const  ::nebula::meta::cpp2::AddGroupReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addGroup(const  ::nebula::meta::cpp2::AddGroupReq& p_req) override;
-  void async_tm_addGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddGroupReq& p_req) override;
-  virtual void dropGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropGroupReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropGroup(const  ::nebula::meta::cpp2::DropGroupReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropGroup(const  ::nebula::meta::cpp2::DropGroupReq& p_req) override;
-  void async_tm_dropGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropGroupReq& p_req) override;
-  virtual void addZoneIntoGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_addZoneIntoGroup(const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addZoneIntoGroup(const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& p_req) override;
-  void async_tm_addZoneIntoGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& p_req) override;
-  virtual void dropZoneFromGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropZoneFromGroupReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropZoneFromGroup(const  ::nebula::meta::cpp2::DropZoneFromGroupReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropZoneFromGroup(const  ::nebula::meta::cpp2::DropZoneFromGroupReq& p_req) override;
-  void async_tm_dropZoneFromGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropZoneFromGroupReq& p_req) override;
-  virtual void getGroup( ::nebula::meta::cpp2::GetGroupResp& /*_return*/, const  ::nebula::meta::cpp2::GetGroupReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::GetGroupResp> future_getGroup(const  ::nebula::meta::cpp2::GetGroupReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::GetGroupResp> semifuture_getGroup(const  ::nebula::meta::cpp2::GetGroupReq& p_req) override;
-  void async_tm_getGroup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetGroupResp>> callback, const  ::nebula::meta::cpp2::GetGroupReq& p_req) override;
-  virtual void listGroups( ::nebula::meta::cpp2::ListGroupsResp& /*_return*/, const  ::nebula::meta::cpp2::ListGroupsReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ListGroupsResp> future_listGroups(const  ::nebula::meta::cpp2::ListGroupsReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ListGroupsResp> semifuture_listGroups(const  ::nebula::meta::cpp2::ListGroupsReq& p_req) override;
-  void async_tm_listGroups(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListGroupsResp>> callback, const  ::nebula::meta::cpp2::ListGroupsReq& p_req) override;
   virtual void createBackup( ::nebula::meta::cpp2::CreateBackupResp& /*_return*/, const  ::nebula::meta::cpp2::CreateBackupReq& /*req*/);
   folly::Future< ::nebula::meta::cpp2::CreateBackupResp> future_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::CreateBackupResp> semifuture_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) override;
@@ -718,12 +676,6 @@ class MetaServiceSvNull : public MetaServiceSvIf {
   void dropHostFromZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropHostFromZoneReq& /*req*/) override;
   void getZone( ::nebula::meta::cpp2::GetZoneResp& /*_return*/, const  ::nebula::meta::cpp2::GetZoneReq& /*req*/) override;
   void listZones( ::nebula::meta::cpp2::ListZonesResp& /*_return*/, const  ::nebula::meta::cpp2::ListZonesReq& /*req*/) override;
-  void addGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddGroupReq& /*req*/) override;
-  void dropGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropGroupReq& /*req*/) override;
-  void addZoneIntoGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddZoneIntoGroupReq& /*req*/) override;
-  void dropZoneFromGroup( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropZoneFromGroupReq& /*req*/) override;
-  void getGroup( ::nebula::meta::cpp2::GetGroupResp& /*_return*/, const  ::nebula::meta::cpp2::GetGroupReq& /*req*/) override;
-  void listGroups( ::nebula::meta::cpp2::ListGroupsResp& /*_return*/, const  ::nebula::meta::cpp2::ListGroupsReq& /*req*/) override;
   void createBackup( ::nebula::meta::cpp2::CreateBackupResp& /*_return*/, const  ::nebula::meta::cpp2::CreateBackupReq& /*req*/) override;
   void restoreMeta( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/) override;
   void addListener( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddListenerReq& /*req*/) override;
@@ -1248,54 +1200,6 @@ class MetaServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcess
   static folly::IOBufQueue return_listZones(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ListZonesResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_listZones(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_addGroup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_addGroup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_addGroup(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_addGroup(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_dropGroup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_dropGroup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_dropGroup(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_dropGroup(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_addZoneIntoGroup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_addZoneIntoGroup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_addZoneIntoGroup(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_addZoneIntoGroup(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_dropZoneFromGroup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_dropZoneFromGroup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_dropZoneFromGroup(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_dropZoneFromGroup(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_getGroup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_getGroup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_getGroup(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::GetGroupResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_getGroup(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_listGroups(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_listGroups(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_listGroups(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ListGroupsResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_listGroups(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
   void setUpAndProcess_createBackup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>

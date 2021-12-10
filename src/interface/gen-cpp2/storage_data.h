@@ -313,13 +313,6 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::storage::cpp2::ScanVertexResponse> {
-  static constexpr const std::size_t fields_size = 3;
-  static const std::array<folly::StringPiece, fields_size> fields_names;
-  static const std::array<int16_t, fields_size> fields_ids;
-  static const std::array<protocol::TType, fields_size> fields_types;
-};
-
 template <> struct TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest> {
   static constexpr const std::size_t fields_size = 10;
   static const std::array<folly::StringPiece, fields_size> fields_names;
@@ -327,7 +320,7 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest> 
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::storage::cpp2::ScanEdgeResponse> {
+template <> struct TStructDataStorage<::nebula::storage::cpp2::ScanResponse> {
   static constexpr const std::size_t fields_size = 3;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
@@ -341,14 +334,28 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::TaskPara> {
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::storage::cpp2::AddAdminTaskRequest> {
-  static constexpr const std::size_t fields_size = 5;
+template <> struct TStructDataStorage<::nebula::storage::cpp2::KVGetRequest> {
+  static constexpr const std::size_t fields_size = 3;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::storage::cpp2::StopAdminTaskRequest> {
+template <> struct TStructDataStorage<::nebula::storage::cpp2::KVGetResponse> {
+  static constexpr const std::size_t fields_size = 2;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::storage::cpp2::KVPutRequest> {
+  static constexpr const std::size_t fields_size = 2;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::storage::cpp2::KVRemoveRequest> {
   static constexpr const std::size_t fields_size = 2;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
@@ -474,28 +481,14 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::ListClusterInfoRe
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::storage::cpp2::KVGetRequest> {
-  static constexpr const std::size_t fields_size = 3;
+template <> struct TStructDataStorage<::nebula::storage::cpp2::AddAdminTaskRequest> {
+  static constexpr const std::size_t fields_size = 5;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::storage::cpp2::KVGetResponse> {
-  static constexpr const std::size_t fields_size = 2;
-  static const std::array<folly::StringPiece, fields_size> fields_names;
-  static const std::array<int16_t, fields_size> fields_ids;
-  static const std::array<protocol::TType, fields_size> fields_types;
-};
-
-template <> struct TStructDataStorage<::nebula::storage::cpp2::KVPutRequest> {
-  static constexpr const std::size_t fields_size = 2;
-  static const std::array<folly::StringPiece, fields_size> fields_names;
-  static const std::array<int16_t, fields_size> fields_ids;
-  static const std::array<protocol::TType, fields_size> fields_types;
-};
-
-template <> struct TStructDataStorage<::nebula::storage::cpp2::KVRemoveRequest> {
+template <> struct TStructDataStorage<::nebula::storage::cpp2::StopAdminTaskRequest> {
   static constexpr const std::size_t fields_size = 2;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;

@@ -109,7 +109,7 @@ const std::array<int16_t, 3> TStructDataStorage<::nebula::storage::cpp2::Respons
 }};
 const std::array<protocol::TType, 3> TStructDataStorage<::nebula::storage::cpp2::ResponseCommon>::fields_types = {{
   TType::T_LIST,
-  TType::T_I32,
+  TType::T_I64,
   TType::T_MAP,
 }};
 
@@ -766,22 +766,6 @@ const std::array<protocol::TType, 10> TStructDataStorage<::nebula::storage::cpp2
   TType::T_STRUCT,
 }};
 
-const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::storage::cpp2::ScanVertexResponse>::fields_names = {{
-  "result",
-  "vertex_data",
-  "cursors",
-}};
-const std::array<int16_t, 3> TStructDataStorage<::nebula::storage::cpp2::ScanVertexResponse>::fields_ids = {{
-  1,
-  2,
-  3,
-}};
-const std::array<protocol::TType, 3> TStructDataStorage<::nebula::storage::cpp2::ScanVertexResponse>::fields_types = {{
-  TType::T_STRUCT,
-  TType::T_STRUCT,
-  TType::T_MAP,
-}};
-
 const std::array<folly::StringPiece, 10> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_names = {{
   "space_id",
   "parts",
@@ -809,7 +793,7 @@ const std::array<int16_t, 10> TStructDataStorage<::nebula::storage::cpp2::ScanEd
 const std::array<protocol::TType, 10> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_types = {{
   TType::T_I32,
   TType::T_MAP,
-  TType::T_STRUCT,
+  TType::T_LIST,
   TType::T_I64,
   TType::T_I64,
   TType::T_I64,
@@ -819,17 +803,17 @@ const std::array<protocol::TType, 10> TStructDataStorage<::nebula::storage::cpp2
   TType::T_STRUCT,
 }};
 
-const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeResponse>::fields_names = {{
+const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::storage::cpp2::ScanResponse>::fields_names = {{
   "result",
-  "edge_data",
+  "props",
   "cursors",
 }};
-const std::array<int16_t, 3> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeResponse>::fields_ids = {{
+const std::array<int16_t, 3> TStructDataStorage<::nebula::storage::cpp2::ScanResponse>::fields_ids = {{
   1,
   2,
   3,
 }};
-const std::array<protocol::TType, 3> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeResponse>::fields_types = {{
+const std::array<protocol::TType, 3> TStructDataStorage<::nebula::storage::cpp2::ScanResponse>::fields_types = {{
   TType::T_STRUCT,
   TType::T_STRUCT,
   TType::T_MAP,
@@ -851,39 +835,59 @@ const std::array<protocol::TType, 3> TStructDataStorage<::nebula::storage::cpp2:
   TType::T_LIST,
 }};
 
-const std::array<folly::StringPiece, 5> TStructDataStorage<::nebula::storage::cpp2::AddAdminTaskRequest>::fields_names = {{
-  "cmd",
-  "job_id",
-  "task_id",
-  "para",
-  "concurrency",
+const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::storage::cpp2::KVGetRequest>::fields_names = {{
+  "space_id",
+  "parts",
+  "return_partly",
 }};
-const std::array<int16_t, 5> TStructDataStorage<::nebula::storage::cpp2::AddAdminTaskRequest>::fields_ids = {{
+const std::array<int16_t, 3> TStructDataStorage<::nebula::storage::cpp2::KVGetRequest>::fields_ids = {{
   1,
   2,
   3,
-  4,
-  5,
 }};
-const std::array<protocol::TType, 5> TStructDataStorage<::nebula::storage::cpp2::AddAdminTaskRequest>::fields_types = {{
+const std::array<protocol::TType, 3> TStructDataStorage<::nebula::storage::cpp2::KVGetRequest>::fields_types = {{
   TType::T_I32,
-  TType::T_I32,
-  TType::T_I32,
-  TType::T_STRUCT,
-  TType::T_I32,
+  TType::T_MAP,
+  TType::T_BOOL,
 }};
 
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::StopAdminTaskRequest>::fields_names = {{
-  "job_id",
-  "task_id",
+const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::KVGetResponse>::fields_names = {{
+  "result",
+  "key_values",
 }};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::StopAdminTaskRequest>::fields_ids = {{
+const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::KVGetResponse>::fields_ids = {{
   1,
   2,
 }};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::StopAdminTaskRequest>::fields_types = {{
+const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::KVGetResponse>::fields_types = {{
+  TType::T_STRUCT,
+  TType::T_MAP,
+}};
+
+const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::KVPutRequest>::fields_names = {{
+  "space_id",
+  "parts",
+}};
+const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::KVPutRequest>::fields_ids = {{
+  1,
+  2,
+}};
+const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::KVPutRequest>::fields_types = {{
   TType::T_I32,
+  TType::T_MAP,
+}};
+
+const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::KVRemoveRequest>::fields_names = {{
+  "space_id",
+  "parts",
+}};
+const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::KVRemoveRequest>::fields_ids = {{
+  1,
+  2,
+}};
+const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::KVRemoveRequest>::fields_types = {{
   TType::T_I32,
+  TType::T_MAP,
 }};
 
 const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::AdminExecResp>::fields_names = {{
@@ -1122,59 +1126,39 @@ const std::array<int16_t, 0> TStructDataStorage<::nebula::storage::cpp2::ListClu
 const std::array<protocol::TType, 0> TStructDataStorage<::nebula::storage::cpp2::ListClusterInfoReq>::fields_types = {{
 }};
 
-const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::storage::cpp2::KVGetRequest>::fields_names = {{
-  "space_id",
-  "parts",
-  "return_partly",
+const std::array<folly::StringPiece, 5> TStructDataStorage<::nebula::storage::cpp2::AddAdminTaskRequest>::fields_names = {{
+  "cmd",
+  "job_id",
+  "task_id",
+  "para",
+  "concurrency",
 }};
-const std::array<int16_t, 3> TStructDataStorage<::nebula::storage::cpp2::KVGetRequest>::fields_ids = {{
+const std::array<int16_t, 5> TStructDataStorage<::nebula::storage::cpp2::AddAdminTaskRequest>::fields_ids = {{
   1,
   2,
   3,
+  4,
+  5,
 }};
-const std::array<protocol::TType, 3> TStructDataStorage<::nebula::storage::cpp2::KVGetRequest>::fields_types = {{
+const std::array<protocol::TType, 5> TStructDataStorage<::nebula::storage::cpp2::AddAdminTaskRequest>::fields_types = {{
   TType::T_I32,
-  TType::T_MAP,
-  TType::T_BOOL,
-}};
-
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::KVGetResponse>::fields_names = {{
-  "result",
-  "key_values",
-}};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::KVGetResponse>::fields_ids = {{
-  1,
-  2,
-}};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::KVGetResponse>::fields_types = {{
+  TType::T_I32,
+  TType::T_I32,
   TType::T_STRUCT,
-  TType::T_MAP,
+  TType::T_I32,
 }};
 
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::KVPutRequest>::fields_names = {{
-  "space_id",
-  "parts",
+const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::StopAdminTaskRequest>::fields_names = {{
+  "job_id",
+  "task_id",
 }};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::KVPutRequest>::fields_ids = {{
+const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::StopAdminTaskRequest>::fields_ids = {{
   1,
   2,
 }};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::KVPutRequest>::fields_types = {{
+const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::StopAdminTaskRequest>::fields_types = {{
   TType::T_I32,
-  TType::T_MAP,
-}};
-
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::KVRemoveRequest>::fields_names = {{
-  "space_id",
-  "parts",
-}};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::KVRemoveRequest>::fields_ids = {{
-  1,
-  2,
-}};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::KVRemoveRequest>::fields_types = {{
   TType::T_I32,
-  TType::T_MAP,
 }};
 
 const std::array<folly::StringPiece, 5> TStructDataStorage<::nebula::storage::cpp2::InternalTxnRequest>::fields_names = {{

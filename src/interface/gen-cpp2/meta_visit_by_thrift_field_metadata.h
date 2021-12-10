@@ -1098,6 +1098,19 @@ struct VisitByThriftId<::nebula::meta::cpp2::LeaderInfo> {
 };
 
 template <>
+struct VisitByThriftId<::nebula::meta::cpp2::PartitionList> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).part_list_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::meta::cpp2::PartitionList");
+    }
+  }
+};
+
+template <>
 struct VisitByThriftId<::nebula::meta::cpp2::HBReq> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
@@ -1113,7 +1126,7 @@ struct VisitByThriftId<::nebula::meta::cpp2::HBReq> {
     case 5:
       return f(4, static_cast<T&&>(t).git_info_sha_ref());
     case 6:
-      return f(5, static_cast<T&&>(t).version_ref());
+      return f(5, static_cast<T&&>(t).disk_parts_ref());
     default:
       throwInvalidThriftId(id, "::nebula::meta::cpp2::HBReq");
     }
@@ -1889,137 +1902,6 @@ struct VisitByThriftId<::nebula::meta::cpp2::ListZonesResp> {
 };
 
 template <>
-struct VisitByThriftId<::nebula::meta::cpp2::AddGroupReq> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    case 1:
-      return f(0, static_cast<T&&>(t).group_name_ref());
-    case 2:
-      return f(1, static_cast<T&&>(t).zone_names_ref());
-    default:
-      throwInvalidThriftId(id, "::nebula::meta::cpp2::AddGroupReq");
-    }
-  }
-};
-
-template <>
-struct VisitByThriftId<::nebula::meta::cpp2::DropGroupReq> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    case 1:
-      return f(0, static_cast<T&&>(t).group_name_ref());
-    default:
-      throwInvalidThriftId(id, "::nebula::meta::cpp2::DropGroupReq");
-    }
-  }
-};
-
-template <>
-struct VisitByThriftId<::nebula::meta::cpp2::AddZoneIntoGroupReq> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    case 1:
-      return f(0, static_cast<T&&>(t).zone_name_ref());
-    case 2:
-      return f(1, static_cast<T&&>(t).group_name_ref());
-    default:
-      throwInvalidThriftId(id, "::nebula::meta::cpp2::AddZoneIntoGroupReq");
-    }
-  }
-};
-
-template <>
-struct VisitByThriftId<::nebula::meta::cpp2::DropZoneFromGroupReq> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    case 1:
-      return f(0, static_cast<T&&>(t).zone_name_ref());
-    case 2:
-      return f(1, static_cast<T&&>(t).group_name_ref());
-    default:
-      throwInvalidThriftId(id, "::nebula::meta::cpp2::DropZoneFromGroupReq");
-    }
-  }
-};
-
-template <>
-struct VisitByThriftId<::nebula::meta::cpp2::GetGroupReq> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    case 1:
-      return f(0, static_cast<T&&>(t).group_name_ref());
-    default:
-      throwInvalidThriftId(id, "::nebula::meta::cpp2::GetGroupReq");
-    }
-  }
-};
-
-template <>
-struct VisitByThriftId<::nebula::meta::cpp2::GetGroupResp> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    case 1:
-      return f(0, static_cast<T&&>(t).code_ref());
-    case 2:
-      return f(1, static_cast<T&&>(t).leader_ref());
-    case 3:
-      return f(2, static_cast<T&&>(t).zone_names_ref());
-    default:
-      throwInvalidThriftId(id, "::nebula::meta::cpp2::GetGroupResp");
-    }
-  }
-};
-
-template <>
-struct VisitByThriftId<::nebula::meta::cpp2::ListGroupsReq> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    default:
-      throwInvalidThriftId(id, "::nebula::meta::cpp2::ListGroupsReq");
-    }
-  }
-};
-
-template <>
-struct VisitByThriftId<::nebula::meta::cpp2::Group> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    case 1:
-      return f(0, static_cast<T&&>(t).group_name_ref());
-    case 2:
-      return f(1, static_cast<T&&>(t).zone_names_ref());
-    default:
-      throwInvalidThriftId(id, "::nebula::meta::cpp2::Group");
-    }
-  }
-};
-
-template <>
-struct VisitByThriftId<::nebula::meta::cpp2::ListGroupsResp> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    case 1:
-      return f(0, static_cast<T&&>(t).code_ref());
-    case 2:
-      return f(1, static_cast<T&&>(t).leader_ref());
-    case 3:
-      return f(2, static_cast<T&&>(t).groups_ref());
-    default:
-      throwInvalidThriftId(id, "::nebula::meta::cpp2::ListGroupsResp");
-    }
-  }
-};
-
-template <>
 struct VisitByThriftId<::nebula::meta::cpp2::AddListenerReq> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
@@ -2254,6 +2136,8 @@ struct VisitByThriftId<::nebula::meta::cpp2::FTClient> {
       return f(1, static_cast<T&&>(t).user_ref());
     case 3:
       return f(2, static_cast<T&&>(t).pwd_ref());
+    case 4:
+      return f(3, static_cast<T&&>(t).conn_type_ref());
     default:
       throwInvalidThriftId(id, "::nebula::meta::cpp2::FTClient");
     }
@@ -2688,6 +2572,8 @@ struct VisitByThriftId<::nebula::meta::cpp2::VerifyClientVersionReq> {
     switch (id) {
     case 1:
       return f(0, static_cast<T&&>(t).version_ref());
+    case 2:
+      return f(1, static_cast<T&&>(t).host_ref());
     default:
       throwInvalidThriftId(id, "::nebula::meta::cpp2::VerifyClientVersionReq");
     }

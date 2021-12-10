@@ -47,7 +47,7 @@ namespace cpp2 {
 class GraphStorageServiceAsyncClient;
 class ScanCursor;
 class ScanEdgeRequest;
-class ScanEdgeResponse;
+class ScanResponse;
 
 }  // namespace cpp2
 }  // namespace storage
@@ -82,7 +82,7 @@ class StorageClient {
   MetaClient* getMetaClient() { return mClient_.get(); }
 
  private:
-  std::pair<bool, storage::cpp2::ScanEdgeResponse> doScanEdge(
+  std::pair<bool, storage::cpp2::ScanResponse> doScanEdge(
       const storage::cpp2::ScanEdgeRequest& req);
 
   template <typename Request, typename RemoteFunc, typename Response>

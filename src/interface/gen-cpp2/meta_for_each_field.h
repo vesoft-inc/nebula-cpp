@@ -649,6 +649,14 @@ struct ForEachField<::nebula::meta::cpp2::LeaderInfo> {
 };
 
 template <>
+struct ForEachField<::nebula::meta::cpp2::PartitionList> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).part_list_ref()...);
+  }
+};
+
+template <>
 struct ForEachField<::nebula::meta::cpp2::HBReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
@@ -657,7 +665,7 @@ struct ForEachField<::nebula::meta::cpp2::HBReq> {
     f(2, static_cast<T&&>(t).cluster_id_ref()...);
     f(3, static_cast<T&&>(t).leader_partIds_ref()...);
     f(4, static_cast<T&&>(t).git_info_sha_ref()...);
-    f(5, static_cast<T&&>(t).version_ref()...);
+    f(5, static_cast<T&&>(t).disk_parts_ref()...);
   }
 };
 
@@ -1121,85 +1129,6 @@ struct ForEachField<::nebula::meta::cpp2::ListZonesResp> {
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::AddGroupReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).group_name_ref()...);
-    f(1, static_cast<T&&>(t).zone_names_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::DropGroupReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).group_name_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::AddZoneIntoGroupReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).zone_name_ref()...);
-    f(1, static_cast<T&&>(t).group_name_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::DropZoneFromGroupReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).zone_name_ref()...);
-    f(1, static_cast<T&&>(t).group_name_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::GetGroupReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).group_name_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::GetGroupResp> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).code_ref()...);
-    f(1, static_cast<T&&>(t).leader_ref()...);
-    f(2, static_cast<T&&>(t).zone_names_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::ListGroupsReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::Group> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).group_name_ref()...);
-    f(1, static_cast<T&&>(t).zone_names_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::ListGroupsResp> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).code_ref()...);
-    f(1, static_cast<T&&>(t).leader_ref()...);
-    f(2, static_cast<T&&>(t).groups_ref()...);
-  }
-};
-
-template <>
 struct ForEachField<::nebula::meta::cpp2::AddListenerReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
@@ -1339,6 +1268,7 @@ struct ForEachField<::nebula::meta::cpp2::FTClient> {
     f(0, static_cast<T&&>(t).host_ref()...);
     f(1, static_cast<T&&>(t).user_ref()...);
     f(2, static_cast<T&&>(t).pwd_ref()...);
+    f(3, static_cast<T&&>(t).conn_type_ref()...);
   }
 };
 
@@ -1598,6 +1528,7 @@ struct ForEachField<::nebula::meta::cpp2::VerifyClientVersionReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).version_ref()...);
+    f(1, static_cast<T&&>(t).host_ref()...);
   }
 };
 } // namespace detail
