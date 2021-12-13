@@ -75,7 +75,7 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
   storage::cpp2::ScanCursor scanCursor;
   scanCursor.set_has_next(false);
   req->set_parts(std::unordered_map<PartitionID, storage::cpp2::ScanCursor>{{partId, scanCursor}});
-  req->set_return_columns(returnCols);
+  req->set_return_columns({returnCols});
   req->set_limit(limit);
   req->set_start_time(startTime);
   req->set_end_time(endTime);
@@ -86,7 +86,7 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
   return {this, req};
 }
 
-std::pair<bool, storage::cpp2::ScanEdgeResponse> StorageClient::doScanEdge(
+std::pair<bool, storage::cpp2::ScanResponse> StorageClient::doScanEdge(
     const storage::cpp2::ScanEdgeRequest& req) {
   std::pair<HostAddr, storage::cpp2::ScanEdgeRequest> request;
   auto partCursorMap = req.get_parts();
@@ -94,12 +94,12 @@ std::pair<bool, storage::cpp2::ScanEdgeResponse> StorageClient::doScanEdge(
   PartitionID partId = partCursorMap.begin()->first;
   auto host = mClient_->getPartLeaderFromCache(req.get_space_id(), partId);
   if (!host.first) {
-    return {false, storage::cpp2::ScanEdgeResponse()};
+    return {false, storage::cpp2::ScanResponse()};
   }
   request.first = host.second;
   request.second = req;
 
-  folly::Promise<std::pair<bool, storage::cpp2::ScanEdgeResponse>> promise;
+  folly::Promise<std::pair<bool, storage::cpp2::ScanResponse>> promise;
   auto future = promise.getFuture();
   getResponse(
       std::move(request),

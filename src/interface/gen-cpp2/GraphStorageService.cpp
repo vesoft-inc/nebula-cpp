@@ -204,43 +204,43 @@ void GraphStorageServiceSvIf::async_tm_updateEdge(std::unique_ptr<apache::thrift
   });
 }
 
-void GraphStorageServiceSvIf::scanVertex( ::nebula::storage::cpp2::ScanVertexResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanVertexRequest& /*req*/) {
+void GraphStorageServiceSvIf::scanVertex( ::nebula::storage::cpp2::ScanResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanVertexRequest& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("scanVertex");
 }
 
-folly::SemiFuture< ::nebula::storage::cpp2::ScanVertexResponse> GraphStorageServiceSvIf::semifuture_scanVertex(const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::storage::cpp2::ScanVertexResponse& _return) { scanVertex(_return, p_req); });
+folly::SemiFuture< ::nebula::storage::cpp2::ScanResponse> GraphStorageServiceSvIf::semifuture_scanVertex(const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::storage::cpp2::ScanResponse& _return) { scanVertex(_return, p_req); });
 }
 
-folly::Future< ::nebula::storage::cpp2::ScanVertexResponse> GraphStorageServiceSvIf::future_scanVertex(const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) {
+folly::Future< ::nebula::storage::cpp2::ScanResponse> GraphStorageServiceSvIf::future_scanVertex(const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) {
   using Source = apache::thrift::concurrency::ThreadManager::Source;
   auto scope = getRequestContext()->getRequestExecutionScope();
   auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
   return apache::thrift::detail::si::future(semifuture_scanVertex(p_req), std::move(ka));
 }
 
-void GraphStorageServiceSvIf::async_tm_scanVertex(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanVertexResponse>> callback, const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) {
+void GraphStorageServiceSvIf::async_tm_scanVertex(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanResponse>> callback, const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
     return future_scanVertex(p_req);
   });
 }
 
-void GraphStorageServiceSvIf::scanEdge( ::nebula::storage::cpp2::ScanEdgeResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanEdgeRequest& /*req*/) {
+void GraphStorageServiceSvIf::scanEdge( ::nebula::storage::cpp2::ScanResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanEdgeRequest& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("scanEdge");
 }
 
-folly::SemiFuture< ::nebula::storage::cpp2::ScanEdgeResponse> GraphStorageServiceSvIf::semifuture_scanEdge(const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::storage::cpp2::ScanEdgeResponse& _return) { scanEdge(_return, p_req); });
+folly::SemiFuture< ::nebula::storage::cpp2::ScanResponse> GraphStorageServiceSvIf::semifuture_scanEdge(const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::storage::cpp2::ScanResponse& _return) { scanEdge(_return, p_req); });
 }
 
-folly::Future< ::nebula::storage::cpp2::ScanEdgeResponse> GraphStorageServiceSvIf::future_scanEdge(const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) {
+folly::Future< ::nebula::storage::cpp2::ScanResponse> GraphStorageServiceSvIf::future_scanEdge(const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) {
   using Source = apache::thrift::concurrency::ThreadManager::Source;
   auto scope = getRequestContext()->getRequestExecutionScope();
   auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
   return apache::thrift::detail::si::future(semifuture_scanEdge(p_req), std::move(ka));
 }
 
-void GraphStorageServiceSvIf::async_tm_scanEdge(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanEdgeResponse>> callback, const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) {
+void GraphStorageServiceSvIf::async_tm_scanEdge(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanResponse>> callback, const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
     return future_scanEdge(p_req);
   });
@@ -351,6 +351,69 @@ void GraphStorageServiceSvIf::async_tm_chainAddEdges(std::unique_ptr<apache::thr
   });
 }
 
+void GraphStorageServiceSvIf::get( ::nebula::storage::cpp2::KVGetResponse& /*_return*/, const  ::nebula::storage::cpp2::KVGetRequest& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("get");
+}
+
+folly::SemiFuture< ::nebula::storage::cpp2::KVGetResponse> GraphStorageServiceSvIf::semifuture_get(const  ::nebula::storage::cpp2::KVGetRequest& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::storage::cpp2::KVGetResponse& _return) { get(_return, p_req); });
+}
+
+folly::Future< ::nebula::storage::cpp2::KVGetResponse> GraphStorageServiceSvIf::future_get(const  ::nebula::storage::cpp2::KVGetRequest& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_get(p_req), std::move(ka));
+}
+
+void GraphStorageServiceSvIf::async_tm_get(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::KVGetResponse>> callback, const  ::nebula::storage::cpp2::KVGetRequest& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_get(p_req);
+  });
+}
+
+void GraphStorageServiceSvIf::put( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::KVPutRequest& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("put");
+}
+
+folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> GraphStorageServiceSvIf::semifuture_put(const  ::nebula::storage::cpp2::KVPutRequest& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::storage::cpp2::ExecResponse& _return) { put(_return, p_req); });
+}
+
+folly::Future< ::nebula::storage::cpp2::ExecResponse> GraphStorageServiceSvIf::future_put(const  ::nebula::storage::cpp2::KVPutRequest& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_put(p_req), std::move(ka));
+}
+
+void GraphStorageServiceSvIf::async_tm_put(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>> callback, const  ::nebula::storage::cpp2::KVPutRequest& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_put(p_req);
+  });
+}
+
+void GraphStorageServiceSvIf::remove( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::KVRemoveRequest& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("remove");
+}
+
+folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> GraphStorageServiceSvIf::semifuture_remove(const  ::nebula::storage::cpp2::KVRemoveRequest& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::storage::cpp2::ExecResponse& _return) { remove(_return, p_req); });
+}
+
+folly::Future< ::nebula::storage::cpp2::ExecResponse> GraphStorageServiceSvIf::future_remove(const  ::nebula::storage::cpp2::KVRemoveRequest& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_remove(p_req), std::move(ka));
+}
+
+void GraphStorageServiceSvIf::async_tm_remove(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>> callback, const  ::nebula::storage::cpp2::KVRemoveRequest& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_remove(p_req);
+  });
+}
+
 void GraphStorageServiceSvNull::getNeighbors( ::nebula::storage::cpp2::GetNeighborsResponse& /*_return*/, const  ::nebula::storage::cpp2::GetNeighborsRequest& /*req*/) {}
 
 void GraphStorageServiceSvNull::getProps( ::nebula::storage::cpp2::GetPropResponse& /*_return*/, const  ::nebula::storage::cpp2::GetPropRequest& /*req*/) {}
@@ -369,9 +432,9 @@ void GraphStorageServiceSvNull::updateVertex( ::nebula::storage::cpp2::UpdateRes
 
 void GraphStorageServiceSvNull::updateEdge( ::nebula::storage::cpp2::UpdateResponse& /*_return*/, const  ::nebula::storage::cpp2::UpdateEdgeRequest& /*req*/) {}
 
-void GraphStorageServiceSvNull::scanVertex( ::nebula::storage::cpp2::ScanVertexResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanVertexRequest& /*req*/) {}
+void GraphStorageServiceSvNull::scanVertex( ::nebula::storage::cpp2::ScanResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanVertexRequest& /*req*/) {}
 
-void GraphStorageServiceSvNull::scanEdge( ::nebula::storage::cpp2::ScanEdgeResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanEdgeRequest& /*req*/) {}
+void GraphStorageServiceSvNull::scanEdge( ::nebula::storage::cpp2::ScanResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanEdgeRequest& /*req*/) {}
 
 void GraphStorageServiceSvNull::getUUID( ::nebula::storage::cpp2::GetUUIDResp& /*_return*/, const  ::nebula::storage::cpp2::GetUUIDReq& /*req*/) {}
 
@@ -382,6 +445,12 @@ void GraphStorageServiceSvNull::lookupAndTraverse( ::nebula::storage::cpp2::GetN
 void GraphStorageServiceSvNull::chainUpdateEdge( ::nebula::storage::cpp2::UpdateResponse& /*_return*/, const  ::nebula::storage::cpp2::UpdateEdgeRequest& /*req*/) {}
 
 void GraphStorageServiceSvNull::chainAddEdges( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::AddEdgesRequest& /*req*/) {}
+
+void GraphStorageServiceSvNull::get( ::nebula::storage::cpp2::KVGetResponse& /*_return*/, const  ::nebula::storage::cpp2::KVGetRequest& /*req*/) {}
+
+void GraphStorageServiceSvNull::put( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::KVPutRequest& /*req*/) {}
+
+void GraphStorageServiceSvNull::remove( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::KVRemoveRequest& /*req*/) {}
 
 
 
@@ -422,6 +491,9 @@ const GraphStorageServiceAsyncProcessor::ProcessMap GraphStorageServiceAsyncProc
   {"lookupAndTraverse", &GraphStorageServiceAsyncProcessor::setUpAndProcess_lookupAndTraverse<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"chainUpdateEdge", &GraphStorageServiceAsyncProcessor::setUpAndProcess_chainUpdateEdge<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"chainAddEdges", &GraphStorageServiceAsyncProcessor::setUpAndProcess_chainAddEdges<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"get", &GraphStorageServiceAsyncProcessor::setUpAndProcess_get<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"put", &GraphStorageServiceAsyncProcessor::setUpAndProcess_put<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"remove", &GraphStorageServiceAsyncProcessor::setUpAndProcess_remove<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
 };
 
 const GraphStorageServiceAsyncProcessor::ProcessMap& GraphStorageServiceAsyncProcessor::getCompactProtocolProcessMap() {
@@ -445,6 +517,9 @@ const GraphStorageServiceAsyncProcessor::ProcessMap GraphStorageServiceAsyncProc
   {"lookupAndTraverse", &GraphStorageServiceAsyncProcessor::setUpAndProcess_lookupAndTraverse<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"chainUpdateEdge", &GraphStorageServiceAsyncProcessor::setUpAndProcess_chainUpdateEdge<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"chainAddEdges", &GraphStorageServiceAsyncProcessor::setUpAndProcess_chainAddEdges<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"get", &GraphStorageServiceAsyncProcessor::setUpAndProcess_get<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"put", &GraphStorageServiceAsyncProcessor::setUpAndProcess_put<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"remove", &GraphStorageServiceAsyncProcessor::setUpAndProcess_remove<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
 };
 
 }}} // nebula::storage::cpp2

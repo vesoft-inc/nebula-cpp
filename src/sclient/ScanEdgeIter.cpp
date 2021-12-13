@@ -49,7 +49,7 @@ DataSet ScanEdgeIter::next() {
     nextCursor_ = *scanCursor.get_next_cursor();
   }
 
-  return scanResponse.get_edge_data();
+  return *scanResponse.get_props();
 }
 
 }  //  namespace nebula

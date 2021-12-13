@@ -32,7 +32,7 @@ done
 
 if [ $SYNC_REMOTE_INTERFACE -eq 1 ]; then
     for mod in common meta storage graph; do
-        wget -P $NEBULA_INTERFACE_HOME https://raw.githubusercontent.com/vesoft-inc/nebula/master/src/interface/$mod.thrift
+        wget -O $NEBULA_INTERFACE_HOME/$mod.thrift https://raw.githubusercontent.com/vesoft-inc/nebula/master/src/interface/$mod.thrift
     done
 fi
 
