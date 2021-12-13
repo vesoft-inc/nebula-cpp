@@ -153,7 +153,7 @@ TEST_F(SessionTest, Data) {
       "USE data_test;"
       "CREATE TAG IF NOT EXISTS  geo(any_shape Geography, only_point Geography(point), "
       "only_lineString Geography(linestring), only_polygon Geography(polygon));");
-  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
 
   ::sleep(30);
 

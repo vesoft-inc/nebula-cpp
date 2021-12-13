@@ -33,7 +33,7 @@ struct TccStructTraits<::nebula::ExecutionResponse> {
     if (false) {
     } else if (_fname == "error_code") {
       fid = 1;
-      _ftype = apache::thrift::protocol::T_I32;
+      _ftype = apache::thrift::protocol::T_I64;
     } else if (_fname == "latency_in_us") {
       fid = 2;
       _ftype = apache::thrift::protocol::T_I32;
@@ -74,7 +74,7 @@ uint32_t Cpp2Ops<::nebula::ExecutionResponse>::write(Protocol* proto,
                                                      ::nebula::ErrorCode>::write(*proto,
                                                                                  obj->errorCode);
   xfer += proto->writeFieldEnd();
-  xfer += proto->writeFieldBegin("latency_in_us", apache::thrift::protocol::T_I32, 2);
+  xfer += proto->writeFieldBegin("latency_in_us", apache::thrift::protocol::T_I64, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods<::apache::thrift::type_class::integral,
                                                          int32_t>::write(*proto, obj->latencyInUs);
   xfer += proto->writeFieldEnd();
@@ -133,7 +133,7 @@ _readField_error_code : {
   }
 _readField_latency_in_us : {
   ::apache::thrift::detail::pm::protocol_methods<::apache::thrift::type_class::integral,
-                                                 int32_t>::read(*proto, obj->latencyInUs);
+                                                 int64_t>::read(*proto, obj->latencyInUs);
   isset_latency_in_us = true;
 }
 
@@ -215,7 +215,7 @@ _loop:
       }
     }
     case 2: {
-      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_I32)) {
+      if (LIKELY(_readState.fieldType == apache::thrift::protocol::T_I64)) {
         goto _readField_latency_in_us;
       } else {
         goto _skip;
@@ -275,7 +275,7 @@ uint32_t Cpp2Ops<::nebula::ExecutionResponse>::serializedSize(
   xfer += ::apache::thrift::detail::pm::protocol_methods<
       ::apache::thrift::type_class::enumeration,
       ::nebula::ErrorCode>::serializedSize<false>(*proto, obj->errorCode);
-  xfer += proto->serializedFieldSize("latency_in_us", apache::thrift::protocol::T_I32, 2);
+  xfer += proto->serializedFieldSize("latency_in_us", apache::thrift::protocol::T_I64, 2);
   xfer += ::apache::thrift::detail::pm::
       protocol_methods<::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(
           *proto, obj->latencyInUs);
@@ -313,7 +313,7 @@ uint32_t Cpp2Ops<::nebula::ExecutionResponse>::serializedSizeZC(
   xfer += ::apache::thrift::detail::pm::protocol_methods<
       ::apache::thrift::type_class::enumeration,
       ::nebula::ErrorCode>::serializedSize<false>(*proto, obj->errorCode);
-  xfer += proto->serializedFieldSize("latency_in_us", apache::thrift::protocol::T_I32, 2);
+  xfer += proto->serializedFieldSize("latency_in_us", apache::thrift::protocol::T_I64, 2);
   xfer += ::apache::thrift::detail::pm::
       protocol_methods<::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(
           *proto, obj->latencyInUs);

@@ -56,12 +56,12 @@ class GraphStorageServiceSvAsyncIf {
   virtual void async_tm_updateEdge(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::UpdateResponse>> callback, const  ::nebula::storage::cpp2::UpdateEdgeRequest& p_req) = 0;
   virtual folly::Future< ::nebula::storage::cpp2::UpdateResponse> future_updateEdge(const  ::nebula::storage::cpp2::UpdateEdgeRequest& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::storage::cpp2::UpdateResponse> semifuture_updateEdge(const  ::nebula::storage::cpp2::UpdateEdgeRequest& p_req) = 0;
-  virtual void async_tm_scanVertex(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanVertexResponse>> callback, const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) = 0;
-  virtual folly::Future< ::nebula::storage::cpp2::ScanVertexResponse> future_scanVertex(const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::storage::cpp2::ScanVertexResponse> semifuture_scanVertex(const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) = 0;
-  virtual void async_tm_scanEdge(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanEdgeResponse>> callback, const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) = 0;
-  virtual folly::Future< ::nebula::storage::cpp2::ScanEdgeResponse> future_scanEdge(const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::storage::cpp2::ScanEdgeResponse> semifuture_scanEdge(const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) = 0;
+  virtual void async_tm_scanVertex(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanResponse>> callback, const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) = 0;
+  virtual folly::Future< ::nebula::storage::cpp2::ScanResponse> future_scanVertex(const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::ScanResponse> semifuture_scanVertex(const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) = 0;
+  virtual void async_tm_scanEdge(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanResponse>> callback, const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) = 0;
+  virtual folly::Future< ::nebula::storage::cpp2::ScanResponse> future_scanEdge(const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::ScanResponse> semifuture_scanEdge(const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) = 0;
   virtual void async_tm_getUUID(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::GetUUIDResp>> callback, const  ::nebula::storage::cpp2::GetUUIDReq& p_req) = 0;
   virtual folly::Future< ::nebula::storage::cpp2::GetUUIDResp> future_getUUID(const  ::nebula::storage::cpp2::GetUUIDReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::storage::cpp2::GetUUIDResp> semifuture_getUUID(const  ::nebula::storage::cpp2::GetUUIDReq& p_req) = 0;
@@ -77,6 +77,15 @@ class GraphStorageServiceSvAsyncIf {
   virtual void async_tm_chainAddEdges(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>> callback, const  ::nebula::storage::cpp2::AddEdgesRequest& p_req) = 0;
   virtual folly::Future< ::nebula::storage::cpp2::ExecResponse> future_chainAddEdges(const  ::nebula::storage::cpp2::AddEdgesRequest& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> semifuture_chainAddEdges(const  ::nebula::storage::cpp2::AddEdgesRequest& p_req) = 0;
+  virtual void async_tm_get(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::KVGetResponse>> callback, const  ::nebula::storage::cpp2::KVGetRequest& p_req) = 0;
+  virtual folly::Future< ::nebula::storage::cpp2::KVGetResponse> future_get(const  ::nebula::storage::cpp2::KVGetRequest& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::KVGetResponse> semifuture_get(const  ::nebula::storage::cpp2::KVGetRequest& p_req) = 0;
+  virtual void async_tm_put(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>> callback, const  ::nebula::storage::cpp2::KVPutRequest& p_req) = 0;
+  virtual folly::Future< ::nebula::storage::cpp2::ExecResponse> future_put(const  ::nebula::storage::cpp2::KVPutRequest& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> semifuture_put(const  ::nebula::storage::cpp2::KVPutRequest& p_req) = 0;
+  virtual void async_tm_remove(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>> callback, const  ::nebula::storage::cpp2::KVRemoveRequest& p_req) = 0;
+  virtual folly::Future< ::nebula::storage::cpp2::ExecResponse> future_remove(const  ::nebula::storage::cpp2::KVRemoveRequest& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> semifuture_remove(const  ::nebula::storage::cpp2::KVRemoveRequest& p_req) = 0;
 };
 
 class GraphStorageServiceAsyncProcessor;
@@ -123,14 +132,14 @@ class GraphStorageServiceSvIf : public GraphStorageServiceSvAsyncIf, public apac
   folly::Future< ::nebula::storage::cpp2::UpdateResponse> future_updateEdge(const  ::nebula::storage::cpp2::UpdateEdgeRequest& p_req) override;
   folly::SemiFuture< ::nebula::storage::cpp2::UpdateResponse> semifuture_updateEdge(const  ::nebula::storage::cpp2::UpdateEdgeRequest& p_req) override;
   void async_tm_updateEdge(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::UpdateResponse>> callback, const  ::nebula::storage::cpp2::UpdateEdgeRequest& p_req) override;
-  virtual void scanVertex( ::nebula::storage::cpp2::ScanVertexResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanVertexRequest& /*req*/);
-  folly::Future< ::nebula::storage::cpp2::ScanVertexResponse> future_scanVertex(const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) override;
-  folly::SemiFuture< ::nebula::storage::cpp2::ScanVertexResponse> semifuture_scanVertex(const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) override;
-  void async_tm_scanVertex(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanVertexResponse>> callback, const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) override;
-  virtual void scanEdge( ::nebula::storage::cpp2::ScanEdgeResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanEdgeRequest& /*req*/);
-  folly::Future< ::nebula::storage::cpp2::ScanEdgeResponse> future_scanEdge(const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) override;
-  folly::SemiFuture< ::nebula::storage::cpp2::ScanEdgeResponse> semifuture_scanEdge(const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) override;
-  void async_tm_scanEdge(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanEdgeResponse>> callback, const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) override;
+  virtual void scanVertex( ::nebula::storage::cpp2::ScanResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanVertexRequest& /*req*/);
+  folly::Future< ::nebula::storage::cpp2::ScanResponse> future_scanVertex(const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) override;
+  folly::SemiFuture< ::nebula::storage::cpp2::ScanResponse> semifuture_scanVertex(const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) override;
+  void async_tm_scanVertex(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanResponse>> callback, const  ::nebula::storage::cpp2::ScanVertexRequest& p_req) override;
+  virtual void scanEdge( ::nebula::storage::cpp2::ScanResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanEdgeRequest& /*req*/);
+  folly::Future< ::nebula::storage::cpp2::ScanResponse> future_scanEdge(const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) override;
+  folly::SemiFuture< ::nebula::storage::cpp2::ScanResponse> semifuture_scanEdge(const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) override;
+  void async_tm_scanEdge(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanResponse>> callback, const  ::nebula::storage::cpp2::ScanEdgeRequest& p_req) override;
   virtual void getUUID( ::nebula::storage::cpp2::GetUUIDResp& /*_return*/, const  ::nebula::storage::cpp2::GetUUIDReq& /*req*/);
   folly::Future< ::nebula::storage::cpp2::GetUUIDResp> future_getUUID(const  ::nebula::storage::cpp2::GetUUIDReq& p_req) override;
   folly::SemiFuture< ::nebula::storage::cpp2::GetUUIDResp> semifuture_getUUID(const  ::nebula::storage::cpp2::GetUUIDReq& p_req) override;
@@ -151,6 +160,18 @@ class GraphStorageServiceSvIf : public GraphStorageServiceSvAsyncIf, public apac
   folly::Future< ::nebula::storage::cpp2::ExecResponse> future_chainAddEdges(const  ::nebula::storage::cpp2::AddEdgesRequest& p_req) override;
   folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> semifuture_chainAddEdges(const  ::nebula::storage::cpp2::AddEdgesRequest& p_req) override;
   void async_tm_chainAddEdges(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>> callback, const  ::nebula::storage::cpp2::AddEdgesRequest& p_req) override;
+  virtual void get( ::nebula::storage::cpp2::KVGetResponse& /*_return*/, const  ::nebula::storage::cpp2::KVGetRequest& /*req*/);
+  folly::Future< ::nebula::storage::cpp2::KVGetResponse> future_get(const  ::nebula::storage::cpp2::KVGetRequest& p_req) override;
+  folly::SemiFuture< ::nebula::storage::cpp2::KVGetResponse> semifuture_get(const  ::nebula::storage::cpp2::KVGetRequest& p_req) override;
+  void async_tm_get(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::KVGetResponse>> callback, const  ::nebula::storage::cpp2::KVGetRequest& p_req) override;
+  virtual void put( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::KVPutRequest& /*req*/);
+  folly::Future< ::nebula::storage::cpp2::ExecResponse> future_put(const  ::nebula::storage::cpp2::KVPutRequest& p_req) override;
+  folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> semifuture_put(const  ::nebula::storage::cpp2::KVPutRequest& p_req) override;
+  void async_tm_put(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>> callback, const  ::nebula::storage::cpp2::KVPutRequest& p_req) override;
+  virtual void remove( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::KVRemoveRequest& /*req*/);
+  folly::Future< ::nebula::storage::cpp2::ExecResponse> future_remove(const  ::nebula::storage::cpp2::KVRemoveRequest& p_req) override;
+  folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> semifuture_remove(const  ::nebula::storage::cpp2::KVRemoveRequest& p_req) override;
+  void async_tm_remove(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>> callback, const  ::nebula::storage::cpp2::KVRemoveRequest& p_req) override;
 };
 
 class GraphStorageServiceSvNull : public GraphStorageServiceSvIf {
@@ -164,13 +185,16 @@ class GraphStorageServiceSvNull : public GraphStorageServiceSvIf {
   void deleteTags( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::DeleteTagsRequest& /*req*/) override;
   void updateVertex( ::nebula::storage::cpp2::UpdateResponse& /*_return*/, const  ::nebula::storage::cpp2::UpdateVertexRequest& /*req*/) override;
   void updateEdge( ::nebula::storage::cpp2::UpdateResponse& /*_return*/, const  ::nebula::storage::cpp2::UpdateEdgeRequest& /*req*/) override;
-  void scanVertex( ::nebula::storage::cpp2::ScanVertexResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanVertexRequest& /*req*/) override;
-  void scanEdge( ::nebula::storage::cpp2::ScanEdgeResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanEdgeRequest& /*req*/) override;
+  void scanVertex( ::nebula::storage::cpp2::ScanResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanVertexRequest& /*req*/) override;
+  void scanEdge( ::nebula::storage::cpp2::ScanResponse& /*_return*/, const  ::nebula::storage::cpp2::ScanEdgeRequest& /*req*/) override;
   void getUUID( ::nebula::storage::cpp2::GetUUIDResp& /*_return*/, const  ::nebula::storage::cpp2::GetUUIDReq& /*req*/) override;
   void lookupIndex( ::nebula::storage::cpp2::LookupIndexResp& /*_return*/, const  ::nebula::storage::cpp2::LookupIndexRequest& /*req*/) override;
   void lookupAndTraverse( ::nebula::storage::cpp2::GetNeighborsResponse& /*_return*/, const  ::nebula::storage::cpp2::LookupAndTraverseRequest& /*req*/) override;
   void chainUpdateEdge( ::nebula::storage::cpp2::UpdateResponse& /*_return*/, const  ::nebula::storage::cpp2::UpdateEdgeRequest& /*req*/) override;
   void chainAddEdges( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::AddEdgesRequest& /*req*/) override;
+  void get( ::nebula::storage::cpp2::KVGetResponse& /*_return*/, const  ::nebula::storage::cpp2::KVGetRequest& /*req*/) override;
+  void put( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::KVPutRequest& /*req*/) override;
+  void remove( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::KVRemoveRequest& /*req*/) override;
 };
 
 class GraphStorageServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcessor {
@@ -270,7 +294,7 @@ class GraphStorageServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyn
   template <typename ProtocolIn_, typename ProtocolOut_>
   void process_scanVertex(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_scanVertex(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ScanVertexResponse const& _return);
+  static folly::IOBufQueue return_scanVertex(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ScanResponse const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_scanVertex(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
@@ -278,7 +302,7 @@ class GraphStorageServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyn
   template <typename ProtocolIn_, typename ProtocolOut_>
   void process_scanEdge(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_scanEdge(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ScanEdgeResponse const& _return);
+  static folly::IOBufQueue return_scanEdge(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ScanResponse const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_scanEdge(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
@@ -321,6 +345,30 @@ class GraphStorageServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyn
   static folly::IOBufQueue return_chainAddEdges(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ExecResponse const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_chainAddEdges(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_get(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_get(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_get(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::KVGetResponse const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_get(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_put(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_put(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_put(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ExecResponse const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_put(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_remove(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_remove(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_remove(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ExecResponse const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_remove(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
  public:
   GraphStorageServiceAsyncProcessor(GraphStorageServiceSvIf* iface) :
       iface_(iface) {}

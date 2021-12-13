@@ -30,9 +30,9 @@ typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apach
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::UpdateEdgeRequest*>> GraphStorageService_updateEdge_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::UpdateResponse*>> GraphStorageService_updateEdge_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ScanVertexRequest*>> GraphStorageService_scanVertex_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ScanVertexResponse*>> GraphStorageService_scanVertex_presult;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ScanResponse*>> GraphStorageService_scanVertex_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ScanEdgeRequest*>> GraphStorageService_scanEdge_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ScanEdgeResponse*>> GraphStorageService_scanEdge_presult;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ScanResponse*>> GraphStorageService_scanEdge_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetUUIDReq*>> GraphStorageService_getUUID_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetUUIDResp*>> GraphStorageService_getUUID_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::LookupIndexRequest*>> GraphStorageService_lookupIndex_pargs;
@@ -43,6 +43,12 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::UpdateResponse*>> GraphStorageService_chainUpdateEdge_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AddEdgesRequest*>> GraphStorageService_chainAddEdges_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ExecResponse*>> GraphStorageService_chainAddEdges_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::KVGetRequest*>> GraphStorageService_get_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::KVGetResponse*>> GraphStorageService_get_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::KVPutRequest*>> GraphStorageService_put_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ExecResponse*>> GraphStorageService_put_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::KVRemoveRequest*>> GraphStorageService_remove_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ExecResponse*>> GraphStorageService_remove_presult;
 template <typename ProtocolIn_, typename ProtocolOut_>
 void GraphStorageServiceAsyncProcessor::setUpAndProcess_getNeighbors(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
@@ -584,7 +590,7 @@ void GraphStorageServiceAsyncProcessor::process_scanVertex(apache::thrift::Respo
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanVertexResponse>>(std::move(req), std::move(ctxStack), return_scanVertex<ProtocolIn_,ProtocolOut_>, throw_wrapped_scanVertex<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanResponse>>(std::move(req), std::move(ctxStack), return_scanVertex<ProtocolIn_,ProtocolOut_>, throw_wrapped_scanVertex<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
@@ -592,10 +598,10 @@ void GraphStorageServiceAsyncProcessor::process_scanVertex(apache::thrift::Respo
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue GraphStorageServiceAsyncProcessor::return_scanVertex(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ScanVertexResponse const& _return) {
+folly::IOBufQueue GraphStorageServiceAsyncProcessor::return_scanVertex(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ScanResponse const& _return) {
   ProtocolOut_ prot;
   GraphStorageService_scanVertex_presult result;
-  result.get<0>().value = const_cast< ::nebula::storage::cpp2::ScanVertexResponse*>(&_return);
+  result.get<0>().value = const_cast< ::nebula::storage::cpp2::ScanResponse*>(&_return);
   result.setIsSet(0, true);
   return serializeResponse("scanVertex", &prot, protoSeqId, ctx, result);
 }
@@ -641,7 +647,7 @@ void GraphStorageServiceAsyncProcessor::process_scanEdge(apache::thrift::Respons
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanEdgeResponse>>(std::move(req), std::move(ctxStack), return_scanEdge<ProtocolIn_,ProtocolOut_>, throw_wrapped_scanEdge<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ScanResponse>>(std::move(req), std::move(ctxStack), return_scanEdge<ProtocolIn_,ProtocolOut_>, throw_wrapped_scanEdge<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
@@ -649,10 +655,10 @@ void GraphStorageServiceAsyncProcessor::process_scanEdge(apache::thrift::Respons
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue GraphStorageServiceAsyncProcessor::return_scanEdge(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ScanEdgeResponse const& _return) {
+folly::IOBufQueue GraphStorageServiceAsyncProcessor::return_scanEdge(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ScanResponse const& _return) {
   ProtocolOut_ prot;
   GraphStorageService_scanEdge_presult result;
-  result.get<0>().value = const_cast< ::nebula::storage::cpp2::ScanEdgeResponse*>(&_return);
+  result.get<0>().value = const_cast< ::nebula::storage::cpp2::ScanResponse*>(&_return);
   result.setIsSet(0, true);
   return serializeResponse("scanEdge", &prot, protoSeqId, ctx, result);
 }
@@ -951,6 +957,177 @@ void GraphStorageServiceAsyncProcessor::throw_wrapped_chainAddEdges(apache::thri
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
         ew, std::move(req), reqCtx, ctx, "chainAddEdges");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void GraphStorageServiceAsyncProcessor::setUpAndProcess_get(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &GraphStorageServiceAsyncProcessor::process_get<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void GraphStorageServiceAsyncProcessor::process_get(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  GraphStorageService_get_pargs args;
+   ::nebula::storage::cpp2::KVGetRequest uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "GraphStorageService.get", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "get");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::KVGetResponse>>(std::move(req), std::move(ctxStack), return_get<ProtocolIn_,ProtocolOut_>, throw_wrapped_get<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_get(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue GraphStorageServiceAsyncProcessor::return_get(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::KVGetResponse const& _return) {
+  ProtocolOut_ prot;
+  GraphStorageService_get_presult result;
+  result.get<0>().value = const_cast< ::nebula::storage::cpp2::KVGetResponse*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("get", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void GraphStorageServiceAsyncProcessor::throw_wrapped_get(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "get");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void GraphStorageServiceAsyncProcessor::setUpAndProcess_put(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &GraphStorageServiceAsyncProcessor::process_put<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void GraphStorageServiceAsyncProcessor::process_put(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  GraphStorageService_put_pargs args;
+   ::nebula::storage::cpp2::KVPutRequest uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "GraphStorageService.put", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "put");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>>(std::move(req), std::move(ctxStack), return_put<ProtocolIn_,ProtocolOut_>, throw_wrapped_put<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_put(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue GraphStorageServiceAsyncProcessor::return_put(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ExecResponse const& _return) {
+  ProtocolOut_ prot;
+  GraphStorageService_put_presult result;
+  result.get<0>().value = const_cast< ::nebula::storage::cpp2::ExecResponse*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("put", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void GraphStorageServiceAsyncProcessor::throw_wrapped_put(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "put");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void GraphStorageServiceAsyncProcessor::setUpAndProcess_remove(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &GraphStorageServiceAsyncProcessor::process_remove<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void GraphStorageServiceAsyncProcessor::process_remove(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  GraphStorageService_remove_pargs args;
+   ::nebula::storage::cpp2::KVRemoveRequest uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "GraphStorageService.remove", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "remove");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>>(std::move(req), std::move(ctxStack), return_remove<ProtocolIn_,ProtocolOut_>, throw_wrapped_remove<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_remove(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue GraphStorageServiceAsyncProcessor::return_remove(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ExecResponse const& _return) {
+  ProtocolOut_ prot;
+  GraphStorageService_remove_presult result;
+  result.get<0>().value = const_cast< ::nebula::storage::cpp2::ExecResponse*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("remove", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void GraphStorageServiceAsyncProcessor::throw_wrapped_remove(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "remove");
     return;
   }
 }

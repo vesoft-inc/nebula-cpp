@@ -1287,13 +1287,23 @@ const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::Le
   TType::T_I64,
 }};
 
+const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::meta::cpp2::PartitionList>::fields_names = {{
+  "part_list",
+}};
+const std::array<int16_t, 1> TStructDataStorage<::nebula::meta::cpp2::PartitionList>::fields_ids = {{
+  1,
+}};
+const std::array<protocol::TType, 1> TStructDataStorage<::nebula::meta::cpp2::PartitionList>::fields_types = {{
+  TType::T_LIST,
+}};
+
 const std::array<folly::StringPiece, 6> TStructDataStorage<::nebula::meta::cpp2::HBReq>::fields_names = {{
   "role",
   "host",
   "cluster_id",
   "leader_partIds",
   "git_info_sha",
-  "version",
+  "disk_parts",
 }};
 const std::array<int16_t, 6> TStructDataStorage<::nebula::meta::cpp2::HBReq>::fields_ids = {{
   1,
@@ -1309,7 +1319,7 @@ const std::array<protocol::TType, 6> TStructDataStorage<::nebula::meta::cpp2::HB
   TType::T_I64,
   TType::T_MAP,
   TType::T_STRING,
-  TType::T_STRING,
+  TType::T_MAP,
 }};
 
 const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::meta::cpp2::IndexFieldDef>::fields_names = {{
@@ -1989,117 +1999,6 @@ const std::array<protocol::TType, 3> TStructDataStorage<::nebula::meta::cpp2::Li
   TType::T_LIST,
 }};
 
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::meta::cpp2::AddGroupReq>::fields_names = {{
-  "group_name",
-  "zone_names",
-}};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::meta::cpp2::AddGroupReq>::fields_ids = {{
-  1,
-  2,
-}};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::AddGroupReq>::fields_types = {{
-  TType::T_STRING,
-  TType::T_LIST,
-}};
-
-const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::meta::cpp2::DropGroupReq>::fields_names = {{
-  "group_name",
-}};
-const std::array<int16_t, 1> TStructDataStorage<::nebula::meta::cpp2::DropGroupReq>::fields_ids = {{
-  1,
-}};
-const std::array<protocol::TType, 1> TStructDataStorage<::nebula::meta::cpp2::DropGroupReq>::fields_types = {{
-  TType::T_STRING,
-}};
-
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::meta::cpp2::AddZoneIntoGroupReq>::fields_names = {{
-  "zone_name",
-  "group_name",
-}};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::meta::cpp2::AddZoneIntoGroupReq>::fields_ids = {{
-  1,
-  2,
-}};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::AddZoneIntoGroupReq>::fields_types = {{
-  TType::T_STRING,
-  TType::T_STRING,
-}};
-
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::meta::cpp2::DropZoneFromGroupReq>::fields_names = {{
-  "zone_name",
-  "group_name",
-}};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::meta::cpp2::DropZoneFromGroupReq>::fields_ids = {{
-  1,
-  2,
-}};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::DropZoneFromGroupReq>::fields_types = {{
-  TType::T_STRING,
-  TType::T_STRING,
-}};
-
-const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::meta::cpp2::GetGroupReq>::fields_names = {{
-  "group_name",
-}};
-const std::array<int16_t, 1> TStructDataStorage<::nebula::meta::cpp2::GetGroupReq>::fields_ids = {{
-  1,
-}};
-const std::array<protocol::TType, 1> TStructDataStorage<::nebula::meta::cpp2::GetGroupReq>::fields_types = {{
-  TType::T_STRING,
-}};
-
-const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::meta::cpp2::GetGroupResp>::fields_names = {{
-  "code",
-  "leader",
-  "zone_names",
-}};
-const std::array<int16_t, 3> TStructDataStorage<::nebula::meta::cpp2::GetGroupResp>::fields_ids = {{
-  1,
-  2,
-  3,
-}};
-const std::array<protocol::TType, 3> TStructDataStorage<::nebula::meta::cpp2::GetGroupResp>::fields_types = {{
-  TType::T_I32,
-  TType::T_STRUCT,
-  TType::T_LIST,
-}};
-
-const std::array<folly::StringPiece, 0> TStructDataStorage<::nebula::meta::cpp2::ListGroupsReq>::fields_names = {{
-}};
-const std::array<int16_t, 0> TStructDataStorage<::nebula::meta::cpp2::ListGroupsReq>::fields_ids = {{
-}};
-const std::array<protocol::TType, 0> TStructDataStorage<::nebula::meta::cpp2::ListGroupsReq>::fields_types = {{
-}};
-
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::meta::cpp2::Group>::fields_names = {{
-  "group_name",
-  "zone_names",
-}};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::meta::cpp2::Group>::fields_ids = {{
-  1,
-  2,
-}};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::Group>::fields_types = {{
-  TType::T_STRING,
-  TType::T_LIST,
-}};
-
-const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::meta::cpp2::ListGroupsResp>::fields_names = {{
-  "code",
-  "leader",
-  "groups",
-}};
-const std::array<int16_t, 3> TStructDataStorage<::nebula::meta::cpp2::ListGroupsResp>::fields_ids = {{
-  1,
-  2,
-  3,
-}};
-const std::array<protocol::TType, 3> TStructDataStorage<::nebula::meta::cpp2::ListGroupsResp>::fields_types = {{
-  TType::T_I32,
-  TType::T_STRUCT,
-  TType::T_LIST,
-}};
-
 const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::meta::cpp2::AddListenerReq>::fields_names = {{
   "space_id",
   "type",
@@ -2303,18 +2202,21 @@ const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::Re
   TType::T_LIST,
 }};
 
-const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::meta::cpp2::FTClient>::fields_names = {{
+const std::array<folly::StringPiece, 4> TStructDataStorage<::nebula::meta::cpp2::FTClient>::fields_names = {{
   "host",
   "user",
   "pwd",
+  "conn_type",
 }};
-const std::array<int16_t, 3> TStructDataStorage<::nebula::meta::cpp2::FTClient>::fields_ids = {{
+const std::array<int16_t, 4> TStructDataStorage<::nebula::meta::cpp2::FTClient>::fields_ids = {{
   1,
   2,
   3,
+  4,
 }};
-const std::array<protocol::TType, 3> TStructDataStorage<::nebula::meta::cpp2::FTClient>::fields_types = {{
+const std::array<protocol::TType, 4> TStructDataStorage<::nebula::meta::cpp2::FTClient>::fields_types = {{
   TType::T_STRUCT,
+  TType::T_STRING,
   TType::T_STRING,
   TType::T_STRING,
 }};
@@ -2694,14 +2596,17 @@ const std::array<protocol::TType, 3> TStructDataStorage<::nebula::meta::cpp2::Ve
   TType::T_STRING,
 }};
 
-const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::meta::cpp2::VerifyClientVersionReq>::fields_names = {{
+const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::meta::cpp2::VerifyClientVersionReq>::fields_names = {{
   "version",
+  "host",
 }};
-const std::array<int16_t, 1> TStructDataStorage<::nebula::meta::cpp2::VerifyClientVersionReq>::fields_ids = {{
+const std::array<int16_t, 2> TStructDataStorage<::nebula::meta::cpp2::VerifyClientVersionReq>::fields_ids = {{
   1,
+  2,
 }};
-const std::array<protocol::TType, 1> TStructDataStorage<::nebula::meta::cpp2::VerifyClientVersionReq>::fields_types = {{
+const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::VerifyClientVersionReq>::fields_types = {{
   TType::T_STRING,
+  TType::T_STRUCT,
 }};
 
 } // namespace thrift

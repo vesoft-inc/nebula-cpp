@@ -24,11 +24,6 @@ class StorageAdminServiceSvIf;
 namespace nebula {
 namespace storage {
 namespace cpp2 {
-class GeneralStorageServiceSvIf;
-}}} // namespace nebula::storage::cpp2
-namespace nebula {
-namespace storage {
-namespace cpp2 {
 class InternalStorageServiceSvIf;
 }}} // namespace nebula::storage::cpp2
 
@@ -253,17 +248,12 @@ class StructMetadata<::nebula::storage::cpp2::ScanVertexRequest> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::storage::cpp2::ScanVertexResponse> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
 class StructMetadata<::nebula::storage::cpp2::ScanEdgeRequest> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::storage::cpp2::ScanEdgeResponse> {
+class StructMetadata<::nebula::storage::cpp2::ScanResponse> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
@@ -273,12 +263,22 @@ class StructMetadata<::nebula::storage::cpp2::TaskPara> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::storage::cpp2::AddAdminTaskRequest> {
+class StructMetadata<::nebula::storage::cpp2::KVGetRequest> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::storage::cpp2::StopAdminTaskRequest> {
+class StructMetadata<::nebula::storage::cpp2::KVGetResponse> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
+class StructMetadata<::nebula::storage::cpp2::KVPutRequest> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
+class StructMetadata<::nebula::storage::cpp2::KVRemoveRequest> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
@@ -368,22 +368,12 @@ class StructMetadata<::nebula::storage::cpp2::ListClusterInfoReq> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::storage::cpp2::KVGetRequest> {
+class StructMetadata<::nebula::storage::cpp2::AddAdminTaskRequest> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::storage::cpp2::KVGetResponse> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::storage::cpp2::KVPutRequest> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::storage::cpp2::KVRemoveRequest> {
+class StructMetadata<::nebula::storage::cpp2::StopAdminTaskRequest> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
@@ -423,6 +413,9 @@ class ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf> {
   static void gen_lookupAndTraverse(ThriftMetadata& metadata, ThriftService& context);
   static void gen_chainUpdateEdge(ThriftMetadata& metadata, ThriftService& context);
   static void gen_chainAddEdges(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_get(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_put(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_remove(ThriftMetadata& metadata, ThriftService& context);
 };
 template <>
 class ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf> {
@@ -445,15 +438,6 @@ class ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf> {
   static void gen_addAdminTask(ThriftMetadata& metadata, ThriftService& context);
   static void gen_stopAdminTask(ThriftMetadata& metadata, ThriftService& context);
   static void gen_listClusterInfo(ThriftMetadata& metadata, ThriftService& context);
-};
-template <>
-class ServiceMetadata<::nebula::storage::cpp2::GeneralStorageServiceSvIf> {
- public:
-  static void gen(ThriftMetadata& metadata, ThriftServiceContext& context);
- private:
-  static void gen_get(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_put(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_remove(ThriftMetadata& metadata, ThriftService& context);
 };
 template <>
 class ServiceMetadata<::nebula::storage::cpp2::InternalStorageServiceSvIf> {

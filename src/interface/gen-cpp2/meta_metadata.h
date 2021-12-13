@@ -417,6 +417,11 @@ class StructMetadata<::nebula::meta::cpp2::LeaderInfo> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
+class StructMetadata<::nebula::meta::cpp2::PartitionList> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
 class StructMetadata<::nebula::meta::cpp2::HBReq> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
@@ -668,51 +673,6 @@ class StructMetadata<::nebula::meta::cpp2::Zone> {
 };
 template <>
 class StructMetadata<::nebula::meta::cpp2::ListZonesResp> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::AddGroupReq> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::DropGroupReq> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::AddZoneIntoGroupReq> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::DropZoneFromGroupReq> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::GetGroupReq> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::GetGroupResp> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::ListGroupsReq> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::Group> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::ListGroupsResp> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
@@ -996,12 +956,6 @@ class ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf> {
   static void gen_dropHostFromZone(ThriftMetadata& metadata, ThriftService& context);
   static void gen_getZone(ThriftMetadata& metadata, ThriftService& context);
   static void gen_listZones(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_addGroup(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_dropGroup(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_addZoneIntoGroup(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_dropZoneFromGroup(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_getGroup(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_listGroups(ThriftMetadata& metadata, ThriftService& context);
   static void gen_createBackup(ThriftMetadata& metadata, ThriftService& context);
   static void gen_restoreMeta(ThriftMetadata& metadata, ThriftService& context);
   static void gen_addListener(ThriftMetadata& metadata, ThriftService& context);
