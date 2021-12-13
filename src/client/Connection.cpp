@@ -79,7 +79,13 @@ bool Connection::open(const std::string &address,
   }
   bool complete{false};
   std::shared_ptr<folly::AsyncSocket> socket;
-  auto socketAddr = folly::SocketAddress(address, port, true);
+  folly::SocketAddress socketAddr;
+  try {
+    socketAddr = folly::SocketAddress(address, port, true);
+  } catch (const std::exception &e) {
+    DLOG(ERROR) << "Invalid address: " << address << ":" << port << ": " << e.what();
+    return false;
+  }
   clientLoopThread_->getEventBase()->runImmediatelyOrRunInEventBaseThreadAndWait(
       [this, &complete, &socket, timeout, &socketAddr, enableSSL, &CAPath]() {
         try {
@@ -98,6 +104,9 @@ bool Connection::open(const std::string &address,
         }
       });
   if (!complete) {
+    return false;
+  }
+  if (!socket->good()) {
     return false;
   }
   socket->setErrMessageCB(&NebulaConnectionErrMessageCallback::instance());
@@ -203,6 +212,7 @@ void Connection::close() {
 bool Connection::ping() {
   auto resp = execute(0 /*Only check connection*/, "YIELD 1");
   if (resp.errorCode == ErrorCode::E_RPC_FAILURE || resp.errorCode == ErrorCode::E_DISCONNECTED) {
+    DLOG(ERROR) << "Ping failed: " << *resp.errorMsg;
     return false;
   }
   return true;

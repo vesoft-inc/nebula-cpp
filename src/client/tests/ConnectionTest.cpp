@@ -199,6 +199,18 @@ TEST_F(ConnectionTest, JsonResult) {
   b1.wait();
 }
 
+TEST_F(ConnectionTest, InvalidPort) {
+  nebula::Connection c;
+
+  ASSERT_FALSE(c.open(kServerHost, 2333, 10, false, ""));
+}
+
+TEST_F(ConnectionTest, InvalidHost) {
+  nebula::Connection c;
+
+  ASSERT_FALSE(c.open("Invalid Host", 9669, 10, false, ""));
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   nebula::init(&argc, &argv);
