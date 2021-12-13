@@ -143,7 +143,7 @@ TEST_F(SessionTest, InvalidAddress) {
 
 TEST_F(SessionTest, Data) {
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 200, 0, "", false};
+  nebula::Config c{10, 0, 300, 0, "", false};
   pool.init({kServerHost ":9669"}, c);
   auto session = pool.getSession("root", "nebula");
   ASSERT_TRUE(session.valid());
