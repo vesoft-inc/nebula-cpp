@@ -143,7 +143,7 @@ TEST_F(SessionTest, InvalidAddress) {
 
 TEST_F(SessionTest, Data) {
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 100, 0, "", false};
+  nebula::Config c{10, 0, 300, 0, "", false};
   pool.init({kServerHost ":9669"}, c);
   auto session = pool.getSession("root", "nebula");
   ASSERT_TRUE(session.valid());
@@ -160,7 +160,7 @@ TEST_F(SessionTest, Data) {
   resp = session.execute(
       "INSERT VERTEX geo VALUES 'v101':(ST_Point(3, 8), ST_Point(4, 6), "
       "ST_GeogFromText('LINESTRING(0 1, 2 3)'), ST_GeogFromText('POLYGON((0 1, 1 2, 2 3, 0 1))'))");
-  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
 
   // execute
   resp = session.execute(

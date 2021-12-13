@@ -148,7 +148,7 @@ jobs:
           case ${{ matrix.os }} in
           centos7)
             # install GCC4.8 by yum to build example
-            yum -y update && yum -y install gcc gcc-c++
+            yum -y update && yum -y install gcc gcc-c++ libstdc++-static
             pushd examples
             mkdir build
             cmake \
@@ -167,7 +167,7 @@ jobs:
             cmake --build build/ -j $(nproc)
             # if the example use the g++ under /opt/vesoft/toolset, need to replace the low version libstdc++.so
             rm /usr/lib/x86_64-linux-gnu/libstdc++.so.6
-            ln -s /opt/vesoft/toolset/clang/9.0.0/lib64/libstdc++.so /usr/lib/x86_64-linux-gnu/libstdc++.so.6
+            ln -s /opt/vesoft/toolset/clang/10.0.0/lib64/libstdc++.so /usr/lib/x86_64-linux-gnu/libstdc++.so.6
             LD_LIBRARY_PATH=/usr/local/nebula/lib64:/usr/local/nebula/lib:$LD_LIBRARY_PATH ./build/session_example graphd:9669
             popd
             ;;
