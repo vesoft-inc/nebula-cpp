@@ -148,7 +148,7 @@ jobs:
           case ${{ matrix.os }} in
           centos7)
             # install GCC4.8 by yum to build example
-            yum -y update && yum -y install gcc gcc-c++
+            yum -y update && yum -y install gcc gcc-c++ libstdc++-static
             pushd examples
             mkdir build
             cmake \
