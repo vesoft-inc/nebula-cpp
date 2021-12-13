@@ -24,6 +24,7 @@ else()
     add_compile_options(-D_GLIBCXX_USE_CXX11_ABI=1)
 endif()
 
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-libstdc++")
 
 # This project only depends on the nebula-client headers/library
 include_directories(${NEBULA_HOME}/include)
