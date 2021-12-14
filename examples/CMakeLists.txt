@@ -14,6 +14,7 @@ if (NOT NEBULA_HOME)
 endif()
 
 option(DISABLE_CXX11_ABI                "Whether to disable cxx11 abi" OFF)
+option(ENABLE_ASAN                      "Whether to enable address sanitizer" OFF)
 
 # Is abi 11
 if (DISABLE_CXX11_ABI)
@@ -25,6 +26,18 @@ else()
 endif()
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -static-libstdc++")
+
+# address sanitizer
+if(ENABLE_ASAN)
+    set(CMAKE_REQUIRED_FLAGS "-fsanitize=address")
+    add_compile_options(-fsanitize=address)
+    add_compile_options(-g)
+    add_compile_options(-fno-omit-frame-pointer)
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")
+# TODO ?
+#    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fsanitize=address")
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -lasan")
+endif()
 
 # This project only depends on the nebula-client headers/library
 include_directories(${NEBULA_HOME}/include)

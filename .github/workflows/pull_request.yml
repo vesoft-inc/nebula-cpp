@@ -161,9 +161,16 @@ jobs:
             popd
             ;;
           *)
+            ENABLE_ASAN=OFF
+            case ${{ matrix.compiler }} in
+            clang-*)
+              # build with Sanitizer
+              ENABLE_ASAN=ON
+              ;;
+            esac
             pushd examples
             mkdir build
-            cmake -B build
+            cmake -DENABLE_ASAN=${ENABLE_ASAN} -B build
             cmake --build build/ -j $(nproc)
             # if the example use the g++ under /opt/vesoft/toolset, need to replace the low version libstdc++.so
             rm /usr/lib/x86_64-linux-gnu/libstdc++.so.6
