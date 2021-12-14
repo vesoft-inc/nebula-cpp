@@ -34,7 +34,10 @@ class Connection {
   Connection(const Connection &) = delete;
   Connection &operator=(const Connection &c) = delete;
 
-  Connection(Connection &&c) noexcept { *this = std::move(c); }
+  Connection(Connection &&c) noexcept : client_(c.client_), clientLoopThread_(c.clientLoopThread_) {
+    c.client_ = nullptr;
+    c.clientLoopThread_ = nullptr;
+  }
 
   Connection &operator=(Connection &&c);
 
