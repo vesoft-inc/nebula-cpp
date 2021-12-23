@@ -59,6 +59,8 @@ jobs:
           gcc-*)
             case ${{ matrix.os }} in
             centos7)
+              # Hotfix vesoft/nebula-dev:centos7 lose environment variable TOOLSET_CLANG_DIR
+              export TOOLSET_CLANG_DIR=/opt/vesoft/toolset/clang/10.0.0
               # build with Release type
               cmake \
                   -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/g++ \
