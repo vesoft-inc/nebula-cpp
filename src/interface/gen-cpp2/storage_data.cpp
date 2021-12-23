@@ -716,16 +716,13 @@ const std::array<protocol::TType, 5> TStructDataStorage<::nebula::storage::cpp2:
   TType::T_STRUCT,
 }};
 
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::ScanCursor>::fields_names = {{
-  "has_next",
+const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::storage::cpp2::ScanCursor>::fields_names = {{
   "next_cursor",
 }};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::ScanCursor>::fields_ids = {{
-  3,
-  4,
+const std::array<int16_t, 1> TStructDataStorage<::nebula::storage::cpp2::ScanCursor>::fields_ids = {{
+  1,
 }};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::ScanCursor>::fields_types = {{
-  TType::T_BOOL,
+const std::array<protocol::TType, 1> TStructDataStorage<::nebula::storage::cpp2::ScanCursor>::fields_types = {{
   TType::T_STRING,
 }};
 

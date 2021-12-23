@@ -1258,6 +1258,252 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   void listEdgesT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ListEdgesReq& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> listEdgesCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
+  virtual void addHosts(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+  virtual void addHosts(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+ protected:
+  void addHostsImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+ public:
+
+  virtual void sync_addHosts( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+  virtual void sync_addHosts(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addHosts(const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addHosts(const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addHosts(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addHosts(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_addHosts(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_addHosts(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+
+#if FOLLY_HAS_COROUTINES
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_addHosts(const  ::nebula::meta::cpp2::AddHostsReq& p_req) {
+    return co_addHosts<false>(nullptr, p_req);
+  }
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_addHosts(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostsReq& p_req) {
+    return co_addHosts<true>(&rpcOptions, p_req);
+  }
+ private:
+  template <bool hasRpcOptions>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_addHosts(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::AddHostsReq& p_req) {
+    const folly::CancellationToken& cancelToken =
+        co_await folly::coro::co_current_cancellation_token;
+    const bool cancellable = cancelToken.canBeCancelled();
+    apache::thrift::ClientReceiveState returnState;
+    apache::thrift::ClientSyncCallback<false> callback(&returnState);
+    auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+    auto ctx = addHostsCtx(rpcOptions);
+    using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
+    auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
+    static const apache::thrift::RpcOptions defaultRpcOptions;
+    auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
+    if constexpr (hasRpcOptions) {
+      addHostsImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+    } else {
+      addHostsImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+    }
+    if (cancellable) {
+      folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
+      co_await callback.co_waitUntilDone();
+    } else {
+      co_await callback.co_waitUntilDone();
+    }
+    if (returnState.isException()) {
+      co_yield folly::coro::co_error(std::move(returnState.exception()));
+    }
+    returnState.resetProtocolId(protocolId);
+    returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+    SCOPE_EXIT {
+      if (hasRpcOptions && returnState.header() && !returnState.header()->getHeaders().empty()) {
+        rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
+      }
+    };
+     ::nebula::meta::cpp2::ExecResp _return;
+    if (auto ew = recv_wrapped_addHosts(_return, returnState)) {
+      co_yield folly::coro::co_error(std::move(ew));
+    }
+    co_return _return;
+  }
+ public:
+#endif // FOLLY_HAS_COROUTINES
+
+  virtual void addHosts(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+
+
+  static folly::exception_wrapper recv_wrapped_addHosts( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_addHosts( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  // Mock friendly virtual instance method
+  virtual void recv_instance_addHosts( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_addHosts( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+ private:
+  template <typename Protocol_>
+  void addHostsT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AddHostsReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> addHostsCtx(apache::thrift::RpcOptions* rpcOptions);
+ public:
+  virtual void addHostsIntoZone(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+  virtual void addHostsIntoZone(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+ protected:
+  void addHostsIntoZoneImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+ public:
+
+  virtual void sync_addHostsIntoZone( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+  virtual void sync_addHostsIntoZone(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addHostsIntoZone(const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addHostsIntoZone(const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addHostsIntoZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addHostsIntoZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_addHostsIntoZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_addHostsIntoZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+
+#if FOLLY_HAS_COROUTINES
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_addHostsIntoZone(const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req) {
+    return co_addHostsIntoZone<false>(nullptr, p_req);
+  }
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_addHostsIntoZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req) {
+    return co_addHostsIntoZone<true>(&rpcOptions, p_req);
+  }
+ private:
+  template <bool hasRpcOptions>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_addHostsIntoZone(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req) {
+    const folly::CancellationToken& cancelToken =
+        co_await folly::coro::co_current_cancellation_token;
+    const bool cancellable = cancelToken.canBeCancelled();
+    apache::thrift::ClientReceiveState returnState;
+    apache::thrift::ClientSyncCallback<false> callback(&returnState);
+    auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+    auto ctx = addHostsIntoZoneCtx(rpcOptions);
+    using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
+    auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
+    static const apache::thrift::RpcOptions defaultRpcOptions;
+    auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
+    if constexpr (hasRpcOptions) {
+      addHostsIntoZoneImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+    } else {
+      addHostsIntoZoneImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+    }
+    if (cancellable) {
+      folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
+      co_await callback.co_waitUntilDone();
+    } else {
+      co_await callback.co_waitUntilDone();
+    }
+    if (returnState.isException()) {
+      co_yield folly::coro::co_error(std::move(returnState.exception()));
+    }
+    returnState.resetProtocolId(protocolId);
+    returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+    SCOPE_EXIT {
+      if (hasRpcOptions && returnState.header() && !returnState.header()->getHeaders().empty()) {
+        rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
+      }
+    };
+     ::nebula::meta::cpp2::ExecResp _return;
+    if (auto ew = recv_wrapped_addHostsIntoZone(_return, returnState)) {
+      co_yield folly::coro::co_error(std::move(ew));
+    }
+    co_return _return;
+  }
+ public:
+#endif // FOLLY_HAS_COROUTINES
+
+  virtual void addHostsIntoZone(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+
+
+  static folly::exception_wrapper recv_wrapped_addHostsIntoZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_addHostsIntoZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  // Mock friendly virtual instance method
+  virtual void recv_instance_addHostsIntoZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_addHostsIntoZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+ private:
+  template <typename Protocol_>
+  void addHostsIntoZoneT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> addHostsIntoZoneCtx(apache::thrift::RpcOptions* rpcOptions);
+ public:
+  virtual void dropHosts(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+  virtual void dropHosts(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+ protected:
+  void dropHostsImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+ public:
+
+  virtual void sync_dropHosts( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+  virtual void sync_dropHosts(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropHosts(const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropHosts(const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropHosts(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropHosts(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_dropHosts(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_dropHosts(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+
+#if FOLLY_HAS_COROUTINES
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_dropHosts(const  ::nebula::meta::cpp2::DropHostsReq& p_req) {
+    return co_dropHosts<false>(nullptr, p_req);
+  }
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_dropHosts(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DropHostsReq& p_req) {
+    return co_dropHosts<true>(&rpcOptions, p_req);
+  }
+ private:
+  template <bool hasRpcOptions>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_dropHosts(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::DropHostsReq& p_req) {
+    const folly::CancellationToken& cancelToken =
+        co_await folly::coro::co_current_cancellation_token;
+    const bool cancellable = cancelToken.canBeCancelled();
+    apache::thrift::ClientReceiveState returnState;
+    apache::thrift::ClientSyncCallback<false> callback(&returnState);
+    auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+    auto ctx = dropHostsCtx(rpcOptions);
+    using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
+    auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
+    static const apache::thrift::RpcOptions defaultRpcOptions;
+    auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
+    if constexpr (hasRpcOptions) {
+      dropHostsImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+    } else {
+      dropHostsImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+    }
+    if (cancellable) {
+      folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
+      co_await callback.co_waitUntilDone();
+    } else {
+      co_await callback.co_waitUntilDone();
+    }
+    if (returnState.isException()) {
+      co_yield folly::coro::co_error(std::move(returnState.exception()));
+    }
+    returnState.resetProtocolId(protocolId);
+    returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+    SCOPE_EXIT {
+      if (hasRpcOptions && returnState.header() && !returnState.header()->getHeaders().empty()) {
+        rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
+      }
+    };
+     ::nebula::meta::cpp2::ExecResp _return;
+    if (auto ew = recv_wrapped_dropHosts(_return, returnState)) {
+      co_yield folly::coro::co_error(std::move(ew));
+    }
+    co_return _return;
+  }
+ public:
+#endif // FOLLY_HAS_COROUTINES
+
+  virtual void dropHosts(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+
+
+  static folly::exception_wrapper recv_wrapped_dropHosts( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_dropHosts( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  // Mock friendly virtual instance method
+  virtual void recv_instance_dropHosts( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_dropHosts( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+ private:
+  template <typename Protocol_>
+  void dropHostsT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::DropHostsReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> dropHostsCtx(apache::thrift::RpcOptions* rpcOptions);
+ public:
   virtual void listHosts(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::ListHostsReq& p_req);
   virtual void listHosts(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::ListHostsReq& p_req);
  protected:
@@ -4456,49 +4702,49 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   void runAdminJobT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AdminJobReq& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> runAdminJobCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
-  virtual void addZone(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AddZoneReq& p_req);
-  virtual void addZone(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AddZoneReq& p_req);
+  virtual void mergeZone(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
+  virtual void mergeZone(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
  protected:
-  void addZoneImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AddZoneReq& p_req);
+  void mergeZoneImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
  public:
 
-  virtual void sync_addZone( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::AddZoneReq& p_req);
-  virtual void sync_addZone(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::AddZoneReq& p_req);
+  virtual void sync_mergeZone( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
+  virtual void sync_mergeZone(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
 
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addZone(const  ::nebula::meta::cpp2::AddZoneReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addZone(const  ::nebula::meta::cpp2::AddZoneReq& p_req);
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddZoneReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddZoneReq& p_req);
-  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_addZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddZoneReq& p_req);
-  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_addZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddZoneReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_mergeZone(const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_mergeZone(const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_mergeZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_mergeZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_mergeZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_mergeZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
 
 #if FOLLY_HAS_COROUTINES
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_addZone(const  ::nebula::meta::cpp2::AddZoneReq& p_req) {
-    return co_addZone<false>(nullptr, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_mergeZone(const  ::nebula::meta::cpp2::MergeZoneReq& p_req) {
+    return co_mergeZone<false>(nullptr, p_req);
   }
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_addZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddZoneReq& p_req) {
-    return co_addZone<true>(&rpcOptions, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_mergeZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MergeZoneReq& p_req) {
+    return co_mergeZone<true>(&rpcOptions, p_req);
   }
  private:
   template <bool hasRpcOptions>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_addZone(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::AddZoneReq& p_req) {
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_mergeZone(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::MergeZoneReq& p_req) {
     const folly::CancellationToken& cancelToken =
         co_await folly::coro::co_current_cancellation_token;
     const bool cancellable = cancelToken.canBeCancelled();
     apache::thrift::ClientReceiveState returnState;
     apache::thrift::ClientSyncCallback<false> callback(&returnState);
     auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-    auto ctx = addZoneCtx(rpcOptions);
+    auto ctx = mergeZoneCtx(rpcOptions);
     using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
     auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
     static const apache::thrift::RpcOptions defaultRpcOptions;
     auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
     if constexpr (hasRpcOptions) {
-      addZoneImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+      mergeZoneImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
     } else {
-      addZoneImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+      mergeZoneImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
     }
     if (cancellable) {
       folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
@@ -4517,7 +4763,7 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
       }
     };
      ::nebula::meta::cpp2::ExecResp _return;
-    if (auto ew = recv_wrapped_addZone(_return, returnState)) {
+    if (auto ew = recv_wrapped_mergeZone(_return, returnState)) {
       co_yield folly::coro::co_error(std::move(ew));
     }
     co_return _return;
@@ -4525,18 +4771,18 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
  public:
 #endif // FOLLY_HAS_COROUTINES
 
-  virtual void addZone(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::AddZoneReq& p_req);
+  virtual void mergeZone(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
 
 
-  static folly::exception_wrapper recv_wrapped_addZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  static void recv_addZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static folly::exception_wrapper recv_wrapped_mergeZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_mergeZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
   // Mock friendly virtual instance method
-  virtual void recv_instance_addZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual folly::exception_wrapper recv_instance_wrapped_addZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual void recv_instance_mergeZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_mergeZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
  private:
   template <typename Protocol_>
-  void addZoneT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AddZoneReq& p_req);
-  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> addZoneCtx(apache::thrift::RpcOptions* rpcOptions);
+  void mergeZoneT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::MergeZoneReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> mergeZoneCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
   virtual void dropZone(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::DropZoneReq& p_req);
   virtual void dropZone(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::DropZoneReq& p_req);
@@ -4620,49 +4866,49 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   void dropZoneT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::DropZoneReq& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> dropZoneCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
-  virtual void addHostIntoZone(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
-  virtual void addHostIntoZone(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
+  virtual void splitZone(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  virtual void splitZone(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
  protected:
-  void addHostIntoZoneImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
+  void splitZoneImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
  public:
 
-  virtual void sync_addHostIntoZone( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
-  virtual void sync_addHostIntoZone(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
+  virtual void sync_splitZone( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  virtual void sync_splitZone(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
 
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addHostIntoZone(const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addHostIntoZone(const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addHostIntoZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addHostIntoZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
-  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_addHostIntoZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
-  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_addHostIntoZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_splitZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_splitZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_splitZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_splitZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
 
 #if FOLLY_HAS_COROUTINES
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_addHostIntoZone(const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req) {
-    return co_addHostIntoZone<false>(nullptr, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req) {
+    return co_splitZone<false>(nullptr, p_req);
   }
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_addHostIntoZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req) {
-    return co_addHostIntoZone<true>(&rpcOptions, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_splitZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SplitZoneReq& p_req) {
+    return co_splitZone<true>(&rpcOptions, p_req);
   }
  private:
   template <bool hasRpcOptions>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_addHostIntoZone(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req) {
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_splitZone(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::SplitZoneReq& p_req) {
     const folly::CancellationToken& cancelToken =
         co_await folly::coro::co_current_cancellation_token;
     const bool cancellable = cancelToken.canBeCancelled();
     apache::thrift::ClientReceiveState returnState;
     apache::thrift::ClientSyncCallback<false> callback(&returnState);
     auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-    auto ctx = addHostIntoZoneCtx(rpcOptions);
+    auto ctx = splitZoneCtx(rpcOptions);
     using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
     auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
     static const apache::thrift::RpcOptions defaultRpcOptions;
     auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
     if constexpr (hasRpcOptions) {
-      addHostIntoZoneImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+      splitZoneImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
     } else {
-      addHostIntoZoneImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+      splitZoneImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
     }
     if (cancellable) {
       folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
@@ -4681,7 +4927,7 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
       }
     };
      ::nebula::meta::cpp2::ExecResp _return;
-    if (auto ew = recv_wrapped_addHostIntoZone(_return, returnState)) {
+    if (auto ew = recv_wrapped_splitZone(_return, returnState)) {
       co_yield folly::coro::co_error(std::move(ew));
     }
     co_return _return;
@@ -4689,62 +4935,62 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
  public:
 #endif // FOLLY_HAS_COROUTINES
 
-  virtual void addHostIntoZone(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
+  virtual void splitZone(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
 
 
-  static folly::exception_wrapper recv_wrapped_addHostIntoZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  static void recv_addHostIntoZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static folly::exception_wrapper recv_wrapped_splitZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_splitZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
   // Mock friendly virtual instance method
-  virtual void recv_instance_addHostIntoZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual folly::exception_wrapper recv_instance_wrapped_addHostIntoZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual void recv_instance_splitZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_splitZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
  private:
   template <typename Protocol_>
-  void addHostIntoZoneT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req);
-  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> addHostIntoZoneCtx(apache::thrift::RpcOptions* rpcOptions);
+  void splitZoneT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> splitZoneCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
-  virtual void dropHostFromZone(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
-  virtual void dropHostFromZone(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
+  virtual void renameZone(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
+  virtual void renameZone(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
  protected:
-  void dropHostFromZoneImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
+  void renameZoneImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
  public:
 
-  virtual void sync_dropHostFromZone( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
-  virtual void sync_dropHostFromZone(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
+  virtual void sync_renameZone( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
+  virtual void sync_renameZone(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
 
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropHostFromZone(const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropHostFromZone(const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropHostFromZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropHostFromZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
-  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_dropHostFromZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
-  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_dropHostFromZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_renameZone(const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_renameZone(const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_renameZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_renameZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_renameZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_renameZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
 
 #if FOLLY_HAS_COROUTINES
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_dropHostFromZone(const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req) {
-    return co_dropHostFromZone<false>(nullptr, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_renameZone(const  ::nebula::meta::cpp2::RenameZoneReq& p_req) {
+    return co_renameZone<false>(nullptr, p_req);
   }
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_dropHostFromZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req) {
-    return co_dropHostFromZone<true>(&rpcOptions, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_renameZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RenameZoneReq& p_req) {
+    return co_renameZone<true>(&rpcOptions, p_req);
   }
  private:
   template <bool hasRpcOptions>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_dropHostFromZone(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req) {
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_renameZone(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::RenameZoneReq& p_req) {
     const folly::CancellationToken& cancelToken =
         co_await folly::coro::co_current_cancellation_token;
     const bool cancellable = cancelToken.canBeCancelled();
     apache::thrift::ClientReceiveState returnState;
     apache::thrift::ClientSyncCallback<false> callback(&returnState);
     auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-    auto ctx = dropHostFromZoneCtx(rpcOptions);
+    auto ctx = renameZoneCtx(rpcOptions);
     using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
     auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
     static const apache::thrift::RpcOptions defaultRpcOptions;
     auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
     if constexpr (hasRpcOptions) {
-      dropHostFromZoneImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+      renameZoneImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
     } else {
-      dropHostFromZoneImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+      renameZoneImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
     }
     if (cancellable) {
       folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
@@ -4763,7 +5009,7 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
       }
     };
      ::nebula::meta::cpp2::ExecResp _return;
-    if (auto ew = recv_wrapped_dropHostFromZone(_return, returnState)) {
+    if (auto ew = recv_wrapped_renameZone(_return, returnState)) {
       co_yield folly::coro::co_error(std::move(ew));
     }
     co_return _return;
@@ -4771,18 +5017,18 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
  public:
 #endif // FOLLY_HAS_COROUTINES
 
-  virtual void dropHostFromZone(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
+  virtual void renameZone(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
 
 
-  static folly::exception_wrapper recv_wrapped_dropHostFromZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  static void recv_dropHostFromZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static folly::exception_wrapper recv_wrapped_renameZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_renameZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
   // Mock friendly virtual instance method
-  virtual void recv_instance_dropHostFromZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual folly::exception_wrapper recv_instance_wrapped_dropHostFromZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual void recv_instance_renameZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_renameZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
  private:
   template <typename Protocol_>
-  void dropHostFromZoneT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req);
-  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> dropHostFromZoneCtx(apache::thrift::RpcOptions* rpcOptions);
+  void renameZoneT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> renameZoneCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
   virtual void getZone(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::GetZoneReq& p_req);
   virtual void getZone(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::GetZoneReq& p_req);

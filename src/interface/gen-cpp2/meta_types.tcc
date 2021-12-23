@@ -443,6 +443,20 @@ struct TccStructTraits<::nebula::meta::cpp2::ListEdgesResp> {
       apache::thrift::protocol::TType& _ftype) noexcept;
 };
 template <>
+struct TccStructTraits<::nebula::meta::cpp2::AddHostsReq> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
+struct TccStructTraits<::nebula::meta::cpp2::DropHostsReq> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
 struct TccStructTraits<::nebula::meta::cpp2::ListHostsReq> {
   static void translateFieldName(
       folly::StringPiece _fname,
@@ -870,7 +884,7 @@ struct TccStructTraits<::nebula::meta::cpp2::ListIndexStatusResp> {
       apache::thrift::protocol::TType& _ftype) noexcept;
 };
 template <>
-struct TccStructTraits<::nebula::meta::cpp2::AddZoneReq> {
+struct TccStructTraits<::nebula::meta::cpp2::MergeZoneReq> {
   static void translateFieldName(
       folly::StringPiece _fname,
       int16_t& fid,
@@ -884,14 +898,21 @@ struct TccStructTraits<::nebula::meta::cpp2::DropZoneReq> {
       apache::thrift::protocol::TType& _ftype) noexcept;
 };
 template <>
-struct TccStructTraits<::nebula::meta::cpp2::AddHostIntoZoneReq> {
+struct TccStructTraits<::nebula::meta::cpp2::SplitZoneReq> {
   static void translateFieldName(
       folly::StringPiece _fname,
       int16_t& fid,
       apache::thrift::protocol::TType& _ftype) noexcept;
 };
 template <>
-struct TccStructTraits<::nebula::meta::cpp2::DropHostFromZoneReq> {
+struct TccStructTraits<::nebula::meta::cpp2::RenameZoneReq> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
+struct TccStructTraits<::nebula::meta::cpp2::AddHostsIntoZoneReq> {
   static void translateFieldName(
       folly::StringPiece _fname,
       int16_t& fid,
@@ -2464,15 +2485,18 @@ _readField_vid_type:
           iprot,
           6,
           7,
-          apache::thrift::protocol::T_STRING))) {
+          apache::thrift::protocol::T_LIST))) {
     goto _loop;
   }
-_readField_group_name:
+_readField_zone_names:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->group_name, _readState);
+    _readState.beforeSubobject(iprot);
+    this->zone_names = ::std::vector<::std::string>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::readWithContext(*iprot, this->zone_names, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.group_name = true;
+    this->__isset.zone_names = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
   }
 
   if (UNLIKELY(!_readState.advanceToNextField(
@@ -2578,8 +2602,8 @@ _loop:
     }
     case 7:
     {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_group_name;
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_zone_names;
       } else {
         goto _skip;
       }
@@ -2627,10 +2651,8 @@ uint32_t SpaceDesc::serializedSize(Protocol_ const* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->collate_name);
   xfer += prot_->serializedFieldSize("vid_type", apache::thrift::protocol::T_STRUCT, 6);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ColumnTypeDef>::serializedSize<false>(*prot_, this->vid_type);
-  if (this->group_name_ref().has_value()) {
-    xfer += prot_->serializedFieldSize("group_name", apache::thrift::protocol::T_STRING, 7);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->group_name);
-  }
+  xfer += prot_->serializedFieldSize("zone_names", apache::thrift::protocol::T_LIST, 7);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->zone_names);
   if (this->isolation_level_ref().has_value()) {
     xfer += prot_->serializedFieldSize("isolation_level", apache::thrift::protocol::T_I32, 8);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::IsolationLevel>::serializedSize<false>(*prot_, this->isolation_level);
@@ -2659,10 +2681,8 @@ uint32_t SpaceDesc::serializedSizeZC(Protocol_ const* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->collate_name);
   xfer += prot_->serializedFieldSize("vid_type", apache::thrift::protocol::T_STRUCT, 6);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ColumnTypeDef>::serializedSize<true>(*prot_, this->vid_type);
-  if (this->group_name_ref().has_value()) {
-    xfer += prot_->serializedFieldSize("group_name", apache::thrift::protocol::T_STRING, 7);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->group_name);
-  }
+  xfer += prot_->serializedFieldSize("zone_names", apache::thrift::protocol::T_LIST, 7);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->zone_names);
   if (this->isolation_level_ref().has_value()) {
     xfer += prot_->serializedFieldSize("isolation_level", apache::thrift::protocol::T_I32, 8);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::IsolationLevel>::serializedSize<false>(*prot_, this->isolation_level);
@@ -2697,11 +2717,9 @@ uint32_t SpaceDesc::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldBegin("vid_type", apache::thrift::protocol::T_STRUCT, 6);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ColumnTypeDef>::write(*prot_, this->vid_type);
   xfer += prot_->writeFieldEnd();
-  if (this->group_name_ref().has_value()) {
-    xfer += prot_->writeFieldBegin("group_name", apache::thrift::protocol::T_STRING, 7);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->group_name);
-    xfer += prot_->writeFieldEnd();
-  }
+  xfer += prot_->writeFieldBegin("zone_names", apache::thrift::protocol::T_LIST, 7);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::write(*prot_, this->zone_names);
+  xfer += prot_->writeFieldEnd();
   if (this->isolation_level_ref().has_value()) {
     xfer += prot_->writeFieldBegin("isolation_level", apache::thrift::protocol::T_I32, 8);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::IsolationLevel>::write(*prot_, this->isolation_level);
@@ -9544,6 +9562,232 @@ extern template void ListEdgesResp::readNoXfer<>(apache::thrift::CompactProtocol
 extern template uint32_t ListEdgesResp::write<>(apache::thrift::CompactProtocolWriter*) const;
 extern template uint32_t ListEdgesResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 extern template uint32_t ListEdgesResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}}} // nebula::meta::cpp2
+namespace nebula { namespace meta { namespace cpp2 {
+
+template <class Protocol_>
+void AddHostsReq::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_LIST))) {
+    goto _loop;
+  }
+_readField_hosts:
+  {
+    _readState.beforeSubobject(iprot);
+    this->hosts = ::std::vector<nebula::HostAddr>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::readWithContext(*iprot, this->hosts, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.hosts = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<AddHostsReq>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_hosts;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t AddHostsReq::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("AddHostsReq");
+  xfer += prot_->serializedFieldSize("hosts", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::serializedSize<false>(*prot_, this->hosts);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t AddHostsReq::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("AddHostsReq");
+  xfer += prot_->serializedFieldSize("hosts", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::serializedSize<false>(*prot_, this->hosts);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t AddHostsReq::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("AddHostsReq");
+  xfer += prot_->writeFieldBegin("hosts", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::write(*prot_, this->hosts);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void AddHostsReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t AddHostsReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t AddHostsReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t AddHostsReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void AddHostsReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t AddHostsReq::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t AddHostsReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t AddHostsReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}}} // nebula::meta::cpp2
+namespace nebula { namespace meta { namespace cpp2 {
+
+template <class Protocol_>
+void DropHostsReq::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_LIST))) {
+    goto _loop;
+  }
+_readField_hosts:
+  {
+    _readState.beforeSubobject(iprot);
+    this->hosts = ::std::vector<nebula::HostAddr>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::readWithContext(*iprot, this->hosts, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.hosts = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<DropHostsReq>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_hosts;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t DropHostsReq::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("DropHostsReq");
+  xfer += prot_->serializedFieldSize("hosts", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::serializedSize<false>(*prot_, this->hosts);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t DropHostsReq::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("DropHostsReq");
+  xfer += prot_->serializedFieldSize("hosts", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::serializedSize<false>(*prot_, this->hosts);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t DropHostsReq::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("DropHostsReq");
+  xfer += prot_->writeFieldBegin("hosts", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::write(*prot_, this->hosts);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void DropHostsReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t DropHostsReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t DropHostsReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t DropHostsReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void DropHostsReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t DropHostsReq::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t DropHostsReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t DropHostsReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // nebula::meta::cpp2
 namespace nebula { namespace meta { namespace cpp2 {
@@ -19023,7 +19267,7 @@ extern template uint32_t ListIndexStatusResp::serializedSizeZC<>(apache::thrift:
 namespace nebula { namespace meta { namespace cpp2 {
 
 template <class Protocol_>
-void AddZoneReq::readNoXfer(Protocol_* iprot) {
+void MergeZoneReq::readNoXfer(Protocol_* iprot) {
   apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
 
   _readState.readStructBegin(iprot);
@@ -19035,6 +19279,24 @@ void AddZoneReq::readNoXfer(Protocol_* iprot) {
           iprot,
           0,
           1,
+          apache::thrift::protocol::T_LIST))) {
+    goto _loop;
+  }
+_readField_zones:
+  {
+    _readState.beforeSubobject(iprot);
+    this->zones = ::std::vector<::std::string>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::readWithContext(*iprot, this->zones, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.zones = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          2,
           apache::thrift::protocol::T_STRING))) {
     goto _loop;
   }
@@ -19044,24 +19306,6 @@ _readField_zone_name:
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     this->__isset.zone_name = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          1,
-          2,
-          apache::thrift::protocol::T_LIST))) {
-    goto _loop;
-  }
-_readField_nodes:
-  {
-    _readState.beforeSubobject(iprot);
-    this->nodes = ::std::vector<nebula::HostAddr>();
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::readWithContext(*iprot, this->nodes, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.nodes = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-    _readState.afterSubobject(iprot);
   }
 
   if (UNLIKELY(!_readState.advanceToNextField(
@@ -19083,22 +19327,22 @@ _loop:
     goto _end;
   }
   if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<AddZoneReq>>();
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<MergeZoneReq>>();
   }
 
   switch (_readState.fieldId) {
     case 1:
     {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_zone_name;
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_zones;
       } else {
         goto _skip;
       }
     }
     case 2:
     {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
-        goto _readField_nodes;
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_zone_name;
       } else {
         goto _skip;
       }
@@ -19115,52 +19359,52 @@ _skip:
 }
 
 template <class Protocol_>
-uint32_t AddZoneReq::serializedSize(Protocol_ const* prot_) const {
+uint32_t MergeZoneReq::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("AddZoneReq");
-  xfer += prot_->serializedFieldSize("zone_name", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedStructSize("MergeZoneReq");
+  xfer += prot_->serializedFieldSize("zones", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->zones);
+  xfer += prot_->serializedFieldSize("zone_name", apache::thrift::protocol::T_STRING, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->zone_name);
-  xfer += prot_->serializedFieldSize("nodes", apache::thrift::protocol::T_LIST, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::serializedSize<false>(*prot_, this->nodes);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
 
 template <class Protocol_>
-uint32_t AddZoneReq::serializedSizeZC(Protocol_ const* prot_) const {
+uint32_t MergeZoneReq::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("AddZoneReq");
-  xfer += prot_->serializedFieldSize("zone_name", apache::thrift::protocol::T_STRING, 1);
+  xfer += prot_->serializedStructSize("MergeZoneReq");
+  xfer += prot_->serializedFieldSize("zones", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->zones);
+  xfer += prot_->serializedFieldSize("zone_name", apache::thrift::protocol::T_STRING, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->zone_name);
-  xfer += prot_->serializedFieldSize("nodes", apache::thrift::protocol::T_LIST, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::serializedSize<false>(*prot_, this->nodes);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
 
 template <class Protocol_>
-uint32_t AddZoneReq::write(Protocol_* prot_) const {
+uint32_t MergeZoneReq::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->writeStructBegin("AddZoneReq");
-  xfer += prot_->writeFieldBegin("zone_name", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->zone_name);
+  xfer += prot_->writeStructBegin("MergeZoneReq");
+  xfer += prot_->writeFieldBegin("zones", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::write(*prot_, this->zones);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("nodes", apache::thrift::protocol::T_LIST, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::write(*prot_, this->nodes);
+  xfer += prot_->writeFieldBegin("zone_name", apache::thrift::protocol::T_STRING, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->zone_name);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
   return xfer;
 }
 
-extern template void AddZoneReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t AddZoneReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t AddZoneReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t AddZoneReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void AddZoneReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t AddZoneReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t AddZoneReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t AddZoneReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template void MergeZoneReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t MergeZoneReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t MergeZoneReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t MergeZoneReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void MergeZoneReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t MergeZoneReq::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t MergeZoneReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t MergeZoneReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // nebula::meta::cpp2
 namespace nebula { namespace meta { namespace cpp2 {
@@ -19276,7 +19520,7 @@ extern template uint32_t DropZoneReq::serializedSizeZC<>(apache::thrift::Compact
 namespace nebula { namespace meta { namespace cpp2 {
 
 template <class Protocol_>
-void AddHostIntoZoneReq::readNoXfer(Protocol_* iprot) {
+void SplitZoneReq::readNoXfer(Protocol_* iprot) {
   apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
 
   _readState.readStructBegin(iprot);
@@ -19288,23 +19532,6 @@ void AddHostIntoZoneReq::readNoXfer(Protocol_* iprot) {
           iprot,
           0,
           1,
-          apache::thrift::protocol::T_STRUCT))) {
-    goto _loop;
-  }
-_readField_node:
-  {
-    _readState.beforeSubobject(iprot);
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::readWithContext(*iprot, this->node, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.node = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-    _readState.afterSubobject(iprot);
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          1,
-          2,
           apache::thrift::protocol::T_STRING))) {
     goto _loop;
   }
@@ -19318,7 +19545,7 @@ _readField_zone_name:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          2,
+          1,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -19335,19 +19562,11 @@ _loop:
     goto _end;
   }
   if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<AddHostIntoZoneReq>>();
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<SplitZoneReq>>();
   }
 
   switch (_readState.fieldId) {
     case 1:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
-        goto _readField_node;
-      } else {
-        goto _skip;
-      }
-    }
-    case 2:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
         goto _readField_zone_name;
@@ -19367,37 +19586,30 @@ _skip:
 }
 
 template <class Protocol_>
-uint32_t AddHostIntoZoneReq::serializedSize(Protocol_ const* prot_) const {
+uint32_t SplitZoneReq::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("AddHostIntoZoneReq");
-  xfer += prot_->serializedFieldSize("node", apache::thrift::protocol::T_STRUCT, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<false>(*prot_, this->node);
-  xfer += prot_->serializedFieldSize("zone_name", apache::thrift::protocol::T_STRING, 2);
+  xfer += prot_->serializedStructSize("SplitZoneReq");
+  xfer += prot_->serializedFieldSize("zone_name", apache::thrift::protocol::T_STRING, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->zone_name);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
 
 template <class Protocol_>
-uint32_t AddHostIntoZoneReq::serializedSizeZC(Protocol_ const* prot_) const {
+uint32_t SplitZoneReq::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("AddHostIntoZoneReq");
-  xfer += prot_->serializedFieldSize("node", apache::thrift::protocol::T_STRUCT, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<true>(*prot_, this->node);
-  xfer += prot_->serializedFieldSize("zone_name", apache::thrift::protocol::T_STRING, 2);
+  xfer += prot_->serializedStructSize("SplitZoneReq");
+  xfer += prot_->serializedFieldSize("zone_name", apache::thrift::protocol::T_STRING, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->zone_name);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
 
 template <class Protocol_>
-uint32_t AddHostIntoZoneReq::write(Protocol_* prot_) const {
+uint32_t SplitZoneReq::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->writeStructBegin("AddHostIntoZoneReq");
-  xfer += prot_->writeFieldBegin("node", apache::thrift::protocol::T_STRUCT, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::write(*prot_, this->node);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("zone_name", apache::thrift::protocol::T_STRING, 2);
+  xfer += prot_->writeStructBegin("SplitZoneReq");
+  xfer += prot_->writeFieldBegin("zone_name", apache::thrift::protocol::T_STRING, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->zone_name);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
@@ -19405,20 +19617,20 @@ uint32_t AddHostIntoZoneReq::write(Protocol_* prot_) const {
   return xfer;
 }
 
-extern template void AddHostIntoZoneReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t AddHostIntoZoneReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t AddHostIntoZoneReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t AddHostIntoZoneReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void AddHostIntoZoneReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t AddHostIntoZoneReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t AddHostIntoZoneReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t AddHostIntoZoneReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template void SplitZoneReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t SplitZoneReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t SplitZoneReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t SplitZoneReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void SplitZoneReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t SplitZoneReq::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t SplitZoneReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t SplitZoneReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // nebula::meta::cpp2
 namespace nebula { namespace meta { namespace cpp2 {
 
 template <class Protocol_>
-void DropHostFromZoneReq::readNoXfer(Protocol_* iprot) {
+void RenameZoneReq::readNoXfer(Protocol_* iprot) {
   apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
 
   _readState.readStructBegin(iprot);
@@ -19430,17 +19642,15 @@ void DropHostFromZoneReq::readNoXfer(Protocol_* iprot) {
           iprot,
           0,
           1,
-          apache::thrift::protocol::T_STRUCT))) {
+          apache::thrift::protocol::T_STRING))) {
     goto _loop;
   }
-_readField_node:
+_readField_original_zone_name:
   {
-    _readState.beforeSubobject(iprot);
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::readWithContext(*iprot, this->node, _readState);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->original_zone_name, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.node = true;
+    this->__isset.original_zone_name = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
-    _readState.afterSubobject(iprot);
   }
 
   if (UNLIKELY(!_readState.advanceToNextField(
@@ -19477,14 +19687,14 @@ _loop:
     goto _end;
   }
   if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<DropHostFromZoneReq>>();
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<RenameZoneReq>>();
   }
 
   switch (_readState.fieldId) {
     case 1:
     {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
-        goto _readField_node;
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_original_zone_name;
       } else {
         goto _skip;
       }
@@ -19509,11 +19719,11 @@ _skip:
 }
 
 template <class Protocol_>
-uint32_t DropHostFromZoneReq::serializedSize(Protocol_ const* prot_) const {
+uint32_t RenameZoneReq::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("DropHostFromZoneReq");
-  xfer += prot_->serializedFieldSize("node", apache::thrift::protocol::T_STRUCT, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<false>(*prot_, this->node);
+  xfer += prot_->serializedStructSize("RenameZoneReq");
+  xfer += prot_->serializedFieldSize("original_zone_name", apache::thrift::protocol::T_STRING, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->original_zone_name);
   xfer += prot_->serializedFieldSize("zone_name", apache::thrift::protocol::T_STRING, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->zone_name);
   xfer += prot_->serializedSizeStop();
@@ -19521,11 +19731,11 @@ uint32_t DropHostFromZoneReq::serializedSize(Protocol_ const* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t DropHostFromZoneReq::serializedSizeZC(Protocol_ const* prot_) const {
+uint32_t RenameZoneReq::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("DropHostFromZoneReq");
-  xfer += prot_->serializedFieldSize("node", apache::thrift::protocol::T_STRUCT, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<true>(*prot_, this->node);
+  xfer += prot_->serializedStructSize("RenameZoneReq");
+  xfer += prot_->serializedFieldSize("original_zone_name", apache::thrift::protocol::T_STRING, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->original_zone_name);
   xfer += prot_->serializedFieldSize("zone_name", apache::thrift::protocol::T_STRING, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->zone_name);
   xfer += prot_->serializedSizeStop();
@@ -19533,11 +19743,11 @@ uint32_t DropHostFromZoneReq::serializedSizeZC(Protocol_ const* prot_) const {
 }
 
 template <class Protocol_>
-uint32_t DropHostFromZoneReq::write(Protocol_* prot_) const {
+uint32_t RenameZoneReq::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->writeStructBegin("DropHostFromZoneReq");
-  xfer += prot_->writeFieldBegin("node", apache::thrift::protocol::T_STRUCT, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::write(*prot_, this->node);
+  xfer += prot_->writeStructBegin("RenameZoneReq");
+  xfer += prot_->writeFieldBegin("original_zone_name", apache::thrift::protocol::T_STRING, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->original_zone_name);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldBegin("zone_name", apache::thrift::protocol::T_STRING, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->zone_name);
@@ -19547,14 +19757,187 @@ uint32_t DropHostFromZoneReq::write(Protocol_* prot_) const {
   return xfer;
 }
 
-extern template void DropHostFromZoneReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t DropHostFromZoneReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t DropHostFromZoneReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t DropHostFromZoneReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void DropHostFromZoneReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t DropHostFromZoneReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t DropHostFromZoneReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t DropHostFromZoneReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template void RenameZoneReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t RenameZoneReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t RenameZoneReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t RenameZoneReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void RenameZoneReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t RenameZoneReq::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t RenameZoneReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t RenameZoneReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}}} // nebula::meta::cpp2
+namespace nebula { namespace meta { namespace cpp2 {
+
+template <class Protocol_>
+void AddHostsIntoZoneReq::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_LIST))) {
+    goto _loop;
+  }
+_readField_hosts:
+  {
+    _readState.beforeSubobject(iprot);
+    this->hosts = ::std::vector<nebula::HostAddr>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::readWithContext(*iprot, this->hosts, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.hosts = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          2,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_zone_name:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->zone_name, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.zone_name = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          2,
+          3,
+          apache::thrift::protocol::T_BOOL))) {
+    goto _loop;
+  }
+_readField_is_new:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::readWithContext(*iprot, this->is_new, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.is_new = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          3,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<AddHostsIntoZoneReq>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_hosts;
+      } else {
+        goto _skip;
+      }
+    }
+    case 2:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_zone_name;
+      } else {
+        goto _skip;
+      }
+    }
+    case 3:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_BOOL))) {
+        goto _readField_is_new;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t AddHostsIntoZoneReq::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("AddHostsIntoZoneReq");
+  xfer += prot_->serializedFieldSize("hosts", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::serializedSize<false>(*prot_, this->hosts);
+  xfer += prot_->serializedFieldSize("zone_name", apache::thrift::protocol::T_STRING, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->zone_name);
+  xfer += prot_->serializedFieldSize("is_new", apache::thrift::protocol::T_BOOL, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->is_new);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t AddHostsIntoZoneReq::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("AddHostsIntoZoneReq");
+  xfer += prot_->serializedFieldSize("hosts", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::serializedSize<false>(*prot_, this->hosts);
+  xfer += prot_->serializedFieldSize("zone_name", apache::thrift::protocol::T_STRING, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->zone_name);
+  xfer += prot_->serializedFieldSize("is_new", apache::thrift::protocol::T_BOOL, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->is_new);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t AddHostsIntoZoneReq::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("AddHostsIntoZoneReq");
+  xfer += prot_->writeFieldBegin("hosts", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::write(*prot_, this->hosts);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("zone_name", apache::thrift::protocol::T_STRING, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->zone_name);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("is_new", apache::thrift::protocol::T_BOOL, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::write(*prot_, this->is_new);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void AddHostsIntoZoneReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t AddHostsIntoZoneReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t AddHostsIntoZoneReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t AddHostsIntoZoneReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void AddHostsIntoZoneReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t AddHostsIntoZoneReq::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t AddHostsIntoZoneReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t AddHostsIntoZoneReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // nebula::meta::cpp2
 namespace nebula { namespace meta { namespace cpp2 {

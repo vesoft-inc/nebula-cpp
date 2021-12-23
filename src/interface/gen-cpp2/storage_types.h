@@ -148,7 +148,6 @@ struct parts;
 struct indices;
 struct traverse_spec;
 struct common;
-struct has_next;
 struct next_cursor;
 struct space_id;
 struct parts;
@@ -780,10 +779,6 @@ APACHE_THRIFT_DEFINE_ACCESSOR(traverse_spec);
 #ifndef APACHE_THRIFT_ACCESSOR_common
 #define APACHE_THRIFT_ACCESSOR_common
 APACHE_THRIFT_DEFINE_ACCESSOR(common);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_has_next
-#define APACHE_THRIFT_ACCESSOR_has_next
-APACHE_THRIFT_DEFINE_ACCESSOR(has_next);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_next_cursor
 #define APACHE_THRIFT_ACCESSOR_next_cursor
@@ -9391,11 +9386,10 @@ class ScanCursor final  {
  public:
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  ScanCursor() :
-      has_next(0) {}
+  ScanCursor() {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  ScanCursor(apache::thrift::FragileConstructor, bool has_next__arg, ::std::string next_cursor__arg);
+  ScanCursor(apache::thrift::FragileConstructor, ::std::string next_cursor__arg);
 
   ScanCursor(ScanCursor&&) = default;
 
@@ -9408,14 +9402,11 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
   void __clear();
  private:
-  bool has_next;
- private:
   ::std::string next_cursor;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
-    bool has_next;
     bool next_cursor;
   } __isset = {};
   bool operator==(const ScanCursor& rhs) const;
@@ -9438,28 +9429,6 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 #endif
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> has_next_ref() const& {
-    return {this->has_next, __isset.has_next};
-  }
-
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> has_next_ref() const&& {
-    return {std::move(this->has_next), __isset.has_next};
-  }
-
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> has_next_ref() & {
-    return {this->has_next, __isset.has_next};
-  }
-
-  template <typename..., typename T = bool>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> has_next_ref() && {
-    return {std::move(this->has_next), __isset.has_next};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   template <typename..., typename T = ::std::string>
   FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> next_cursor_ref() const& {
     return {this->next_cursor, __isset.next_cursor};
@@ -9480,18 +9449,6 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     return {std::move(this->next_cursor), __isset.next_cursor};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-  bool get_has_next() const {
-    return has_next;
-  }
-
-  bool& set_has_next(bool has_next_) {
-    has_next = has_next_;
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.has_next = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return has_next;
-  }
 
   const ::std::string* get_next_cursor() const& {
     return next_cursor_ref() ? std::addressof(next_cursor) : nullptr;

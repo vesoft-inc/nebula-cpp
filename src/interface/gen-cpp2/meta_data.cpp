@@ -359,7 +359,7 @@ const std::array<folly::StringPiece, 9> TStructDataStorage<::nebula::meta::cpp2:
   "charset_name",
   "collate_name",
   "vid_type",
-  "group_name",
+  "zone_names",
   "isolation_level",
   "comment",
 }};
@@ -381,7 +381,7 @@ const std::array<protocol::TType, 9> TStructDataStorage<::nebula::meta::cpp2::Sp
   TType::T_STRING,
   TType::T_STRING,
   TType::T_STRUCT,
-  TType::T_STRING,
+  TType::T_LIST,
   TType::T_I32,
   TType::T_STRING,
 }};
@@ -1014,6 +1014,26 @@ const std::array<int16_t, 3> TStructDataStorage<::nebula::meta::cpp2::ListEdgesR
 const std::array<protocol::TType, 3> TStructDataStorage<::nebula::meta::cpp2::ListEdgesResp>::fields_types = {{
   TType::T_I32,
   TType::T_STRUCT,
+  TType::T_LIST,
+}};
+
+const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::meta::cpp2::AddHostsReq>::fields_names = {{
+  "hosts",
+}};
+const std::array<int16_t, 1> TStructDataStorage<::nebula::meta::cpp2::AddHostsReq>::fields_ids = {{
+  1,
+}};
+const std::array<protocol::TType, 1> TStructDataStorage<::nebula::meta::cpp2::AddHostsReq>::fields_types = {{
+  TType::T_LIST,
+}};
+
+const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::meta::cpp2::DropHostsReq>::fields_names = {{
+  "hosts",
+}};
+const std::array<int16_t, 1> TStructDataStorage<::nebula::meta::cpp2::DropHostsReq>::fields_ids = {{
+  1,
+}};
+const std::array<protocol::TType, 1> TStructDataStorage<::nebula::meta::cpp2::DropHostsReq>::fields_types = {{
   TType::T_LIST,
 }};
 
@@ -1888,17 +1908,17 @@ const std::array<protocol::TType, 3> TStructDataStorage<::nebula::meta::cpp2::Li
   TType::T_LIST,
 }};
 
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::meta::cpp2::AddZoneReq>::fields_names = {{
+const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::meta::cpp2::MergeZoneReq>::fields_names = {{
+  "zones",
   "zone_name",
-  "nodes",
 }};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::meta::cpp2::AddZoneReq>::fields_ids = {{
+const std::array<int16_t, 2> TStructDataStorage<::nebula::meta::cpp2::MergeZoneReq>::fields_ids = {{
   1,
   2,
 }};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::AddZoneReq>::fields_types = {{
-  TType::T_STRING,
+const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::MergeZoneReq>::fields_types = {{
   TType::T_LIST,
+  TType::T_STRING,
 }};
 
 const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::meta::cpp2::DropZoneReq>::fields_names = {{
@@ -1911,30 +1931,43 @@ const std::array<protocol::TType, 1> TStructDataStorage<::nebula::meta::cpp2::Dr
   TType::T_STRING,
 }};
 
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::meta::cpp2::AddHostIntoZoneReq>::fields_names = {{
-  "node",
+const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::meta::cpp2::SplitZoneReq>::fields_names = {{
   "zone_name",
 }};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::meta::cpp2::AddHostIntoZoneReq>::fields_ids = {{
+const std::array<int16_t, 1> TStructDataStorage<::nebula::meta::cpp2::SplitZoneReq>::fields_ids = {{
   1,
-  2,
 }};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::AddHostIntoZoneReq>::fields_types = {{
-  TType::T_STRUCT,
+const std::array<protocol::TType, 1> TStructDataStorage<::nebula::meta::cpp2::SplitZoneReq>::fields_types = {{
   TType::T_STRING,
 }};
 
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::meta::cpp2::DropHostFromZoneReq>::fields_names = {{
-  "node",
+const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::meta::cpp2::RenameZoneReq>::fields_names = {{
+  "original_zone_name",
   "zone_name",
 }};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::meta::cpp2::DropHostFromZoneReq>::fields_ids = {{
+const std::array<int16_t, 2> TStructDataStorage<::nebula::meta::cpp2::RenameZoneReq>::fields_ids = {{
   1,
   2,
 }};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::DropHostFromZoneReq>::fields_types = {{
-  TType::T_STRUCT,
+const std::array<protocol::TType, 2> TStructDataStorage<::nebula::meta::cpp2::RenameZoneReq>::fields_types = {{
   TType::T_STRING,
+  TType::T_STRING,
+}};
+
+const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::meta::cpp2::AddHostsIntoZoneReq>::fields_names = {{
+  "hosts",
+  "zone_name",
+  "is_new",
+}};
+const std::array<int16_t, 3> TStructDataStorage<::nebula::meta::cpp2::AddHostsIntoZoneReq>::fields_ids = {{
+  1,
+  2,
+  3,
+}};
+const std::array<protocol::TType, 3> TStructDataStorage<::nebula::meta::cpp2::AddHostsIntoZoneReq>::fields_types = {{
+  TType::T_LIST,
+  TType::T_STRING,
+  TType::T_BOOL,
 }};
 
 const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::meta::cpp2::GetZoneReq>::fields_names = {{

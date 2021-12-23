@@ -327,6 +327,16 @@ class StructMetadata<::nebula::meta::cpp2::ListEdgesResp> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
+class StructMetadata<::nebula::meta::cpp2::AddHostsReq> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
+class StructMetadata<::nebula::meta::cpp2::DropHostsReq> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
 class StructMetadata<::nebula::meta::cpp2::ListHostsReq> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
@@ -632,7 +642,7 @@ class StructMetadata<::nebula::meta::cpp2::ListIndexStatusResp> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::meta::cpp2::AddZoneReq> {
+class StructMetadata<::nebula::meta::cpp2::MergeZoneReq> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
@@ -642,12 +652,17 @@ class StructMetadata<::nebula::meta::cpp2::DropZoneReq> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::meta::cpp2::AddHostIntoZoneReq> {
+class StructMetadata<::nebula::meta::cpp2::SplitZoneReq> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::meta::cpp2::DropHostFromZoneReq> {
+class StructMetadata<::nebula::meta::cpp2::RenameZoneReq> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
+class StructMetadata<::nebula::meta::cpp2::AddHostsIntoZoneReq> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
@@ -911,6 +926,9 @@ class ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf> {
   static void gen_dropEdge(ThriftMetadata& metadata, ThriftService& context);
   static void gen_getEdge(ThriftMetadata& metadata, ThriftService& context);
   static void gen_listEdges(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_addHosts(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_addHostsIntoZone(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_dropHosts(ThriftMetadata& metadata, ThriftService& context);
   static void gen_listHosts(ThriftMetadata& metadata, ThriftService& context);
   static void gen_getPartsAlloc(ThriftMetadata& metadata, ThriftService& context);
   static void gen_listParts(ThriftMetadata& metadata, ThriftService& context);
@@ -950,10 +968,10 @@ class ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf> {
   static void gen_dropSnapshot(ThriftMetadata& metadata, ThriftService& context);
   static void gen_listSnapshots(ThriftMetadata& metadata, ThriftService& context);
   static void gen_runAdminJob(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_addZone(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_mergeZone(ThriftMetadata& metadata, ThriftService& context);
   static void gen_dropZone(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_addHostIntoZone(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_dropHostFromZone(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_splitZone(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_renameZone(ThriftMetadata& metadata, ThriftService& context);
   static void gen_getZone(ThriftMetadata& metadata, ThriftService& context);
   static void gen_listZones(ThriftMetadata& metadata, ThriftService& context);
   static void gen_createBackup(ThriftMetadata& metadata, ThriftService& context);

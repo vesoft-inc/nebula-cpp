@@ -73,7 +73,6 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
   // req->set_cursor("");
   // new interface
   storage::cpp2::ScanCursor scanCursor;
-  scanCursor.set_has_next(false);
   req->set_parts(std::unordered_map<PartitionID, storage::cpp2::ScanCursor>{{partId, scanCursor}});
   req->set_return_columns({returnCols});
   req->set_limit(limit);

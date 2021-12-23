@@ -680,10 +680,8 @@ struct VisitByThriftId<::nebula::storage::cpp2::ScanCursor> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
     switch (id) {
-    case 3:
-      return f(0, static_cast<T&&>(t).has_next_ref());
-    case 4:
-      return f(1, static_cast<T&&>(t).next_cursor_ref());
+    case 1:
+      return f(0, static_cast<T&&>(t).next_cursor_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::ScanCursor");
     }

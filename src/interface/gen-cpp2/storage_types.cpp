@@ -4995,16 +4995,13 @@ void TccStructTraits<::nebula::storage::cpp2::ScanCursor>::translateFieldName(
 namespace nebula { namespace storage { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-ScanCursor::ScanCursor(apache::thrift::FragileConstructor, bool has_next__arg, ::std::string next_cursor__arg) :
-    has_next(std::move(has_next__arg)),
+ScanCursor::ScanCursor(apache::thrift::FragileConstructor, ::std::string next_cursor__arg) :
     next_cursor(std::move(next_cursor__arg)) {
-  __isset.has_next = true;
   __isset.next_cursor = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void ScanCursor::__clear() {
   // clear all fields
-  has_next = 0;
   next_cursor = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
@@ -5015,9 +5012,6 @@ bool ScanCursor::operator==(const ScanCursor& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.has_next == rhs.has_next)) {
-    return false;
-  }
   if (lhs.next_cursor_ref().has_value() != rhs.next_cursor_ref().has_value()) {
     return false;
   }
@@ -5033,9 +5027,6 @@ bool ScanCursor::operator<(const ScanCursor& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.has_next == rhs.has_next)) {
-    return lhs.has_next < rhs.has_next;
-  }
   if (lhs.next_cursor_ref().has_value() != rhs.next_cursor_ref().has_value()) {
     return lhs.next_cursor_ref().has_value() < rhs.next_cursor_ref().has_value();
   }
@@ -5050,7 +5041,6 @@ bool ScanCursor::operator<(const ScanCursor& rhs) const {
 
 void swap(ScanCursor& a, ScanCursor& b) {
   using ::std::swap;
-  swap(a.has_next_ref().value(), b.has_next_ref().value());
   swap(a.next_cursor_ref().value_unchecked(), b.next_cursor_ref().value_unchecked());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
