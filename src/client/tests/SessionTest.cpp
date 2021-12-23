@@ -166,7 +166,7 @@ TEST_F(SessionTest, Data) {
   resp = session.execute(
       "FETCH PROP ON geo 'v101' YIELD geo.any_shape, geo.only_point, geo.only_lineString, "
       "geo.only_polygon");
-  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
   nebula::DataSet expected(
       {"geo.any_shape", "geo.only_point", "geo.only_lineString", "geo.only_polygon"});
   nebula::Geography geogPoint1(nebula::Point(nebula::Coordinate(3, 8)));
@@ -256,6 +256,12 @@ TEST_F(SessionTest, JsonResult) {
     b.post();
   });
   b.wait();
+}
+
+TEST_F(SessionTest, ConstructDestruct) {
+  nebula::ConnectionPool pool;
+  nebula::Config c{10, 0, 10, 0, "", false};
+  pool.init({kServerHost ":9669"}, c);
 }
 
 int main(int argc, char** argv) {

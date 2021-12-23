@@ -211,6 +211,12 @@ TEST_F(ConnectionTest, InvalidHost) {
   ASSERT_FALSE(c.open("Invalid Host", 9669, 10, false, ""));
 }
 
+TEST_F(ConnectionTest, ConstructDestruct) {
+  nebula::Connection c;
+
+  ASSERT_TRUE(c.open(kServerHost, 9669, 10, false, ""));
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   nebula::init(&argc, &argv);
