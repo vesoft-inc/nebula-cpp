@@ -39,7 +39,7 @@ jobs:
       matrix:
         os:
           - centos7
-          - ubuntu1804
+          - ubuntu2004
         compiler:
           - gcc-9.2
           - clang-9
@@ -69,7 +69,7 @@ jobs:
                   -DDISABLE_CXX11_ABI=ON \
                   -B build
               ;;
-            ubuntu1804)
+            ubuntu2004)
               # build with Debug type
               cmake \
                   -DCMAKE_CXX_COMPILER=$TOOLSET_GCC_DIR/bin/g++ \
@@ -109,11 +109,11 @@ jobs:
             done
             set -e
             ;;
-          ubuntu1804)
+          ubuntu2004)
             set +e
             for i in {0..10}; do
-              wget https://oss-cdn.nebula-graph.com.cn/package/nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu1804.amd64.deb
-              dpkg -i nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu1804.amd64.deb
+              wget https://oss-cdn.nebula-graph.com.cn/package/nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
+              dpkg -i nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
               if [ $? -eq 0 ]; then
                 break;
               fi
