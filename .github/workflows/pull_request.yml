@@ -121,12 +121,6 @@ jobs:
             set -e
             ;;
           esac
-          chmod u+w /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
-          echo '--cert_path=share/resources/test.ca.pem' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
-          echo '--key_path=share/resources/test.ca.key' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
-          echo '--password_path=share/resources/test.ca.password' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
-          echo '--enable_ssl=true' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
-          cp certs/* /usr/local/nebula/share/resources
           /usr/local/nebula/scripts/nebula.service start all
           /usr/local/nebula/scripts/nebula.service status all
           echo '127.0.0.1 graphd' >> /etc/hosts
@@ -139,7 +133,7 @@ jobs:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
         run: |
           pushd build
-          ctest -j $(nproc) --timeout 10000 --output-on-failure
+          ctest -j $(nproc) -E '\w*_ssl_test' --timeout 10000 --output-on-failure
           make install
           popd
         timeout-minutes: 10
@@ -172,6 +166,25 @@ jobs:
             popd
             ;;
           esac
+      - name: Nebula SSL Server
+        run: |
+          chmod u+w /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          echo '--cert_path=share/resources/test.derive.crt' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          echo '--key_path=share/resources/test.derive.key' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          echo '--ca_path=share/resources/test.ca.pem' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          echo '--enable_ssl=true' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          cp certs/* /usr/local/nebula/share/resources
+          /usr/local/nebula/scripts/nebula.service restart all
+          /usr/local/nebula/scripts/nebula.service status all
+      - name: CTest SSL
+        env:
+          ASAN_OPTIONS: fast_unwind_on_malloc=1
+        run: |
+          pushd build
+          ctest -j $(nproc) -R '\w*_ssl_test' --timeout 10000 --output-on-failure
+          make install
+          popd
+        timeout-minutes: 10
       - name: Cleanup
         if: ${{ always() }}
         run: rm -rf build modules
