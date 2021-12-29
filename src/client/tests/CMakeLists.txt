@@ -46,6 +46,19 @@ nebula_add_test(
 
 nebula_add_test(
     NAME
+        regist_host
+    SOURCES
+        RegistHost.cpp
+    OBJECTS
+        ${NEBULA_CLIENT_OBJS}
+        $<TARGET_OBJECTS:nebula_common_obj>
+        $<TARGET_OBJECTS:nebula_graph_client_obj>
+    LIBRARIES
+        ${NEBULA_THIRD_PARTY_LIBRARIES}
+)
+
+nebula_add_test(
+    NAME
         session_ssl_test
     SOURCES
         SessionSSLTest.cpp
