@@ -31,7 +31,7 @@ jobs:
           .linters/cpp/pre-commit.sh
 
   build:
-    name: build plaintext
+    name: build
     needs: lint
     runs-on: ubuntu-20.04
     strategy:
