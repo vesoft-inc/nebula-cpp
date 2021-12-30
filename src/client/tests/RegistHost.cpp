@@ -18,13 +18,14 @@
 
 DEFINE_string(host, "", "Register host address.");
 DEFINE_string(server, "127.0.0.1:9669", "Nebula server address.");
+DEFINE_bool(enable_ssl, false, "Enable SSL.");
 
 int main(int argc, char** argv) {
   nebula::init(&argc, &argv);
   google::SetStderrLogging(google::INFO);
 
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 300, 0, "", false};
+  nebula::Config c{10, 0, 300, 0, "", FLAGS_enable_ssl};
   pool.init({FLAGS_server}, c);
   auto session = pool.getSession("root", "nebula");
   CHECK(session.valid());

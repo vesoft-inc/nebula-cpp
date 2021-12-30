@@ -282,7 +282,7 @@ jobs:
         run: |
           pushd build
           # register storage to meta
-          ./bin/regist_host --host=127.0.0.1:9779
+          ./bin/regist_host --enable_ssl=true --host=127.0.0.1:9779
           ctest -j $(nproc) -E '\w*_ssl_test' --timeout 10000 --output-on-failure
           make install
           popd
