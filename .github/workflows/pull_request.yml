@@ -30,8 +30,8 @@ jobs:
           ln -snf $PWD/.linters/cpp/hooks/pre-commit.sh $PWD/.linters/cpp/pre-commit.sh
           .linters/cpp/pre-commit.sh
 
-  build:
-    name: build
+  build_plaintext:
+    name: build plaintext
     needs: lint
     runs-on: ubuntu-20.04
     strategy:
@@ -168,18 +168,125 @@ jobs:
             popd
             ;;
           esac
-      - name: Nebula SSL Server
+      - name: Cleanup
+        if: ${{ always() }}
+        run: rm -rf build modules
+
+  build_ssl:
+    name: build plaintext
+    needs: lint
+    runs-on: ubuntu-20.04
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - centos7
+          - ubuntu2004
+        compiler:
+          - gcc-9.2
+          - clang-9
+        exclude:
+          - os: centos7
+            compiler: clang-9
+    container:
+      image: vesoft/nebula-dev:${{ matrix.os }}
+      volumes:
+        - /tmp/nebula-graph-client/${{ matrix.os }}-${{ matrix.compiler }}:/tmp/nebula-graph-client/nebula-graph/${{ matrix.os }}-${{ matrix.compiler }}
+      options: --mount type=tmpfs,destination=/tmp/ccache/nebula-graph,tmpfs-size=1073741824 --cap-add=SYS_PTRACE
+    steps:
+      - uses: actions/checkout@v2
+      - name: CMake
         run: |
+          case ${{ matrix.compiler }} in
+          gcc-*)
+            case ${{ matrix.os }} in
+            centos7)
+              # build with Release type
+              cmake \
+                  -DCMAKE_CXX_COMPILER=$TOOLSET_GCC_DIR/bin/g++ \
+                  -DCMAKE_C_COMPILER=$TOOLSET_GCC_DIR/bin/gcc \
+                  -DCMAKE_BUILD_TYPE=Release \
+                  -DENABLE_TESTING=on \
+                  -DCMAKE_INSTALL_PREFIX=/usr/local/nebula \
+                  -DDISABLE_CXX11_ABI=ON \
+                  -B build
+              ;;
+            ubuntu2004)
+              # build with Debug type
+              cmake \
+                  -DCMAKE_CXX_COMPILER=$TOOLSET_GCC_DIR/bin/g++ \
+                  -DCMAKE_C_COMPILER=$TOOLSET_GCC_DIR/bin/gcc \
+                  -DCMAKE_BUILD_TYPE=Debug \
+                  -DENABLE_TESTING=on \
+                  -DCMAKE_INSTALL_PREFIX=/usr/local/nebula \
+                  -B build
+              ;;
+            esac
+            ;;
+          clang-*)
+            # build with Sanitizer
+            cmake \
+                -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/clang++ \
+                -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/clang \
+                -DCMAKE_BUILD_TYPE=Debug \
+                -DENABLE_ASAN=on \
+                -DENABLE_TESTING=on \
+                -DCMAKE_INSTALL_PREFIX=/usr/local/nebula \
+                -B build
+            ;;
+          esac
+      - name: Make
+        run: cmake --build build/ -j $(nproc)
+      - name: Nebula Server
+        run: |
+          case ${{ matrix.os }} in
+          centos7)
+            set +e
+            for i in {0..10}; do
+              wget https://oss-cdn.nebula-graph.com.cn/package/nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
+              rpm -ivh nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
+              if [ $? -eq 0 ]; then
+                break;
+              fi
+            done
+            set -e
+            ;;
+          ubuntu2004)
+            set +e
+            for i in {0..10}; do
+              wget https://oss-cdn.nebula-graph.com.cn/package/nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
+              dpkg -i nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
+              if [ $? -eq 0 ]; then
+                break;
+              fi
+            done
+            set -e
+            ;;
+          esac
           chmod u+w /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
           echo '--cert_path=share/resources/test.derive.crt' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
           echo '--key_path=share/resources/test.derive.key' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
           echo '--ca_path=share/resources/test.ca.pem' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
-          echo '--enable_graph_ssl=true' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
+          echo '--enable_ssl=true' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
           cp certs/* /usr/local/nebula/share/resources
-          /usr/local/nebula/scripts/nebula.service stop graphd
-          /usr/local/nebula/scripts/nebula.service status graphd
-          /usr/local/nebula/scripts/nebula.service start graphd
-          /usr/local/nebula/scripts/nebula.service status graphd
+          /usr/local/nebula/scripts/nebula.service start all
+          /usr/local/nebula/scripts/nebula.service status all
+          echo '127.0.0.1 graphd' >> /etc/hosts
+          echo '127.0.0.1 graphd1' >> /etc/hosts
+          echo '127.0.0.1 graphd2' >> /etc/hosts
+          # The connection maybe unstable, so we wait a while
+          sleep 10
+      - name: CTest
+        env:
+          ASAN_OPTIONS: fast_unwind_on_malloc=1
+        run: |
+          pushd build
+          # register storage to meta
+          ./bin/regist_host --host=127.0.0.1:9779
+          ctest -j $(nproc) -E '\w*_ssl_test' --timeout 10000 --output-on-failure
+          make install
+          popd
+        timeout-minutes: 10
       - name: CTest SSL
         env:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
