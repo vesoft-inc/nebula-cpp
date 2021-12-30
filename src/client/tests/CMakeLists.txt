@@ -44,7 +44,7 @@ nebula_add_test(
         ${NEBULA_THIRD_PARTY_LIBRARIES}
 )
 
-nebula_add_test(
+nebula_add_executable(
     NAME
         regist_host
     SOURCES
