@@ -173,7 +173,7 @@ jobs:
         run: rm -rf build modules
 
   build_ssl:
-    name: build plaintext
+    name: build ssl
     needs: lint
     runs-on: ubuntu-20.04
     strategy:
