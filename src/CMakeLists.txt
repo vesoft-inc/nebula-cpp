@@ -29,6 +29,7 @@ set(NEBULA_COMMON_SOURCES
     datatypes/Set.cpp
     datatypes/Value.cpp
     datatypes/Vertex.cpp
+    datatypes/Duration.cpp
     graph/Response.cpp
     time/TimeConversion.cpp
     geo/io/wkt/WKTWriter.cpp

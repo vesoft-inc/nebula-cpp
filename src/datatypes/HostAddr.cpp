@@ -13,7 +13,9 @@ bool HostAddr::operator==(const HostAddr& rhs) const {
   return host == rhs.host && port == rhs.port;
 }
 
-bool HostAddr::operator!=(const HostAddr& rhs) const { return !(*this == rhs); }
+bool HostAddr::operator!=(const HostAddr& rhs) const {
+  return !(*this == rhs);
+}
 
 bool HostAddr::operator<(const HostAddr& rhs) const {
   if (host == rhs.host) {

@@ -45,7 +45,9 @@ class Session {
     session.pool_ = nullptr;
     session.offsetSecs_ = 0;
   }
-  ~Session() { release(); }
+  ~Session() {
+    release();
+  }
 
   ExecutionResponse execute(const std::string &stmt);
 
@@ -61,14 +63,22 @@ class Session {
 
   void release();
 
-  bool valid() const { return sessionId_ > 0; }
+  bool valid() const {
+    return sessionId_ > 0;
+  }
 
-  const std::string &timeZoneName() const { return timezoneName_; }
+  const std::string &timeZoneName() const {
+    return timezoneName_;
+  }
 
-  int32_t timeZoneOffsetSecs() const { return offsetSecs_; }
+  int32_t timeZoneOffsetSecs() const {
+    return offsetSecs_;
+  }
 
   // convert the time to server time zone
-  void toLocal(DataSet &data) { return toLocal(data, offsetSecs_); }
+  void toLocal(DataSet &data) {
+    return toLocal(data, offsetSecs_);
+  }
 
   // convert the time to specific time zone
   static void toLocal(DataSet &data, int32_t offsetSecs);

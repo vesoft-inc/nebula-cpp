@@ -21,7 +21,9 @@ class ThriftClientManager final {
                                      bool compatibility = false,
                                      uint32_t timeout = 0);
 
-  ~ThriftClientManager() { VLOG(3) << "~ThriftClientManager"; }
+  ~ThriftClientManager() {
+    VLOG(3) << "~ThriftClientManager";
+  }
 
   explicit ThriftClientManager(int32_t connTimeoutInMs, bool enableSSL, const std::string& CAPath)
       : connTimeoutInMs_(connTimeoutInMs), enableSSL_(enableSSL), CAPath_(CAPath) {

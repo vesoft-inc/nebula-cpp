@@ -18,9 +18,13 @@ class ByteOrderDataOutStream {
 
   ~ByteOrderDataOutStream() = default;
 
-  std::string str() const { return stream_.str(); }
+  std::string str() const {
+    return stream_.str();
+  }
 
-  void setByteOrder(ByteOrder order) { byteOrder_ = order; }
+  void setByteOrder(ByteOrder order) {
+    byteOrder_ = order;
+  }
 
   void writeUint8(uint8_t v);
 

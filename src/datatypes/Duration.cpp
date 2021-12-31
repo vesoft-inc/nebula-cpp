@@ -5,12 +5,21 @@
 
 #include "common/datatypes/Duration.h"
 
+#include <folly/Format.h>
 #include <folly/String.h>
 #include <folly/hash/Hash.h>
 
 #include <sstream>
 
-namespace nebula {}  // namespace nebula
+namespace nebula {
+
+std::string Duration::toString() const {
+  return folly::format(
+             "P{}MT{}.{:0>6}000S", months, seconds + microseconds / 1000000, microseconds % 1000000)
+      .str();
+}
+
+}  // namespace nebula
 
 namespace std {
 

@@ -11,7 +11,9 @@
 
 namespace nebula {
 
-ConnectionPool::~ConnectionPool() { close(); }
+ConnectionPool::~ConnectionPool() {
+  close();
+}
 
 void ConnectionPool::init(const std::vector<std::string> &addresses, const Config &config) {
   for (const auto &addr : addresses) {

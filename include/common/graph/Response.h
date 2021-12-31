@@ -211,7 +211,9 @@ struct AuthResponse {
     errorMsg = nullptr;
   }
 
-  void clear() { __clear(); }
+  void clear() {
+    __clear();
+  }
 
   bool operator==(const AuthResponse &rhs) const {
     if (errorCode != rhs.errorCode) {
@@ -244,7 +246,9 @@ struct ProfilingStats {
     otherStats = nullptr;
   }
 
-  void clear() { __clear(); }
+  void clear() {
+    __clear();
+  }
 
   bool operator==(const ProfilingStats &rhs) const {
     if (rows != rhs.rows) {
@@ -276,7 +280,9 @@ struct PlanNodeBranchInfo {
     conditionNodeId = -1;
   }
 
-  void clear() { __clear(); }
+  void clear() {
+    __clear();
+  }
 
   bool operator==(const PlanNodeBranchInfo &rhs) const {
     return isDoBranch == rhs.isDoBranch && conditionNodeId == rhs.conditionNodeId;
@@ -294,9 +300,13 @@ struct Pair {
     value.clear();
   }
 
-  void clear() { __clear(); }
+  void clear() {
+    __clear();
+  }
 
-  bool operator==(const Pair &rhs) const { return key == rhs.key && value == rhs.value; }
+  bool operator==(const Pair &rhs) const {
+    return key == rhs.key && value == rhs.value;
+  }
 
   std::string key;
   std::string value;
@@ -313,7 +323,9 @@ struct PlanNodeDescription {
     dependencies = nullptr;
   }
 
-  void clear() { __clear(); }
+  void clear() {
+    __clear();
+  }
 
   bool operator==(const PlanNodeDescription &rhs) const;
 
@@ -337,7 +349,9 @@ struct PlanDescription {
     optimize_time_in_us = 0;
   }
 
-  void clear() { __clear(); }
+  void clear() {
+    __clear();
+  }
 
   bool operator==(const PlanDescription &rhs) const {
     return planNodeDescs == rhs.planNodeDescs && nodeIndexMap == rhs.nodeIndexMap &&
@@ -364,7 +378,9 @@ struct ExecutionResponse {
     comment.reset();
   }
 
-  void clear() { __clear(); }
+  void clear() {
+    __clear();
+  }
 
   bool operator==(const ExecutionResponse &rhs) const {
     if (errorCode != rhs.errorCode) {

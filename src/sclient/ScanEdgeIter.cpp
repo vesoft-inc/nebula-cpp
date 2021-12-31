@@ -13,9 +13,13 @@ namespace nebula {
 ScanEdgeIter::ScanEdgeIter(StorageClient* client, storage::cpp2::ScanEdgeRequest* req, bool hasNext)
     : client_(client), req_(req), hasNext_(hasNext) {}
 
-bool ScanEdgeIter::hasNext() { return hasNext_; }
+bool ScanEdgeIter::hasNext() {
+  return hasNext_;
+}
 
-ScanEdgeIter::~ScanEdgeIter() { delete req_; }
+ScanEdgeIter::~ScanEdgeIter() {
+  delete req_;
+}
 
 DataSet ScanEdgeIter::next() {
   if (!hasNext()) {

@@ -29,7 +29,9 @@ void Session::asyncExecuteJson(const std::string &stmt, ExecuteJsonCallback cb) 
       sessionId_, stmt, [cb = std::move(cb)](auto &&json) { cb(std::move(json)); });
 }
 
-bool Session::ping() { return conn_.ping(); }
+bool Session::ping() {
+  return conn_.ping();
+}
 
 ErrorCode Session::retryConnect() {
   pool_->giveBack(std::move(conn_));

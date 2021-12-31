@@ -45,7 +45,9 @@ struct Edge {
 
   void clear();
 
-  void __clear() { clear(); }
+  void __clear() {
+    clear();
+  }
 
   std::string toString() const;
 
@@ -66,7 +68,9 @@ struct Edge {
   const Value& value(const std::string& key) const;
 };
 
-inline std::ostream& operator<<(std::ostream& os, const Edge& v) { return os << v.toString(); }
+inline std::ostream& operator<<(std::ostream& os, const Edge& v) {
+  return os << v.toString();
+}
 
 }  // namespace nebula
 

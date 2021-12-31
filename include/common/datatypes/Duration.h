@@ -24,21 +24,37 @@ struct Duration {
   Duration() : seconds(0), microseconds(0), months(0) {}
   Duration(int32_t m, int64_t s, int32_t us) : seconds(s), microseconds(us), months(m) {}
 
-  int64_t years() const { return months / 12; }
+  int64_t years() const {
+    return months / 12;
+  }
 
-  int64_t monthsInYear() const { return months % 12; }
+  int64_t monthsInYear() const {
+    return months % 12;
+  }
 
-  int64_t days() const { return seconds / time::kSecondsOfDay; }
+  int64_t days() const {
+    return seconds / time::kSecondsOfDay;
+  }
 
-  int64_t hours() const { return seconds % time::kSecondsOfDay / time::kSecondsOfHour; }
+  int64_t hours() const {
+    return seconds % time::kSecondsOfDay / time::kSecondsOfHour;
+  }
 
-  int64_t minutes() const { return seconds % time::kSecondsOfHour / time::kSecondsOfMinute; }
+  int64_t minutes() const {
+    return seconds % time::kSecondsOfHour / time::kSecondsOfMinute;
+  }
 
-  int64_t secondsInMinute() const { return seconds % time::kSecondsOfMinute; }
+  int64_t secondsInMinute() const {
+    return seconds % time::kSecondsOfMinute;
+  }
 
-  int64_t microsecondsInSecond() const { return microseconds; }
+  int64_t microsecondsInSecond() const {
+    return microseconds;
+  }
 
-  Duration operator-() const { return Duration(-months, -seconds, -microseconds); }
+  Duration operator-() const {
+    return Duration(-months, -seconds, -microseconds);
+  }
 
   Duration operator+(const Duration& rhs) const {
     return Duration(months + rhs.months, seconds + rhs.seconds, microseconds + rhs.microseconds);
@@ -106,10 +122,7 @@ struct Duration {
     return months == rhs.months && seconds == rhs.seconds && microseconds == rhs.microseconds;
   }
 
-  std::string toString() const {
-    return folly::sformat(
-        "P{}MT{}.{:0>6}000S", months, seconds + microseconds / 1000000, microseconds % 1000000);
-  }
+  std::string toString() const;
 };
 
 }  // namespace nebula

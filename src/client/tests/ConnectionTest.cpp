@@ -4,6 +4,7 @@
  */
 
 #include <common/Init.h>
+#include <common/datatypes/Duration.h>
 #include <folly/json.h>
 #include <folly/synchronization/Baton.h>
 #include <glog/logging.h>
@@ -180,6 +181,23 @@ TEST_F(ConnectionTest, JsonResult) {
     b1.post();
   });
   b1.wait();
+}
+
+TEST_F(ConnectionTest, DurationResult) {
+  nebula::Connection c;
+
+  ASSERT_TRUE(c.open(kServerHost, 9669, 10, false, ""));
+
+  // auth
+  auto authResp = c.authenticate("root", "nebula");
+  ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
+  auto resp = c.execute(*authResp.sessionId, "YIELD duration({years: 1, seconds: 2}) AS d");
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
+  nebula::DataSet expected({"d"});
+  expected.emplace_back(nebula::Row({nebula::Duration().addYears(1).addSeconds(2)}));
+  EXPECT_TRUE(verifyResultWithoutOrder(*resp.data, expected));
 }
 
 TEST_F(ConnectionTest, InvalidPort) {

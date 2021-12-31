@@ -42,7 +42,9 @@ struct Step {
     props.clear();
   }
 
-  void __clear() { clear(); }
+  void __clear() {
+    clear();
+  }
 
   std::string toString() const {
     std::stringstream os;
@@ -115,7 +117,9 @@ struct Path {
     steps.clear();
   }
 
-  void __clear() { clear(); }
+  void __clear() {
+    clear();
+  }
 
   std::string toString() const {
     std::stringstream os;
@@ -144,9 +148,13 @@ struct Path {
     return *this;
   }
 
-  bool operator==(const Path& rhs) const { return src == rhs.src && steps == rhs.steps; }
+  bool operator==(const Path& rhs) const {
+    return src == rhs.src && steps == rhs.steps;
+  }
 
-  void addStep(Step step) { steps.emplace_back(std::move(step)); }
+  void addStep(Step step) {
+    steps.emplace_back(std::move(step));
+  }
 
   void reverse();
 
@@ -174,7 +182,9 @@ inline void swap(Step& a, Step& b) {
   b = std::move(tmp);
 }
 
-inline std::ostream& operator<<(std::ostream& os, const Path& p) { return os << p.toString(); }
+inline std::ostream& operator<<(std::ostream& os, const Path& p) {
+  return os << p.toString();
+}
 
 }  // namespace nebula
 
