@@ -65,6 +65,8 @@ struct VisitUnion<::nebula::cpp2::Value> {
       return f(14, *static_cast<T&&>(t).gVal_ref());
     case Union::Type::ggVal:
       return f(15, *static_cast<T&&>(t).ggVal_ref());
+    case Union::Type::duVal:
+      return f(16, *static_cast<T&&>(t).duVal_ref());
     case Union::Type::__EMPTY__: ;
     }
   }

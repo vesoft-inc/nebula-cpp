@@ -57,9 +57,32 @@ void InternalStorageServiceSvIf::async_tm_chainUpdateEdge(std::unique_ptr<apache
   });
 }
 
+void InternalStorageServiceSvIf::chainDeleteEdges( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("chainDeleteEdges");
+}
+
+folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> InternalStorageServiceSvIf::semifuture_chainDeleteEdges(const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::storage::cpp2::ExecResponse& _return) { chainDeleteEdges(_return, p_req); });
+}
+
+folly::Future< ::nebula::storage::cpp2::ExecResponse> InternalStorageServiceSvIf::future_chainDeleteEdges(const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_chainDeleteEdges(p_req), std::move(ka));
+}
+
+void InternalStorageServiceSvIf::async_tm_chainDeleteEdges(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>> callback, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_chainDeleteEdges(p_req);
+  });
+}
+
 void InternalStorageServiceSvNull::chainAddEdges( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::ChainAddEdgesRequest& /*req*/) {}
 
 void InternalStorageServiceSvNull::chainUpdateEdge( ::nebula::storage::cpp2::UpdateResponse& /*_return*/, const  ::nebula::storage::cpp2::ChainUpdateEdgeRequest& /*req*/) {}
+
+void InternalStorageServiceSvNull::chainDeleteEdges( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& /*req*/) {}
 
 
 
@@ -86,6 +109,7 @@ const InternalStorageServiceAsyncProcessor::ProcessMap& InternalStorageServiceAs
 const InternalStorageServiceAsyncProcessor::ProcessMap InternalStorageServiceAsyncProcessor::binaryProcessMap_ {
   {"chainAddEdges", &InternalStorageServiceAsyncProcessor::setUpAndProcess_chainAddEdges<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"chainUpdateEdge", &InternalStorageServiceAsyncProcessor::setUpAndProcess_chainUpdateEdge<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"chainDeleteEdges", &InternalStorageServiceAsyncProcessor::setUpAndProcess_chainDeleteEdges<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
 };
 
 const InternalStorageServiceAsyncProcessor::ProcessMap& InternalStorageServiceAsyncProcessor::getCompactProtocolProcessMap() {
@@ -95,6 +119,7 @@ const InternalStorageServiceAsyncProcessor::ProcessMap& InternalStorageServiceAs
 const InternalStorageServiceAsyncProcessor::ProcessMap InternalStorageServiceAsyncProcessor::compactProcessMap_ {
   {"chainAddEdges", &InternalStorageServiceAsyncProcessor::setUpAndProcess_chainAddEdges<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"chainUpdateEdge", &InternalStorageServiceAsyncProcessor::setUpAndProcess_chainUpdateEdge<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"chainDeleteEdges", &InternalStorageServiceAsyncProcessor::setUpAndProcess_chainDeleteEdges<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
 };
 
 }}} // nebula::storage::cpp2

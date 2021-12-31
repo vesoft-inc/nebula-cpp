@@ -16,8 +16,12 @@ typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apach
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::integral, int64_t*>> GraphService_signout_pargs;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::integral, int64_t*>, apache::thrift::FieldData<2, ::apache::thrift::type_class::binary, ::std::string*>> GraphService_execute_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure, nebula::ExecutionResponse*>> GraphService_execute_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::integral, int64_t*>, apache::thrift::FieldData<2, ::apache::thrift::type_class::binary, ::std::string*>, apache::thrift::FieldData<3, ::apache::thrift::type_class::map<::apache::thrift::type_class::binary, ::apache::thrift::type_class::variant>, std::unordered_map<::std::string, nebula::Value>*>> GraphService_executeWithParameter_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure, nebula::ExecutionResponse*>> GraphService_executeWithParameter_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::integral, int64_t*>, apache::thrift::FieldData<2, ::apache::thrift::type_class::binary, ::std::string*>> GraphService_executeJson_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::binary, ::std::string*>> GraphService_executeJson_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::integral, int64_t*>, apache::thrift::FieldData<2, ::apache::thrift::type_class::binary, ::std::string*>, apache::thrift::FieldData<3, ::apache::thrift::type_class::map<::apache::thrift::type_class::binary, ::apache::thrift::type_class::variant>, std::unordered_map<::std::string, nebula::Value>*>> GraphService_executeJsonWithParameter_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::binary, ::std::string*>> GraphService_executeJsonWithParameter_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure, nebula::VerifyClientVersionReq*>> GraphService_verifyClientVersion_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure, nebula::VerifyClientVersionResp*>> GraphService_verifyClientVersion_presult;
 template <typename ProtocolIn_, typename ProtocolOut_>
@@ -170,6 +174,67 @@ void GraphServiceAsyncProcessor::throw_wrapped_execute(apache::thrift::ResponseC
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
+void GraphServiceAsyncProcessor::setUpAndProcess_executeWithParameter(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &GraphServiceAsyncProcessor::process_executeWithParameter<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void GraphServiceAsyncProcessor::process_executeWithParameter(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  GraphService_executeWithParameter_pargs args;
+  int64_t uarg_sessionId{0};
+  args.get<0>().value = &uarg_sessionId;
+  ::std::string uarg_stmt;
+  args.get<1>().value = &uarg_stmt;
+  std::unordered_map<::std::string, nebula::Value> uarg_parameterMap;
+  args.get<2>().value = &uarg_parameterMap;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "GraphService.executeWithParameter", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "executeWithParameter");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback<nebula::ExecutionResponse>>(std::move(req), std::move(ctxStack), return_executeWithParameter<ProtocolIn_,ProtocolOut_>, throw_wrapped_executeWithParameter<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_executeWithParameter(std::move(callback), args.get<0>().ref(), args.get<1>().ref(), args.get<2>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue GraphServiceAsyncProcessor::return_executeWithParameter(int32_t protoSeqId, apache::thrift::ContextStack* ctx, nebula::ExecutionResponse const& _return) {
+  ProtocolOut_ prot;
+  GraphService_executeWithParameter_presult result;
+  result.get<0>().value = const_cast<nebula::ExecutionResponse*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("executeWithParameter", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void GraphServiceAsyncProcessor::throw_wrapped_executeWithParameter(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "executeWithParameter");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
 void GraphServiceAsyncProcessor::setUpAndProcess_executeJson(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
     return;
@@ -224,6 +289,67 @@ void GraphServiceAsyncProcessor::throw_wrapped_executeJson(apache::thrift::Respo
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
         ew, std::move(req), reqCtx, ctx, "executeJson");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void GraphServiceAsyncProcessor::setUpAndProcess_executeJsonWithParameter(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &GraphServiceAsyncProcessor::process_executeJsonWithParameter<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void GraphServiceAsyncProcessor::process_executeJsonWithParameter(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  GraphService_executeJsonWithParameter_pargs args;
+  int64_t uarg_sessionId{0};
+  args.get<0>().value = &uarg_sessionId;
+  ::std::string uarg_stmt;
+  args.get<1>().value = &uarg_stmt;
+  std::unordered_map<::std::string, nebula::Value> uarg_parameterMap;
+  args.get<2>().value = &uarg_parameterMap;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "GraphService.executeJsonWithParameter", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "executeJsonWithParameter");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback<::std::string>>(std::move(req), std::move(ctxStack), return_executeJsonWithParameter<ProtocolIn_,ProtocolOut_>, throw_wrapped_executeJsonWithParameter<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_executeJsonWithParameter(std::move(callback), args.get<0>().ref(), args.get<1>().ref(), args.get<2>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue GraphServiceAsyncProcessor::return_executeJsonWithParameter(int32_t protoSeqId, apache::thrift::ContextStack* ctx, ::std::string const& _return) {
+  ProtocolOut_ prot;
+  GraphService_executeJsonWithParameter_presult result;
+  result.get<0>().value = const_cast<::std::string*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("executeJsonWithParameter", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void GraphServiceAsyncProcessor::throw_wrapped_executeJsonWithParameter(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "executeJsonWithParameter");
     return;
   }
 }

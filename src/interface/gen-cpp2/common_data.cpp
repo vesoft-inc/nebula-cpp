@@ -33,7 +33,7 @@ const std::array<folly::StringPiece, 8> TEnumDataStorage<::nebula::cpp2::NullTyp
   "OUT_OF_RANGE",
 }};
 
-const std::array<::nebula::cpp2::PropertyType, 16> TEnumDataStorage<::nebula::cpp2::PropertyType>::values = {{
+const std::array<::nebula::cpp2::PropertyType, 17> TEnumDataStorage<::nebula::cpp2::PropertyType>::values = {{
   type::UNKNOWN,
   type::BOOL,
   type::INT64,
@@ -46,12 +46,13 @@ const std::array<::nebula::cpp2::PropertyType, 16> TEnumDataStorage<::nebula::cp
   type::INT16,
   type::INT32,
   type::TIMESTAMP,
+  type::DURATION,
   type::DATE,
   type::DATETIME,
   type::TIME,
   type::GEOGRAPHY,
 }};
-const std::array<folly::StringPiece, 16> TEnumDataStorage<::nebula::cpp2::PropertyType>::names = {{
+const std::array<folly::StringPiece, 17> TEnumDataStorage<::nebula::cpp2::PropertyType>::names = {{
   "UNKNOWN",
   "BOOL",
   "INT64",
@@ -64,13 +65,14 @@ const std::array<folly::StringPiece, 16> TEnumDataStorage<::nebula::cpp2::Proper
   "INT16",
   "INT32",
   "TIMESTAMP",
+  "DURATION",
   "DATE",
   "DATETIME",
   "TIME",
   "GEOGRAPHY",
 }};
 
-const std::array<::nebula::cpp2::ErrorCode, 121> TEnumDataStorage<::nebula::cpp2::ErrorCode>::values = {{
+const std::array<::nebula::cpp2::ErrorCode, 124> TEnumDataStorage<::nebula::cpp2::ErrorCode>::values = {{
   type::SUCCEEDED,
   type::E_DISCONNECTED,
   type::E_FAIL_TO_CONNECT,
@@ -91,6 +93,7 @@ const std::array<::nebula::cpp2::ErrorCode, 121> TEnumDataStorage<::nebula::cpp2
   type::E_KEY_NOT_FOUND,
   type::E_USER_NOT_FOUND,
   type::E_STATS_NOT_FOUND,
+  type::E_SERVICE_NOT_FOUND,
   type::E_BACKUP_FAILED,
   type::E_BACKUP_EMPTY_TABLE,
   type::E_BACKUP_TABLE_FAILED,
@@ -150,8 +153,9 @@ const std::array<::nebula::cpp2::ErrorCode, 121> TEnumDataStorage<::nebula::cpp2
   type::E_SESSION_NOT_FOUND,
   type::E_LIST_CLUSTER_FAILURE,
   type::E_LIST_CLUSTER_GET_ABS_PATH_FAILURE,
-  type::E_GET_META_DIR_FAILURE,
+  type::E_LIST_CLUSTER_NO_AGENT_FAILURE,
   type::E_QUERY_NOT_FOUND,
+  type::E_AGENT_HB_FAILUE,
   type::E_CONSENSUS_ERROR,
   type::E_KEY_HAS_EXISTS,
   type::E_DATA_TYPE_MISMATCH,
@@ -191,9 +195,10 @@ const std::array<::nebula::cpp2::ErrorCode, 121> TEnumDataStorage<::nebula::cpp2
   type::E_OUTDATED_EDGE,
   type::E_WRITE_WRITE_CONFLICT,
   type::E_CLIENT_SERVER_INCOMPATIBLE,
+  type::E_WORKER_ID_FAILED,
   type::E_UNKNOWN,
 }};
-const std::array<folly::StringPiece, 121> TEnumDataStorage<::nebula::cpp2::ErrorCode>::names = {{
+const std::array<folly::StringPiece, 124> TEnumDataStorage<::nebula::cpp2::ErrorCode>::names = {{
   "SUCCEEDED",
   "E_DISCONNECTED",
   "E_FAIL_TO_CONNECT",
@@ -214,6 +219,7 @@ const std::array<folly::StringPiece, 121> TEnumDataStorage<::nebula::cpp2::Error
   "E_KEY_NOT_FOUND",
   "E_USER_NOT_FOUND",
   "E_STATS_NOT_FOUND",
+  "E_SERVICE_NOT_FOUND",
   "E_BACKUP_FAILED",
   "E_BACKUP_EMPTY_TABLE",
   "E_BACKUP_TABLE_FAILED",
@@ -273,8 +279,9 @@ const std::array<folly::StringPiece, 121> TEnumDataStorage<::nebula::cpp2::Error
   "E_SESSION_NOT_FOUND",
   "E_LIST_CLUSTER_FAILURE",
   "E_LIST_CLUSTER_GET_ABS_PATH_FAILURE",
-  "E_GET_META_DIR_FAILURE",
+  "E_LIST_CLUSTER_NO_AGENT_FAILURE",
   "E_QUERY_NOT_FOUND",
+  "E_AGENT_HB_FAILUE",
   "E_CONSENSUS_ERROR",
   "E_KEY_HAS_EXISTS",
   "E_DATA_TYPE_MISMATCH",
@@ -314,6 +321,7 @@ const std::array<folly::StringPiece, 121> TEnumDataStorage<::nebula::cpp2::Error
   "E_OUTDATED_EDGE",
   "E_WRITE_WRITE_CONFLICT",
   "E_CLIENT_SERVER_INCOMPATIBLE",
+  "E_WORKER_ID_FAILED",
   "E_UNKNOWN",
 }};
 
@@ -326,7 +334,7 @@ const std::array<folly::StringPiece, 2> TEnumDataStorage<::nebula::cpp2::SchemaI
   "edge_type",
 }};
 
-const std::array<::nebula::cpp2::Value::Type, 16> TEnumDataStorage<::nebula::cpp2::Value::Type>::values = {{
+const std::array<::nebula::cpp2::Value::Type, 17> TEnumDataStorage<::nebula::cpp2::Value::Type>::values = {{
   type::nVal,
   type::bVal,
   type::iVal,
@@ -343,8 +351,9 @@ const std::array<::nebula::cpp2::Value::Type, 16> TEnumDataStorage<::nebula::cpp
   type::uVal,
   type::gVal,
   type::ggVal,
+  type::duVal,
 }};
-const std::array<folly::StringPiece, 16> TEnumDataStorage<::nebula::cpp2::Value::Type>::names = {{
+const std::array<folly::StringPiece, 17> TEnumDataStorage<::nebula::cpp2::Value::Type>::names = {{
   "nVal",
   "bVal",
   "iVal",
@@ -361,6 +370,7 @@ const std::array<folly::StringPiece, 16> TEnumDataStorage<::nebula::cpp2::Value:
   "uVal",
   "gVal",
   "ggVal",
+  "duVal",
 }};
 
 const std::array<::nebula::cpp2::Geography::Type, 3> TEnumDataStorage<::nebula::cpp2::Geography::Type>::values = {{
@@ -450,7 +460,7 @@ const std::array<protocol::TType, 7> TStructDataStorage<::nebula::cpp2::DateTime
   TType::T_I32,
 }};
 
-const std::array<folly::StringPiece, 16> TStructDataStorage<::nebula::cpp2::Value>::fields_names = {{
+const std::array<folly::StringPiece, 17> TStructDataStorage<::nebula::cpp2::Value>::fields_names = {{
   "nVal",
   "bVal",
   "iVal",
@@ -467,8 +477,9 @@ const std::array<folly::StringPiece, 16> TStructDataStorage<::nebula::cpp2::Valu
   "uVal",
   "gVal",
   "ggVal",
+  "duVal",
 }};
-const std::array<int16_t, 16> TStructDataStorage<::nebula::cpp2::Value>::fields_ids = {{
+const std::array<int16_t, 17> TStructDataStorage<::nebula::cpp2::Value>::fields_ids = {{
   1,
   2,
   3,
@@ -485,13 +496,15 @@ const std::array<int16_t, 16> TStructDataStorage<::nebula::cpp2::Value>::fields_
   14,
   15,
   16,
+  17,
 }};
-const std::array<protocol::TType, 16> TStructDataStorage<::nebula::cpp2::Value>::fields_types = {{
+const std::array<protocol::TType, 17> TStructDataStorage<::nebula::cpp2::Value>::fields_types = {{
   TType::T_I32,
   TType::T_BOOL,
   TType::T_I64,
   TType::T_DOUBLE,
   TType::T_STRING,
+  TType::T_STRUCT,
   TType::T_STRUCT,
   TType::T_STRUCT,
   TType::T_STRUCT,
@@ -729,6 +742,22 @@ const std::array<protocol::TType, 2> TStructDataStorage<::nebula::cpp2::KeyValue
   TType::T_STRING,
 }};
 
+const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::cpp2::Duration>::fields_names = {{
+  "seconds",
+  "microseconds",
+  "months",
+}};
+const std::array<int16_t, 3> TStructDataStorage<::nebula::cpp2::Duration>::fields_ids = {{
+  1,
+  2,
+  3,
+}};
+const std::array<protocol::TType, 3> TStructDataStorage<::nebula::cpp2::Duration>::fields_types = {{
+  TType::T_I64,
+  TType::T_I32,
+  TType::T_I32,
+}};
+
 const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::cpp2::LogInfo>::fields_names = {{
   "log_id",
   "term_id",
@@ -755,39 +784,19 @@ const std::array<protocol::TType, 2> TStructDataStorage<::nebula::cpp2::DirInfo>
   TType::T_LIST,
 }};
 
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::cpp2::NodeInfo>::fields_names = {{
-  "host",
-  "dir",
-}};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::cpp2::NodeInfo>::fields_ids = {{
-  1,
-  2,
-}};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::cpp2::NodeInfo>::fields_types = {{
-  TType::T_STRUCT,
-  TType::T_STRUCT,
-}};
-
-const std::array<folly::StringPiece, 1> TStructDataStorage<::nebula::cpp2::PartitionBackupInfo>::fields_names = {{
-  "info",
-}};
-const std::array<int16_t, 1> TStructDataStorage<::nebula::cpp2::PartitionBackupInfo>::fields_ids = {{
-  1,
-}};
-const std::array<protocol::TType, 1> TStructDataStorage<::nebula::cpp2::PartitionBackupInfo>::fields_types = {{
-  TType::T_MAP,
-}};
-
-const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::cpp2::CheckpointInfo>::fields_names = {{
-  "partition_info",
+const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::cpp2::CheckpointInfo>::fields_names = {{
+  "space_id",
+  "parts",
   "path",
 }};
-const std::array<int16_t, 2> TStructDataStorage<::nebula::cpp2::CheckpointInfo>::fields_ids = {{
+const std::array<int16_t, 3> TStructDataStorage<::nebula::cpp2::CheckpointInfo>::fields_ids = {{
   1,
   2,
+  3,
 }};
-const std::array<protocol::TType, 2> TStructDataStorage<::nebula::cpp2::CheckpointInfo>::fields_types = {{
-  TType::T_STRUCT,
+const std::array<protocol::TType, 3> TStructDataStorage<::nebula::cpp2::CheckpointInfo>::fields_types = {{
+  TType::T_I32,
+  TType::T_MAP,
   TType::T_STRING,
 }};
 

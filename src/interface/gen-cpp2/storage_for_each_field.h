@@ -208,7 +208,8 @@ struct ForEachField<::nebula::storage::cpp2::AddVerticesRequest> {
     f(1, static_cast<T&&>(t).parts_ref()...);
     f(2, static_cast<T&&>(t).prop_names_ref()...);
     f(3, static_cast<T&&>(t).if_not_exists_ref()...);
-    f(4, static_cast<T&&>(t).common_ref()...);
+    f(4, static_cast<T&&>(t).ignore_existed_index_ref()...);
+    f(5, static_cast<T&&>(t).common_ref()...);
   }
 };
 
@@ -220,7 +221,8 @@ struct ForEachField<::nebula::storage::cpp2::AddEdgesRequest> {
     f(1, static_cast<T&&>(t).parts_ref()...);
     f(2, static_cast<T&&>(t).prop_names_ref()...);
     f(3, static_cast<T&&>(t).if_not_exists_ref()...);
-    f(4, static_cast<T&&>(t).common_ref()...);
+    f(4, static_cast<T&&>(t).ignore_existed_index_ref()...);
+    f(5, static_cast<T&&>(t).common_ref()...);
   }
 };
 
@@ -383,6 +385,7 @@ struct ForEachField<::nebula::storage::cpp2::LookupIndexRequest> {
     f(3, static_cast<T&&>(t).return_columns_ref()...);
     f(4, static_cast<T&&>(t).common_ref()...);
     f(5, static_cast<T&&>(t).limit_ref()...);
+    f(6, static_cast<T&&>(t).order_by_ref()...);
   }
 };
 
@@ -578,7 +581,7 @@ template <>
 struct ForEachField<::nebula::storage::cpp2::CreateCPRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).space_id_ref()...);
+    f(0, static_cast<T&&>(t).space_ids_ref()...);
     f(1, static_cast<T&&>(t).name_ref()...);
   }
 };
@@ -587,7 +590,7 @@ template <>
 struct ForEachField<::nebula::storage::cpp2::DropCPRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).space_id_ref()...);
+    f(0, static_cast<T&&>(t).space_ids_ref()...);
     f(1, static_cast<T&&>(t).name_ref()...);
   }
 };
@@ -596,7 +599,7 @@ template <>
 struct ForEachField<::nebula::storage::cpp2::BlockingSignRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).space_id_ref()...);
+    f(0, static_cast<T&&>(t).space_ids_ref()...);
     f(1, static_cast<T&&>(t).sign_ref()...);
   }
 };
@@ -677,18 +680,6 @@ struct ForEachField<::nebula::storage::cpp2::StopAdminTaskRequest> {
 };
 
 template <>
-struct ForEachField<::nebula::storage::cpp2::InternalTxnRequest> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).txn_id_ref()...);
-    f(1, static_cast<T&&>(t).term_of_parts_ref()...);
-    f(2, static_cast<T&&>(t).add_edge_req_ref()...);
-    f(3, static_cast<T&&>(t).upd_edge_req_ref()...);
-    f(4, static_cast<T&&>(t).edge_ver_ref()...);
-  }
-};
-
-template <>
 struct ForEachField<::nebula::storage::cpp2::ChainAddEdgesRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
@@ -710,6 +701,17 @@ struct ForEachField<::nebula::storage::cpp2::ChainUpdateEdgeRequest> {
     f(2, static_cast<T&&>(t).edge_version_ref()...);
     f(3, static_cast<T&&>(t).space_id_ref()...);
     f(4, static_cast<T&&>(t).parts_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::storage::cpp2::ChainDeleteEdgesRequest> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).space_id_ref()...);
+    f(1, static_cast<T&&>(t).parts_ref()...);
+    f(2, static_cast<T&&>(t).txn_id_ref()...);
+    f(3, static_cast<T&&>(t).term_ref()...);
   }
 };
 } // namespace detail

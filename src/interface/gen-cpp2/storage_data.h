@@ -174,14 +174,14 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::NewEdge> {
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::AddVerticesRequest> {
-  static constexpr const std::size_t fields_size = 5;
+  static constexpr const std::size_t fields_size = 6;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::AddEdgesRequest> {
-  static constexpr const std::size_t fields_size = 5;
+  static constexpr const std::size_t fields_size = 6;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
@@ -286,7 +286,7 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::IndexSpec> {
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest> {
-  static constexpr const std::size_t fields_size = 6;
+  static constexpr const std::size_t fields_size = 7;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
@@ -495,13 +495,6 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::StopAdminTaskRequ
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::storage::cpp2::InternalTxnRequest> {
-  static constexpr const std::size_t fields_size = 5;
-  static const std::array<folly::StringPiece, fields_size> fields_names;
-  static const std::array<int16_t, fields_size> fields_ids;
-  static const std::array<protocol::TType, fields_size> fields_types;
-};
-
 template <> struct TStructDataStorage<::nebula::storage::cpp2::ChainAddEdgesRequest> {
   static constexpr const std::size_t fields_size = 6;
   static const std::array<folly::StringPiece, fields_size> fields_names;
@@ -511,6 +504,13 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::ChainAddEdgesRequ
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::ChainUpdateEdgeRequest> {
   static constexpr const std::size_t fields_size = 5;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::storage::cpp2::ChainDeleteEdgesRequest> {
+  static constexpr const std::size_t fields_size = 4;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;

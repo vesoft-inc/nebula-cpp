@@ -74,7 +74,9 @@ class ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf> {
   static void gen_authenticate(ThriftMetadata& metadata, ThriftService& context);
   static void gen_signout(ThriftMetadata& metadata, ThriftService& context);
   static void gen_execute(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_executeWithParameter(ThriftMetadata& metadata, ThriftService& context);
   static void gen_executeJson(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_executeJsonWithParameter(ThriftMetadata& metadata, ThriftService& context);
   static void gen_verifyClientVersion(ThriftMetadata& metadata, ThriftService& context);
 };
 } // namespace md

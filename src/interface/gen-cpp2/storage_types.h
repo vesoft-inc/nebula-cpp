@@ -80,11 +80,13 @@ struct space_id;
 struct parts;
 struct prop_names;
 struct if_not_exists;
+struct ignore_existed_index;
 struct common;
 struct space_id;
 struct parts;
 struct prop_names;
 struct if_not_exists;
+struct ignore_existed_index;
 struct common;
 struct space_id;
 struct parts;
@@ -143,6 +145,7 @@ struct indices;
 struct return_columns;
 struct common;
 struct limit;
+struct order_by;
 struct space_id;
 struct parts;
 struct indices;
@@ -205,11 +208,11 @@ struct add;
 struct space_id;
 struct part_id;
 struct target;
-struct space_id;
+struct space_ids;
 struct name;
-struct space_id;
+struct space_ids;
 struct name;
-struct space_id;
+struct space_ids;
 struct sign;
 struct result;
 struct leader_parts;
@@ -230,11 +233,6 @@ struct para;
 struct concurrency;
 struct job_id;
 struct task_id;
-struct txn_id;
-struct term_of_parts;
-struct add_edge_req;
-struct upd_edge_req;
-struct edge_ver;
 struct space_id;
 struct parts;
 struct prop_names;
@@ -246,6 +244,10 @@ struct term;
 struct edge_version;
 struct space_id;
 struct parts;
+struct space_id;
+struct parts;
+struct txn_id;
+struct term;
 } // namespace tag
 namespace detail {
 #ifndef APACHE_THRIFT_ACCESSOR_session_id
@@ -508,6 +510,10 @@ APACHE_THRIFT_DEFINE_ACCESSOR(prop_names);
 #define APACHE_THRIFT_ACCESSOR_if_not_exists
 APACHE_THRIFT_DEFINE_ACCESSOR(if_not_exists);
 #endif
+#ifndef APACHE_THRIFT_ACCESSOR_ignore_existed_index
+#define APACHE_THRIFT_ACCESSOR_ignore_existed_index
+APACHE_THRIFT_DEFINE_ACCESSOR(ignore_existed_index);
+#endif
 #ifndef APACHE_THRIFT_ACCESSOR_common
 #define APACHE_THRIFT_ACCESSOR_common
 APACHE_THRIFT_DEFINE_ACCESSOR(common);
@@ -527,6 +533,10 @@ APACHE_THRIFT_DEFINE_ACCESSOR(prop_names);
 #ifndef APACHE_THRIFT_ACCESSOR_if_not_exists
 #define APACHE_THRIFT_ACCESSOR_if_not_exists
 APACHE_THRIFT_DEFINE_ACCESSOR(if_not_exists);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_ignore_existed_index
+#define APACHE_THRIFT_ACCESSOR_ignore_existed_index
+APACHE_THRIFT_DEFINE_ACCESSOR(ignore_existed_index);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_common
 #define APACHE_THRIFT_ACCESSOR_common
@@ -759,6 +769,10 @@ APACHE_THRIFT_DEFINE_ACCESSOR(common);
 #ifndef APACHE_THRIFT_ACCESSOR_limit
 #define APACHE_THRIFT_ACCESSOR_limit
 APACHE_THRIFT_DEFINE_ACCESSOR(limit);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_order_by
+#define APACHE_THRIFT_ACCESSOR_order_by
+APACHE_THRIFT_DEFINE_ACCESSOR(order_by);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_space_id
 #define APACHE_THRIFT_ACCESSOR_space_id
@@ -1008,25 +1022,25 @@ APACHE_THRIFT_DEFINE_ACCESSOR(part_id);
 #define APACHE_THRIFT_ACCESSOR_target
 APACHE_THRIFT_DEFINE_ACCESSOR(target);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_space_id
-#define APACHE_THRIFT_ACCESSOR_space_id
-APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
+#ifndef APACHE_THRIFT_ACCESSOR_space_ids
+#define APACHE_THRIFT_ACCESSOR_space_ids
+APACHE_THRIFT_DEFINE_ACCESSOR(space_ids);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_name
 #define APACHE_THRIFT_ACCESSOR_name
 APACHE_THRIFT_DEFINE_ACCESSOR(name);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_space_id
-#define APACHE_THRIFT_ACCESSOR_space_id
-APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
+#ifndef APACHE_THRIFT_ACCESSOR_space_ids
+#define APACHE_THRIFT_ACCESSOR_space_ids
+APACHE_THRIFT_DEFINE_ACCESSOR(space_ids);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_name
 #define APACHE_THRIFT_ACCESSOR_name
 APACHE_THRIFT_DEFINE_ACCESSOR(name);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_space_id
-#define APACHE_THRIFT_ACCESSOR_space_id
-APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
+#ifndef APACHE_THRIFT_ACCESSOR_space_ids
+#define APACHE_THRIFT_ACCESSOR_space_ids
+APACHE_THRIFT_DEFINE_ACCESSOR(space_ids);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_sign
 #define APACHE_THRIFT_ACCESSOR_sign
@@ -1108,26 +1122,6 @@ APACHE_THRIFT_DEFINE_ACCESSOR(job_id);
 #define APACHE_THRIFT_ACCESSOR_task_id
 APACHE_THRIFT_DEFINE_ACCESSOR(task_id);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_txn_id
-#define APACHE_THRIFT_ACCESSOR_txn_id
-APACHE_THRIFT_DEFINE_ACCESSOR(txn_id);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_term_of_parts
-#define APACHE_THRIFT_ACCESSOR_term_of_parts
-APACHE_THRIFT_DEFINE_ACCESSOR(term_of_parts);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_add_edge_req
-#define APACHE_THRIFT_ACCESSOR_add_edge_req
-APACHE_THRIFT_DEFINE_ACCESSOR(add_edge_req);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_upd_edge_req
-#define APACHE_THRIFT_ACCESSOR_upd_edge_req
-APACHE_THRIFT_DEFINE_ACCESSOR(upd_edge_req);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_edge_ver
-#define APACHE_THRIFT_ACCESSOR_edge_ver
-APACHE_THRIFT_DEFINE_ACCESSOR(edge_ver);
-#endif
 #ifndef APACHE_THRIFT_ACCESSOR_space_id
 #define APACHE_THRIFT_ACCESSOR_space_id
 APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
@@ -1171,6 +1165,22 @@ APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
 #ifndef APACHE_THRIFT_ACCESSOR_parts
 #define APACHE_THRIFT_ACCESSOR_parts
 APACHE_THRIFT_DEFINE_ACCESSOR(parts);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_space_id
+#define APACHE_THRIFT_ACCESSOR_space_id
+APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_parts
+#define APACHE_THRIFT_ACCESSOR_parts
+APACHE_THRIFT_DEFINE_ACCESSOR(parts);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_txn_id
+#define APACHE_THRIFT_ACCESSOR_txn_id
+APACHE_THRIFT_DEFINE_ACCESSOR(txn_id);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_term
+#define APACHE_THRIFT_ACCESSOR_term
+APACHE_THRIFT_DEFINE_ACCESSOR(term);
 #endif
 } // namespace detail
 } // namespace thrift
@@ -1440,9 +1450,9 @@ class ListClusterInfoResp;
 class ListClusterInfoReq;
 class AddAdminTaskRequest;
 class StopAdminTaskRequest;
-class InternalTxnRequest;
 class ChainAddEdgesRequest;
 class ChainUpdateEdgeRequest;
+class ChainDeleteEdgesRequest;
 }}} // nebula::storage::cpp2
 // END forward_declare
 // BEGIN typedefs
@@ -5253,7 +5263,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  AddVerticesRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::NewVertex>> parts__arg, std::unordered_map< ::nebula::cpp2::TagID, ::std::vector<::std::string>> prop_names__arg, bool if_not_exists__arg,  ::nebula::storage::cpp2::RequestCommon common__arg);
+  AddVerticesRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::NewVertex>> parts__arg, std::unordered_map< ::nebula::cpp2::TagID, ::std::vector<::std::string>> prop_names__arg, bool if_not_exists__arg, bool ignore_existed_index__arg,  ::nebula::storage::cpp2::RequestCommon common__arg);
 
   AddVerticesRequest(AddVerticesRequest&&) = default;
 
@@ -5277,6 +5287,8 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
  private:
   bool if_not_exists;
  private:
+  bool ignore_existed_index;
+ private:
    ::nebula::storage::cpp2::RequestCommon common;
 
  public:
@@ -5286,6 +5298,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     bool parts;
     bool prop_names;
     bool if_not_exists;
+    bool ignore_existed_index;
     bool common;
   } __isset = {};
   bool operator==(const AddVerticesRequest& rhs) const;
@@ -5396,6 +5409,28 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> ignore_existed_index_ref() const& {
+    return {this->ignore_existed_index, __isset.ignore_existed_index};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> ignore_existed_index_ref() const&& {
+    return {std::move(this->ignore_existed_index), __isset.ignore_existed_index};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> ignore_existed_index_ref() & {
+    return {this->ignore_existed_index, __isset.ignore_existed_index};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> ignore_existed_index_ref() && {
+    return {std::move(this->ignore_existed_index), __isset.ignore_existed_index};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   template <typename..., typename T =  ::nebula::storage::cpp2::RequestCommon>
   FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> common_ref() const& {
     return {this->common, __isset.common};
@@ -5462,6 +5497,18 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return if_not_exists;
   }
+
+  bool get_ignore_existed_index() const {
+    return ignore_existed_index;
+  }
+
+  bool& set_ignore_existed_index(bool ignore_existed_index_) {
+    ignore_existed_index = ignore_existed_index_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.ignore_existed_index = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return ignore_existed_index;
+  }
   const  ::nebula::storage::cpp2::RequestCommon* get_common() const&;
    ::nebula::storage::cpp2::RequestCommon* get_common() &;
    ::nebula::storage::cpp2::RequestCommon* get_common() && = delete;
@@ -5523,7 +5570,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  AddEdgesRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::NewEdge>> parts__arg, ::std::vector<::std::string> prop_names__arg, bool if_not_exists__arg,  ::nebula::storage::cpp2::RequestCommon common__arg);
+  AddEdgesRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::NewEdge>> parts__arg, ::std::vector<::std::string> prop_names__arg, bool if_not_exists__arg, bool ignore_existed_index__arg,  ::nebula::storage::cpp2::RequestCommon common__arg);
 
   AddEdgesRequest(AddEdgesRequest&&) = default;
 
@@ -5547,6 +5594,8 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
  private:
   bool if_not_exists;
  private:
+  bool ignore_existed_index;
+ private:
    ::nebula::storage::cpp2::RequestCommon common;
 
  public:
@@ -5556,6 +5605,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     bool parts;
     bool prop_names;
     bool if_not_exists;
+    bool ignore_existed_index;
     bool common;
   } __isset = {};
   bool operator==(const AddEdgesRequest& rhs) const;
@@ -5666,6 +5716,28 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> ignore_existed_index_ref() const& {
+    return {this->ignore_existed_index, __isset.ignore_existed_index};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> ignore_existed_index_ref() const&& {
+    return {std::move(this->ignore_existed_index), __isset.ignore_existed_index};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> ignore_existed_index_ref() & {
+    return {this->ignore_existed_index, __isset.ignore_existed_index};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> ignore_existed_index_ref() && {
+    return {std::move(this->ignore_existed_index), __isset.ignore_existed_index};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   template <typename..., typename T =  ::nebula::storage::cpp2::RequestCommon>
   FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> common_ref() const& {
     return {this->common, __isset.common};
@@ -5731,6 +5803,18 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     __isset.if_not_exists = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return if_not_exists;
+  }
+
+  bool get_ignore_existed_index() const {
+    return ignore_existed_index;
+  }
+
+  bool& set_ignore_existed_index(bool ignore_existed_index_) {
+    ignore_existed_index = ignore_existed_index_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.ignore_existed_index = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return ignore_existed_index;
   }
   const  ::nebula::storage::cpp2::RequestCommon* get_common() const&;
    ::nebula::storage::cpp2::RequestCommon* get_common() &;
@@ -8837,7 +8921,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  LookupIndexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::vector< ::nebula::cpp2::PartitionID> parts__arg,  ::nebula::storage::cpp2::IndexSpec indices__arg, ::std::vector<::std::string> return_columns__arg,  ::nebula::storage::cpp2::RequestCommon common__arg, int64_t limit__arg);
+  LookupIndexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::vector< ::nebula::cpp2::PartitionID> parts__arg,  ::nebula::storage::cpp2::IndexSpec indices__arg, ::std::vector<::std::string> return_columns__arg,  ::nebula::storage::cpp2::RequestCommon common__arg, int64_t limit__arg, ::std::vector< ::nebula::storage::cpp2::OrderBy> order_by__arg);
 
   LookupIndexRequest(LookupIndexRequest&&) = default;
 
@@ -8864,6 +8948,8 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
    ::nebula::storage::cpp2::RequestCommon common;
  private:
   int64_t limit;
+ private:
+  ::std::vector< ::nebula::storage::cpp2::OrderBy> order_by;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
@@ -8872,6 +8958,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     bool return_columns;
     bool common;
     bool limit;
+    bool order_by;
   } __isset = {};
   bool operator==(const LookupIndexRequest& rhs) const;
 #ifndef SWIG
@@ -9018,6 +9105,28 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::vector< ::nebula::storage::cpp2::OrderBy>>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> order_by_ref() const& {
+    return {this->order_by, __isset.order_by};
+  }
+
+  template <typename..., typename T = ::std::vector< ::nebula::storage::cpp2::OrderBy>>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> order_by_ref() const&& {
+    return {std::move(this->order_by), __isset.order_by};
+  }
+
+  template <typename..., typename T = ::std::vector< ::nebula::storage::cpp2::OrderBy>>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> order_by_ref() & {
+    return {this->order_by, __isset.order_by};
+  }
+
+  template <typename..., typename T = ::std::vector< ::nebula::storage::cpp2::OrderBy>>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> order_by_ref() && {
+    return {std::move(this->order_by), __isset.order_by};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
    ::nebula::cpp2::GraphSpaceID get_space_id() const {
     return space_id;
   }
@@ -9085,6 +9194,18 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     __isset.limit = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return limit;
+  }
+  const ::std::vector< ::nebula::storage::cpp2::OrderBy>* get_order_by() const&;
+  ::std::vector< ::nebula::storage::cpp2::OrderBy>* get_order_by() &;
+  ::std::vector< ::nebula::storage::cpp2::OrderBy>* get_order_by() && = delete;
+
+  template <typename T_LookupIndexRequest_order_by_struct_setter = ::std::vector< ::nebula::storage::cpp2::OrderBy>>
+  ::std::vector< ::nebula::storage::cpp2::OrderBy>& set_order_by(T_LookupIndexRequest_order_by_struct_setter&& order_by_) {
+    order_by = std::forward<T_LookupIndexRequest_order_by_struct_setter>(order_by_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.order_by = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return order_by;
   }
 
   template <class Protocol_>
@@ -12928,11 +13049,10 @@ class CreateCPRequest final  {
  public:
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  CreateCPRequest() :
-      space_id(0) {}
+  CreateCPRequest() {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  CreateCPRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::string name__arg);
+  CreateCPRequest(apache::thrift::FragileConstructor, ::std::vector< ::nebula::cpp2::GraphSpaceID> space_ids__arg, ::std::string name__arg);
 
   CreateCPRequest(CreateCPRequest&&) = default;
 
@@ -12945,14 +13065,14 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
   void __clear();
  private:
-   ::nebula::cpp2::GraphSpaceID space_id;
+  ::std::vector< ::nebula::cpp2::GraphSpaceID> space_ids;
  private:
   ::std::string name;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
-    bool space_id;
+    bool space_ids;
     bool name;
   } __isset = {};
   bool operator==(const CreateCPRequest& rhs) const;
@@ -12975,24 +13095,24 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 #endif
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> space_id_ref() const& {
-    return {this->space_id, __isset.space_id};
+  template <typename..., typename T = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> space_ids_ref() const& {
+    return {this->space_ids, __isset.space_ids};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> space_id_ref() const&& {
-    return {std::move(this->space_id), __isset.space_id};
+  template <typename..., typename T = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> space_ids_ref() const&& {
+    return {std::move(this->space_ids), __isset.space_ids};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> space_id_ref() & {
-    return {this->space_id, __isset.space_id};
+  template <typename..., typename T = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> space_ids_ref() & {
+    return {this->space_ids, __isset.space_ids};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> space_id_ref() && {
-    return {std::move(this->space_id), __isset.space_id};
+  template <typename..., typename T = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> space_ids_ref() && {
+    return {std::move(this->space_ids), __isset.space_ids};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
@@ -13017,17 +13137,16 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     return {std::move(this->name), __isset.name};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
+  const ::std::vector< ::nebula::cpp2::GraphSpaceID>& get_space_ids() const&;
+  ::std::vector< ::nebula::cpp2::GraphSpaceID> get_space_ids() &&;
 
-   ::nebula::cpp2::GraphSpaceID get_space_id() const {
-    return space_id;
-  }
-
-   ::nebula::cpp2::GraphSpaceID& set_space_id( ::nebula::cpp2::GraphSpaceID space_id_) {
-    space_id = space_id_;
+  template <typename T_CreateCPRequest_space_ids_struct_setter = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  ::std::vector< ::nebula::cpp2::GraphSpaceID>& set_space_ids(T_CreateCPRequest_space_ids_struct_setter&& space_ids_) {
+    space_ids = std::forward<T_CreateCPRequest_space_ids_struct_setter>(space_ids_);
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.space_id = true;
+    __isset.space_ids = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return space_id;
+    return space_ids;
   }
 
   const ::std::string& get_name() const& {
@@ -13091,11 +13210,10 @@ class DropCPRequest final  {
  public:
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  DropCPRequest() :
-      space_id(0) {}
+  DropCPRequest() {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  DropCPRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::string name__arg);
+  DropCPRequest(apache::thrift::FragileConstructor, ::std::vector< ::nebula::cpp2::GraphSpaceID> space_ids__arg, ::std::string name__arg);
 
   DropCPRequest(DropCPRequest&&) = default;
 
@@ -13108,14 +13226,14 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
   void __clear();
  private:
-   ::nebula::cpp2::GraphSpaceID space_id;
+  ::std::vector< ::nebula::cpp2::GraphSpaceID> space_ids;
  private:
   ::std::string name;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
-    bool space_id;
+    bool space_ids;
     bool name;
   } __isset = {};
   bool operator==(const DropCPRequest& rhs) const;
@@ -13138,24 +13256,24 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 #endif
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> space_id_ref() const& {
-    return {this->space_id, __isset.space_id};
+  template <typename..., typename T = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> space_ids_ref() const& {
+    return {this->space_ids, __isset.space_ids};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> space_id_ref() const&& {
-    return {std::move(this->space_id), __isset.space_id};
+  template <typename..., typename T = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> space_ids_ref() const&& {
+    return {std::move(this->space_ids), __isset.space_ids};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> space_id_ref() & {
-    return {this->space_id, __isset.space_id};
+  template <typename..., typename T = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> space_ids_ref() & {
+    return {this->space_ids, __isset.space_ids};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> space_id_ref() && {
-    return {std::move(this->space_id), __isset.space_id};
+  template <typename..., typename T = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> space_ids_ref() && {
+    return {std::move(this->space_ids), __isset.space_ids};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
@@ -13180,17 +13298,16 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     return {std::move(this->name), __isset.name};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
+  const ::std::vector< ::nebula::cpp2::GraphSpaceID>& get_space_ids() const&;
+  ::std::vector< ::nebula::cpp2::GraphSpaceID> get_space_ids() &&;
 
-   ::nebula::cpp2::GraphSpaceID get_space_id() const {
-    return space_id;
-  }
-
-   ::nebula::cpp2::GraphSpaceID& set_space_id( ::nebula::cpp2::GraphSpaceID space_id_) {
-    space_id = space_id_;
+  template <typename T_DropCPRequest_space_ids_struct_setter = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  ::std::vector< ::nebula::cpp2::GraphSpaceID>& set_space_ids(T_DropCPRequest_space_ids_struct_setter&& space_ids_) {
+    space_ids = std::forward<T_DropCPRequest_space_ids_struct_setter>(space_ids_);
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.space_id = true;
+    __isset.space_ids = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return space_id;
+    return space_ids;
   }
 
   const ::std::string& get_name() const& {
@@ -13255,11 +13372,10 @@ class BlockingSignRequest final  {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   BlockingSignRequest() :
-      space_id(0),
       sign(static_cast< ::nebula::storage::cpp2::EngineSignType>(0)) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  BlockingSignRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg,  ::nebula::storage::cpp2::EngineSignType sign__arg);
+  BlockingSignRequest(apache::thrift::FragileConstructor, ::std::vector< ::nebula::cpp2::GraphSpaceID> space_ids__arg,  ::nebula::storage::cpp2::EngineSignType sign__arg);
 
   BlockingSignRequest(BlockingSignRequest&&) = default;
 
@@ -13272,14 +13388,14 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
   void __clear();
  private:
-   ::nebula::cpp2::GraphSpaceID space_id;
+  ::std::vector< ::nebula::cpp2::GraphSpaceID> space_ids;
  public:
    ::nebula::storage::cpp2::EngineSignType sign;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
-    bool space_id;
+    bool space_ids;
   } __isset = {};
   bool operator==(const BlockingSignRequest& rhs) const;
 #ifndef SWIG
@@ -13301,24 +13417,24 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 #endif
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> space_id_ref() const& {
-    return {this->space_id, __isset.space_id};
+  template <typename..., typename T = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> space_ids_ref() const& {
+    return {this->space_ids, __isset.space_ids};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> space_id_ref() const&& {
-    return {std::move(this->space_id), __isset.space_id};
+  template <typename..., typename T = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> space_ids_ref() const&& {
+    return {std::move(this->space_ids), __isset.space_ids};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> space_id_ref() & {
-    return {this->space_id, __isset.space_id};
+  template <typename..., typename T = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> space_ids_ref() & {
+    return {this->space_ids, __isset.space_ids};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> space_id_ref() && {
-    return {std::move(this->space_id), __isset.space_id};
+  template <typename..., typename T = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> space_ids_ref() && {
+    return {std::move(this->space_ids), __isset.space_ids};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
   template <typename..., typename T =  ::nebula::storage::cpp2::EngineSignType>
@@ -13340,17 +13456,16 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
   FOLLY_ERASE ::apache::thrift::required_field_ref<T&&> sign_ref() && {
     return ::apache::thrift::required_field_ref<T&&>{std::move(this->sign)};
   }
+  const ::std::vector< ::nebula::cpp2::GraphSpaceID>& get_space_ids() const&;
+  ::std::vector< ::nebula::cpp2::GraphSpaceID> get_space_ids() &&;
 
-   ::nebula::cpp2::GraphSpaceID get_space_id() const {
-    return space_id;
-  }
-
-   ::nebula::cpp2::GraphSpaceID& set_space_id( ::nebula::cpp2::GraphSpaceID space_id_) {
-    space_id = space_id_;
+  template <typename T_BlockingSignRequest_space_ids_struct_setter = ::std::vector< ::nebula::cpp2::GraphSpaceID>>
+  ::std::vector< ::nebula::cpp2::GraphSpaceID>& set_space_ids(T_BlockingSignRequest_space_ids_struct_setter&& space_ids_) {
+    space_ids = std::forward<T_BlockingSignRequest_space_ids_struct_setter>(space_ids_);
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.space_id = true;
+    __isset.space_ids = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return space_id;
+    return space_ids;
   }
 
    ::nebula::storage::cpp2::EngineSignType get_sign() const {
@@ -14735,277 +14850,6 @@ uint32_t StopAdminTaskRequest::read(Protocol_* iprot) {
 
 }}} // nebula::storage::cpp2
 namespace nebula { namespace storage { namespace cpp2 {
-class InternalTxnRequest final  {
- private:
-  friend struct ::apache::thrift::detail::st::struct_private_access;
-
-  //  used by a static_assert in the corresponding source
-  static constexpr bool __fbthrift_cpp2_gen_json = false;
-  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
-  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
-
- public:
-  using __fbthrift_cpp2_type = InternalTxnRequest;
-  static constexpr bool __fbthrift_cpp2_is_union =
-    false;
-
-
- public:
-
-  InternalTxnRequest();
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-
-  // FragileConstructor for use in initialization lists only.
-  [[deprecated("This constructor is deprecated")]]
-  InternalTxnRequest(apache::thrift::FragileConstructor, int64_t txn_id__arg, ::std::map< ::nebula::cpp2::PartitionID, int64_t> term_of_parts__arg,  ::nebula::storage::cpp2::AddEdgesRequest add_edge_req__arg,  ::nebula::storage::cpp2::UpdateEdgeRequest upd_edge_req__arg, std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>> edge_ver__arg);
-
-  InternalTxnRequest(InternalTxnRequest&&) = default;
-
-  InternalTxnRequest(const InternalTxnRequest&) = default;
-
-
-  InternalTxnRequest& operator=(InternalTxnRequest&&) = default;
-
-  InternalTxnRequest& operator=(const InternalTxnRequest&) = default;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-  void __clear();
-
-  ~InternalTxnRequest();
-
- private:
-  int64_t txn_id;
- private:
-  ::std::map< ::nebula::cpp2::PartitionID, int64_t> term_of_parts;
- private:
-   ::nebula::storage::cpp2::AddEdgesRequest add_edge_req;
- private:
-   ::nebula::storage::cpp2::UpdateEdgeRequest upd_edge_req;
- private:
-  std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>> edge_ver;
-
- public:
-  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
-  struct __isset {
-    bool txn_id;
-    bool term_of_parts;
-    bool add_edge_req;
-    bool upd_edge_req;
-    bool edge_ver;
-  } __isset = {};
-  bool operator==(const InternalTxnRequest& rhs) const;
-#ifndef SWIG
-  friend bool operator!=(const InternalTxnRequest& __x, const InternalTxnRequest& __y) {
-    return !(__x == __y);
-  }
-#endif
-  bool operator<(const InternalTxnRequest& rhs) const;
-#ifndef SWIG
-  friend bool operator>(const InternalTxnRequest& __x, const InternalTxnRequest& __y) {
-    return __y < __x;
-  }
-  friend bool operator<=(const InternalTxnRequest& __x, const InternalTxnRequest& __y) {
-    return !(__y < __x);
-  }
-  friend bool operator>=(const InternalTxnRequest& __x, const InternalTxnRequest& __y) {
-    return !(__x < __y);
-  }
-#endif
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = int64_t>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> txn_id_ref() const& {
-    return {this->txn_id, __isset.txn_id};
-  }
-
-  template <typename..., typename T = int64_t>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> txn_id_ref() const&& {
-    return {std::move(this->txn_id), __isset.txn_id};
-  }
-
-  template <typename..., typename T = int64_t>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> txn_id_ref() & {
-    return {this->txn_id, __isset.txn_id};
-  }
-
-  template <typename..., typename T = int64_t>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> txn_id_ref() && {
-    return {std::move(this->txn_id), __isset.txn_id};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = ::std::map< ::nebula::cpp2::PartitionID, int64_t>>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> term_of_parts_ref() const& {
-    return {this->term_of_parts, __isset.term_of_parts};
-  }
-
-  template <typename..., typename T = ::std::map< ::nebula::cpp2::PartitionID, int64_t>>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> term_of_parts_ref() const&& {
-    return {std::move(this->term_of_parts), __isset.term_of_parts};
-  }
-
-  template <typename..., typename T = ::std::map< ::nebula::cpp2::PartitionID, int64_t>>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> term_of_parts_ref() & {
-    return {this->term_of_parts, __isset.term_of_parts};
-  }
-
-  template <typename..., typename T = ::std::map< ::nebula::cpp2::PartitionID, int64_t>>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> term_of_parts_ref() && {
-    return {std::move(this->term_of_parts), __isset.term_of_parts};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T =  ::nebula::storage::cpp2::AddEdgesRequest>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> add_edge_req_ref() const& {
-    return {this->add_edge_req, __isset.add_edge_req};
-  }
-
-  template <typename..., typename T =  ::nebula::storage::cpp2::AddEdgesRequest>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> add_edge_req_ref() const&& {
-    return {std::move(this->add_edge_req), __isset.add_edge_req};
-  }
-
-  template <typename..., typename T =  ::nebula::storage::cpp2::AddEdgesRequest>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> add_edge_req_ref() & {
-    return {this->add_edge_req, __isset.add_edge_req};
-  }
-
-  template <typename..., typename T =  ::nebula::storage::cpp2::AddEdgesRequest>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> add_edge_req_ref() && {
-    return {std::move(this->add_edge_req), __isset.add_edge_req};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T =  ::nebula::storage::cpp2::UpdateEdgeRequest>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> upd_edge_req_ref() const& {
-    return {this->upd_edge_req, __isset.upd_edge_req};
-  }
-
-  template <typename..., typename T =  ::nebula::storage::cpp2::UpdateEdgeRequest>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> upd_edge_req_ref() const&& {
-    return {std::move(this->upd_edge_req), __isset.upd_edge_req};
-  }
-
-  template <typename..., typename T =  ::nebula::storage::cpp2::UpdateEdgeRequest>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> upd_edge_req_ref() & {
-    return {this->upd_edge_req, __isset.upd_edge_req};
-  }
-
-  template <typename..., typename T =  ::nebula::storage::cpp2::UpdateEdgeRequest>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> upd_edge_req_ref() && {
-    return {std::move(this->upd_edge_req), __isset.upd_edge_req};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>>>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> edge_ver_ref() const& {
-    return {this->edge_ver, __isset.edge_ver};
-  }
-
-  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>>>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> edge_ver_ref() const&& {
-    return {std::move(this->edge_ver), __isset.edge_ver};
-  }
-
-  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>>>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> edge_ver_ref() & {
-    return {this->edge_ver, __isset.edge_ver};
-  }
-
-  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>>>
-  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> edge_ver_ref() && {
-    return {std::move(this->edge_ver), __isset.edge_ver};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-  int64_t get_txn_id() const {
-    return txn_id;
-  }
-
-  int64_t& set_txn_id(int64_t txn_id_) {
-    txn_id = txn_id_;
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.txn_id = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return txn_id;
-  }
-  const ::std::map< ::nebula::cpp2::PartitionID, int64_t>& get_term_of_parts() const&;
-  ::std::map< ::nebula::cpp2::PartitionID, int64_t> get_term_of_parts() &&;
-
-  template <typename T_InternalTxnRequest_term_of_parts_struct_setter = ::std::map< ::nebula::cpp2::PartitionID, int64_t>>
-  ::std::map< ::nebula::cpp2::PartitionID, int64_t>& set_term_of_parts(T_InternalTxnRequest_term_of_parts_struct_setter&& term_of_parts_) {
-    term_of_parts = std::forward<T_InternalTxnRequest_term_of_parts_struct_setter>(term_of_parts_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.term_of_parts = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return term_of_parts;
-  }
-  const  ::nebula::storage::cpp2::AddEdgesRequest* get_add_edge_req() const&;
-   ::nebula::storage::cpp2::AddEdgesRequest* get_add_edge_req() &;
-   ::nebula::storage::cpp2::AddEdgesRequest* get_add_edge_req() && = delete;
-
-  template <typename T_InternalTxnRequest_add_edge_req_struct_setter =  ::nebula::storage::cpp2::AddEdgesRequest>
-   ::nebula::storage::cpp2::AddEdgesRequest& set_add_edge_req(T_InternalTxnRequest_add_edge_req_struct_setter&& add_edge_req_) {
-    add_edge_req = std::forward<T_InternalTxnRequest_add_edge_req_struct_setter>(add_edge_req_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.add_edge_req = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return add_edge_req;
-  }
-  const  ::nebula::storage::cpp2::UpdateEdgeRequest* get_upd_edge_req() const&;
-   ::nebula::storage::cpp2::UpdateEdgeRequest* get_upd_edge_req() &;
-   ::nebula::storage::cpp2::UpdateEdgeRequest* get_upd_edge_req() && = delete;
-
-  template <typename T_InternalTxnRequest_upd_edge_req_struct_setter =  ::nebula::storage::cpp2::UpdateEdgeRequest>
-   ::nebula::storage::cpp2::UpdateEdgeRequest& set_upd_edge_req(T_InternalTxnRequest_upd_edge_req_struct_setter&& upd_edge_req_) {
-    upd_edge_req = std::forward<T_InternalTxnRequest_upd_edge_req_struct_setter>(upd_edge_req_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.upd_edge_req = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return upd_edge_req;
-  }
-  const std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>>* get_edge_ver() const&;
-  std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>>* get_edge_ver() &;
-  std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>>* get_edge_ver() && = delete;
-
-  template <typename T_InternalTxnRequest_edge_ver_struct_setter = std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>>>
-  std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>>& set_edge_ver(T_InternalTxnRequest_edge_ver_struct_setter&& edge_ver_) {
-    edge_ver = std::forward<T_InternalTxnRequest_edge_ver_struct_setter>(edge_ver_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.edge_ver = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return edge_ver;
-  }
-
-  template <class Protocol_>
-  uint32_t read(Protocol_* iprot);
-  template <class Protocol_>
-  uint32_t serializedSize(Protocol_ const* prot_) const;
-  template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
-  template <class Protocol_>
-  uint32_t write(Protocol_* prot_) const;
-
- private:
-  template <class Protocol_>
-  void readNoXfer(Protocol_* iprot);
-
-  friend class ::apache::thrift::Cpp2Ops< InternalTxnRequest >;
-  friend void swap(InternalTxnRequest& a, InternalTxnRequest& b);
-};
-
-template <class Protocol_>
-uint32_t InternalTxnRequest::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCursorPosition();
-  readNoXfer(iprot);
-  return iprot->getCursorPosition() - _xferStart;
-}
-
-}}} // nebula::storage::cpp2
-namespace nebula { namespace storage { namespace cpp2 {
 class ChainAddEdgesRequest final  {
  private:
   friend struct ::apache::thrift::detail::st::struct_private_access;
@@ -15579,6 +15423,243 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 template <class Protocol_>
 uint32_t ChainUpdateEdgeRequest::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCursorPosition();
+  readNoXfer(iprot);
+  return iprot->getCursorPosition() - _xferStart;
+}
+
+}}} // nebula::storage::cpp2
+namespace nebula { namespace storage { namespace cpp2 {
+class ChainDeleteEdgesRequest final  {
+ private:
+  friend struct ::apache::thrift::detail::st::struct_private_access;
+
+  //  used by a static_assert in the corresponding source
+  static constexpr bool __fbthrift_cpp2_gen_json = false;
+  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
+  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
+
+ public:
+  using __fbthrift_cpp2_type = ChainDeleteEdgesRequest;
+  static constexpr bool __fbthrift_cpp2_is_union =
+    false;
+
+
+ public:
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  ChainDeleteEdgesRequest() :
+      space_id(0),
+      term(0) {}
+  // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
+  ChainDeleteEdgesRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>> parts__arg, ::std::string txn_id__arg, int64_t term__arg);
+
+  ChainDeleteEdgesRequest(ChainDeleteEdgesRequest&&) = default;
+
+  ChainDeleteEdgesRequest(const ChainDeleteEdgesRequest&) = default;
+
+
+  ChainDeleteEdgesRequest& operator=(ChainDeleteEdgesRequest&&) = default;
+
+  ChainDeleteEdgesRequest& operator=(const ChainDeleteEdgesRequest&) = default;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+  void __clear();
+ private:
+   ::nebula::cpp2::GraphSpaceID space_id;
+ private:
+  std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>> parts;
+ private:
+  ::std::string txn_id;
+ private:
+  int64_t term;
+
+ public:
+  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
+  struct __isset {
+    bool space_id;
+    bool parts;
+    bool txn_id;
+    bool term;
+  } __isset = {};
+  bool operator==(const ChainDeleteEdgesRequest& rhs) const;
+#ifndef SWIG
+  friend bool operator!=(const ChainDeleteEdgesRequest& __x, const ChainDeleteEdgesRequest& __y) {
+    return !(__x == __y);
+  }
+#endif
+  bool operator<(const ChainDeleteEdgesRequest& rhs) const;
+#ifndef SWIG
+  friend bool operator>(const ChainDeleteEdgesRequest& __x, const ChainDeleteEdgesRequest& __y) {
+    return __y < __x;
+  }
+  friend bool operator<=(const ChainDeleteEdgesRequest& __x, const ChainDeleteEdgesRequest& __y) {
+    return !(__y < __x);
+  }
+  friend bool operator>=(const ChainDeleteEdgesRequest& __x, const ChainDeleteEdgesRequest& __y) {
+    return !(__x < __y);
+  }
+#endif
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> space_id_ref() const& {
+    return {this->space_id, __isset.space_id};
+  }
+
+  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> space_id_ref() const&& {
+    return {std::move(this->space_id), __isset.space_id};
+  }
+
+  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> space_id_ref() & {
+    return {this->space_id, __isset.space_id};
+  }
+
+  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> space_id_ref() && {
+    return {std::move(this->space_id), __isset.space_id};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> parts_ref() const& {
+    return {this->parts, __isset.parts};
+  }
+
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> parts_ref() const&& {
+    return {std::move(this->parts), __isset.parts};
+  }
+
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> parts_ref() & {
+    return {this->parts, __isset.parts};
+  }
+
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> parts_ref() && {
+    return {std::move(this->parts), __isset.parts};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> txn_id_ref() const& {
+    return {this->txn_id, __isset.txn_id};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> txn_id_ref() const&& {
+    return {std::move(this->txn_id), __isset.txn_id};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> txn_id_ref() & {
+    return {this->txn_id, __isset.txn_id};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> txn_id_ref() && {
+    return {std::move(this->txn_id), __isset.txn_id};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> term_ref() const& {
+    return {this->term, __isset.term};
+  }
+
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> term_ref() const&& {
+    return {std::move(this->term), __isset.term};
+  }
+
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> term_ref() & {
+    return {this->term, __isset.term};
+  }
+
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> term_ref() && {
+    return {std::move(this->term), __isset.term};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+   ::nebula::cpp2::GraphSpaceID get_space_id() const {
+    return space_id;
+  }
+
+   ::nebula::cpp2::GraphSpaceID& set_space_id( ::nebula::cpp2::GraphSpaceID space_id_) {
+    space_id = space_id_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.space_id = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return space_id;
+  }
+  const std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>>& get_parts() const&;
+  std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>> get_parts() &&;
+
+  template <typename T_ChainDeleteEdgesRequest_parts_struct_setter = std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>>>
+  std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>>& set_parts(T_ChainDeleteEdgesRequest_parts_struct_setter&& parts_) {
+    parts = std::forward<T_ChainDeleteEdgesRequest_parts_struct_setter>(parts_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.parts = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return parts;
+  }
+
+  const ::std::string& get_txn_id() const& {
+    return txn_id;
+  }
+
+  ::std::string get_txn_id() && {
+    return std::move(txn_id);
+  }
+
+  template <typename T_ChainDeleteEdgesRequest_txn_id_struct_setter = ::std::string>
+  ::std::string& set_txn_id(T_ChainDeleteEdgesRequest_txn_id_struct_setter&& txn_id_) {
+    txn_id = std::forward<T_ChainDeleteEdgesRequest_txn_id_struct_setter>(txn_id_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.txn_id = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return txn_id;
+  }
+
+  int64_t get_term() const {
+    return term;
+  }
+
+  int64_t& set_term(int64_t term_) {
+    term = term_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.term = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return term;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+
+ private:
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< ChainDeleteEdgesRequest >;
+  friend void swap(ChainDeleteEdgesRequest& a, ChainDeleteEdgesRequest& b);
+};
+
+template <class Protocol_>
+uint32_t ChainDeleteEdgesRequest::read(Protocol_* iprot) {
   auto _xferStart = iprot->getCursorPosition();
   readNoXfer(iprot);
   return iprot->getCursorPosition() - _xferStart;

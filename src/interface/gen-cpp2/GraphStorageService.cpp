@@ -351,6 +351,27 @@ void GraphStorageServiceSvIf::async_tm_chainAddEdges(std::unique_ptr<apache::thr
   });
 }
 
+void GraphStorageServiceSvIf::chainDeleteEdges( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::DeleteEdgesRequest& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("chainDeleteEdges");
+}
+
+folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> GraphStorageServiceSvIf::semifuture_chainDeleteEdges(const  ::nebula::storage::cpp2::DeleteEdgesRequest& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::storage::cpp2::ExecResponse& _return) { chainDeleteEdges(_return, p_req); });
+}
+
+folly::Future< ::nebula::storage::cpp2::ExecResponse> GraphStorageServiceSvIf::future_chainDeleteEdges(const  ::nebula::storage::cpp2::DeleteEdgesRequest& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_chainDeleteEdges(p_req), std::move(ka));
+}
+
+void GraphStorageServiceSvIf::async_tm_chainDeleteEdges(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>> callback, const  ::nebula::storage::cpp2::DeleteEdgesRequest& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_chainDeleteEdges(p_req);
+  });
+}
+
 void GraphStorageServiceSvIf::get( ::nebula::storage::cpp2::KVGetResponse& /*_return*/, const  ::nebula::storage::cpp2::KVGetRequest& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("get");
 }
@@ -446,6 +467,8 @@ void GraphStorageServiceSvNull::chainUpdateEdge( ::nebula::storage::cpp2::Update
 
 void GraphStorageServiceSvNull::chainAddEdges( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::AddEdgesRequest& /*req*/) {}
 
+void GraphStorageServiceSvNull::chainDeleteEdges( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::DeleteEdgesRequest& /*req*/) {}
+
 void GraphStorageServiceSvNull::get( ::nebula::storage::cpp2::KVGetResponse& /*_return*/, const  ::nebula::storage::cpp2::KVGetRequest& /*req*/) {}
 
 void GraphStorageServiceSvNull::put( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::KVPutRequest& /*req*/) {}
@@ -491,6 +514,7 @@ const GraphStorageServiceAsyncProcessor::ProcessMap GraphStorageServiceAsyncProc
   {"lookupAndTraverse", &GraphStorageServiceAsyncProcessor::setUpAndProcess_lookupAndTraverse<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"chainUpdateEdge", &GraphStorageServiceAsyncProcessor::setUpAndProcess_chainUpdateEdge<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"chainAddEdges", &GraphStorageServiceAsyncProcessor::setUpAndProcess_chainAddEdges<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"chainDeleteEdges", &GraphStorageServiceAsyncProcessor::setUpAndProcess_chainDeleteEdges<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"get", &GraphStorageServiceAsyncProcessor::setUpAndProcess_get<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"put", &GraphStorageServiceAsyncProcessor::setUpAndProcess_put<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"remove", &GraphStorageServiceAsyncProcessor::setUpAndProcess_remove<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -517,6 +541,7 @@ const GraphStorageServiceAsyncProcessor::ProcessMap GraphStorageServiceAsyncProc
   {"lookupAndTraverse", &GraphStorageServiceAsyncProcessor::setUpAndProcess_lookupAndTraverse<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"chainUpdateEdge", &GraphStorageServiceAsyncProcessor::setUpAndProcess_chainUpdateEdge<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"chainAddEdges", &GraphStorageServiceAsyncProcessor::setUpAndProcess_chainAddEdges<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"chainDeleteEdges", &GraphStorageServiceAsyncProcessor::setUpAndProcess_chainDeleteEdges<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"get", &GraphStorageServiceAsyncProcessor::setUpAndProcess_get<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"put", &GraphStorageServiceAsyncProcessor::setUpAndProcess_put<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"remove", &GraphStorageServiceAsyncProcessor::setUpAndProcess_remove<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},

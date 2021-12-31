@@ -665,6 +665,9 @@ void Value::__clear() {
     case Type::ggVal:
       destruct(value_.ggVal);
       break;
+    case Type::duVal:
+      destruct(value_.duVal);
+      break;
     default:
       assert(false);
       break;
@@ -709,6 +712,8 @@ bool Value::operator==(const Value& rhs) const {
       return *value_.gVal == *rhs.value_.gVal;
     case Type::ggVal:
       return *value_.ggVal == *rhs.value_.ggVal;
+    case Type::duVal:
+      return *value_.duVal == *rhs.value_.duVal;
     default:
       return true;
   }
@@ -826,6 +831,20 @@ std::unique_ptr<nebula::Geography>& Value::set_ggVal(nebula::Geography&& t) {
   return value_.ggVal;
 }
 
+std::unique_ptr<nebula::Duration>& Value::set_duVal(nebula::Duration const &t) {
+  __clear();
+  type_ = Type::duVal;
+  ::new (std::addressof(value_.duVal)) std::unique_ptr<nebula::Duration>(new std::unique_ptr<nebula::Duration>::element_type(t));
+  return value_.duVal;
+}
+
+std::unique_ptr<nebula::Duration>& Value::set_duVal(nebula::Duration&& t) {
+  __clear();
+  type_ = Type::duVal;
+  ::new (std::addressof(value_.duVal)) std::unique_ptr<nebula::Duration>(new std::unique_ptr<nebula::Duration>::element_type(std::move(t)));
+  return value_.duVal;
+}
+
 void swap(Value& a, Value& b) {
   Value temp(std::move(a));
   a = std::move(b);
@@ -907,6 +926,12 @@ static_assert(
         ::apache::thrift::type_class::variant,
         nebula::Geography>,
     "inconsistent use of json option");
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        Value,
+        ::apache::thrift::type_class::structure,
+        nebula::Duration>,
+    "inconsistent use of json option");
 
 static_assert(
     ::apache::thrift::detail::st::gen_check_nimble<
@@ -973,6 +998,12 @@ static_assert(
         Value,
         ::apache::thrift::type_class::variant,
         nebula::Geography>,
+    "inconsistent use of nimble option");
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        Value,
+        ::apache::thrift::type_class::structure,
+        nebula::Duration>,
     "inconsistent use of nimble option");
 
 }} // nebula::cpp2
@@ -2847,6 +2878,105 @@ namespace apache {
 namespace thrift {
 namespace detail {
 
+void TccStructTraits<::nebula::cpp2::Duration>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::cpp2::Duration>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+Duration::Duration(apache::thrift::FragileConstructor, int64_t seconds__arg, int32_t microseconds__arg, int32_t months__arg) :
+    seconds(std::move(seconds__arg)),
+    microseconds(std::move(microseconds__arg)),
+    months(std::move(months__arg)) {
+  __isset.seconds = true;
+  __isset.microseconds = true;
+  __isset.months = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void Duration::__clear() {
+  // clear all fields
+  seconds = 0;
+  microseconds = 0;
+  months = 0;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool Duration::operator==(const Duration& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.seconds == rhs.seconds)) {
+    return false;
+  }
+  if (!(lhs.microseconds == rhs.microseconds)) {
+    return false;
+  }
+  if (!(lhs.months == rhs.months)) {
+    return false;
+  }
+  return true;
+}
+
+bool Duration::operator<(const Duration& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.seconds == rhs.seconds)) {
+    return lhs.seconds < rhs.seconds;
+  }
+  if (!(lhs.microseconds == rhs.microseconds)) {
+    return lhs.microseconds < rhs.microseconds;
+  }
+  if (!(lhs.months == rhs.months)) {
+    return lhs.months < rhs.months;
+  }
+  return false;
+}
+
+
+void swap(Duration& a, Duration& b) {
+  using ::std::swap;
+  swap(a.seconds_ref().value(), b.seconds_ref().value());
+  swap(a.microseconds_ref().value(), b.microseconds_ref().value());
+  swap(a.months_ref().value(), b.months_ref().value());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void Duration::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t Duration::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t Duration::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t Duration::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void Duration::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t Duration::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t Duration::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t Duration::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+
+
+}} // nebula::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
 void TccStructTraits<::nebula::cpp2::LogInfo>::translateFieldName(
     folly::StringPiece _fname,
     int16_t& fid,
@@ -3033,224 +3163,6 @@ namespace apache {
 namespace thrift {
 namespace detail {
 
-void TccStructTraits<::nebula::cpp2::NodeInfo>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::cpp2::NodeInfo>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-NodeInfo::NodeInfo(apache::thrift::FragileConstructor, nebula::HostAddr host__arg,  ::nebula::cpp2::DirInfo dir__arg) :
-    host(std::move(host__arg)),
-    dir(std::move(dir__arg)) {
-  __isset.host = true;
-  __isset.dir = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void NodeInfo::__clear() {
-  // clear all fields
-  host.__clear();
-  dir.__clear();
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-bool NodeInfo::operator==(const NodeInfo& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!(lhs.host == rhs.host)) {
-    return false;
-  }
-  if (!(lhs.dir == rhs.dir)) {
-    return false;
-  }
-  return true;
-}
-
-bool NodeInfo::operator<(const NodeInfo& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!(lhs.host == rhs.host)) {
-    return lhs.host < rhs.host;
-  }
-  if (!(lhs.dir == rhs.dir)) {
-    return lhs.dir < rhs.dir;
-  }
-  return false;
-}
-
-const nebula::HostAddr& NodeInfo::get_host() const& {
-  return host;
-}
-
-nebula::HostAddr NodeInfo::get_host() && {
-  return std::move(host);
-}
-
-const  ::nebula::cpp2::DirInfo& NodeInfo::get_dir() const& {
-  return dir;
-}
-
- ::nebula::cpp2::DirInfo NodeInfo::get_dir() && {
-  return std::move(dir);
-}
-
-
-void swap(NodeInfo& a, NodeInfo& b) {
-  using ::std::swap;
-  swap(a.host_ref().value(), b.host_ref().value());
-  swap(a.dir_ref().value(), b.dir_ref().value());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-template void NodeInfo::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t NodeInfo::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t NodeInfo::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t NodeInfo::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void NodeInfo::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t NodeInfo::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t NodeInfo::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t NodeInfo::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        NodeInfo,
-        ::apache::thrift::type_class::structure,
-        nebula::HostAddr>,
-    "inconsistent use of json option");
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        NodeInfo,
-        ::apache::thrift::type_class::structure,
-         ::nebula::cpp2::DirInfo>,
-    "inconsistent use of json option");
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        NodeInfo,
-        ::apache::thrift::type_class::structure,
-        nebula::HostAddr>,
-    "inconsistent use of nimble option");
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        NodeInfo,
-        ::apache::thrift::type_class::structure,
-         ::nebula::cpp2::DirInfo>,
-    "inconsistent use of nimble option");
-
-}} // nebula::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
-void TccStructTraits<::nebula::cpp2::PartitionBackupInfo>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::cpp2::PartitionBackupInfo>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-PartitionBackupInfo::PartitionBackupInfo(apache::thrift::FragileConstructor, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> info__arg) :
-    info(std::move(info__arg)) {
-  __isset.info = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void PartitionBackupInfo::__clear() {
-  // clear all fields
-  info.clear();
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-bool PartitionBackupInfo::operator==(const PartitionBackupInfo& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!(lhs.info == rhs.info)) {
-    return false;
-  }
-  return true;
-}
-
-const std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>& PartitionBackupInfo::get_info() const& {
-  return info;
-}
-
-std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> PartitionBackupInfo::get_info() && {
-  return std::move(info);
-}
-
-
-void swap(PartitionBackupInfo& a, PartitionBackupInfo& b) {
-  using ::std::swap;
-  swap(a.info_ref().value(), b.info_ref().value());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-template void PartitionBackupInfo::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t PartitionBackupInfo::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t PartitionBackupInfo::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t PartitionBackupInfo::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void PartitionBackupInfo::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t PartitionBackupInfo::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t PartitionBackupInfo::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t PartitionBackupInfo::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        PartitionBackupInfo,
-        ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>,
-        std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>,
-    "inconsistent use of json option");
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        PartitionBackupInfo,
-        ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>,
-        std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>,
-    "inconsistent use of nimble option");
-
-}} // nebula::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
 void TccStructTraits<::nebula::cpp2::CheckpointInfo>::translateFieldName(
     folly::StringPiece _fname,
     int16_t& fid,
@@ -3271,16 +3183,19 @@ void TccStructTraits<::nebula::cpp2::CheckpointInfo>::translateFieldName(
 namespace nebula { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-CheckpointInfo::CheckpointInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::PartitionBackupInfo partition_info__arg, ::std::string path__arg) :
-    partition_info(std::move(partition_info__arg)),
+CheckpointInfo::CheckpointInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> parts__arg, ::std::string path__arg) :
+    space_id(std::move(space_id__arg)),
+    parts(std::move(parts__arg)),
     path(std::move(path__arg)) {
-  __isset.partition_info = true;
+  __isset.space_id = true;
+  __isset.parts = true;
   __isset.path = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void CheckpointInfo::__clear() {
   // clear all fields
-  partition_info.__clear();
+  space_id = 0;
+  parts.clear();
   path = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
@@ -3291,7 +3206,10 @@ bool CheckpointInfo::operator==(const CheckpointInfo& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.partition_info == rhs.partition_info)) {
+  if (!(lhs.space_id == rhs.space_id)) {
+    return false;
+  }
+  if (!(lhs.parts == rhs.parts)) {
     return false;
   }
   if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.path, rhs.path)) {
@@ -3300,18 +3218,19 @@ bool CheckpointInfo::operator==(const CheckpointInfo& rhs) const {
   return true;
 }
 
-const  ::nebula::cpp2::PartitionBackupInfo& CheckpointInfo::get_partition_info() const& {
-  return partition_info;
+const std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>& CheckpointInfo::get_parts() const& {
+  return parts;
 }
 
- ::nebula::cpp2::PartitionBackupInfo CheckpointInfo::get_partition_info() && {
-  return std::move(partition_info);
+std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> CheckpointInfo::get_parts() && {
+  return std::move(parts);
 }
 
 
 void swap(CheckpointInfo& a, CheckpointInfo& b) {
   using ::std::swap;
-  swap(a.partition_info_ref().value(), b.partition_info_ref().value());
+  swap(a.space_id_ref().value(), b.space_id_ref().value());
+  swap(a.parts_ref().value(), b.parts_ref().value());
   swap(a.path_ref().value(), b.path_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
@@ -3330,15 +3249,15 @@ template uint32_t CheckpointInfo::serializedSizeZC<>(apache::thrift::CompactProt
 static_assert(
     ::apache::thrift::detail::st::gen_check_json<
         CheckpointInfo,
-        ::apache::thrift::type_class::structure,
-         ::nebula::cpp2::PartitionBackupInfo>,
+        ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>,
+        std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>,
     "inconsistent use of json option");
 
 static_assert(
     ::apache::thrift::detail::st::gen_check_nimble<
         CheckpointInfo,
-        ::apache::thrift::type_class::structure,
-         ::nebula::cpp2::PartitionBackupInfo>,
+        ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>,
+        std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>,
     "inconsistent use of nimble option");
 
 }} // nebula::cpp2

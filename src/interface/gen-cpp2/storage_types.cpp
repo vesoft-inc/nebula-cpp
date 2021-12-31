@@ -2543,23 +2543,26 @@ namespace nebula { namespace storage { namespace cpp2 {
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 AddVerticesRequest::AddVerticesRequest() :
       space_id(0),
-      if_not_exists(0) {}
+      if_not_exists(0),
+      ignore_existed_index(false) {}
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 
 AddVerticesRequest::~AddVerticesRequest() {}
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-AddVerticesRequest::AddVerticesRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::NewVertex>> parts__arg, std::unordered_map< ::nebula::cpp2::TagID, ::std::vector<::std::string>> prop_names__arg, bool if_not_exists__arg,  ::nebula::storage::cpp2::RequestCommon common__arg) :
+AddVerticesRequest::AddVerticesRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::NewVertex>> parts__arg, std::unordered_map< ::nebula::cpp2::TagID, ::std::vector<::std::string>> prop_names__arg, bool if_not_exists__arg, bool ignore_existed_index__arg,  ::nebula::storage::cpp2::RequestCommon common__arg) :
     space_id(std::move(space_id__arg)),
     parts(std::move(parts__arg)),
     prop_names(std::move(prop_names__arg)),
     if_not_exists(std::move(if_not_exists__arg)),
+    ignore_existed_index(std::move(ignore_existed_index__arg)),
     common(std::move(common__arg)) {
   __isset.space_id = true;
   __isset.parts = true;
   __isset.prop_names = true;
   __isset.if_not_exists = true;
+  __isset.ignore_existed_index = true;
   __isset.common = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -2569,6 +2572,7 @@ void AddVerticesRequest::__clear() {
   parts.clear();
   prop_names.clear();
   if_not_exists = 0;
+  ignore_existed_index = false;
   common.__clear();
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
@@ -2589,6 +2593,9 @@ bool AddVerticesRequest::operator==(const AddVerticesRequest& rhs) const {
     return false;
   }
   if (!(lhs.if_not_exists == rhs.if_not_exists)) {
+    return false;
+  }
+  if (!(lhs.ignore_existed_index == rhs.ignore_existed_index)) {
     return false;
   }
   if (lhs.common_ref() != rhs.common_ref()) {
@@ -2628,6 +2635,7 @@ void swap(AddVerticesRequest& a, AddVerticesRequest& b) {
   swap(a.parts_ref().value(), b.parts_ref().value());
   swap(a.prop_names_ref().value(), b.prop_names_ref().value());
   swap(a.if_not_exists_ref().value(), b.if_not_exists_ref().value());
+  swap(a.ignore_existed_index_ref().value(), b.ignore_existed_index_ref().value());
   swap(a.common_ref().value_unchecked(), b.common_ref().value_unchecked());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
@@ -2697,23 +2705,26 @@ namespace nebula { namespace storage { namespace cpp2 {
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 AddEdgesRequest::AddEdgesRequest() :
       space_id(0),
-      if_not_exists(0) {}
+      if_not_exists(0),
+      ignore_existed_index(false) {}
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 
 AddEdgesRequest::~AddEdgesRequest() {}
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-AddEdgesRequest::AddEdgesRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::NewEdge>> parts__arg, ::std::vector<::std::string> prop_names__arg, bool if_not_exists__arg,  ::nebula::storage::cpp2::RequestCommon common__arg) :
+AddEdgesRequest::AddEdgesRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::NewEdge>> parts__arg, ::std::vector<::std::string> prop_names__arg, bool if_not_exists__arg, bool ignore_existed_index__arg,  ::nebula::storage::cpp2::RequestCommon common__arg) :
     space_id(std::move(space_id__arg)),
     parts(std::move(parts__arg)),
     prop_names(std::move(prop_names__arg)),
     if_not_exists(std::move(if_not_exists__arg)),
+    ignore_existed_index(std::move(ignore_existed_index__arg)),
     common(std::move(common__arg)) {
   __isset.space_id = true;
   __isset.parts = true;
   __isset.prop_names = true;
   __isset.if_not_exists = true;
+  __isset.ignore_existed_index = true;
   __isset.common = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -2723,6 +2734,7 @@ void AddEdgesRequest::__clear() {
   parts.clear();
   prop_names.clear();
   if_not_exists = 0;
+  ignore_existed_index = false;
   common.__clear();
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
@@ -2743,6 +2755,9 @@ bool AddEdgesRequest::operator==(const AddEdgesRequest& rhs) const {
     return false;
   }
   if (!(lhs.if_not_exists == rhs.if_not_exists)) {
+    return false;
+  }
+  if (!(lhs.ignore_existed_index == rhs.ignore_existed_index)) {
     return false;
   }
   if (lhs.common_ref() != rhs.common_ref()) {
@@ -2782,6 +2797,7 @@ void swap(AddEdgesRequest& a, AddEdgesRequest& b) {
   swap(a.parts_ref().value(), b.parts_ref().value());
   swap(a.prop_names_ref().value(), b.prop_names_ref().value());
   swap(a.if_not_exists_ref().value(), b.if_not_exists_ref().value());
+  swap(a.ignore_existed_index_ref().value(), b.ignore_existed_index_ref().value());
   swap(a.common_ref().value_unchecked(), b.common_ref().value_unchecked());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
@@ -4666,17 +4682,19 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 LookupIndexRequest::~LookupIndexRequest() {}
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-LookupIndexRequest::LookupIndexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::vector< ::nebula::cpp2::PartitionID> parts__arg,  ::nebula::storage::cpp2::IndexSpec indices__arg, ::std::vector<::std::string> return_columns__arg,  ::nebula::storage::cpp2::RequestCommon common__arg, int64_t limit__arg) :
+LookupIndexRequest::LookupIndexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::vector< ::nebula::cpp2::PartitionID> parts__arg,  ::nebula::storage::cpp2::IndexSpec indices__arg, ::std::vector<::std::string> return_columns__arg,  ::nebula::storage::cpp2::RequestCommon common__arg, int64_t limit__arg, ::std::vector< ::nebula::storage::cpp2::OrderBy> order_by__arg) :
     space_id(std::move(space_id__arg)),
     parts(std::move(parts__arg)),
     indices(std::move(indices__arg)),
     return_columns(std::move(return_columns__arg)),
     common(std::move(common__arg)),
-    limit(std::move(limit__arg)) {
+    limit(std::move(limit__arg)),
+    order_by(std::move(order_by__arg)) {
   __isset.indices = true;
   __isset.return_columns = true;
   __isset.common = true;
   __isset.limit = true;
+  __isset.order_by = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void LookupIndexRequest::__clear() {
@@ -4687,6 +4705,7 @@ void LookupIndexRequest::__clear() {
   return_columns.clear();
   common.__clear();
   limit = 0;
+  order_by.clear();
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -4712,6 +4731,9 @@ bool LookupIndexRequest::operator==(const LookupIndexRequest& rhs) const {
     return false;
   }
   if (lhs.limit_ref() != rhs.limit_ref()) {
+    return false;
+  }
+  if (lhs.order_by_ref() != rhs.order_by_ref()) {
     return false;
   }
   return true;
@@ -4749,6 +4771,14 @@ const  ::nebula::storage::cpp2::RequestCommon* LookupIndexRequest::get_common() 
   return common_ref().has_value() ? std::addressof(common) : nullptr;
 }
 
+const ::std::vector< ::nebula::storage::cpp2::OrderBy>* LookupIndexRequest::get_order_by() const& {
+  return order_by_ref().has_value() ? std::addressof(order_by) : nullptr;
+}
+
+::std::vector< ::nebula::storage::cpp2::OrderBy>* LookupIndexRequest::get_order_by() & {
+  return order_by_ref().has_value() ? std::addressof(order_by) : nullptr;
+}
+
 
 void swap(LookupIndexRequest& a, LookupIndexRequest& b) {
   using ::std::swap;
@@ -4758,6 +4788,7 @@ void swap(LookupIndexRequest& a, LookupIndexRequest& b) {
   swap(a.return_columns_ref().value_unchecked(), b.return_columns_ref().value_unchecked());
   swap(a.common_ref().value_unchecked(), b.common_ref().value_unchecked());
   swap(a.limit_ref().value_unchecked(), b.limit_ref().value_unchecked());
+  swap(a.order_by_ref().value_unchecked(), b.order_by_ref().value_unchecked());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -4784,6 +4815,12 @@ static_assert(
         ::apache::thrift::type_class::structure,
          ::nebula::storage::cpp2::RequestCommon>,
     "inconsistent use of json option");
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        LookupIndexRequest,
+        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
+        ::std::vector< ::nebula::storage::cpp2::OrderBy>>,
+    "inconsistent use of json option");
 
 static_assert(
     ::apache::thrift::detail::st::gen_check_nimble<
@@ -4796,6 +4833,12 @@ static_assert(
         LookupIndexRequest,
         ::apache::thrift::type_class::structure,
          ::nebula::storage::cpp2::RequestCommon>,
+    "inconsistent use of nimble option");
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        LookupIndexRequest,
+        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
+        ::std::vector< ::nebula::storage::cpp2::OrderBy>>,
     "inconsistent use of nimble option");
 
 }}} // nebula::storage::cpp2
@@ -7018,16 +7061,16 @@ void TccStructTraits<::nebula::storage::cpp2::CreateCPRequest>::translateFieldNa
 namespace nebula { namespace storage { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-CreateCPRequest::CreateCPRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::string name__arg) :
-    space_id(std::move(space_id__arg)),
+CreateCPRequest::CreateCPRequest(apache::thrift::FragileConstructor, ::std::vector< ::nebula::cpp2::GraphSpaceID> space_ids__arg, ::std::string name__arg) :
+    space_ids(std::move(space_ids__arg)),
     name(std::move(name__arg)) {
-  __isset.space_id = true;
+  __isset.space_ids = true;
   __isset.name = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void CreateCPRequest::__clear() {
   // clear all fields
-  space_id = 0;
+  space_ids.clear();
   name = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
@@ -7038,7 +7081,7 @@ bool CreateCPRequest::operator==(const CreateCPRequest& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.space_id == rhs.space_id)) {
+  if (!(lhs.space_ids == rhs.space_ids)) {
     return false;
   }
   if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.name, rhs.name)) {
@@ -7051,8 +7094,8 @@ bool CreateCPRequest::operator<(const CreateCPRequest& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.space_id == rhs.space_id)) {
-    return lhs.space_id < rhs.space_id;
+  if (!(lhs.space_ids == rhs.space_ids)) {
+    return lhs.space_ids < rhs.space_ids;
   }
   if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.name, rhs.name)) {
     return apache::thrift::StringTraits<std::string>::isLess(lhs.name, rhs.name);
@@ -7060,10 +7103,18 @@ bool CreateCPRequest::operator<(const CreateCPRequest& rhs) const {
   return false;
 }
 
+const ::std::vector< ::nebula::cpp2::GraphSpaceID>& CreateCPRequest::get_space_ids() const& {
+  return space_ids;
+}
+
+::std::vector< ::nebula::cpp2::GraphSpaceID> CreateCPRequest::get_space_ids() && {
+  return std::move(space_ids);
+}
+
 
 void swap(CreateCPRequest& a, CreateCPRequest& b) {
   using ::std::swap;
-  swap(a.space_id_ref().value(), b.space_id_ref().value());
+  swap(a.space_ids_ref().value(), b.space_ids_ref().value());
   swap(a.name_ref().value(), b.name_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
@@ -7107,16 +7158,16 @@ void TccStructTraits<::nebula::storage::cpp2::DropCPRequest>::translateFieldName
 namespace nebula { namespace storage { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-DropCPRequest::DropCPRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::string name__arg) :
-    space_id(std::move(space_id__arg)),
+DropCPRequest::DropCPRequest(apache::thrift::FragileConstructor, ::std::vector< ::nebula::cpp2::GraphSpaceID> space_ids__arg, ::std::string name__arg) :
+    space_ids(std::move(space_ids__arg)),
     name(std::move(name__arg)) {
-  __isset.space_id = true;
+  __isset.space_ids = true;
   __isset.name = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void DropCPRequest::__clear() {
   // clear all fields
-  space_id = 0;
+  space_ids.clear();
   name = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
@@ -7127,7 +7178,7 @@ bool DropCPRequest::operator==(const DropCPRequest& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.space_id == rhs.space_id)) {
+  if (!(lhs.space_ids == rhs.space_ids)) {
     return false;
   }
   if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.name, rhs.name)) {
@@ -7140,8 +7191,8 @@ bool DropCPRequest::operator<(const DropCPRequest& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.space_id == rhs.space_id)) {
-    return lhs.space_id < rhs.space_id;
+  if (!(lhs.space_ids == rhs.space_ids)) {
+    return lhs.space_ids < rhs.space_ids;
   }
   if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.name, rhs.name)) {
     return apache::thrift::StringTraits<std::string>::isLess(lhs.name, rhs.name);
@@ -7149,10 +7200,18 @@ bool DropCPRequest::operator<(const DropCPRequest& rhs) const {
   return false;
 }
 
+const ::std::vector< ::nebula::cpp2::GraphSpaceID>& DropCPRequest::get_space_ids() const& {
+  return space_ids;
+}
+
+::std::vector< ::nebula::cpp2::GraphSpaceID> DropCPRequest::get_space_ids() && {
+  return std::move(space_ids);
+}
+
 
 void swap(DropCPRequest& a, DropCPRequest& b) {
   using ::std::swap;
-  swap(a.space_id_ref().value(), b.space_id_ref().value());
+  swap(a.space_ids_ref().value(), b.space_ids_ref().value());
   swap(a.name_ref().value(), b.name_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
@@ -7196,15 +7255,15 @@ void TccStructTraits<::nebula::storage::cpp2::BlockingSignRequest>::translateFie
 namespace nebula { namespace storage { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-BlockingSignRequest::BlockingSignRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg,  ::nebula::storage::cpp2::EngineSignType sign__arg) :
-    space_id(std::move(space_id__arg)),
+BlockingSignRequest::BlockingSignRequest(apache::thrift::FragileConstructor, ::std::vector< ::nebula::cpp2::GraphSpaceID> space_ids__arg,  ::nebula::storage::cpp2::EngineSignType sign__arg) :
+    space_ids(std::move(space_ids__arg)),
     sign(std::move(sign__arg)) {
-  __isset.space_id = true;
+  __isset.space_ids = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void BlockingSignRequest::__clear() {
   // clear all fields
-  space_id = 0;
+  space_ids.clear();
   sign = static_cast< ::nebula::storage::cpp2::EngineSignType>(0);
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
@@ -7215,7 +7274,7 @@ bool BlockingSignRequest::operator==(const BlockingSignRequest& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.space_id == rhs.space_id)) {
+  if (!(lhs.space_ids == rhs.space_ids)) {
     return false;
   }
   if (!(lhs.sign == rhs.sign)) {
@@ -7228,8 +7287,8 @@ bool BlockingSignRequest::operator<(const BlockingSignRequest& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.space_id == rhs.space_id)) {
-    return lhs.space_id < rhs.space_id;
+  if (!(lhs.space_ids == rhs.space_ids)) {
+    return lhs.space_ids < rhs.space_ids;
   }
   if (!(lhs.sign == rhs.sign)) {
     return lhs.sign < rhs.sign;
@@ -7237,10 +7296,18 @@ bool BlockingSignRequest::operator<(const BlockingSignRequest& rhs) const {
   return false;
 }
 
+const ::std::vector< ::nebula::cpp2::GraphSpaceID>& BlockingSignRequest::get_space_ids() const& {
+  return space_ids;
+}
+
+::std::vector< ::nebula::cpp2::GraphSpaceID> BlockingSignRequest::get_space_ids() && {
+  return std::move(space_ids);
+}
+
 
 void swap(BlockingSignRequest& a, BlockingSignRequest& b) {
   using ::std::swap;
-  swap(a.space_id_ref().value(), b.space_id_ref().value());
+  swap(a.space_ids_ref().value(), b.space_ids_ref().value());
   swap(a.sign_ref().value(), b.sign_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
@@ -8128,167 +8195,6 @@ namespace apache {
 namespace thrift {
 namespace detail {
 
-void TccStructTraits<::nebula::storage::cpp2::InternalTxnRequest>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::storage::cpp2::InternalTxnRequest>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace storage { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-InternalTxnRequest::InternalTxnRequest() :
-      txn_id(0) {}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-
-InternalTxnRequest::~InternalTxnRequest() {}
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-InternalTxnRequest::InternalTxnRequest(apache::thrift::FragileConstructor, int64_t txn_id__arg, ::std::map< ::nebula::cpp2::PartitionID, int64_t> term_of_parts__arg,  ::nebula::storage::cpp2::AddEdgesRequest add_edge_req__arg,  ::nebula::storage::cpp2::UpdateEdgeRequest upd_edge_req__arg, std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>> edge_ver__arg) :
-    txn_id(std::move(txn_id__arg)),
-    term_of_parts(std::move(term_of_parts__arg)),
-    add_edge_req(std::move(add_edge_req__arg)),
-    upd_edge_req(std::move(upd_edge_req__arg)),
-    edge_ver(std::move(edge_ver__arg)) {
-  __isset.txn_id = true;
-  __isset.term_of_parts = true;
-  __isset.add_edge_req = true;
-  __isset.upd_edge_req = true;
-  __isset.edge_ver = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void InternalTxnRequest::__clear() {
-  // clear all fields
-  txn_id = 0;
-  term_of_parts.clear();
-  add_edge_req.__clear();
-  upd_edge_req.__clear();
-  edge_ver.clear();
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-bool InternalTxnRequest::operator==(const InternalTxnRequest& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!(lhs.txn_id == rhs.txn_id)) {
-    return false;
-  }
-  if (!(lhs.term_of_parts == rhs.term_of_parts)) {
-    return false;
-  }
-  if (lhs.add_edge_req_ref() != rhs.add_edge_req_ref()) {
-    return false;
-  }
-  if (lhs.upd_edge_req_ref() != rhs.upd_edge_req_ref()) {
-    return false;
-  }
-  if (lhs.edge_ver_ref() != rhs.edge_ver_ref()) {
-    return false;
-  }
-  return true;
-}
-
-const ::std::map< ::nebula::cpp2::PartitionID, int64_t>& InternalTxnRequest::get_term_of_parts() const& {
-  return term_of_parts;
-}
-
-::std::map< ::nebula::cpp2::PartitionID, int64_t> InternalTxnRequest::get_term_of_parts() && {
-  return std::move(term_of_parts);
-}
-
-const  ::nebula::storage::cpp2::AddEdgesRequest* InternalTxnRequest::get_add_edge_req() const& {
-  return add_edge_req_ref().has_value() ? std::addressof(add_edge_req) : nullptr;
-}
-
- ::nebula::storage::cpp2::AddEdgesRequest* InternalTxnRequest::get_add_edge_req() & {
-  return add_edge_req_ref().has_value() ? std::addressof(add_edge_req) : nullptr;
-}
-
-const  ::nebula::storage::cpp2::UpdateEdgeRequest* InternalTxnRequest::get_upd_edge_req() const& {
-  return upd_edge_req_ref().has_value() ? std::addressof(upd_edge_req) : nullptr;
-}
-
- ::nebula::storage::cpp2::UpdateEdgeRequest* InternalTxnRequest::get_upd_edge_req() & {
-  return upd_edge_req_ref().has_value() ? std::addressof(upd_edge_req) : nullptr;
-}
-
-const std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>>* InternalTxnRequest::get_edge_ver() const& {
-  return edge_ver_ref().has_value() ? std::addressof(edge_ver) : nullptr;
-}
-
-std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector<int64_t>>* InternalTxnRequest::get_edge_ver() & {
-  return edge_ver_ref().has_value() ? std::addressof(edge_ver) : nullptr;
-}
-
-
-void swap(InternalTxnRequest& a, InternalTxnRequest& b) {
-  using ::std::swap;
-  swap(a.txn_id_ref().value(), b.txn_id_ref().value());
-  swap(a.term_of_parts_ref().value(), b.term_of_parts_ref().value());
-  swap(a.add_edge_req_ref().value_unchecked(), b.add_edge_req_ref().value_unchecked());
-  swap(a.upd_edge_req_ref().value_unchecked(), b.upd_edge_req_ref().value_unchecked());
-  swap(a.edge_ver_ref().value_unchecked(), b.edge_ver_ref().value_unchecked());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-template void InternalTxnRequest::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t InternalTxnRequest::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t InternalTxnRequest::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t InternalTxnRequest::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void InternalTxnRequest::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t InternalTxnRequest::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t InternalTxnRequest::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t InternalTxnRequest::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        InternalTxnRequest,
-        ::apache::thrift::type_class::structure,
-         ::nebula::storage::cpp2::AddEdgesRequest>,
-    "inconsistent use of json option");
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        InternalTxnRequest,
-        ::apache::thrift::type_class::structure,
-         ::nebula::storage::cpp2::UpdateEdgeRequest>,
-    "inconsistent use of json option");
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        InternalTxnRequest,
-        ::apache::thrift::type_class::structure,
-         ::nebula::storage::cpp2::AddEdgesRequest>,
-    "inconsistent use of nimble option");
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        InternalTxnRequest,
-        ::apache::thrift::type_class::structure,
-         ::nebula::storage::cpp2::UpdateEdgeRequest>,
-    "inconsistent use of nimble option");
-
-}}} // nebula::storage::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
 void TccStructTraits<::nebula::storage::cpp2::ChainAddEdgesRequest>::translateFieldName(
     folly::StringPiece _fname,
     int16_t& fid,
@@ -8558,6 +8464,116 @@ static_assert(
         ChainUpdateEdgeRequest,
         ::apache::thrift::type_class::structure,
          ::nebula::storage::cpp2::UpdateEdgeRequest>,
+    "inconsistent use of nimble option");
+
+}}} // nebula::storage::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits<::nebula::storage::cpp2::ChainDeleteEdgesRequest>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::storage::cpp2::ChainDeleteEdgesRequest>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace storage { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+ChainDeleteEdgesRequest::ChainDeleteEdgesRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>> parts__arg, ::std::string txn_id__arg, int64_t term__arg) :
+    space_id(std::move(space_id__arg)),
+    parts(std::move(parts__arg)),
+    txn_id(std::move(txn_id__arg)),
+    term(std::move(term__arg)) {
+  __isset.space_id = true;
+  __isset.parts = true;
+  __isset.txn_id = true;
+  __isset.term = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void ChainDeleteEdgesRequest::__clear() {
+  // clear all fields
+  space_id = 0;
+  parts.clear();
+  txn_id = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  term = 0;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool ChainDeleteEdgesRequest::operator==(const ChainDeleteEdgesRequest& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.space_id == rhs.space_id)) {
+    return false;
+  }
+  if (!(lhs.parts == rhs.parts)) {
+    return false;
+  }
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.txn_id, rhs.txn_id)) {
+    return false;
+  }
+  if (!(lhs.term == rhs.term)) {
+    return false;
+  }
+  return true;
+}
+
+const std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>>& ChainDeleteEdgesRequest::get_parts() const& {
+  return parts;
+}
+
+std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>> ChainDeleteEdgesRequest::get_parts() && {
+  return std::move(parts);
+}
+
+
+void swap(ChainDeleteEdgesRequest& a, ChainDeleteEdgesRequest& b) {
+  using ::std::swap;
+  swap(a.space_id_ref().value(), b.space_id_ref().value());
+  swap(a.parts_ref().value(), b.parts_ref().value());
+  swap(a.txn_id_ref().value(), b.txn_id_ref().value());
+  swap(a.term_ref().value(), b.term_ref().value());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void ChainDeleteEdgesRequest::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t ChainDeleteEdgesRequest::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t ChainDeleteEdgesRequest::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t ChainDeleteEdgesRequest::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void ChainDeleteEdgesRequest::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t ChainDeleteEdgesRequest::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t ChainDeleteEdgesRequest::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t ChainDeleteEdgesRequest::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        ChainDeleteEdgesRequest,
+        ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>,
+        std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>>>,
+    "inconsistent use of json option");
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        ChainDeleteEdgesRequest,
+        ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>,
+        std::unordered_map< ::nebula::cpp2::PartitionID, ::std::vector< ::nebula::storage::cpp2::EdgeKey>>>,
     "inconsistent use of nimble option");
 
 }}} // nebula::storage::cpp2

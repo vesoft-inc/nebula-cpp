@@ -132,6 +132,15 @@ struct ForEachField<::nebula::meta::cpp2::EdgeItem> {
 };
 
 template <>
+struct ForEachField<::nebula::meta::cpp2::IndexParams> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).s2_max_level_ref()...);
+    f(1, static_cast<T&&>(t).s2_max_cells_ref()...);
+  }
+};
+
+template <>
 struct ForEachField<::nebula::meta::cpp2::IndexItem> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
@@ -141,6 +150,7 @@ struct ForEachField<::nebula::meta::cpp2::IndexItem> {
     f(3, static_cast<T&&>(t).schema_name_ref()...);
     f(4, static_cast<T&&>(t).fields_ref()...);
     f(5, static_cast<T&&>(t).comment_ref()...);
+    f(6, static_cast<T&&>(t).index_params_ref()...);
   }
 };
 
@@ -189,6 +199,16 @@ struct ForEachField<::nebula::meta::cpp2::ExecResp> {
     f(0, static_cast<T&&>(t).code_ref()...);
     f(1, static_cast<T&&>(t).id_ref()...);
     f(2, static_cast<T&&>(t).leader_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::AlterSpaceReq> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).space_name_ref()...);
+    f(1, static_cast<T&&>(t).op_ref()...);
+    f(2, static_cast<T&&>(t).paras_ref()...);
   }
 };
 
@@ -558,6 +578,24 @@ struct ForEachField<::nebula::meta::cpp2::GetPartsAllocResp> {
 };
 
 template <>
+struct ForEachField<::nebula::meta::cpp2::GetWorkerIdReq> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).host_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::GetWorkerIdResp> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).code_ref()...);
+    f(1, static_cast<T&&>(t).leader_ref()...);
+    f(2, static_cast<T&&>(t).workerid_ref()...);
+  }
+};
+
+template <>
 struct ForEachField<::nebula::meta::cpp2::MultiPutReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
@@ -682,6 +720,38 @@ struct ForEachField<::nebula::meta::cpp2::HBReq> {
     f(3, static_cast<T&&>(t).leader_partIds_ref()...);
     f(4, static_cast<T&&>(t).git_info_sha_ref()...);
     f(5, static_cast<T&&>(t).disk_parts_ref()...);
+    f(6, static_cast<T&&>(t).dir_ref()...);
+    f(7, static_cast<T&&>(t).version_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::ServiceInfo> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).dir_ref()...);
+    f(1, static_cast<T&&>(t).addr_ref()...);
+    f(2, static_cast<T&&>(t).role_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::AgentHBReq> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).host_ref()...);
+    f(1, static_cast<T&&>(t).git_info_sha_ref()...);
+    f(2, static_cast<T&&>(t).version_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::AgentHBResp> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).code_ref()...);
+    f(1, static_cast<T&&>(t).leader_ref()...);
+    f(2, static_cast<T&&>(t).service_list_ref()...);
   }
 };
 
@@ -704,6 +774,7 @@ struct ForEachField<::nebula::meta::cpp2::CreateTagIndexReq> {
     f(3, static_cast<T&&>(t).fields_ref()...);
     f(4, static_cast<T&&>(t).if_not_exists_ref()...);
     f(5, static_cast<T&&>(t).comment_ref()...);
+    f(6, static_cast<T&&>(t).index_params_ref()...);
   }
 };
 
@@ -764,6 +835,7 @@ struct ForEachField<::nebula::meta::cpp2::CreateEdgeIndexReq> {
     f(3, static_cast<T&&>(t).fields_ref()...);
     f(4, static_cast<T&&>(t).if_not_exists_ref()...);
     f(5, static_cast<T&&>(t).comment_ref()...);
+    f(6, static_cast<T&&>(t).index_params_ref()...);
   }
 };
 
@@ -1083,10 +1155,11 @@ struct ForEachField<::nebula::meta::cpp2::DropZoneReq> {
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::SplitZoneReq> {
+struct ForEachField<::nebula::meta::cpp2::DivideZoneReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).zone_name_ref()...);
+    f(1, static_cast<T&&>(t).zone_items_ref()...);
   }
 };
 
@@ -1220,11 +1293,11 @@ struct ForEachField<::nebula::meta::cpp2::GetStatsResp> {
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::BackupInfo> {
+struct ForEachField<::nebula::meta::cpp2::HostBackupInfo> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).host_ref()...);
-    f(1, static_cast<T&&>(t).info_ref()...);
+    f(1, static_cast<T&&>(t).checkpoints_ref()...);
   }
 };
 
@@ -1233,7 +1306,7 @@ struct ForEachField<::nebula::meta::cpp2::SpaceBackupInfo> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).space_ref()...);
-    f(1, static_cast<T&&>(t).info_ref()...);
+    f(1, static_cast<T&&>(t).host_backups_ref()...);
   }
 };
 
@@ -1241,11 +1314,11 @@ template <>
 struct ForEachField<::nebula::meta::cpp2::BackupMeta> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).backup_info_ref()...);
+    f(0, static_cast<T&&>(t).space_backups_ref()...);
     f(1, static_cast<T&&>(t).meta_files_ref()...);
     f(2, static_cast<T&&>(t).backup_name_ref()...);
     f(3, static_cast<T&&>(t).full_ref()...);
-    f(4, static_cast<T&&>(t).include_system_space_ref()...);
+    f(4, static_cast<T&&>(t).all_spaces_ref()...);
     f(5, static_cast<T&&>(t).create_time_ref()...);
   }
 };
@@ -1287,7 +1360,7 @@ struct ForEachField<::nebula::meta::cpp2::RestoreMetaReq> {
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::FTClient> {
+struct ForEachField<::nebula::meta::cpp2::ServiceClient> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).host_ref()...);
@@ -1298,7 +1371,7 @@ struct ForEachField<::nebula::meta::cpp2::FTClient> {
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::SignInFTServiceReq> {
+struct ForEachField<::nebula::meta::cpp2::SignInServiceReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).type_ref()...);
@@ -1307,21 +1380,23 @@ struct ForEachField<::nebula::meta::cpp2::SignInFTServiceReq> {
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::SignOutFTServiceReq> {
+struct ForEachField<::nebula::meta::cpp2::SignOutServiceReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).type_ref()...);
   }
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::ListFTClientsReq> {
+struct ForEachField<::nebula::meta::cpp2::ListServiceClientsReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).type_ref()...);
   }
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::ListFTClientsResp> {
+struct ForEachField<::nebula::meta::cpp2::ListServiceClientsResp> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).code_ref()...);
@@ -1510,8 +1585,7 @@ struct ForEachField<::nebula::meta::cpp2::ListClusterInfoResp> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).code_ref()...);
     f(1, static_cast<T&&>(t).leader_ref()...);
-    f(2, static_cast<T&&>(t).meta_servers_ref()...);
-    f(3, static_cast<T&&>(t).storage_servers_ref()...);
+    f(2, static_cast<T&&>(t).host_services_ref()...);
   }
 };
 
@@ -1552,8 +1626,9 @@ template <>
 struct ForEachField<::nebula::meta::cpp2::VerifyClientVersionReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).version_ref()...);
+    f(0, static_cast<T&&>(t).client_version_ref()...);
     f(1, static_cast<T&&>(t).host_ref()...);
+    f(2, static_cast<T&&>(t).build_version_ref()...);
   }
 };
 } // namespace detail

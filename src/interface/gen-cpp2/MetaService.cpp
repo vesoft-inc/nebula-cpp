@@ -99,6 +99,27 @@ void MetaServiceSvIf::async_tm_listSpaces(std::unique_ptr<apache::thrift::Handle
   });
 }
 
+void MetaServiceSvIf::alterSpace( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AlterSpaceReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("alterSpace");
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_alterSpace(const  ::nebula::meta::cpp2::AlterSpaceReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { alterSpace(_return, p_req); });
+}
+
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_alterSpace(const  ::nebula::meta::cpp2::AlterSpaceReq& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_alterSpace(p_req), std::move(ka));
+}
+
+void MetaServiceSvIf::async_tm_alterSpace(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_alterSpace(p_req);
+  });
+}
+
 void MetaServiceSvIf::createSpaceAs( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::CreateSpaceAsReq& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("createSpaceAs");
 }
@@ -453,6 +474,27 @@ folly::Future< ::nebula::meta::cpp2::ListPartsResp> MetaServiceSvIf::future_list
 void MetaServiceSvIf::async_tm_listParts(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListPartsResp>> callback, const  ::nebula::meta::cpp2::ListPartsReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
     return future_listParts(p_req);
+  });
+}
+
+void MetaServiceSvIf::getWorkerId( ::nebula::meta::cpp2::GetWorkerIdResp& /*_return*/, const  ::nebula::meta::cpp2::GetWorkerIdReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("getWorkerId");
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::GetWorkerIdResp> MetaServiceSvIf::semifuture_getWorkerId(const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::GetWorkerIdResp& _return) { getWorkerId(_return, p_req); });
+}
+
+folly::Future< ::nebula::meta::cpp2::GetWorkerIdResp> MetaServiceSvIf::future_getWorkerId(const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_getWorkerId(p_req), std::move(ka));
+}
+
+void MetaServiceSvIf::async_tm_getWorkerId(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetWorkerIdResp>> callback, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_getWorkerId(p_req);
   });
 }
 
@@ -1044,6 +1086,27 @@ void MetaServiceSvIf::async_tm_heartBeat(std::unique_ptr<apache::thrift::Handler
   });
 }
 
+void MetaServiceSvIf::agentHeartbeat( ::nebula::meta::cpp2::AgentHBResp& /*_return*/, const  ::nebula::meta::cpp2::AgentHBReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("agentHeartbeat");
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::AgentHBResp> MetaServiceSvIf::semifuture_agentHeartbeat(const  ::nebula::meta::cpp2::AgentHBReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::AgentHBResp& _return) { agentHeartbeat(_return, p_req); });
+}
+
+folly::Future< ::nebula::meta::cpp2::AgentHBResp> MetaServiceSvIf::future_agentHeartbeat(const  ::nebula::meta::cpp2::AgentHBReq& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_agentHeartbeat(p_req), std::move(ka));
+}
+
+void MetaServiceSvIf::async_tm_agentHeartbeat(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::AgentHBResp>> callback, const  ::nebula::meta::cpp2::AgentHBReq& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_agentHeartbeat(p_req);
+  });
+}
+
 void MetaServiceSvIf::regConfig( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RegConfigReq& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("regConfig");
 }
@@ -1254,24 +1317,24 @@ void MetaServiceSvIf::async_tm_dropZone(std::unique_ptr<apache::thrift::HandlerC
   });
 }
 
-void MetaServiceSvIf::splitZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SplitZoneReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("splitZone");
+void MetaServiceSvIf::divideZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DivideZoneReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("divideZone");
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { splitZone(_return, p_req); });
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_divideZone(const  ::nebula::meta::cpp2::DivideZoneReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { divideZone(_return, p_req); });
 }
 
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req) {
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_divideZone(const  ::nebula::meta::cpp2::DivideZoneReq& p_req) {
   using Source = apache::thrift::concurrency::ThreadManager::Source;
   auto scope = getRequestContext()->getRequestExecutionScope();
   auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_splitZone(p_req), std::move(ka));
+  return apache::thrift::detail::si::future(semifuture_divideZone(p_req), std::move(ka));
 }
 
-void MetaServiceSvIf::async_tm_splitZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req) {
+void MetaServiceSvIf::async_tm_divideZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DivideZoneReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_splitZone(p_req);
+    return future_divideZone(p_req);
   });
 }
 
@@ -1335,48 +1398,6 @@ folly::Future< ::nebula::meta::cpp2::ListZonesResp> MetaServiceSvIf::future_list
 void MetaServiceSvIf::async_tm_listZones(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListZonesResp>> callback, const  ::nebula::meta::cpp2::ListZonesReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
     return future_listZones(p_req);
-  });
-}
-
-void MetaServiceSvIf::createBackup( ::nebula::meta::cpp2::CreateBackupResp& /*_return*/, const  ::nebula::meta::cpp2::CreateBackupReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("createBackup");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::CreateBackupResp> MetaServiceSvIf::semifuture_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::CreateBackupResp& _return) { createBackup(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::CreateBackupResp> MetaServiceSvIf::future_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_createBackup(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_createBackup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::CreateBackupResp>> callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_createBackup(p_req);
-  });
-}
-
-void MetaServiceSvIf::restoreMeta( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("restoreMeta");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { restoreMeta(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_restoreMeta(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_restoreMeta(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_restoreMeta(p_req);
   });
 }
 
@@ -1464,66 +1485,66 @@ void MetaServiceSvIf::async_tm_getStats(std::unique_ptr<apache::thrift::HandlerC
   });
 }
 
-void MetaServiceSvIf::signInFTService( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SignInFTServiceReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("signInFTService");
+void MetaServiceSvIf::signInService( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SignInServiceReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("signInService");
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_signInFTService(const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { signInFTService(_return, p_req); });
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_signInService(const  ::nebula::meta::cpp2::SignInServiceReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { signInService(_return, p_req); });
 }
 
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_signInFTService(const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req) {
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_signInService(const  ::nebula::meta::cpp2::SignInServiceReq& p_req) {
   using Source = apache::thrift::concurrency::ThreadManager::Source;
   auto scope = getRequestContext()->getRequestExecutionScope();
   auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_signInFTService(p_req), std::move(ka));
+  return apache::thrift::detail::si::future(semifuture_signInService(p_req), std::move(ka));
 }
 
-void MetaServiceSvIf::async_tm_signInFTService(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req) {
+void MetaServiceSvIf::async_tm_signInService(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::SignInServiceReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_signInFTService(p_req);
+    return future_signInService(p_req);
   });
 }
 
-void MetaServiceSvIf::signOutFTService( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SignOutFTServiceReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("signOutFTService");
+void MetaServiceSvIf::signOutService( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SignOutServiceReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("signOutService");
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_signOutFTService(const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { signOutFTService(_return, p_req); });
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_signOutService(const  ::nebula::meta::cpp2::SignOutServiceReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { signOutService(_return, p_req); });
 }
 
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_signOutFTService(const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req) {
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_signOutService(const  ::nebula::meta::cpp2::SignOutServiceReq& p_req) {
   using Source = apache::thrift::concurrency::ThreadManager::Source;
   auto scope = getRequestContext()->getRequestExecutionScope();
   auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_signOutFTService(p_req), std::move(ka));
+  return apache::thrift::detail::si::future(semifuture_signOutService(p_req), std::move(ka));
 }
 
-void MetaServiceSvIf::async_tm_signOutFTService(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req) {
+void MetaServiceSvIf::async_tm_signOutService(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_signOutFTService(p_req);
+    return future_signOutService(p_req);
   });
 }
 
-void MetaServiceSvIf::listFTClients( ::nebula::meta::cpp2::ListFTClientsResp& /*_return*/, const  ::nebula::meta::cpp2::ListFTClientsReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("listFTClients");
+void MetaServiceSvIf::listServiceClients( ::nebula::meta::cpp2::ListServiceClientsResp& /*_return*/, const  ::nebula::meta::cpp2::ListServiceClientsReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("listServiceClients");
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ListFTClientsResp> MetaServiceSvIf::semifuture_listFTClients(const  ::nebula::meta::cpp2::ListFTClientsReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ListFTClientsResp& _return) { listFTClients(_return, p_req); });
+folly::SemiFuture< ::nebula::meta::cpp2::ListServiceClientsResp> MetaServiceSvIf::semifuture_listServiceClients(const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ListServiceClientsResp& _return) { listServiceClients(_return, p_req); });
 }
 
-folly::Future< ::nebula::meta::cpp2::ListFTClientsResp> MetaServiceSvIf::future_listFTClients(const  ::nebula::meta::cpp2::ListFTClientsReq& p_req) {
+folly::Future< ::nebula::meta::cpp2::ListServiceClientsResp> MetaServiceSvIf::future_listServiceClients(const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req) {
   using Source = apache::thrift::concurrency::ThreadManager::Source;
   auto scope = getRequestContext()->getRequestExecutionScope();
   auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_listFTClients(p_req), std::move(ka));
+  return apache::thrift::detail::si::future(semifuture_listServiceClients(p_req), std::move(ka));
 }
 
-void MetaServiceSvIf::async_tm_listFTClients(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListFTClientsResp>> callback, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req) {
+void MetaServiceSvIf::async_tm_listServiceClients(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListServiceClientsResp>> callback, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_listFTClients(p_req);
+    return future_listServiceClients(p_req);
   });
 }
 
@@ -1737,6 +1758,48 @@ void MetaServiceSvIf::async_tm_reportTaskFinish(std::unique_ptr<apache::thrift::
   });
 }
 
+void MetaServiceSvIf::createBackup( ::nebula::meta::cpp2::CreateBackupResp& /*_return*/, const  ::nebula::meta::cpp2::CreateBackupReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("createBackup");
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::CreateBackupResp> MetaServiceSvIf::semifuture_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::CreateBackupResp& _return) { createBackup(_return, p_req); });
+}
+
+folly::Future< ::nebula::meta::cpp2::CreateBackupResp> MetaServiceSvIf::future_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_createBackup(p_req), std::move(ka));
+}
+
+void MetaServiceSvIf::async_tm_createBackup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::CreateBackupResp>> callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_createBackup(p_req);
+  });
+}
+
+void MetaServiceSvIf::restoreMeta( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("restoreMeta");
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { restoreMeta(_return, p_req); });
+}
+
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_restoreMeta(p_req), std::move(ka));
+}
+
+void MetaServiceSvIf::async_tm_restoreMeta(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_restoreMeta(p_req);
+  });
+}
+
 void MetaServiceSvIf::listCluster( ::nebula::meta::cpp2::ListClusterInfoResp& /*_return*/, const  ::nebula::meta::cpp2::ListClusterInfoReq& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("listCluster");
 }
@@ -1808,6 +1871,8 @@ void MetaServiceSvNull::getSpace( ::nebula::meta::cpp2::GetSpaceResp& /*_return*
 
 void MetaServiceSvNull::listSpaces( ::nebula::meta::cpp2::ListSpacesResp& /*_return*/, const  ::nebula::meta::cpp2::ListSpacesReq& /*req*/) {}
 
+void MetaServiceSvNull::alterSpace( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AlterSpaceReq& /*req*/) {}
+
 void MetaServiceSvNull::createSpaceAs( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::CreateSpaceAsReq& /*req*/) {}
 
 void MetaServiceSvNull::createTag( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::CreateTagReq& /*req*/) {}
@@ -1841,6 +1906,8 @@ void MetaServiceSvNull::listHosts( ::nebula::meta::cpp2::ListHostsResp& /*_retur
 void MetaServiceSvNull::getPartsAlloc( ::nebula::meta::cpp2::GetPartsAllocResp& /*_return*/, const  ::nebula::meta::cpp2::GetPartsAllocReq& /*req*/) {}
 
 void MetaServiceSvNull::listParts( ::nebula::meta::cpp2::ListPartsResp& /*_return*/, const  ::nebula::meta::cpp2::ListPartsReq& /*req*/) {}
+
+void MetaServiceSvNull::getWorkerId( ::nebula::meta::cpp2::GetWorkerIdResp& /*_return*/, const  ::nebula::meta::cpp2::GetWorkerIdReq& /*req*/) {}
 
 void MetaServiceSvNull::multiPut( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::MultiPutReq& /*req*/) {}
 
@@ -1898,6 +1965,8 @@ void MetaServiceSvNull::changePassword( ::nebula::meta::cpp2::ExecResp& /*_retur
 
 void MetaServiceSvNull::heartBeat( ::nebula::meta::cpp2::HBResp& /*_return*/, const  ::nebula::meta::cpp2::HBReq& /*req*/) {}
 
+void MetaServiceSvNull::agentHeartbeat( ::nebula::meta::cpp2::AgentHBResp& /*_return*/, const  ::nebula::meta::cpp2::AgentHBReq& /*req*/) {}
+
 void MetaServiceSvNull::regConfig( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RegConfigReq& /*req*/) {}
 
 void MetaServiceSvNull::getConfig( ::nebula::meta::cpp2::GetConfigResp& /*_return*/, const  ::nebula::meta::cpp2::GetConfigReq& /*req*/) {}
@@ -1918,17 +1987,13 @@ void MetaServiceSvNull::mergeZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, 
 
 void MetaServiceSvNull::dropZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropZoneReq& /*req*/) {}
 
-void MetaServiceSvNull::splitZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SplitZoneReq& /*req*/) {}
+void MetaServiceSvNull::divideZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DivideZoneReq& /*req*/) {}
 
 void MetaServiceSvNull::renameZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RenameZoneReq& /*req*/) {}
 
 void MetaServiceSvNull::getZone( ::nebula::meta::cpp2::GetZoneResp& /*_return*/, const  ::nebula::meta::cpp2::GetZoneReq& /*req*/) {}
 
 void MetaServiceSvNull::listZones( ::nebula::meta::cpp2::ListZonesResp& /*_return*/, const  ::nebula::meta::cpp2::ListZonesReq& /*req*/) {}
-
-void MetaServiceSvNull::createBackup( ::nebula::meta::cpp2::CreateBackupResp& /*_return*/, const  ::nebula::meta::cpp2::CreateBackupReq& /*req*/) {}
-
-void MetaServiceSvNull::restoreMeta( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/) {}
 
 void MetaServiceSvNull::addListener( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddListenerReq& /*req*/) {}
 
@@ -1938,11 +2003,11 @@ void MetaServiceSvNull::listListener( ::nebula::meta::cpp2::ListListenerResp& /*
 
 void MetaServiceSvNull::getStats( ::nebula::meta::cpp2::GetStatsResp& /*_return*/, const  ::nebula::meta::cpp2::GetStatsReq& /*req*/) {}
 
-void MetaServiceSvNull::signInFTService( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SignInFTServiceReq& /*req*/) {}
+void MetaServiceSvNull::signInService( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SignInServiceReq& /*req*/) {}
 
-void MetaServiceSvNull::signOutFTService( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SignOutFTServiceReq& /*req*/) {}
+void MetaServiceSvNull::signOutService( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SignOutServiceReq& /*req*/) {}
 
-void MetaServiceSvNull::listFTClients( ::nebula::meta::cpp2::ListFTClientsResp& /*_return*/, const  ::nebula::meta::cpp2::ListFTClientsReq& /*req*/) {}
+void MetaServiceSvNull::listServiceClients( ::nebula::meta::cpp2::ListServiceClientsResp& /*_return*/, const  ::nebula::meta::cpp2::ListServiceClientsReq& /*req*/) {}
 
 void MetaServiceSvNull::createFTIndex( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::CreateFTIndexReq& /*req*/) {}
 
@@ -1963,6 +2028,10 @@ void MetaServiceSvNull::removeSession( ::nebula::meta::cpp2::ExecResp& /*_return
 void MetaServiceSvNull::killQuery( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::KillQueryReq& /*req*/) {}
 
 void MetaServiceSvNull::reportTaskFinish( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::ReportTaskReq& /*req*/) {}
+
+void MetaServiceSvNull::createBackup( ::nebula::meta::cpp2::CreateBackupResp& /*_return*/, const  ::nebula::meta::cpp2::CreateBackupReq& /*req*/) {}
+
+void MetaServiceSvNull::restoreMeta( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/) {}
 
 void MetaServiceSvNull::listCluster( ::nebula::meta::cpp2::ListClusterInfoResp& /*_return*/, const  ::nebula::meta::cpp2::ListClusterInfoReq& /*req*/) {}
 
@@ -1997,6 +2066,7 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::binaryPro
   {"dropSpace", &MetaServiceAsyncProcessor::setUpAndProcess_dropSpace<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getSpace", &MetaServiceAsyncProcessor::setUpAndProcess_getSpace<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listSpaces", &MetaServiceAsyncProcessor::setUpAndProcess_listSpaces<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"alterSpace", &MetaServiceAsyncProcessor::setUpAndProcess_alterSpace<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"createSpaceAs", &MetaServiceAsyncProcessor::setUpAndProcess_createSpaceAs<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"createTag", &MetaServiceAsyncProcessor::setUpAndProcess_createTag<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"alterTag", &MetaServiceAsyncProcessor::setUpAndProcess_alterTag<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -2014,6 +2084,7 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::binaryPro
   {"listHosts", &MetaServiceAsyncProcessor::setUpAndProcess_listHosts<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getPartsAlloc", &MetaServiceAsyncProcessor::setUpAndProcess_getPartsAlloc<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listParts", &MetaServiceAsyncProcessor::setUpAndProcess_listParts<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"getWorkerId", &MetaServiceAsyncProcessor::setUpAndProcess_getWorkerId<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"multiPut", &MetaServiceAsyncProcessor::setUpAndProcess_multiPut<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"get", &MetaServiceAsyncProcessor::setUpAndProcess_get<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"multiGet", &MetaServiceAsyncProcessor::setUpAndProcess_multiGet<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -2042,6 +2113,7 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::binaryPro
   {"getUserRoles", &MetaServiceAsyncProcessor::setUpAndProcess_getUserRoles<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"changePassword", &MetaServiceAsyncProcessor::setUpAndProcess_changePassword<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"heartBeat", &MetaServiceAsyncProcessor::setUpAndProcess_heartBeat<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"agentHeartbeat", &MetaServiceAsyncProcessor::setUpAndProcess_agentHeartbeat<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"regConfig", &MetaServiceAsyncProcessor::setUpAndProcess_regConfig<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getConfig", &MetaServiceAsyncProcessor::setUpAndProcess_getConfig<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"setConfig", &MetaServiceAsyncProcessor::setUpAndProcess_setConfig<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -2052,19 +2124,17 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::binaryPro
   {"runAdminJob", &MetaServiceAsyncProcessor::setUpAndProcess_runAdminJob<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"mergeZone", &MetaServiceAsyncProcessor::setUpAndProcess_mergeZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"dropZone", &MetaServiceAsyncProcessor::setUpAndProcess_dropZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"splitZone", &MetaServiceAsyncProcessor::setUpAndProcess_splitZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"divideZone", &MetaServiceAsyncProcessor::setUpAndProcess_divideZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"renameZone", &MetaServiceAsyncProcessor::setUpAndProcess_renameZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getZone", &MetaServiceAsyncProcessor::setUpAndProcess_getZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listZones", &MetaServiceAsyncProcessor::setUpAndProcess_listZones<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"createBackup", &MetaServiceAsyncProcessor::setUpAndProcess_createBackup<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"restoreMeta", &MetaServiceAsyncProcessor::setUpAndProcess_restoreMeta<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"addListener", &MetaServiceAsyncProcessor::setUpAndProcess_addListener<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"removeListener", &MetaServiceAsyncProcessor::setUpAndProcess_removeListener<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listListener", &MetaServiceAsyncProcessor::setUpAndProcess_listListener<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getStats", &MetaServiceAsyncProcessor::setUpAndProcess_getStats<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"signInFTService", &MetaServiceAsyncProcessor::setUpAndProcess_signInFTService<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"signOutFTService", &MetaServiceAsyncProcessor::setUpAndProcess_signOutFTService<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"listFTClients", &MetaServiceAsyncProcessor::setUpAndProcess_listFTClients<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"signInService", &MetaServiceAsyncProcessor::setUpAndProcess_signInService<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"signOutService", &MetaServiceAsyncProcessor::setUpAndProcess_signOutService<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"listServiceClients", &MetaServiceAsyncProcessor::setUpAndProcess_listServiceClients<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"createFTIndex", &MetaServiceAsyncProcessor::setUpAndProcess_createFTIndex<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"dropFTIndex", &MetaServiceAsyncProcessor::setUpAndProcess_dropFTIndex<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listFTIndexes", &MetaServiceAsyncProcessor::setUpAndProcess_listFTIndexes<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -2075,6 +2145,8 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::binaryPro
   {"removeSession", &MetaServiceAsyncProcessor::setUpAndProcess_removeSession<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"killQuery", &MetaServiceAsyncProcessor::setUpAndProcess_killQuery<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"reportTaskFinish", &MetaServiceAsyncProcessor::setUpAndProcess_reportTaskFinish<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"createBackup", &MetaServiceAsyncProcessor::setUpAndProcess_createBackup<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"restoreMeta", &MetaServiceAsyncProcessor::setUpAndProcess_restoreMeta<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listCluster", &MetaServiceAsyncProcessor::setUpAndProcess_listCluster<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getMetaDirInfo", &MetaServiceAsyncProcessor::setUpAndProcess_getMetaDirInfo<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"verifyClientVersion", &MetaServiceAsyncProcessor::setUpAndProcess_verifyClientVersion<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -2089,6 +2161,7 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::compactPr
   {"dropSpace", &MetaServiceAsyncProcessor::setUpAndProcess_dropSpace<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getSpace", &MetaServiceAsyncProcessor::setUpAndProcess_getSpace<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listSpaces", &MetaServiceAsyncProcessor::setUpAndProcess_listSpaces<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"alterSpace", &MetaServiceAsyncProcessor::setUpAndProcess_alterSpace<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"createSpaceAs", &MetaServiceAsyncProcessor::setUpAndProcess_createSpaceAs<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"createTag", &MetaServiceAsyncProcessor::setUpAndProcess_createTag<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"alterTag", &MetaServiceAsyncProcessor::setUpAndProcess_alterTag<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
@@ -2106,6 +2179,7 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::compactPr
   {"listHosts", &MetaServiceAsyncProcessor::setUpAndProcess_listHosts<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getPartsAlloc", &MetaServiceAsyncProcessor::setUpAndProcess_getPartsAlloc<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listParts", &MetaServiceAsyncProcessor::setUpAndProcess_listParts<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"getWorkerId", &MetaServiceAsyncProcessor::setUpAndProcess_getWorkerId<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"multiPut", &MetaServiceAsyncProcessor::setUpAndProcess_multiPut<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"get", &MetaServiceAsyncProcessor::setUpAndProcess_get<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"multiGet", &MetaServiceAsyncProcessor::setUpAndProcess_multiGet<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
@@ -2134,6 +2208,7 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::compactPr
   {"getUserRoles", &MetaServiceAsyncProcessor::setUpAndProcess_getUserRoles<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"changePassword", &MetaServiceAsyncProcessor::setUpAndProcess_changePassword<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"heartBeat", &MetaServiceAsyncProcessor::setUpAndProcess_heartBeat<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"agentHeartbeat", &MetaServiceAsyncProcessor::setUpAndProcess_agentHeartbeat<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"regConfig", &MetaServiceAsyncProcessor::setUpAndProcess_regConfig<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getConfig", &MetaServiceAsyncProcessor::setUpAndProcess_getConfig<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"setConfig", &MetaServiceAsyncProcessor::setUpAndProcess_setConfig<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
@@ -2144,19 +2219,17 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::compactPr
   {"runAdminJob", &MetaServiceAsyncProcessor::setUpAndProcess_runAdminJob<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"mergeZone", &MetaServiceAsyncProcessor::setUpAndProcess_mergeZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"dropZone", &MetaServiceAsyncProcessor::setUpAndProcess_dropZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"splitZone", &MetaServiceAsyncProcessor::setUpAndProcess_splitZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"divideZone", &MetaServiceAsyncProcessor::setUpAndProcess_divideZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"renameZone", &MetaServiceAsyncProcessor::setUpAndProcess_renameZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getZone", &MetaServiceAsyncProcessor::setUpAndProcess_getZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listZones", &MetaServiceAsyncProcessor::setUpAndProcess_listZones<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"createBackup", &MetaServiceAsyncProcessor::setUpAndProcess_createBackup<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"restoreMeta", &MetaServiceAsyncProcessor::setUpAndProcess_restoreMeta<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"addListener", &MetaServiceAsyncProcessor::setUpAndProcess_addListener<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"removeListener", &MetaServiceAsyncProcessor::setUpAndProcess_removeListener<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listListener", &MetaServiceAsyncProcessor::setUpAndProcess_listListener<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getStats", &MetaServiceAsyncProcessor::setUpAndProcess_getStats<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"signInFTService", &MetaServiceAsyncProcessor::setUpAndProcess_signInFTService<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"signOutFTService", &MetaServiceAsyncProcessor::setUpAndProcess_signOutFTService<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"listFTClients", &MetaServiceAsyncProcessor::setUpAndProcess_listFTClients<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"signInService", &MetaServiceAsyncProcessor::setUpAndProcess_signInService<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"signOutService", &MetaServiceAsyncProcessor::setUpAndProcess_signOutService<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"listServiceClients", &MetaServiceAsyncProcessor::setUpAndProcess_listServiceClients<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"createFTIndex", &MetaServiceAsyncProcessor::setUpAndProcess_createFTIndex<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"dropFTIndex", &MetaServiceAsyncProcessor::setUpAndProcess_dropFTIndex<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listFTIndexes", &MetaServiceAsyncProcessor::setUpAndProcess_listFTIndexes<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
@@ -2167,6 +2240,8 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::compactPr
   {"removeSession", &MetaServiceAsyncProcessor::setUpAndProcess_removeSession<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"killQuery", &MetaServiceAsyncProcessor::setUpAndProcess_killQuery<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"reportTaskFinish", &MetaServiceAsyncProcessor::setUpAndProcess_reportTaskFinish<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"createBackup", &MetaServiceAsyncProcessor::setUpAndProcess_createBackup<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"restoreMeta", &MetaServiceAsyncProcessor::setUpAndProcess_restoreMeta<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listCluster", &MetaServiceAsyncProcessor::setUpAndProcess_listCluster<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getMetaDirInfo", &MetaServiceAsyncProcessor::setUpAndProcess_getMetaDirInfo<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"verifyClientVersion", &MetaServiceAsyncProcessor::setUpAndProcess_verifyClientVersion<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},

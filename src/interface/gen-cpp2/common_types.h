@@ -22,6 +22,7 @@
 #include "common/datatypes/KeyValueOps-inl.h"
 #include "common/datatypes/HostAddrOps-inl.h"
 #include "common/datatypes/GeographyOps-inl.h"
+#include "common/datatypes/DurationOps-inl.h"
 
 namespace apache {
 namespace thrift {
@@ -58,6 +59,7 @@ struct mVal;
 struct uVal;
 struct gVal;
 struct ggVal;
+struct duVal;
 struct values;
 struct kvs;
 struct values;
@@ -93,14 +95,15 @@ struct host;
 struct port;
 struct key;
 struct value;
+struct seconds;
+struct microseconds;
+struct months;
 struct log_id;
 struct term_id;
 struct root;
 struct data;
-struct host;
-struct dir;
-struct info;
-struct partition_info;
+struct space_id;
+struct parts;
 struct path;
 struct cluster;
 struct log_str;
@@ -233,6 +236,10 @@ APACHE_THRIFT_DEFINE_ACCESSOR(gVal);
 #ifndef APACHE_THRIFT_ACCESSOR_ggVal
 #define APACHE_THRIFT_ACCESSOR_ggVal
 APACHE_THRIFT_DEFINE_ACCESSOR(ggVal);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_duVal
+#define APACHE_THRIFT_ACCESSOR_duVal
+APACHE_THRIFT_DEFINE_ACCESSOR(duVal);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_values
 #define APACHE_THRIFT_ACCESSOR_values
@@ -374,6 +381,18 @@ APACHE_THRIFT_DEFINE_ACCESSOR(key);
 #define APACHE_THRIFT_ACCESSOR_value
 APACHE_THRIFT_DEFINE_ACCESSOR(value);
 #endif
+#ifndef APACHE_THRIFT_ACCESSOR_seconds
+#define APACHE_THRIFT_ACCESSOR_seconds
+APACHE_THRIFT_DEFINE_ACCESSOR(seconds);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_microseconds
+#define APACHE_THRIFT_ACCESSOR_microseconds
+APACHE_THRIFT_DEFINE_ACCESSOR(microseconds);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_months
+#define APACHE_THRIFT_ACCESSOR_months
+APACHE_THRIFT_DEFINE_ACCESSOR(months);
+#endif
 #ifndef APACHE_THRIFT_ACCESSOR_log_id
 #define APACHE_THRIFT_ACCESSOR_log_id
 APACHE_THRIFT_DEFINE_ACCESSOR(log_id);
@@ -390,21 +409,13 @@ APACHE_THRIFT_DEFINE_ACCESSOR(root);
 #define APACHE_THRIFT_ACCESSOR_data
 APACHE_THRIFT_DEFINE_ACCESSOR(data);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_host
-#define APACHE_THRIFT_ACCESSOR_host
-APACHE_THRIFT_DEFINE_ACCESSOR(host);
+#ifndef APACHE_THRIFT_ACCESSOR_space_id
+#define APACHE_THRIFT_ACCESSOR_space_id
+APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_dir
-#define APACHE_THRIFT_ACCESSOR_dir
-APACHE_THRIFT_DEFINE_ACCESSOR(dir);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_info
-#define APACHE_THRIFT_ACCESSOR_info
-APACHE_THRIFT_DEFINE_ACCESSOR(info);
-#endif
-#ifndef APACHE_THRIFT_ACCESSOR_partition_info
-#define APACHE_THRIFT_ACCESSOR_partition_info
-APACHE_THRIFT_DEFINE_ACCESSOR(partition_info);
+#ifndef APACHE_THRIFT_ACCESSOR_parts
+#define APACHE_THRIFT_ACCESSOR_parts
+APACHE_THRIFT_DEFINE_ACCESSOR(parts);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_path
 #define APACHE_THRIFT_ACCESSOR_path
@@ -452,6 +463,7 @@ enum class PropertyType {
   INT16 = 9,
   INT32 = 10,
   TIMESTAMP = 21,
+  DURATION = 23,
   DATE = 24,
   DATETIME = 25,
   TIME = 26,
@@ -482,6 +494,7 @@ enum class ErrorCode {
   E_KEY_NOT_FOUND = -17,
   E_USER_NOT_FOUND = -18,
   E_STATS_NOT_FOUND = -19,
+  E_SERVICE_NOT_FOUND = -20,
   E_BACKUP_FAILED = -24,
   E_BACKUP_EMPTY_TABLE = -25,
   E_BACKUP_TABLE_FAILED = -26,
@@ -541,8 +554,9 @@ enum class ErrorCode {
   E_SESSION_NOT_FOUND = -2069,
   E_LIST_CLUSTER_FAILURE = -2070,
   E_LIST_CLUSTER_GET_ABS_PATH_FAILURE = -2071,
-  E_GET_META_DIR_FAILURE = -2072,
+  E_LIST_CLUSTER_NO_AGENT_FAILURE = -2072,
   E_QUERY_NOT_FOUND = -2073,
+  E_AGENT_HB_FAILUE = -2074,
   E_CONSENSUS_ERROR = -3001,
   E_KEY_HAS_EXISTS = -3002,
   E_DATA_TYPE_MISMATCH = -3003,
@@ -582,6 +596,7 @@ enum class ErrorCode {
   E_OUTDATED_EDGE = -3072,
   E_WRITE_WRITE_CONFLICT = -3073,
   E_CLIENT_SERVER_INCOMPATIBLE = -3061,
+  E_WORKER_ID_FAILED = -3062,
   E_UNKNOWN = -8000,
 };
 
@@ -631,7 +646,7 @@ template <> struct TEnumDataStorage<::nebula::cpp2::PropertyType>;
 template <> struct TEnumTraits<::nebula::cpp2::PropertyType> {
   using type = ::nebula::cpp2::PropertyType;
 
-  static constexpr std::size_t const size = 16;
+  static constexpr std::size_t const size = 17;
   static folly::Range<type const*> const values;
   static folly::Range<folly::StringPiece const*> const names;
 
@@ -648,7 +663,7 @@ template <> struct TEnumDataStorage<::nebula::cpp2::ErrorCode>;
 template <> struct TEnumTraits<::nebula::cpp2::ErrorCode> {
   using type = ::nebula::cpp2::ErrorCode;
 
-  static constexpr std::size_t const size = 121;
+  static constexpr std::size_t const size = 124;
   static folly::Range<type const*> const values;
   static folly::Range<folly::StringPiece const*> const names;
 
@@ -709,10 +724,9 @@ class Step;
 class Path;
 class HostAddr;
 class KeyValue;
+class Duration;
 class LogInfo;
 class DirInfo;
-class NodeInfo;
-class PartitionBackupInfo;
 class CheckpointInfo;
 class LogEntry;
 }} // nebula::cpp2
@@ -1822,6 +1836,7 @@ class Value final  {
     uVal = 14,
     gVal = 15,
     ggVal = 16,
+    duVal = 17,
   } ;
 
   Value()
@@ -1910,6 +1925,11 @@ class Value final  {
       case Type::ggVal:
       {
         set_ggVal(std::move(*rhs.value_.ggVal));
+        break;
+      }
+      case Type::duVal:
+      {
+        set_duVal(std::move(*rhs.value_.duVal));
         break;
       }
       default:
@@ -2006,6 +2026,11 @@ class Value final  {
         set_ggVal(*rhs.value_.ggVal);
         break;
       }
+      case Type::duVal:
+      {
+        set_duVal(*rhs.value_.duVal);
+        break;
+      }
       default:
       {
         assert(false);
@@ -2097,6 +2122,11 @@ class Value final  {
       case Type::ggVal:
       {
         set_ggVal(std::move(*rhs.value_.ggVal));
+        break;
+      }
+      case Type::duVal:
+      {
+        set_duVal(std::move(*rhs.value_.duVal));
         break;
       }
       default:
@@ -2194,6 +2224,11 @@ class Value final  {
         set_ggVal(*rhs.value_.ggVal);
         break;
       }
+      case Type::duVal:
+      {
+        set_duVal(*rhs.value_.duVal);
+        break;
+      }
       default:
       {
         assert(false);
@@ -2224,6 +2259,7 @@ class Value final  {
     std::unique_ptr<nebula::Set> uVal;
     std::unique_ptr<nebula::DataSet> gVal;
     std::unique_ptr<nebula::Geography> ggVal;
+    std::unique_ptr<nebula::Duration> duVal;
 
     storage_type() {}
     ~storage_type() {}
@@ -2438,6 +2474,16 @@ class Value final  {
     ::new (std::addressof(value_.ggVal)) ref_(new typename ref_::element_type(std::forward<T>(t)...));
     return value_.ggVal;
   }
+  std::unique_ptr<nebula::Duration>& set_duVal(nebula::Duration const &t);
+  std::unique_ptr<nebula::Duration>& set_duVal(nebula::Duration&& t);
+  template<typename... T, typename = ::apache::thrift::safe_overload_t<nebula::Duration, T...>> std::unique_ptr<nebula::Duration>& set_duVal(T&&... t) {
+    // defer resolution of ref_ in case ref_::element_type would here be incomplete
+    using ref_ = folly::conditional_t<(sizeof...(T) < size_t(-1)), std::unique_ptr<nebula::Duration>, void>;
+    __clear();
+    type_ = Type::duVal;
+    ::new (std::addressof(value_.duVal)) ref_(new typename ref_::element_type(std::forward<T>(t)...));
+    return value_.duVal;
+  }
 
   nebula::NullType const & get_nVal() const {
     assert(type_ == Type::nVal);
@@ -2517,6 +2563,11 @@ class Value final  {
   std::unique_ptr<nebula::Geography> const & get_ggVal() const {
     assert(type_ == Type::ggVal);
     return value_.ggVal;
+  }
+
+  std::unique_ptr<nebula::Duration> const & get_duVal() const {
+    assert(type_ == Type::duVal);
+    return value_.duVal;
   }
 
   nebula::NullType & mutable_nVal() {
@@ -2599,6 +2650,11 @@ class Value final  {
     return value_.ggVal;
   }
 
+  std::unique_ptr<nebula::Duration> & mutable_duVal() {
+    assert(type_ == Type::duVal);
+    return value_.duVal;
+  }
+
   nebula::NullType move_nVal() {
     assert(type_ == Type::nVal);
     return std::move(value_.nVal);
@@ -2677,6 +2733,11 @@ class Value final  {
   std::unique_ptr<nebula::Geography> move_ggVal() {
     assert(type_ == Type::ggVal);
     return std::move(value_.ggVal);
+  }
+
+  std::unique_ptr<nebula::Duration> move_duVal() {
+    assert(type_ == Type::duVal);
+    return std::move(value_.duVal);
   }
 
   template <typename..., typename T = nebula::NullType>
@@ -2982,6 +3043,25 @@ class Value final  {
   template <typename..., typename T = nebula::Geography>
   FOLLY_ERASE ::apache::thrift::union_field_ref<T&&> ggVal_ref() && {
     return {std::move(value_.ggVal), type_, ggVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+  template <typename..., typename T = nebula::Duration>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<const T&> duVal_ref() const& {
+    return {value_.duVal, type_, duVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+
+  template <typename..., typename T = nebula::Duration>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<const T&&> duVal_ref() const&& {
+    return {std::move(value_.duVal), type_, duVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+
+  template <typename..., typename T = nebula::Duration>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<T&> duVal_ref() & {
+    return {value_.duVal, type_, duVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
+  }
+
+  template <typename..., typename T = nebula::Duration>
+  FOLLY_ERASE ::apache::thrift::union_field_ref<T&&> duVal_ref() && {
+    return {std::move(value_.duVal), type_, duVal, this, ::apache::thrift::detail::union_field_ref_owner_vtable_for<decltype(*this)>};
   }
   Type getType() const { return static_cast<Type>(type_); }
 
@@ -5894,6 +5974,203 @@ uint32_t KeyValue::read(Protocol_* iprot) {
 
 }} // nebula::cpp2
 namespace nebula { namespace cpp2 {
+class Duration final  {
+ private:
+  friend struct ::apache::thrift::detail::st::struct_private_access;
+
+  //  used by a static_assert in the corresponding source
+  static constexpr bool __fbthrift_cpp2_gen_json = false;
+  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
+  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
+
+ public:
+  using __fbthrift_cpp2_type = Duration;
+  static constexpr bool __fbthrift_cpp2_is_union =
+    false;
+
+
+ public:
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  Duration() :
+      seconds(0),
+      microseconds(0),
+      months(0) {}
+  // FragileConstructor for use in initialization lists only.
+  [[deprecated("This constructor is deprecated")]]
+  Duration(apache::thrift::FragileConstructor, int64_t seconds__arg, int32_t microseconds__arg, int32_t months__arg);
+
+  Duration(Duration&&) = default;
+
+  Duration(const Duration&) = default;
+
+
+  Duration& operator=(Duration&&) = default;
+
+  Duration& operator=(const Duration&) = default;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+  void __clear();
+ private:
+  int64_t seconds;
+ private:
+  int32_t microseconds;
+ private:
+  int32_t months;
+
+ public:
+  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
+  struct __isset {
+    bool seconds;
+    bool microseconds;
+    bool months;
+  } __isset = {};
+  bool operator==(const Duration& rhs) const;
+#ifndef SWIG
+  friend bool operator!=(const Duration& __x, const Duration& __y) {
+    return !(__x == __y);
+  }
+#endif
+  bool operator<(const Duration& rhs) const;
+#ifndef SWIG
+  friend bool operator>(const Duration& __x, const Duration& __y) {
+    return __y < __x;
+  }
+  friend bool operator<=(const Duration& __x, const Duration& __y) {
+    return !(__y < __x);
+  }
+  friend bool operator>=(const Duration& __x, const Duration& __y) {
+    return !(__x < __y);
+  }
+#endif
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> seconds_ref() const& {
+    return {this->seconds, __isset.seconds};
+  }
+
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> seconds_ref() const&& {
+    return {std::move(this->seconds), __isset.seconds};
+  }
+
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> seconds_ref() & {
+    return {this->seconds, __isset.seconds};
+  }
+
+  template <typename..., typename T = int64_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> seconds_ref() && {
+    return {std::move(this->seconds), __isset.seconds};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = int32_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> microseconds_ref() const& {
+    return {this->microseconds, __isset.microseconds};
+  }
+
+  template <typename..., typename T = int32_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> microseconds_ref() const&& {
+    return {std::move(this->microseconds), __isset.microseconds};
+  }
+
+  template <typename..., typename T = int32_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> microseconds_ref() & {
+    return {this->microseconds, __isset.microseconds};
+  }
+
+  template <typename..., typename T = int32_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> microseconds_ref() && {
+    return {std::move(this->microseconds), __isset.microseconds};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = int32_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> months_ref() const& {
+    return {this->months, __isset.months};
+  }
+
+  template <typename..., typename T = int32_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> months_ref() const&& {
+    return {std::move(this->months), __isset.months};
+  }
+
+  template <typename..., typename T = int32_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> months_ref() & {
+    return {this->months, __isset.months};
+  }
+
+  template <typename..., typename T = int32_t>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> months_ref() && {
+    return {std::move(this->months), __isset.months};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+  int64_t get_seconds() const {
+    return seconds;
+  }
+
+  int64_t& set_seconds(int64_t seconds_) {
+    seconds = seconds_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.seconds = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return seconds;
+  }
+
+  int32_t get_microseconds() const {
+    return microseconds;
+  }
+
+  int32_t& set_microseconds(int32_t microseconds_) {
+    microseconds = microseconds_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.microseconds = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return microseconds;
+  }
+
+  int32_t get_months() const {
+    return months;
+  }
+
+  int32_t& set_months(int32_t months_) {
+    months = months_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.months = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return months;
+  }
+
+  template <class Protocol_>
+  uint32_t read(Protocol_* iprot);
+  template <class Protocol_>
+  uint32_t serializedSize(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
+  template <class Protocol_>
+  uint32_t write(Protocol_* prot_) const;
+
+ private:
+  template <class Protocol_>
+  void readNoXfer(Protocol_* iprot);
+
+  friend class ::apache::thrift::Cpp2Ops< Duration >;
+  friend void swap(Duration& a, Duration& b);
+};
+
+template <class Protocol_>
+uint32_t Duration::read(Protocol_* iprot) {
+  auto _xferStart = iprot->getCursorPosition();
+  readNoXfer(iprot);
+  return iprot->getCursorPosition() - _xferStart;
+}
+
+}} // nebula::cpp2
+namespace nebula { namespace cpp2 {
 class LogInfo final  {
  private:
   friend struct ::apache::thrift::detail::st::struct_private_access;
@@ -6214,280 +6491,6 @@ uint32_t DirInfo::read(Protocol_* iprot) {
 
 }} // nebula::cpp2
 namespace nebula { namespace cpp2 {
-class NodeInfo final  {
- private:
-  friend struct ::apache::thrift::detail::st::struct_private_access;
-
-  //  used by a static_assert in the corresponding source
-  static constexpr bool __fbthrift_cpp2_gen_json = false;
-  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
-  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
-
- public:
-  using __fbthrift_cpp2_type = NodeInfo;
-  static constexpr bool __fbthrift_cpp2_is_union =
-    false;
-
-
- public:
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  NodeInfo() {}
-  // FragileConstructor for use in initialization lists only.
-  [[deprecated("This constructor is deprecated")]]
-  NodeInfo(apache::thrift::FragileConstructor, nebula::HostAddr host__arg,  ::nebula::cpp2::DirInfo dir__arg);
-
-  NodeInfo(NodeInfo&&) = default;
-
-  NodeInfo(const NodeInfo&) = default;
-
-
-  NodeInfo& operator=(NodeInfo&&) = default;
-
-  NodeInfo& operator=(const NodeInfo&) = default;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-  void __clear();
- private:
-  nebula::HostAddr host;
- private:
-   ::nebula::cpp2::DirInfo dir;
-
- public:
-  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
-  struct __isset {
-    bool host;
-    bool dir;
-  } __isset = {};
-  bool operator==(const NodeInfo& rhs) const;
-#ifndef SWIG
-  friend bool operator!=(const NodeInfo& __x, const NodeInfo& __y) {
-    return !(__x == __y);
-  }
-#endif
-  bool operator<(const NodeInfo& rhs) const;
-#ifndef SWIG
-  friend bool operator>(const NodeInfo& __x, const NodeInfo& __y) {
-    return __y < __x;
-  }
-  friend bool operator<=(const NodeInfo& __x, const NodeInfo& __y) {
-    return !(__y < __x);
-  }
-  friend bool operator>=(const NodeInfo& __x, const NodeInfo& __y) {
-    return !(__x < __y);
-  }
-#endif
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = nebula::HostAddr>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> host_ref() const& {
-    return {this->host, __isset.host};
-  }
-
-  template <typename..., typename T = nebula::HostAddr>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> host_ref() const&& {
-    return {std::move(this->host), __isset.host};
-  }
-
-  template <typename..., typename T = nebula::HostAddr>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> host_ref() & {
-    return {this->host, __isset.host};
-  }
-
-  template <typename..., typename T = nebula::HostAddr>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> host_ref() && {
-    return {std::move(this->host), __isset.host};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T =  ::nebula::cpp2::DirInfo>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> dir_ref() const& {
-    return {this->dir, __isset.dir};
-  }
-
-  template <typename..., typename T =  ::nebula::cpp2::DirInfo>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> dir_ref() const&& {
-    return {std::move(this->dir), __isset.dir};
-  }
-
-  template <typename..., typename T =  ::nebula::cpp2::DirInfo>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> dir_ref() & {
-    return {this->dir, __isset.dir};
-  }
-
-  template <typename..., typename T =  ::nebula::cpp2::DirInfo>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> dir_ref() && {
-    return {std::move(this->dir), __isset.dir};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-  const nebula::HostAddr& get_host() const&;
-  nebula::HostAddr get_host() &&;
-
-  template <typename T_NodeInfo_host_struct_setter = nebula::HostAddr>
-  nebula::HostAddr& set_host(T_NodeInfo_host_struct_setter&& host_) {
-    host = std::forward<T_NodeInfo_host_struct_setter>(host_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.host = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return host;
-  }
-  const  ::nebula::cpp2::DirInfo& get_dir() const&;
-   ::nebula::cpp2::DirInfo get_dir() &&;
-
-  template <typename T_NodeInfo_dir_struct_setter =  ::nebula::cpp2::DirInfo>
-   ::nebula::cpp2::DirInfo& set_dir(T_NodeInfo_dir_struct_setter&& dir_) {
-    dir = std::forward<T_NodeInfo_dir_struct_setter>(dir_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.dir = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return dir;
-  }
-
-  template <class Protocol_>
-  uint32_t read(Protocol_* iprot);
-  template <class Protocol_>
-  uint32_t serializedSize(Protocol_ const* prot_) const;
-  template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
-  template <class Protocol_>
-  uint32_t write(Protocol_* prot_) const;
-
- private:
-  template <class Protocol_>
-  void readNoXfer(Protocol_* iprot);
-
-  friend class ::apache::thrift::Cpp2Ops< NodeInfo >;
-  friend void swap(NodeInfo& a, NodeInfo& b);
-};
-
-template <class Protocol_>
-uint32_t NodeInfo::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCursorPosition();
-  readNoXfer(iprot);
-  return iprot->getCursorPosition() - _xferStart;
-}
-
-}} // nebula::cpp2
-namespace nebula { namespace cpp2 {
-class PartitionBackupInfo final  {
- private:
-  friend struct ::apache::thrift::detail::st::struct_private_access;
-
-  //  used by a static_assert in the corresponding source
-  static constexpr bool __fbthrift_cpp2_gen_json = false;
-  static constexpr bool __fbthrift_cpp2_gen_nimble = false;
-  static constexpr bool __fbthrift_cpp2_gen_has_thrift_uri = false;
-
- public:
-  using __fbthrift_cpp2_type = PartitionBackupInfo;
-  static constexpr bool __fbthrift_cpp2_is_union =
-    false;
-
-
- public:
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  PartitionBackupInfo() {}
-  // FragileConstructor for use in initialization lists only.
-  [[deprecated("This constructor is deprecated")]]
-  PartitionBackupInfo(apache::thrift::FragileConstructor, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> info__arg);
-
-  PartitionBackupInfo(PartitionBackupInfo&&) = default;
-
-  PartitionBackupInfo(const PartitionBackupInfo&) = default;
-
-
-  PartitionBackupInfo& operator=(PartitionBackupInfo&&) = default;
-
-  PartitionBackupInfo& operator=(const PartitionBackupInfo&) = default;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-  void __clear();
- private:
-  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> info;
-
- public:
-  [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
-  struct __isset {
-    bool info;
-  } __isset = {};
-  bool operator==(const PartitionBackupInfo& rhs) const;
-#ifndef SWIG
-  friend bool operator!=(const PartitionBackupInfo& __x, const PartitionBackupInfo& __y) {
-    return !(__x == __y);
-  }
-#endif
-  bool operator<(const PartitionBackupInfo& rhs) const;
-#ifndef SWIG
-  friend bool operator>(const PartitionBackupInfo& __x, const PartitionBackupInfo& __y) {
-    return __y < __x;
-  }
-  friend bool operator<=(const PartitionBackupInfo& __x, const PartitionBackupInfo& __y) {
-    return !(__y < __x);
-  }
-  friend bool operator>=(const PartitionBackupInfo& __x, const PartitionBackupInfo& __y) {
-    return !(__x < __y);
-  }
-#endif
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> info_ref() const& {
-    return {this->info, __isset.info};
-  }
-
-  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> info_ref() const&& {
-    return {std::move(this->info), __isset.info};
-  }
-
-  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> info_ref() & {
-    return {this->info, __isset.info};
-  }
-
-  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> info_ref() && {
-    return {std::move(this->info), __isset.info};
-  }
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-  const std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>& get_info() const&;
-  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> get_info() &&;
-
-  template <typename T_PartitionBackupInfo_info_struct_setter = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>
-  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>& set_info(T_PartitionBackupInfo_info_struct_setter&& info_) {
-    info = std::forward<T_PartitionBackupInfo_info_struct_setter>(info_);
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.info = true;
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return info;
-  }
-
-  template <class Protocol_>
-  uint32_t read(Protocol_* iprot);
-  template <class Protocol_>
-  uint32_t serializedSize(Protocol_ const* prot_) const;
-  template <class Protocol_>
-  uint32_t serializedSizeZC(Protocol_ const* prot_) const;
-  template <class Protocol_>
-  uint32_t write(Protocol_* prot_) const;
-
- private:
-  template <class Protocol_>
-  void readNoXfer(Protocol_* iprot);
-
-  friend class ::apache::thrift::Cpp2Ops< PartitionBackupInfo >;
-  friend void swap(PartitionBackupInfo& a, PartitionBackupInfo& b);
-};
-
-template <class Protocol_>
-uint32_t PartitionBackupInfo::read(Protocol_* iprot) {
-  auto _xferStart = iprot->getCursorPosition();
-  readNoXfer(iprot);
-  return iprot->getCursorPosition() - _xferStart;
-}
-
-}} // nebula::cpp2
-namespace nebula { namespace cpp2 {
 class CheckpointInfo final  {
  private:
   friend struct ::apache::thrift::detail::st::struct_private_access;
@@ -6506,10 +6509,11 @@ class CheckpointInfo final  {
  public:
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  CheckpointInfo() {}
+  CheckpointInfo() :
+      space_id(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  CheckpointInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::PartitionBackupInfo partition_info__arg, ::std::string path__arg);
+  CheckpointInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> parts__arg, ::std::string path__arg);
 
   CheckpointInfo(CheckpointInfo&&) = default;
 
@@ -6522,14 +6526,17 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 THRIFT_IGNORE_ISSET_USE_WARNING_END
   void __clear();
  private:
-   ::nebula::cpp2::PartitionBackupInfo partition_info;
+   ::nebula::cpp2::GraphSpaceID space_id;
+ private:
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> parts;
  private:
   ::std::string path;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
-    bool partition_info;
+    bool space_id;
+    bool parts;
     bool path;
   } __isset = {};
   bool operator==(const CheckpointInfo& rhs) const;
@@ -6552,24 +6559,46 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 #endif
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  template <typename..., typename T =  ::nebula::cpp2::PartitionBackupInfo>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> partition_info_ref() const& {
-    return {this->partition_info, __isset.partition_info};
+  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> space_id_ref() const& {
+    return {this->space_id, __isset.space_id};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::PartitionBackupInfo>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> partition_info_ref() const&& {
-    return {std::move(this->partition_info), __isset.partition_info};
+  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> space_id_ref() const&& {
+    return {std::move(this->space_id), __isset.space_id};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::PartitionBackupInfo>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> partition_info_ref() & {
-    return {this->partition_info, __isset.partition_info};
+  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> space_id_ref() & {
+    return {this->space_id, __isset.space_id};
   }
 
-  template <typename..., typename T =  ::nebula::cpp2::PartitionBackupInfo>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> partition_info_ref() && {
-    return {std::move(this->partition_info), __isset.partition_info};
+  template <typename..., typename T =  ::nebula::cpp2::GraphSpaceID>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> space_id_ref() && {
+    return {std::move(this->space_id), __isset.space_id};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> parts_ref() const& {
+    return {this->parts, __isset.parts};
+  }
+
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> parts_ref() const&& {
+    return {std::move(this->parts), __isset.parts};
+  }
+
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> parts_ref() & {
+    return {this->parts, __isset.parts};
+  }
+
+  template <typename..., typename T = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> parts_ref() && {
+    return {std::move(this->parts), __isset.parts};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
@@ -6594,16 +6623,28 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     return {std::move(this->path), __isset.path};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-  const  ::nebula::cpp2::PartitionBackupInfo& get_partition_info() const&;
-   ::nebula::cpp2::PartitionBackupInfo get_partition_info() &&;
 
-  template <typename T_CheckpointInfo_partition_info_struct_setter =  ::nebula::cpp2::PartitionBackupInfo>
-   ::nebula::cpp2::PartitionBackupInfo& set_partition_info(T_CheckpointInfo_partition_info_struct_setter&& partition_info_) {
-    partition_info = std::forward<T_CheckpointInfo_partition_info_struct_setter>(partition_info_);
+   ::nebula::cpp2::GraphSpaceID get_space_id() const {
+    return space_id;
+  }
+
+   ::nebula::cpp2::GraphSpaceID& set_space_id( ::nebula::cpp2::GraphSpaceID space_id_) {
+    space_id = space_id_;
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.partition_info = true;
+    __isset.space_id = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return partition_info;
+    return space_id;
+  }
+  const std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>& get_parts() const&;
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> get_parts() &&;
+
+  template <typename T_CheckpointInfo_parts_struct_setter = std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>
+  std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>& set_parts(T_CheckpointInfo_parts_struct_setter&& parts_) {
+    parts = std::forward<T_CheckpointInfo_parts_struct_setter>(parts_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.parts = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return parts;
   }
 
   const ::std::string& get_path() const& {
@@ -6833,7 +6874,7 @@ template <> struct TEnumDataStorage<::nebula::cpp2::Value::Type>;
 template <> struct TEnumTraits<::nebula::cpp2::Value::Type> {
   using type = ::nebula::cpp2::Value::Type;
 
-  static constexpr std::size_t const size = 16;
+  static constexpr std::size_t const size = 17;
   static folly::Range<type const*> const values;
   static folly::Range<folly::StringPiece const*> const names;
 

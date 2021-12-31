@@ -356,6 +356,88 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   void listSpacesT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ListSpacesReq& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> listSpacesCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
+  virtual void alterSpace(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+  virtual void alterSpace(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+ protected:
+  void alterSpaceImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+ public:
+
+  virtual void sync_alterSpace( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+  virtual void sync_alterSpace(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_alterSpace(const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_alterSpace(const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_alterSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_alterSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_alterSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_alterSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+
+#if FOLLY_HAS_COROUTINES
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_alterSpace(const  ::nebula::meta::cpp2::AlterSpaceReq& p_req) {
+    return co_alterSpace<false>(nullptr, p_req);
+  }
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_alterSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req) {
+    return co_alterSpace<true>(&rpcOptions, p_req);
+  }
+ private:
+  template <bool hasRpcOptions>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_alterSpace(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req) {
+    const folly::CancellationToken& cancelToken =
+        co_await folly::coro::co_current_cancellation_token;
+    const bool cancellable = cancelToken.canBeCancelled();
+    apache::thrift::ClientReceiveState returnState;
+    apache::thrift::ClientSyncCallback<false> callback(&returnState);
+    auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+    auto ctx = alterSpaceCtx(rpcOptions);
+    using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
+    auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
+    static const apache::thrift::RpcOptions defaultRpcOptions;
+    auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
+    if constexpr (hasRpcOptions) {
+      alterSpaceImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+    } else {
+      alterSpaceImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+    }
+    if (cancellable) {
+      folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
+      co_await callback.co_waitUntilDone();
+    } else {
+      co_await callback.co_waitUntilDone();
+    }
+    if (returnState.isException()) {
+      co_yield folly::coro::co_error(std::move(returnState.exception()));
+    }
+    returnState.resetProtocolId(protocolId);
+    returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+    SCOPE_EXIT {
+      if (hasRpcOptions && returnState.header() && !returnState.header()->getHeaders().empty()) {
+        rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
+      }
+    };
+     ::nebula::meta::cpp2::ExecResp _return;
+    if (auto ew = recv_wrapped_alterSpace(_return, returnState)) {
+      co_yield folly::coro::co_error(std::move(ew));
+    }
+    co_return _return;
+  }
+ public:
+#endif // FOLLY_HAS_COROUTINES
+
+  virtual void alterSpace(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+
+
+  static folly::exception_wrapper recv_wrapped_alterSpace( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_alterSpace( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  // Mock friendly virtual instance method
+  virtual void recv_instance_alterSpace( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_alterSpace( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+ private:
+  template <typename Protocol_>
+  void alterSpaceT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AlterSpaceReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> alterSpaceCtx(apache::thrift::RpcOptions* rpcOptions);
+ public:
   virtual void createSpaceAs(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::CreateSpaceAsReq& p_req);
   virtual void createSpaceAs(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::CreateSpaceAsReq& p_req);
  protected:
@@ -1749,6 +1831,88 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   template <typename Protocol_>
   void listPartsT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ListPartsReq& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> listPartsCtx(apache::thrift::RpcOptions* rpcOptions);
+ public:
+  virtual void getWorkerId(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+  virtual void getWorkerId(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+ protected:
+  void getWorkerIdImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+ public:
+
+  virtual void sync_getWorkerId( ::nebula::meta::cpp2::GetWorkerIdResp& _return, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+  virtual void sync_getWorkerId(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::GetWorkerIdResp& _return, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+
+  virtual folly::Future< ::nebula::meta::cpp2::GetWorkerIdResp> future_getWorkerId(const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::GetWorkerIdResp> semifuture_getWorkerId(const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::GetWorkerIdResp> future_getWorkerId(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::GetWorkerIdResp> semifuture_getWorkerId(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::GetWorkerIdResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_getWorkerId(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::GetWorkerIdResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_getWorkerId(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+
+#if FOLLY_HAS_COROUTINES
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::GetWorkerIdResp> co_getWorkerId(const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) {
+    return co_getWorkerId<false>(nullptr, p_req);
+  }
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::GetWorkerIdResp> co_getWorkerId(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) {
+    return co_getWorkerId<true>(&rpcOptions, p_req);
+  }
+ private:
+  template <bool hasRpcOptions>
+  folly::coro::Task< ::nebula::meta::cpp2::GetWorkerIdResp> co_getWorkerId(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) {
+    const folly::CancellationToken& cancelToken =
+        co_await folly::coro::co_current_cancellation_token;
+    const bool cancellable = cancelToken.canBeCancelled();
+    apache::thrift::ClientReceiveState returnState;
+    apache::thrift::ClientSyncCallback<false> callback(&returnState);
+    auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+    auto ctx = getWorkerIdCtx(rpcOptions);
+    using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
+    auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
+    static const apache::thrift::RpcOptions defaultRpcOptions;
+    auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
+    if constexpr (hasRpcOptions) {
+      getWorkerIdImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+    } else {
+      getWorkerIdImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+    }
+    if (cancellable) {
+      folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
+      co_await callback.co_waitUntilDone();
+    } else {
+      co_await callback.co_waitUntilDone();
+    }
+    if (returnState.isException()) {
+      co_yield folly::coro::co_error(std::move(returnState.exception()));
+    }
+    returnState.resetProtocolId(protocolId);
+    returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+    SCOPE_EXIT {
+      if (hasRpcOptions && returnState.header() && !returnState.header()->getHeaders().empty()) {
+        rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
+      }
+    };
+     ::nebula::meta::cpp2::GetWorkerIdResp _return;
+    if (auto ew = recv_wrapped_getWorkerId(_return, returnState)) {
+      co_yield folly::coro::co_error(std::move(ew));
+    }
+    co_return _return;
+  }
+ public:
+#endif // FOLLY_HAS_COROUTINES
+
+  virtual void getWorkerId(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+
+
+  static folly::exception_wrapper recv_wrapped_getWorkerId( ::nebula::meta::cpp2::GetWorkerIdResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_getWorkerId( ::nebula::meta::cpp2::GetWorkerIdResp& _return, ::apache::thrift::ClientReceiveState& state);
+  // Mock friendly virtual instance method
+  virtual void recv_instance_getWorkerId( ::nebula::meta::cpp2::GetWorkerIdResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_getWorkerId( ::nebula::meta::cpp2::GetWorkerIdResp& _return, ::apache::thrift::ClientReceiveState& state);
+ private:
+  template <typename Protocol_>
+  void getWorkerIdT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> getWorkerIdCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
   virtual void multiPut(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::MultiPutReq& p_req);
   virtual void multiPut(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::MultiPutReq& p_req);
@@ -4046,6 +4210,88 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   void heartBeatT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::HBReq& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> heartBeatCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
+  virtual void agentHeartbeat(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+  virtual void agentHeartbeat(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+ protected:
+  void agentHeartbeatImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+ public:
+
+  virtual void sync_agentHeartbeat( ::nebula::meta::cpp2::AgentHBResp& _return, const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+  virtual void sync_agentHeartbeat(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::AgentHBResp& _return, const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+
+  virtual folly::Future< ::nebula::meta::cpp2::AgentHBResp> future_agentHeartbeat(const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::AgentHBResp> semifuture_agentHeartbeat(const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::AgentHBResp> future_agentHeartbeat(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::AgentHBResp> semifuture_agentHeartbeat(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::AgentHBResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_agentHeartbeat(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::AgentHBResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_agentHeartbeat(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+
+#if FOLLY_HAS_COROUTINES
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::AgentHBResp> co_agentHeartbeat(const  ::nebula::meta::cpp2::AgentHBReq& p_req) {
+    return co_agentHeartbeat<false>(nullptr, p_req);
+  }
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::AgentHBResp> co_agentHeartbeat(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::AgentHBReq& p_req) {
+    return co_agentHeartbeat<true>(&rpcOptions, p_req);
+  }
+ private:
+  template <bool hasRpcOptions>
+  folly::coro::Task< ::nebula::meta::cpp2::AgentHBResp> co_agentHeartbeat(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::AgentHBReq& p_req) {
+    const folly::CancellationToken& cancelToken =
+        co_await folly::coro::co_current_cancellation_token;
+    const bool cancellable = cancelToken.canBeCancelled();
+    apache::thrift::ClientReceiveState returnState;
+    apache::thrift::ClientSyncCallback<false> callback(&returnState);
+    auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+    auto ctx = agentHeartbeatCtx(rpcOptions);
+    using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
+    auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
+    static const apache::thrift::RpcOptions defaultRpcOptions;
+    auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
+    if constexpr (hasRpcOptions) {
+      agentHeartbeatImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+    } else {
+      agentHeartbeatImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+    }
+    if (cancellable) {
+      folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
+      co_await callback.co_waitUntilDone();
+    } else {
+      co_await callback.co_waitUntilDone();
+    }
+    if (returnState.isException()) {
+      co_yield folly::coro::co_error(std::move(returnState.exception()));
+    }
+    returnState.resetProtocolId(protocolId);
+    returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+    SCOPE_EXIT {
+      if (hasRpcOptions && returnState.header() && !returnState.header()->getHeaders().empty()) {
+        rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
+      }
+    };
+     ::nebula::meta::cpp2::AgentHBResp _return;
+    if (auto ew = recv_wrapped_agentHeartbeat(_return, returnState)) {
+      co_yield folly::coro::co_error(std::move(ew));
+    }
+    co_return _return;
+  }
+ public:
+#endif // FOLLY_HAS_COROUTINES
+
+  virtual void agentHeartbeat(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+
+
+  static folly::exception_wrapper recv_wrapped_agentHeartbeat( ::nebula::meta::cpp2::AgentHBResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_agentHeartbeat( ::nebula::meta::cpp2::AgentHBResp& _return, ::apache::thrift::ClientReceiveState& state);
+  // Mock friendly virtual instance method
+  virtual void recv_instance_agentHeartbeat( ::nebula::meta::cpp2::AgentHBResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_agentHeartbeat( ::nebula::meta::cpp2::AgentHBResp& _return, ::apache::thrift::ClientReceiveState& state);
+ private:
+  template <typename Protocol_>
+  void agentHeartbeatT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::AgentHBReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> agentHeartbeatCtx(apache::thrift::RpcOptions* rpcOptions);
+ public:
   virtual void regConfig(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RegConfigReq& p_req);
   virtual void regConfig(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RegConfigReq& p_req);
  protected:
@@ -4866,49 +5112,49 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   void dropZoneT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::DropZoneReq& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> dropZoneCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
-  virtual void splitZone(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
-  virtual void splitZone(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  virtual void divideZone(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
+  virtual void divideZone(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
  protected:
-  void splitZoneImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  void divideZoneImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
  public:
 
-  virtual void sync_splitZone( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
-  virtual void sync_splitZone(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  virtual void sync_divideZone( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
+  virtual void sync_divideZone(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
 
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_splitZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_splitZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
-  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_splitZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
-  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_splitZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_divideZone(const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_divideZone(const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_divideZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_divideZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_divideZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_divideZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
 
 #if FOLLY_HAS_COROUTINES
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req) {
-    return co_splitZone<false>(nullptr, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_divideZone(const  ::nebula::meta::cpp2::DivideZoneReq& p_req) {
+    return co_divideZone<false>(nullptr, p_req);
   }
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_splitZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SplitZoneReq& p_req) {
-    return co_splitZone<true>(&rpcOptions, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_divideZone(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::DivideZoneReq& p_req) {
+    return co_divideZone<true>(&rpcOptions, p_req);
   }
  private:
   template <bool hasRpcOptions>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_splitZone(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::SplitZoneReq& p_req) {
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_divideZone(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::DivideZoneReq& p_req) {
     const folly::CancellationToken& cancelToken =
         co_await folly::coro::co_current_cancellation_token;
     const bool cancellable = cancelToken.canBeCancelled();
     apache::thrift::ClientReceiveState returnState;
     apache::thrift::ClientSyncCallback<false> callback(&returnState);
     auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-    auto ctx = splitZoneCtx(rpcOptions);
+    auto ctx = divideZoneCtx(rpcOptions);
     using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
     auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
     static const apache::thrift::RpcOptions defaultRpcOptions;
     auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
     if constexpr (hasRpcOptions) {
-      splitZoneImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+      divideZoneImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
     } else {
-      splitZoneImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+      divideZoneImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
     }
     if (cancellable) {
       folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
@@ -4927,7 +5173,7 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
       }
     };
      ::nebula::meta::cpp2::ExecResp _return;
-    if (auto ew = recv_wrapped_splitZone(_return, returnState)) {
+    if (auto ew = recv_wrapped_divideZone(_return, returnState)) {
       co_yield folly::coro::co_error(std::move(ew));
     }
     co_return _return;
@@ -4935,18 +5181,18 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
  public:
 #endif // FOLLY_HAS_COROUTINES
 
-  virtual void splitZone(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
+  virtual void divideZone(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
 
 
-  static folly::exception_wrapper recv_wrapped_splitZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  static void recv_splitZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static folly::exception_wrapper recv_wrapped_divideZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_divideZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
   // Mock friendly virtual instance method
-  virtual void recv_instance_splitZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual folly::exception_wrapper recv_instance_wrapped_splitZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual void recv_instance_divideZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_divideZone( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
  private:
   template <typename Protocol_>
-  void splitZoneT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req);
-  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> splitZoneCtx(apache::thrift::RpcOptions* rpcOptions);
+  void divideZoneT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::DivideZoneReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> divideZoneCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
   virtual void renameZone(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
   virtual void renameZone(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RenameZoneReq& p_req);
@@ -5193,170 +5439,6 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   template <typename Protocol_>
   void listZonesT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ListZonesReq& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> listZonesCtx(apache::thrift::RpcOptions* rpcOptions);
- public:
-  virtual void createBackup(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
-  virtual void createBackup(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
- protected:
-  void createBackupImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
- public:
-
-  virtual void sync_createBackup( ::nebula::meta::cpp2::CreateBackupResp& _return, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
-  virtual void sync_createBackup(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::CreateBackupResp& _return, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
-
-  virtual folly::Future< ::nebula::meta::cpp2::CreateBackupResp> future_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::CreateBackupResp> semifuture_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
-  virtual folly::Future< ::nebula::meta::cpp2::CreateBackupResp> future_createBackup(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::CreateBackupResp> semifuture_createBackup(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
-  virtual folly::Future<std::pair< ::nebula::meta::cpp2::CreateBackupResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_createBackup(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
-  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::CreateBackupResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_createBackup(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
-
-#if FOLLY_HAS_COROUTINES
-  template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::CreateBackupResp> co_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) {
-    return co_createBackup<false>(nullptr, p_req);
-  }
-  template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::CreateBackupResp> co_createBackup(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::CreateBackupReq& p_req) {
-    return co_createBackup<true>(&rpcOptions, p_req);
-  }
- private:
-  template <bool hasRpcOptions>
-  folly::coro::Task< ::nebula::meta::cpp2::CreateBackupResp> co_createBackup(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::CreateBackupReq& p_req) {
-    const folly::CancellationToken& cancelToken =
-        co_await folly::coro::co_current_cancellation_token;
-    const bool cancellable = cancelToken.canBeCancelled();
-    apache::thrift::ClientReceiveState returnState;
-    apache::thrift::ClientSyncCallback<false> callback(&returnState);
-    auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-    auto ctx = createBackupCtx(rpcOptions);
-    using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
-    auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
-    static const apache::thrift::RpcOptions defaultRpcOptions;
-    auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
-    if constexpr (hasRpcOptions) {
-      createBackupImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
-    } else {
-      createBackupImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
-    }
-    if (cancellable) {
-      folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
-      co_await callback.co_waitUntilDone();
-    } else {
-      co_await callback.co_waitUntilDone();
-    }
-    if (returnState.isException()) {
-      co_yield folly::coro::co_error(std::move(returnState.exception()));
-    }
-    returnState.resetProtocolId(protocolId);
-    returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
-    SCOPE_EXIT {
-      if (hasRpcOptions && returnState.header() && !returnState.header()->getHeaders().empty()) {
-        rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
-      }
-    };
-     ::nebula::meta::cpp2::CreateBackupResp _return;
-    if (auto ew = recv_wrapped_createBackup(_return, returnState)) {
-      co_yield folly::coro::co_error(std::move(ew));
-    }
-    co_return _return;
-  }
- public:
-#endif // FOLLY_HAS_COROUTINES
-
-  virtual void createBackup(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
-
-
-  static folly::exception_wrapper recv_wrapped_createBackup( ::nebula::meta::cpp2::CreateBackupResp& _return, ::apache::thrift::ClientReceiveState& state);
-  static void recv_createBackup( ::nebula::meta::cpp2::CreateBackupResp& _return, ::apache::thrift::ClientReceiveState& state);
-  // Mock friendly virtual instance method
-  virtual void recv_instance_createBackup( ::nebula::meta::cpp2::CreateBackupResp& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual folly::exception_wrapper recv_instance_wrapped_createBackup( ::nebula::meta::cpp2::CreateBackupResp& _return, ::apache::thrift::ClientReceiveState& state);
- private:
-  template <typename Protocol_>
-  void createBackupT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
-  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> createBackupCtx(apache::thrift::RpcOptions* rpcOptions);
- public:
-  virtual void restoreMeta(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
-  virtual void restoreMeta(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
- protected:
-  void restoreMetaImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
- public:
-
-  virtual void sync_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
-  virtual void sync_restoreMeta(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
-
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
-  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
-  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
-
-#if FOLLY_HAS_COROUTINES
-  template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
-    return co_restoreMeta<false>(nullptr, p_req);
-  }
-  template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
-    return co_restoreMeta<true>(&rpcOptions, p_req);
-  }
- private:
-  template <bool hasRpcOptions>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_restoreMeta(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
-    const folly::CancellationToken& cancelToken =
-        co_await folly::coro::co_current_cancellation_token;
-    const bool cancellable = cancelToken.canBeCancelled();
-    apache::thrift::ClientReceiveState returnState;
-    apache::thrift::ClientSyncCallback<false> callback(&returnState);
-    auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-    auto ctx = restoreMetaCtx(rpcOptions);
-    using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
-    auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
-    static const apache::thrift::RpcOptions defaultRpcOptions;
-    auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
-    if constexpr (hasRpcOptions) {
-      restoreMetaImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
-    } else {
-      restoreMetaImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
-    }
-    if (cancellable) {
-      folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
-      co_await callback.co_waitUntilDone();
-    } else {
-      co_await callback.co_waitUntilDone();
-    }
-    if (returnState.isException()) {
-      co_yield folly::coro::co_error(std::move(returnState.exception()));
-    }
-    returnState.resetProtocolId(protocolId);
-    returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
-    SCOPE_EXIT {
-      if (hasRpcOptions && returnState.header() && !returnState.header()->getHeaders().empty()) {
-        rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
-      }
-    };
-     ::nebula::meta::cpp2::ExecResp _return;
-    if (auto ew = recv_wrapped_restoreMeta(_return, returnState)) {
-      co_yield folly::coro::co_error(std::move(ew));
-    }
-    co_return _return;
-  }
- public:
-#endif // FOLLY_HAS_COROUTINES
-
-  virtual void restoreMeta(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
-
-
-  static folly::exception_wrapper recv_wrapped_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  static void recv_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  // Mock friendly virtual instance method
-  virtual void recv_instance_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual folly::exception_wrapper recv_instance_wrapped_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
- private:
-  template <typename Protocol_>
-  void restoreMetaT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
-  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> restoreMetaCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
   virtual void addListener(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AddListenerReq& p_req);
   virtual void addListener(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::AddListenerReq& p_req);
@@ -5686,49 +5768,49 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   void getStatsT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::GetStatsReq& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> getStatsCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
-  virtual void signInFTService(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
-  virtual void signInFTService(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
+  virtual void signInService(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
+  virtual void signInService(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
  protected:
-  void signInFTServiceImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
+  void signInServiceImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
  public:
 
-  virtual void sync_signInFTService( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
-  virtual void sync_signInFTService(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
+  virtual void sync_signInService( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
+  virtual void sync_signInService(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
 
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_signInFTService(const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_signInFTService(const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_signInFTService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_signInFTService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
-  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_signInFTService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
-  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_signInFTService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_signInService(const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_signInService(const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_signInService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_signInService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_signInService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_signInService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
 
 #if FOLLY_HAS_COROUTINES
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_signInFTService(const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req) {
-    return co_signInFTService<false>(nullptr, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_signInService(const  ::nebula::meta::cpp2::SignInServiceReq& p_req) {
+    return co_signInService<false>(nullptr, p_req);
   }
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_signInFTService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req) {
-    return co_signInFTService<true>(&rpcOptions, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_signInService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignInServiceReq& p_req) {
+    return co_signInService<true>(&rpcOptions, p_req);
   }
  private:
   template <bool hasRpcOptions>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_signInFTService(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req) {
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_signInService(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::SignInServiceReq& p_req) {
     const folly::CancellationToken& cancelToken =
         co_await folly::coro::co_current_cancellation_token;
     const bool cancellable = cancelToken.canBeCancelled();
     apache::thrift::ClientReceiveState returnState;
     apache::thrift::ClientSyncCallback<false> callback(&returnState);
     auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-    auto ctx = signInFTServiceCtx(rpcOptions);
+    auto ctx = signInServiceCtx(rpcOptions);
     using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
     auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
     static const apache::thrift::RpcOptions defaultRpcOptions;
     auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
     if constexpr (hasRpcOptions) {
-      signInFTServiceImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+      signInServiceImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
     } else {
-      signInFTServiceImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+      signInServiceImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
     }
     if (cancellable) {
       folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
@@ -5747,7 +5829,7 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
       }
     };
      ::nebula::meta::cpp2::ExecResp _return;
-    if (auto ew = recv_wrapped_signInFTService(_return, returnState)) {
+    if (auto ew = recv_wrapped_signInService(_return, returnState)) {
       co_yield folly::coro::co_error(std::move(ew));
     }
     co_return _return;
@@ -5755,62 +5837,62 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
  public:
 #endif // FOLLY_HAS_COROUTINES
 
-  virtual void signInFTService(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
+  virtual void signInService(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
 
 
-  static folly::exception_wrapper recv_wrapped_signInFTService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  static void recv_signInFTService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static folly::exception_wrapper recv_wrapped_signInService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_signInService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
   // Mock friendly virtual instance method
-  virtual void recv_instance_signInFTService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual folly::exception_wrapper recv_instance_wrapped_signInFTService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual void recv_instance_signInService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_signInService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
  private:
   template <typename Protocol_>
-  void signInFTServiceT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SignInFTServiceReq& p_req);
-  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> signInFTServiceCtx(apache::thrift::RpcOptions* rpcOptions);
+  void signInServiceT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SignInServiceReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> signInServiceCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
-  virtual void signOutFTService(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
-  virtual void signOutFTService(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
+  virtual void signOutService(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
+  virtual void signOutService(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
  protected:
-  void signOutFTServiceImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
+  void signOutServiceImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
  public:
 
-  virtual void sync_signOutFTService( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
-  virtual void sync_signOutFTService(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
+  virtual void sync_signOutService( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
+  virtual void sync_signOutService(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
 
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_signOutFTService(const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_signOutFTService(const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_signOutFTService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_signOutFTService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
-  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_signOutFTService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
-  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_signOutFTService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_signOutService(const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_signOutService(const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_signOutService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_signOutService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_signOutService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_signOutService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
 
 #if FOLLY_HAS_COROUTINES
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_signOutFTService(const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req) {
-    return co_signOutFTService<false>(nullptr, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_signOutService(const  ::nebula::meta::cpp2::SignOutServiceReq& p_req) {
+    return co_signOutService<false>(nullptr, p_req);
   }
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_signOutFTService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req) {
-    return co_signOutFTService<true>(&rpcOptions, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_signOutService(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req) {
+    return co_signOutService<true>(&rpcOptions, p_req);
   }
  private:
   template <bool hasRpcOptions>
-  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_signOutFTService(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req) {
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_signOutService(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req) {
     const folly::CancellationToken& cancelToken =
         co_await folly::coro::co_current_cancellation_token;
     const bool cancellable = cancelToken.canBeCancelled();
     apache::thrift::ClientReceiveState returnState;
     apache::thrift::ClientSyncCallback<false> callback(&returnState);
     auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-    auto ctx = signOutFTServiceCtx(rpcOptions);
+    auto ctx = signOutServiceCtx(rpcOptions);
     using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
     auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
     static const apache::thrift::RpcOptions defaultRpcOptions;
     auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
     if constexpr (hasRpcOptions) {
-      signOutFTServiceImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+      signOutServiceImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
     } else {
-      signOutFTServiceImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+      signOutServiceImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
     }
     if (cancellable) {
       folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
@@ -5829,7 +5911,7 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
       }
     };
      ::nebula::meta::cpp2::ExecResp _return;
-    if (auto ew = recv_wrapped_signOutFTService(_return, returnState)) {
+    if (auto ew = recv_wrapped_signOutService(_return, returnState)) {
       co_yield folly::coro::co_error(std::move(ew));
     }
     co_return _return;
@@ -5837,62 +5919,62 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
  public:
 #endif // FOLLY_HAS_COROUTINES
 
-  virtual void signOutFTService(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
+  virtual void signOutService(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
 
 
-  static folly::exception_wrapper recv_wrapped_signOutFTService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  static void recv_signOutFTService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static folly::exception_wrapper recv_wrapped_signOutService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_signOutService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
   // Mock friendly virtual instance method
-  virtual void recv_instance_signOutFTService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual folly::exception_wrapper recv_instance_wrapped_signOutFTService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual void recv_instance_signOutService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_signOutService( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
  private:
   template <typename Protocol_>
-  void signOutFTServiceT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SignOutFTServiceReq& p_req);
-  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> signOutFTServiceCtx(apache::thrift::RpcOptions* rpcOptions);
+  void signOutServiceT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SignOutServiceReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> signOutServiceCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
-  virtual void listFTClients(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
-  virtual void listFTClients(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
+  virtual void listServiceClients(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
+  virtual void listServiceClients(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
  protected:
-  void listFTClientsImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
+  void listServiceClientsImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
  public:
 
-  virtual void sync_listFTClients( ::nebula::meta::cpp2::ListFTClientsResp& _return, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
-  virtual void sync_listFTClients(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ListFTClientsResp& _return, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
+  virtual void sync_listServiceClients( ::nebula::meta::cpp2::ListServiceClientsResp& _return, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
+  virtual void sync_listServiceClients(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ListServiceClientsResp& _return, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
 
-  virtual folly::Future< ::nebula::meta::cpp2::ListFTClientsResp> future_listFTClients(const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ListFTClientsResp> semifuture_listFTClients(const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
-  virtual folly::Future< ::nebula::meta::cpp2::ListFTClientsResp> future_listFTClients(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ListFTClientsResp> semifuture_listFTClients(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
-  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ListFTClientsResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_listFTClients(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
-  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ListFTClientsResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_listFTClients(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ListServiceClientsResp> future_listServiceClients(const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ListServiceClientsResp> semifuture_listServiceClients(const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ListServiceClientsResp> future_listServiceClients(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ListServiceClientsResp> semifuture_listServiceClients(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ListServiceClientsResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_listServiceClients(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ListServiceClientsResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_listServiceClients(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
 
 #if FOLLY_HAS_COROUTINES
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ListFTClientsResp> co_listFTClients(const  ::nebula::meta::cpp2::ListFTClientsReq& p_req) {
-    return co_listFTClients<false>(nullptr, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ListServiceClientsResp> co_listServiceClients(const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req) {
+    return co_listServiceClients<false>(nullptr, p_req);
   }
   template <int = 0>
-  folly::coro::Task< ::nebula::meta::cpp2::ListFTClientsResp> co_listFTClients(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req) {
-    return co_listFTClients<true>(&rpcOptions, p_req);
+  folly::coro::Task< ::nebula::meta::cpp2::ListServiceClientsResp> co_listServiceClients(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req) {
+    return co_listServiceClients<true>(&rpcOptions, p_req);
   }
  private:
   template <bool hasRpcOptions>
-  folly::coro::Task< ::nebula::meta::cpp2::ListFTClientsResp> co_listFTClients(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req) {
+  folly::coro::Task< ::nebula::meta::cpp2::ListServiceClientsResp> co_listServiceClients(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req) {
     const folly::CancellationToken& cancelToken =
         co_await folly::coro::co_current_cancellation_token;
     const bool cancellable = cancelToken.canBeCancelled();
     apache::thrift::ClientReceiveState returnState;
     apache::thrift::ClientSyncCallback<false> callback(&returnState);
     auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-    auto ctx = listFTClientsCtx(rpcOptions);
+    auto ctx = listServiceClientsCtx(rpcOptions);
     using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
     auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
     static const apache::thrift::RpcOptions defaultRpcOptions;
     auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
     if constexpr (hasRpcOptions) {
-      listFTClientsImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+      listServiceClientsImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
     } else {
-      listFTClientsImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+      listServiceClientsImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
     }
     if (cancellable) {
       folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
@@ -5910,8 +5992,8 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
         rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
       }
     };
-     ::nebula::meta::cpp2::ListFTClientsResp _return;
-    if (auto ew = recv_wrapped_listFTClients(_return, returnState)) {
+     ::nebula::meta::cpp2::ListServiceClientsResp _return;
+    if (auto ew = recv_wrapped_listServiceClients(_return, returnState)) {
       co_yield folly::coro::co_error(std::move(ew));
     }
     co_return _return;
@@ -5919,18 +6001,18 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
  public:
 #endif // FOLLY_HAS_COROUTINES
 
-  virtual void listFTClients(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
+  virtual void listServiceClients(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
 
 
-  static folly::exception_wrapper recv_wrapped_listFTClients( ::nebula::meta::cpp2::ListFTClientsResp& _return, ::apache::thrift::ClientReceiveState& state);
-  static void recv_listFTClients( ::nebula::meta::cpp2::ListFTClientsResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static folly::exception_wrapper recv_wrapped_listServiceClients( ::nebula::meta::cpp2::ListServiceClientsResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_listServiceClients( ::nebula::meta::cpp2::ListServiceClientsResp& _return, ::apache::thrift::ClientReceiveState& state);
   // Mock friendly virtual instance method
-  virtual void recv_instance_listFTClients( ::nebula::meta::cpp2::ListFTClientsResp& _return, ::apache::thrift::ClientReceiveState& state);
-  virtual folly::exception_wrapper recv_instance_wrapped_listFTClients( ::nebula::meta::cpp2::ListFTClientsResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual void recv_instance_listServiceClients( ::nebula::meta::cpp2::ListServiceClientsResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_listServiceClients( ::nebula::meta::cpp2::ListServiceClientsResp& _return, ::apache::thrift::ClientReceiveState& state);
  private:
   template <typename Protocol_>
-  void listFTClientsT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ListFTClientsReq& p_req);
-  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> listFTClientsCtx(apache::thrift::RpcOptions* rpcOptions);
+  void listServiceClientsT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ListServiceClientsReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> listServiceClientsCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
   virtual void createFTIndex(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::CreateFTIndexReq& p_req);
   virtual void createFTIndex(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::CreateFTIndexReq& p_req);
@@ -6751,6 +6833,170 @@ class MetaServiceAsyncClient : public apache::thrift::GeneratedAsyncClient {
   template <typename Protocol_>
   void reportTaskFinishT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ReportTaskReq& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> reportTaskFinishCtx(apache::thrift::RpcOptions* rpcOptions);
+ public:
+  virtual void createBackup(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+  virtual void createBackup(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+ protected:
+  void createBackupImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+ public:
+
+  virtual void sync_createBackup( ::nebula::meta::cpp2::CreateBackupResp& _return, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+  virtual void sync_createBackup(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::CreateBackupResp& _return, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+
+  virtual folly::Future< ::nebula::meta::cpp2::CreateBackupResp> future_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::CreateBackupResp> semifuture_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::CreateBackupResp> future_createBackup(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::CreateBackupResp> semifuture_createBackup(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::CreateBackupResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_createBackup(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::CreateBackupResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_createBackup(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+
+#if FOLLY_HAS_COROUTINES
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::CreateBackupResp> co_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) {
+    return co_createBackup<false>(nullptr, p_req);
+  }
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::CreateBackupResp> co_createBackup(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::CreateBackupReq& p_req) {
+    return co_createBackup<true>(&rpcOptions, p_req);
+  }
+ private:
+  template <bool hasRpcOptions>
+  folly::coro::Task< ::nebula::meta::cpp2::CreateBackupResp> co_createBackup(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::CreateBackupReq& p_req) {
+    const folly::CancellationToken& cancelToken =
+        co_await folly::coro::co_current_cancellation_token;
+    const bool cancellable = cancelToken.canBeCancelled();
+    apache::thrift::ClientReceiveState returnState;
+    apache::thrift::ClientSyncCallback<false> callback(&returnState);
+    auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+    auto ctx = createBackupCtx(rpcOptions);
+    using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
+    auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
+    static const apache::thrift::RpcOptions defaultRpcOptions;
+    auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
+    if constexpr (hasRpcOptions) {
+      createBackupImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+    } else {
+      createBackupImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+    }
+    if (cancellable) {
+      folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
+      co_await callback.co_waitUntilDone();
+    } else {
+      co_await callback.co_waitUntilDone();
+    }
+    if (returnState.isException()) {
+      co_yield folly::coro::co_error(std::move(returnState.exception()));
+    }
+    returnState.resetProtocolId(protocolId);
+    returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+    SCOPE_EXIT {
+      if (hasRpcOptions && returnState.header() && !returnState.header()->getHeaders().empty()) {
+        rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
+      }
+    };
+     ::nebula::meta::cpp2::CreateBackupResp _return;
+    if (auto ew = recv_wrapped_createBackup(_return, returnState)) {
+      co_yield folly::coro::co_error(std::move(ew));
+    }
+    co_return _return;
+  }
+ public:
+#endif // FOLLY_HAS_COROUTINES
+
+  virtual void createBackup(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+
+
+  static folly::exception_wrapper recv_wrapped_createBackup( ::nebula::meta::cpp2::CreateBackupResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_createBackup( ::nebula::meta::cpp2::CreateBackupResp& _return, ::apache::thrift::ClientReceiveState& state);
+  // Mock friendly virtual instance method
+  virtual void recv_instance_createBackup( ::nebula::meta::cpp2::CreateBackupResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_createBackup( ::nebula::meta::cpp2::CreateBackupResp& _return, ::apache::thrift::ClientReceiveState& state);
+ private:
+  template <typename Protocol_>
+  void createBackupT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> createBackupCtx(apache::thrift::RpcOptions* rpcOptions);
+ public:
+  virtual void restoreMeta(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+  virtual void restoreMeta(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+ protected:
+  void restoreMetaImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+ public:
+
+  virtual void sync_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+  virtual void sync_restoreMeta(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+  virtual folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+
+#if FOLLY_HAS_COROUTINES
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+    return co_restoreMeta<false>(nullptr, p_req);
+  }
+  template <int = 0>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+    return co_restoreMeta<true>(&rpcOptions, p_req);
+  }
+ private:
+  template <bool hasRpcOptions>
+  folly::coro::Task< ::nebula::meta::cpp2::ExecResp> co_restoreMeta(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+    const folly::CancellationToken& cancelToken =
+        co_await folly::coro::co_current_cancellation_token;
+    const bool cancellable = cancelToken.canBeCancelled();
+    apache::thrift::ClientReceiveState returnState;
+    apache::thrift::ClientSyncCallback<false> callback(&returnState);
+    auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+    auto ctx = restoreMetaCtx(rpcOptions);
+    using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
+    auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
+    static const apache::thrift::RpcOptions defaultRpcOptions;
+    auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
+    if constexpr (hasRpcOptions) {
+      restoreMetaImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+    } else {
+      restoreMetaImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+    }
+    if (cancellable) {
+      folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
+      co_await callback.co_waitUntilDone();
+    } else {
+      co_await callback.co_waitUntilDone();
+    }
+    if (returnState.isException()) {
+      co_yield folly::coro::co_error(std::move(returnState.exception()));
+    }
+    returnState.resetProtocolId(protocolId);
+    returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+    SCOPE_EXIT {
+      if (hasRpcOptions && returnState.header() && !returnState.header()->getHeaders().empty()) {
+        rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
+      }
+    };
+     ::nebula::meta::cpp2::ExecResp _return;
+    if (auto ew = recv_wrapped_restoreMeta(_return, returnState)) {
+      co_yield folly::coro::co_error(std::move(ew));
+    }
+    co_return _return;
+  }
+ public:
+#endif // FOLLY_HAS_COROUTINES
+
+  virtual void restoreMeta(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+
+
+  static folly::exception_wrapper recv_wrapped_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  // Mock friendly virtual instance method
+  virtual void recv_instance_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state);
+ private:
+  template <typename Protocol_>
+  void restoreMetaT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> restoreMetaCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
   virtual void listCluster(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::ListClusterInfoReq& p_req);
   virtual void listCluster(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::ListClusterInfoReq& p_req);

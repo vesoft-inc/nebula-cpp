@@ -374,46 +374,52 @@ const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2:
   TType::T_LIST,
 }};
 
-const std::array<folly::StringPiece, 5> TStructDataStorage<::nebula::storage::cpp2::AddVerticesRequest>::fields_names = {{
+const std::array<folly::StringPiece, 6> TStructDataStorage<::nebula::storage::cpp2::AddVerticesRequest>::fields_names = {{
   "space_id",
   "parts",
   "prop_names",
   "if_not_exists",
+  "ignore_existed_index",
   "common",
 }};
-const std::array<int16_t, 5> TStructDataStorage<::nebula::storage::cpp2::AddVerticesRequest>::fields_ids = {{
+const std::array<int16_t, 6> TStructDataStorage<::nebula::storage::cpp2::AddVerticesRequest>::fields_ids = {{
   1,
   2,
   3,
   4,
   5,
+  6,
 }};
-const std::array<protocol::TType, 5> TStructDataStorage<::nebula::storage::cpp2::AddVerticesRequest>::fields_types = {{
+const std::array<protocol::TType, 6> TStructDataStorage<::nebula::storage::cpp2::AddVerticesRequest>::fields_types = {{
   TType::T_I32,
   TType::T_MAP,
   TType::T_MAP,
   TType::T_BOOL,
+  TType::T_BOOL,
   TType::T_STRUCT,
 }};
 
-const std::array<folly::StringPiece, 5> TStructDataStorage<::nebula::storage::cpp2::AddEdgesRequest>::fields_names = {{
+const std::array<folly::StringPiece, 6> TStructDataStorage<::nebula::storage::cpp2::AddEdgesRequest>::fields_names = {{
   "space_id",
   "parts",
   "prop_names",
   "if_not_exists",
+  "ignore_existed_index",
   "common",
 }};
-const std::array<int16_t, 5> TStructDataStorage<::nebula::storage::cpp2::AddEdgesRequest>::fields_ids = {{
+const std::array<int16_t, 6> TStructDataStorage<::nebula::storage::cpp2::AddEdgesRequest>::fields_ids = {{
   1,
   2,
   3,
   4,
   5,
+  6,
 }};
-const std::array<protocol::TType, 5> TStructDataStorage<::nebula::storage::cpp2::AddEdgesRequest>::fields_types = {{
+const std::array<protocol::TType, 6> TStructDataStorage<::nebula::storage::cpp2::AddEdgesRequest>::fields_types = {{
   TType::T_I32,
   TType::T_MAP,
   TType::T_LIST,
+  TType::T_BOOL,
   TType::T_BOOL,
   TType::T_STRUCT,
 }};
@@ -669,29 +675,32 @@ const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2:
   TType::T_STRUCT,
 }};
 
-const std::array<folly::StringPiece, 6> TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest>::fields_names = {{
+const std::array<folly::StringPiece, 7> TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest>::fields_names = {{
   "space_id",
   "parts",
   "indices",
   "return_columns",
   "common",
   "limit",
+  "order_by",
 }};
-const std::array<int16_t, 6> TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest>::fields_ids = {{
+const std::array<int16_t, 7> TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest>::fields_ids = {{
   1,
   2,
   3,
   4,
   5,
   6,
+  7,
 }};
-const std::array<protocol::TType, 6> TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest>::fields_types = {{
+const std::array<protocol::TType, 7> TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest>::fields_types = {{
   TType::T_I32,
   TType::T_LIST,
   TType::T_STRUCT,
   TType::T_LIST,
   TType::T_STRUCT,
   TType::T_I64,
+  TType::T_LIST,
 }};
 
 const std::array<folly::StringPiece, 5> TStructDataStorage<::nebula::storage::cpp2::LookupAndTraverseRequest>::fields_names = {{
@@ -1007,7 +1016,7 @@ const std::array<protocol::TType, 0> TStructDataStorage<::nebula::storage::cpp2:
 }};
 
 const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::CreateCPRequest>::fields_names = {{
-  "space_id",
+  "space_ids",
   "name",
 }};
 const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::CreateCPRequest>::fields_ids = {{
@@ -1015,12 +1024,12 @@ const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::CreateC
   2,
 }};
 const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::CreateCPRequest>::fields_types = {{
-  TType::T_I32,
+  TType::T_LIST,
   TType::T_STRING,
 }};
 
 const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::DropCPRequest>::fields_names = {{
-  "space_id",
+  "space_ids",
   "name",
 }};
 const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::DropCPRequest>::fields_ids = {{
@@ -1028,12 +1037,12 @@ const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::DropCPR
   2,
 }};
 const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::DropCPRequest>::fields_types = {{
-  TType::T_I32,
+  TType::T_LIST,
   TType::T_STRING,
 }};
 
 const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::BlockingSignRequest>::fields_names = {{
-  "space_id",
+  "space_ids",
   "sign",
 }};
 const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::BlockingSignRequest>::fields_ids = {{
@@ -1041,7 +1050,7 @@ const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::Blockin
   2,
 }};
 const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::BlockingSignRequest>::fields_types = {{
-  TType::T_I32,
+  TType::T_LIST,
   TType::T_I32,
 }};
 
@@ -1158,28 +1167,6 @@ const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2:
   TType::T_I32,
 }};
 
-const std::array<folly::StringPiece, 5> TStructDataStorage<::nebula::storage::cpp2::InternalTxnRequest>::fields_names = {{
-  "txn_id",
-  "term_of_parts",
-  "add_edge_req",
-  "upd_edge_req",
-  "edge_ver",
-}};
-const std::array<int16_t, 5> TStructDataStorage<::nebula::storage::cpp2::InternalTxnRequest>::fields_ids = {{
-  1,
-  2,
-  3,
-  4,
-  5,
-}};
-const std::array<protocol::TType, 5> TStructDataStorage<::nebula::storage::cpp2::InternalTxnRequest>::fields_types = {{
-  TType::T_I64,
-  TType::T_MAP,
-  TType::T_STRUCT,
-  TType::T_STRUCT,
-  TType::T_MAP,
-}};
-
 const std::array<folly::StringPiece, 6> TStructDataStorage<::nebula::storage::cpp2::ChainAddEdgesRequest>::fields_names = {{
   "space_id",
   "parts",
@@ -1225,6 +1212,25 @@ const std::array<protocol::TType, 5> TStructDataStorage<::nebula::storage::cpp2:
   TType::T_I64,
   TType::T_I32,
   TType::T_LIST,
+}};
+
+const std::array<folly::StringPiece, 4> TStructDataStorage<::nebula::storage::cpp2::ChainDeleteEdgesRequest>::fields_names = {{
+  "space_id",
+  "parts",
+  "txn_id",
+  "term",
+}};
+const std::array<int16_t, 4> TStructDataStorage<::nebula::storage::cpp2::ChainDeleteEdgesRequest>::fields_ids = {{
+  1,
+  2,
+  3,
+  4,
+}};
+const std::array<protocol::TType, 4> TStructDataStorage<::nebula::storage::cpp2::ChainDeleteEdgesRequest>::fields_types = {{
+  TType::T_I32,
+  TType::T_MAP,
+  TType::T_STRING,
+  TType::T_I64,
 }};
 
 } // namespace thrift

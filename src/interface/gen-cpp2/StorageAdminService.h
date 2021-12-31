@@ -74,9 +74,6 @@ class StorageAdminServiceSvAsyncIf {
   virtual void async_tm_stopAdminTask(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) = 0;
   virtual folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_stopAdminTask(const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_stopAdminTask(const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) = 0;
-  virtual void async_tm_listClusterInfo(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ListClusterInfoResp>> callback, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) = 0;
-  virtual folly::Future< ::nebula::storage::cpp2::ListClusterInfoResp> future_listClusterInfo(const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::storage::cpp2::ListClusterInfoResp> semifuture_listClusterInfo(const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) = 0;
 };
 
 class StorageAdminServiceAsyncProcessor;
@@ -147,10 +144,6 @@ class StorageAdminServiceSvIf : public StorageAdminServiceSvAsyncIf, public apac
   folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_stopAdminTask(const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) override;
   folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_stopAdminTask(const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) override;
   void async_tm_stopAdminTask(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) override;
-  virtual void listClusterInfo( ::nebula::storage::cpp2::ListClusterInfoResp& /*_return*/, const  ::nebula::storage::cpp2::ListClusterInfoReq& /*req*/);
-  folly::Future< ::nebula::storage::cpp2::ListClusterInfoResp> future_listClusterInfo(const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) override;
-  folly::SemiFuture< ::nebula::storage::cpp2::ListClusterInfoResp> semifuture_listClusterInfo(const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) override;
-  void async_tm_listClusterInfo(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ListClusterInfoResp>> callback, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) override;
 };
 
 class StorageAdminServiceSvNull : public StorageAdminServiceSvIf {
@@ -170,7 +163,6 @@ class StorageAdminServiceSvNull : public StorageAdminServiceSvIf {
   void checkPeers( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::CheckPeersReq& /*req*/) override;
   void addAdminTask( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::AddAdminTaskRequest& /*req*/) override;
   void stopAdminTask( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::StopAdminTaskRequest& /*req*/) override;
-  void listClusterInfo( ::nebula::storage::cpp2::ListClusterInfoResp& /*_return*/, const  ::nebula::storage::cpp2::ListClusterInfoReq& /*req*/) override;
 };
 
 class StorageAdminServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcessor {
@@ -313,14 +305,6 @@ class StorageAdminServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyn
   static folly::IOBufQueue return_stopAdminTask(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_stopAdminTask(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_listClusterInfo(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_listClusterInfo(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_listClusterInfo(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ListClusterInfoResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_listClusterInfo(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
  public:
   StorageAdminServiceAsyncProcessor(StorageAdminServiceSvIf* iface) :
       iface_(iface) {}

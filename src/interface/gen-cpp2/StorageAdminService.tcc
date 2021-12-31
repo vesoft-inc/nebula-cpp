@@ -41,8 +41,6 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_addAdminTask_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::StopAdminTaskRequest*>> StorageAdminService_stopAdminTask_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_stopAdminTask_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ListClusterInfoReq*>> StorageAdminService_listClusterInfo_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ListClusterInfoResp*>> StorageAdminService_listClusterInfo_presult;
 template <typename ProtocolIn_, typename ProtocolOut_>
 void StorageAdminServiceAsyncProcessor::setUpAndProcess_transLeader(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
@@ -894,63 +892,6 @@ void StorageAdminServiceAsyncProcessor::throw_wrapped_stopAdminTask(apache::thri
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
         ew, std::move(req), reqCtx, ctx, "stopAdminTask");
-    return;
-  }
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void StorageAdminServiceAsyncProcessor::setUpAndProcess_listClusterInfo(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
-    return;
-  }
-  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
-  ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &StorageAdminServiceAsyncProcessor::process_listClusterInfo<ProtocolIn_, ProtocolOut_>, this);
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void StorageAdminServiceAsyncProcessor::process_listClusterInfo(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  // make sure getRequestContext is null
-  // so async calls don't accidentally use it
-  iface_->setRequestContext(nullptr);
-  StorageAdminService_listClusterInfo_pargs args;
-   ::nebula::storage::cpp2::ListClusterInfoReq uarg_req;
-  args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "StorageAdminService.listClusterInfo", ctx));
-  try {
-    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
-  }
-  catch (const std::exception& ex) {
-    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "listClusterInfo");
-    return;
-  }
-  req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ListClusterInfoResp>>(std::move(req), std::move(ctxStack), return_listClusterInfo<ProtocolIn_,ProtocolOut_>, throw_wrapped_listClusterInfo<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
-  if (!callback->isRequestActive()) {
-    return;
-  }
-  iface_->async_tm_listClusterInfo(std::move(callback), args.get<0>().ref());
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue StorageAdminServiceAsyncProcessor::return_listClusterInfo(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ListClusterInfoResp const& _return) {
-  ProtocolOut_ prot;
-  StorageAdminService_listClusterInfo_presult result;
-  result.get<0>().value = const_cast< ::nebula::storage::cpp2::ListClusterInfoResp*>(&_return);
-  result.setIsSet(0, true);
-  return serializeResponse("listClusterInfo", &prot, protoSeqId, ctx, result);
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-void StorageAdminServiceAsyncProcessor::throw_wrapped_listClusterInfo(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
-  if (!ew) {
-    return;
-  }
-  {
-    (void)protoSeqId;
-    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "listClusterInfo");
     return;
   }
 }

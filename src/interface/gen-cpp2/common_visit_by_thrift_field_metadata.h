@@ -126,6 +126,8 @@ struct VisitByThriftId<::nebula::cpp2::Value> {
       return f(14, static_cast<T&&>(t).gVal_ref());
     case 16:
       return f(15, static_cast<T&&>(t).ggVal_ref());
+    case 17:
+      return f(16, static_cast<T&&>(t).duVal_ref());
     default:
       throwInvalidThriftId(id, "::nebula::cpp2::Value");
     }
@@ -390,6 +392,23 @@ struct VisitByThriftId<::nebula::cpp2::KeyValue> {
 };
 
 template <>
+struct VisitByThriftId<::nebula::cpp2::Duration> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).seconds_ref());
+    case 2:
+      return f(1, static_cast<T&&>(t).microseconds_ref());
+    case 3:
+      return f(2, static_cast<T&&>(t).months_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::cpp2::Duration");
+    }
+  }
+};
+
+template <>
 struct VisitByThriftId<::nebula::cpp2::LogInfo> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
@@ -420,42 +439,16 @@ struct VisitByThriftId<::nebula::cpp2::DirInfo> {
 };
 
 template <>
-struct VisitByThriftId<::nebula::cpp2::NodeInfo> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    case 1:
-      return f(0, static_cast<T&&>(t).host_ref());
-    case 2:
-      return f(1, static_cast<T&&>(t).dir_ref());
-    default:
-      throwInvalidThriftId(id, "::nebula::cpp2::NodeInfo");
-    }
-  }
-};
-
-template <>
-struct VisitByThriftId<::nebula::cpp2::PartitionBackupInfo> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    case 1:
-      return f(0, static_cast<T&&>(t).info_ref());
-    default:
-      throwInvalidThriftId(id, "::nebula::cpp2::PartitionBackupInfo");
-    }
-  }
-};
-
-template <>
 struct VisitByThriftId<::nebula::cpp2::CheckpointInfo> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
     switch (id) {
     case 1:
-      return f(0, static_cast<T&&>(t).partition_info_ref());
+      return f(0, static_cast<T&&>(t).space_id_ref());
     case 2:
-      return f(1, static_cast<T&&>(t).path_ref());
+      return f(1, static_cast<T&&>(t).parts_ref());
+    case 3:
+      return f(2, static_cast<T&&>(t).path_ref());
     default:
       throwInvalidThriftId(id, "::nebula::cpp2::CheckpointInfo");
     }

@@ -40,8 +40,6 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_addAdminTask_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::StopAdminTaskRequest*>> StorageAdminService_stopAdminTask_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_stopAdminTask_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ListClusterInfoReq*>> StorageAdminService_listClusterInfo_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ListClusterInfoResp*>> StorageAdminService_listClusterInfo_presult;
 
 template <typename Protocol_>
 void StorageAdminServiceAsyncClient::transLeaderT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::TransLeaderReq& p_req) {
@@ -234,19 +232,6 @@ void StorageAdminServiceAsyncClient::stopAdminTaskT(Protocol_* prot, apache::thr
   auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
   auto writer = [&](Protocol_* p) { args.write(p); };
   static constexpr const folly::StringPiece methodName = "stopAdminTask";
-  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
-  ctx->reqContext.setRequestHeader(nullptr);
-}
-
-template <typename Protocol_>
-void StorageAdminServiceAsyncClient::listClusterInfoT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-
-  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
-  StorageAdminService_listClusterInfo_pargs args;
-  args.get<0>().value = const_cast< ::nebula::storage::cpp2::ListClusterInfoReq*>(&p_req);
-  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
-  auto writer = [&](Protocol_* p) { args.write(p); };
-  static constexpr const folly::StringPiece methodName = "listClusterInfo";
   apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
   ctx->reqContext.setRequestHeader(nullptr);
 }
@@ -2756,173 +2741,6 @@ void StorageAdminServiceAsyncClient::recv_instance_stopAdminTask( ::nebula::stor
 
 folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_stopAdminTask( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_wrapped_stopAdminTask(_return, state);
-}
-
-void StorageAdminServiceAsyncClient::listClusterInfo(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  listClusterInfo(rpcOptions, std::move(callback), p_req);
-}
-
-void StorageAdminServiceAsyncClient::listClusterInfo(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  auto ctx = listClusterInfoCtx(&rpcOptions);
-  apache::thrift::RequestCallback::Context callbackContext;
-  callbackContext.protocolId =
-      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
-  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
-  listClusterInfoImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
-}
-
-void StorageAdminServiceAsyncClient::listClusterInfoImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolWriter writer;
-      listClusterInfoT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolWriter writer;
-      listClusterInfoT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    default:
-    {
-      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
-    }
-  }
-}
-
-std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> StorageAdminServiceAsyncClient::listClusterInfoCtx(apache::thrift::RpcOptions* rpcOptions) {
-  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
-      channel_->getProtocolId(),
-      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
-      handlers_,
-      getServiceName(),
-      "StorageAdminService.listClusterInfo");
-}
-
-void StorageAdminServiceAsyncClient::sync_listClusterInfo( ::nebula::storage::cpp2::ListClusterInfoResp& _return, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  sync_listClusterInfo(rpcOptions, _return, p_req);
-}
-
-void StorageAdminServiceAsyncClient::sync_listClusterInfo(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::ListClusterInfoResp& _return, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  apache::thrift::ClientReceiveState returnState;
-  apache::thrift::ClientSyncCallback<false> callback(&returnState);
-  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
-  auto ctx = listClusterInfoCtx(&rpcOptions);
-  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
-  listClusterInfoImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
-  callback.waitUntilDone(evb);
-
-  if (returnState.isException()) {
-    returnState.exception().throw_exception();
-  }
-  returnState.resetProtocolId(protocolId);
-  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
-  SCOPE_EXIT {
-    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
-      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
-    }
-  };
-  return folly::fibers::runInMainContext([&] {
-      recv_listClusterInfo(_return, returnState);
-  });
-}
-
-
-folly::Future< ::nebula::storage::cpp2::ListClusterInfoResp> StorageAdminServiceAsyncClient::future_listClusterInfo(const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return future_listClusterInfo(rpcOptions, p_req);
-}
-
-folly::SemiFuture< ::nebula::storage::cpp2::ListClusterInfoResp> StorageAdminServiceAsyncClient::semifuture_listClusterInfo(const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return semifuture_listClusterInfo(rpcOptions, p_req);
-}
-
-folly::Future< ::nebula::storage::cpp2::ListClusterInfoResp> StorageAdminServiceAsyncClient::future_listClusterInfo(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  folly::Promise< ::nebula::storage::cpp2::ListClusterInfoResp> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::ListClusterInfoResp>>(std::move(promise), recv_wrapped_listClusterInfo, channel_);
-  listClusterInfo(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture< ::nebula::storage::cpp2::ListClusterInfoResp> StorageAdminServiceAsyncClient::semifuture_listClusterInfo(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_listClusterInfo, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  listClusterInfo(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-folly::Future<std::pair< ::nebula::storage::cpp2::ListClusterInfoResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_future_listClusterInfo(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  folly::Promise<std::pair< ::nebula::storage::cpp2::ListClusterInfoResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::ListClusterInfoResp>>(std::move(promise), recv_wrapped_listClusterInfo, channel_);
-  listClusterInfo(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture<std::pair< ::nebula::storage::cpp2::ListClusterInfoResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_semifuture_listClusterInfo(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_listClusterInfo, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  listClusterInfo(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-void StorageAdminServiceAsyncClient::listClusterInfo(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  listClusterInfo(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
-}
-
-#if FOLLY_HAS_COROUTINES
-#endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_listClusterInfo( ::nebula::storage::cpp2::ListClusterInfoResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  if (state.isException()) {
-    return std::move(state.exception());
-  }
-  if (!state.buf()) {
-    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
-  }
-
-  using result = StorageAdminService_listClusterInfo_presult;
-  constexpr auto const fname = "listClusterInfo";
-  switch (state.protocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    default:
-    {
-    }
-  }
-  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
-}
-
-void StorageAdminServiceAsyncClient::recv_listClusterInfo( ::nebula::storage::cpp2::ListClusterInfoResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = recv_wrapped_listClusterInfo(_return, state);
-  if (ew) {
-    ew.throw_exception();
-  }
-}
-
-void StorageAdminServiceAsyncClient::recv_instance_listClusterInfo( ::nebula::storage::cpp2::ListClusterInfoResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_listClusterInfo(_return, state);
-}
-
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_listClusterInfo( ::nebula::storage::cpp2::ListClusterInfoResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_wrapped_listClusterInfo(_return, state);
 }
 
 
