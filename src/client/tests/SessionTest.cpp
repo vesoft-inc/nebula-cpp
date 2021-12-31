@@ -225,21 +225,6 @@ TEST_F(SessionTest, Timeout) {
   ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 }
 
-TEST_F(SessionTest, SSL) {
-  nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 10, 0, "", true};
-  pool.init({kServerHost ":9669"}, c);
-  auto session = pool.getSession("root", "nebula");
-  ASSERT_TRUE(session.valid());
-
-  // execute
-  auto result = session.execute("YIELD 1");
-  ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
-  nebula::DataSet expected({"1"});
-  expected.emplace_back(nebula::List({1}));
-  EXPECT_TRUE(verifyResultWithoutOrder(*result.data, expected));
-}
-
 TEST_F(SessionTest, JsonResult) {
   nebula::ConnectionPool pool;
   nebula::Config c{10, 0, 10, 0, "", false};

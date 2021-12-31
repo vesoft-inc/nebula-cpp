@@ -85,7 +85,7 @@ struct ForEachField<::nebula::meta::cpp2::SpaceDesc> {
     f(3, static_cast<T&&>(t).charset_name_ref()...);
     f(4, static_cast<T&&>(t).collate_name_ref()...);
     f(5, static_cast<T&&>(t).vid_type_ref()...);
-    f(6, static_cast<T&&>(t).group_name_ref()...);
+    f(6, static_cast<T&&>(t).zone_names_ref()...);
     f(7, static_cast<T&&>(t).isolation_level_ref()...);
     f(8, static_cast<T&&>(t).comment_ref()...);
   }
@@ -471,6 +471,22 @@ struct ForEachField<::nebula::meta::cpp2::ListEdgesResp> {
     f(0, static_cast<T&&>(t).code_ref()...);
     f(1, static_cast<T&&>(t).leader_ref()...);
     f(2, static_cast<T&&>(t).edges_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::AddHostsReq> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).hosts_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::DropHostsReq> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).hosts_ref()...);
   }
 };
 
@@ -1050,11 +1066,11 @@ struct ForEachField<::nebula::meta::cpp2::ListIndexStatusResp> {
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::AddZoneReq> {
+struct ForEachField<::nebula::meta::cpp2::MergeZoneReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).zone_name_ref()...);
-    f(1, static_cast<T&&>(t).nodes_ref()...);
+    f(0, static_cast<T&&>(t).zones_ref()...);
+    f(1, static_cast<T&&>(t).zone_name_ref()...);
   }
 };
 
@@ -1067,20 +1083,29 @@ struct ForEachField<::nebula::meta::cpp2::DropZoneReq> {
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::AddHostIntoZoneReq> {
+struct ForEachField<::nebula::meta::cpp2::SplitZoneReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).node_ref()...);
+    f(0, static_cast<T&&>(t).zone_name_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::RenameZoneReq> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).original_zone_name_ref()...);
     f(1, static_cast<T&&>(t).zone_name_ref()...);
   }
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::DropHostFromZoneReq> {
+struct ForEachField<::nebula::meta::cpp2::AddHostsIntoZoneReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).node_ref()...);
+    f(0, static_cast<T&&>(t).hosts_ref()...);
     f(1, static_cast<T&&>(t).zone_name_ref()...);
+    f(2, static_cast<T&&>(t).is_new_ref()...);
   }
 };
 

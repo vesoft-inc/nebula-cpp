@@ -41,6 +41,12 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetEdgeResp*>> MetaService_getEdge_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListEdgesReq*>> MetaService_listEdges_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListEdgesResp*>> MetaService_listEdges_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::AddHostsReq*>> MetaService_addHosts_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_addHosts_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::AddHostsIntoZoneReq*>> MetaService_addHostsIntoZone_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_addHostsIntoZone_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::DropHostsReq*>> MetaService_dropHosts_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_dropHosts_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListHostsReq*>> MetaService_listHosts_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListHostsResp*>> MetaService_listHosts_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetPartsAllocReq*>> MetaService_getPartsAlloc_pargs;
@@ -119,14 +125,14 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListSnapshotsResp*>> MetaService_listSnapshots_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::AdminJobReq*>> MetaService_runAdminJob_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::AdminJobResp*>> MetaService_runAdminJob_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::AddZoneReq*>> MetaService_addZone_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_addZone_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::MergeZoneReq*>> MetaService_mergeZone_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_mergeZone_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::DropZoneReq*>> MetaService_dropZone_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_dropZone_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::AddHostIntoZoneReq*>> MetaService_addHostIntoZone_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_addHostIntoZone_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::DropHostFromZoneReq*>> MetaService_dropHostFromZone_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_dropHostFromZone_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::SplitZoneReq*>> MetaService_splitZone_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_splitZone_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RenameZoneReq*>> MetaService_renameZone_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_renameZone_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetZoneReq*>> MetaService_getZone_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetZoneResp*>> MetaService_getZone_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListZonesReq*>> MetaService_listZones_pargs;
@@ -1026,6 +1032,177 @@ void MetaServiceAsyncProcessor::throw_wrapped_listEdges(apache::thrift::Response
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
         ew, std::move(req), reqCtx, ctx, "listEdges");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::setUpAndProcess_addHosts(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_addHosts<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::process_addHosts(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  MetaService_addHosts_pargs args;
+   ::nebula::meta::cpp2::AddHostsReq uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.addHosts", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "addHosts");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_addHosts<ProtocolIn_,ProtocolOut_>, throw_wrapped_addHosts<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_addHosts(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue MetaServiceAsyncProcessor::return_addHosts(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
+  ProtocolOut_ prot;
+  MetaService_addHosts_presult result;
+  result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("addHosts", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void MetaServiceAsyncProcessor::throw_wrapped_addHosts(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "addHosts");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::setUpAndProcess_addHostsIntoZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_addHostsIntoZone<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::process_addHostsIntoZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  MetaService_addHostsIntoZone_pargs args;
+   ::nebula::meta::cpp2::AddHostsIntoZoneReq uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.addHostsIntoZone", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "addHostsIntoZone");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_addHostsIntoZone<ProtocolIn_,ProtocolOut_>, throw_wrapped_addHostsIntoZone<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_addHostsIntoZone(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue MetaServiceAsyncProcessor::return_addHostsIntoZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
+  ProtocolOut_ prot;
+  MetaService_addHostsIntoZone_presult result;
+  result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("addHostsIntoZone", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void MetaServiceAsyncProcessor::throw_wrapped_addHostsIntoZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "addHostsIntoZone");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::setUpAndProcess_dropHosts(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_dropHosts<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::process_dropHosts(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  MetaService_dropHosts_pargs args;
+   ::nebula::meta::cpp2::DropHostsReq uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.dropHosts", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "dropHosts");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_dropHosts<ProtocolIn_,ProtocolOut_>, throw_wrapped_dropHosts<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_dropHosts(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue MetaServiceAsyncProcessor::return_dropHosts(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
+  ProtocolOut_ prot;
+  MetaService_dropHosts_presult result;
+  result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("dropHosts", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void MetaServiceAsyncProcessor::throw_wrapped_dropHosts(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "dropHosts");
     return;
   }
 }
@@ -3254,58 +3431,58 @@ void MetaServiceAsyncProcessor::throw_wrapped_runAdminJob(apache::thrift::Respon
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::setUpAndProcess_addZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::setUpAndProcess_mergeZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
     return;
   }
   auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
   ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_addZone<ProtocolIn_, ProtocolOut_>, this);
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_mergeZone<ProtocolIn_, ProtocolOut_>, this);
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::process_addZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::process_mergeZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   // make sure getRequestContext is null
   // so async calls don't accidentally use it
   iface_->setRequestContext(nullptr);
-  MetaService_addZone_pargs args;
-   ::nebula::meta::cpp2::AddZoneReq uarg_req;
+  MetaService_mergeZone_pargs args;
+   ::nebula::meta::cpp2::MergeZoneReq uarg_req;
   args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.addZone", ctx));
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.mergeZone", ctx));
   try {
     deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
   }
   catch (const std::exception& ex) {
     apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "addZone");
+        ex, std::move(req), ctx, eb, "mergeZone");
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_addZone<ProtocolIn_,ProtocolOut_>, throw_wrapped_addZone<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_mergeZone<ProtocolIn_,ProtocolOut_>, throw_wrapped_mergeZone<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
-  iface_->async_tm_addZone(std::move(callback), args.get<0>().ref());
+  iface_->async_tm_mergeZone(std::move(callback), args.get<0>().ref());
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue MetaServiceAsyncProcessor::return_addZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
+folly::IOBufQueue MetaServiceAsyncProcessor::return_mergeZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
   ProtocolOut_ prot;
-  MetaService_addZone_presult result;
+  MetaService_mergeZone_presult result;
   result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
   result.setIsSet(0, true);
-  return serializeResponse("addZone", &prot, protoSeqId, ctx, result);
+  return serializeResponse("mergeZone", &prot, protoSeqId, ctx, result);
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-void MetaServiceAsyncProcessor::throw_wrapped_addZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+void MetaServiceAsyncProcessor::throw_wrapped_mergeZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
   if (!ew) {
     return;
   }
   {
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "addZone");
+        ew, std::move(req), reqCtx, ctx, "mergeZone");
     return;
   }
 }
@@ -3368,115 +3545,115 @@ void MetaServiceAsyncProcessor::throw_wrapped_dropZone(apache::thrift::ResponseC
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::setUpAndProcess_addHostIntoZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::setUpAndProcess_splitZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
     return;
   }
   auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
   ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_addHostIntoZone<ProtocolIn_, ProtocolOut_>, this);
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_splitZone<ProtocolIn_, ProtocolOut_>, this);
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::process_addHostIntoZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::process_splitZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   // make sure getRequestContext is null
   // so async calls don't accidentally use it
   iface_->setRequestContext(nullptr);
-  MetaService_addHostIntoZone_pargs args;
-   ::nebula::meta::cpp2::AddHostIntoZoneReq uarg_req;
+  MetaService_splitZone_pargs args;
+   ::nebula::meta::cpp2::SplitZoneReq uarg_req;
   args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.addHostIntoZone", ctx));
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.splitZone", ctx));
   try {
     deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
   }
   catch (const std::exception& ex) {
     apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "addHostIntoZone");
+        ex, std::move(req), ctx, eb, "splitZone");
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_addHostIntoZone<ProtocolIn_,ProtocolOut_>, throw_wrapped_addHostIntoZone<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_splitZone<ProtocolIn_,ProtocolOut_>, throw_wrapped_splitZone<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
-  iface_->async_tm_addHostIntoZone(std::move(callback), args.get<0>().ref());
+  iface_->async_tm_splitZone(std::move(callback), args.get<0>().ref());
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue MetaServiceAsyncProcessor::return_addHostIntoZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
+folly::IOBufQueue MetaServiceAsyncProcessor::return_splitZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
   ProtocolOut_ prot;
-  MetaService_addHostIntoZone_presult result;
+  MetaService_splitZone_presult result;
   result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
   result.setIsSet(0, true);
-  return serializeResponse("addHostIntoZone", &prot, protoSeqId, ctx, result);
+  return serializeResponse("splitZone", &prot, protoSeqId, ctx, result);
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-void MetaServiceAsyncProcessor::throw_wrapped_addHostIntoZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+void MetaServiceAsyncProcessor::throw_wrapped_splitZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
   if (!ew) {
     return;
   }
   {
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "addHostIntoZone");
+        ew, std::move(req), reqCtx, ctx, "splitZone");
     return;
   }
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::setUpAndProcess_dropHostFromZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::setUpAndProcess_renameZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
     return;
   }
   auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
   ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_dropHostFromZone<ProtocolIn_, ProtocolOut_>, this);
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_renameZone<ProtocolIn_, ProtocolOut_>, this);
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::process_dropHostFromZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::process_renameZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   // make sure getRequestContext is null
   // so async calls don't accidentally use it
   iface_->setRequestContext(nullptr);
-  MetaService_dropHostFromZone_pargs args;
-   ::nebula::meta::cpp2::DropHostFromZoneReq uarg_req;
+  MetaService_renameZone_pargs args;
+   ::nebula::meta::cpp2::RenameZoneReq uarg_req;
   args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.dropHostFromZone", ctx));
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.renameZone", ctx));
   try {
     deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
   }
   catch (const std::exception& ex) {
     apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "dropHostFromZone");
+        ex, std::move(req), ctx, eb, "renameZone");
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_dropHostFromZone<ProtocolIn_,ProtocolOut_>, throw_wrapped_dropHostFromZone<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_renameZone<ProtocolIn_,ProtocolOut_>, throw_wrapped_renameZone<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
-  iface_->async_tm_dropHostFromZone(std::move(callback), args.get<0>().ref());
+  iface_->async_tm_renameZone(std::move(callback), args.get<0>().ref());
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue MetaServiceAsyncProcessor::return_dropHostFromZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
+folly::IOBufQueue MetaServiceAsyncProcessor::return_renameZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
   ProtocolOut_ prot;
-  MetaService_dropHostFromZone_presult result;
+  MetaService_renameZone_presult result;
   result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
   result.setIsSet(0, true);
-  return serializeResponse("dropHostFromZone", &prot, protoSeqId, ctx, result);
+  return serializeResponse("renameZone", &prot, protoSeqId, ctx, result);
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-void MetaServiceAsyncProcessor::throw_wrapped_dropHostFromZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+void MetaServiceAsyncProcessor::throw_wrapped_renameZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
   if (!ew) {
     return;
   }
   {
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "dropHostFromZone");
+        ew, std::move(req), reqCtx, ctx, "renameZone");
     return;
   }
 }

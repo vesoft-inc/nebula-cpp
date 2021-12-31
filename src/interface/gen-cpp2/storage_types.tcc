@@ -7802,22 +7802,7 @@ void ScanCursor::readNoXfer(Protocol_* iprot) {
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
           0,
-          3,
-          apache::thrift::protocol::T_BOOL))) {
-    goto _loop;
-  }
-_readField_has_next:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::readWithContext(*iprot, this->has_next, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.has_next = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          3,
-          4,
+          1,
           apache::thrift::protocol::T_STRING))) {
     goto _loop;
   }
@@ -7831,7 +7816,7 @@ _readField_next_cursor:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          4,
+          1,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -7852,15 +7837,7 @@ _loop:
   }
 
   switch (_readState.fieldId) {
-    case 3:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_BOOL))) {
-        goto _readField_has_next;
-      } else {
-        goto _skip;
-      }
-    }
-    case 4:
+    case 1:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
         goto _readField_next_cursor;
@@ -7883,10 +7860,8 @@ template <class Protocol_>
 uint32_t ScanCursor::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("ScanCursor");
-  xfer += prot_->serializedFieldSize("has_next", apache::thrift::protocol::T_BOOL, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->has_next);
   if (this->next_cursor_ref().has_value()) {
-    xfer += prot_->serializedFieldSize("next_cursor", apache::thrift::protocol::T_STRING, 4);
+    xfer += prot_->serializedFieldSize("next_cursor", apache::thrift::protocol::T_STRING, 1);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->next_cursor);
   }
   xfer += prot_->serializedSizeStop();
@@ -7897,10 +7872,8 @@ template <class Protocol_>
 uint32_t ScanCursor::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("ScanCursor");
-  xfer += prot_->serializedFieldSize("has_next", apache::thrift::protocol::T_BOOL, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->has_next);
   if (this->next_cursor_ref().has_value()) {
-    xfer += prot_->serializedFieldSize("next_cursor", apache::thrift::protocol::T_STRING, 4);
+    xfer += prot_->serializedFieldSize("next_cursor", apache::thrift::protocol::T_STRING, 1);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->next_cursor);
   }
   xfer += prot_->serializedSizeStop();
@@ -7911,11 +7884,8 @@ template <class Protocol_>
 uint32_t ScanCursor::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->writeStructBegin("ScanCursor");
-  xfer += prot_->writeFieldBegin("has_next", apache::thrift::protocol::T_BOOL, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::write(*prot_, this->has_next);
-  xfer += prot_->writeFieldEnd();
   if (this->next_cursor_ref().has_value()) {
-    xfer += prot_->writeFieldBegin("next_cursor", apache::thrift::protocol::T_STRING, 4);
+    xfer += prot_->writeFieldBegin("next_cursor", apache::thrift::protocol::T_STRING, 1);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->next_cursor);
     xfer += prot_->writeFieldEnd();
   }

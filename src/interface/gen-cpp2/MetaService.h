@@ -73,6 +73,15 @@ class MetaServiceSvAsyncIf {
   virtual void async_tm_listEdges(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListEdgesResp>> callback, const  ::nebula::meta::cpp2::ListEdgesReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::ListEdgesResp> future_listEdges(const  ::nebula::meta::cpp2::ListEdgesReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::ListEdgesResp> semifuture_listEdges(const  ::nebula::meta::cpp2::ListEdgesReq& p_req) = 0;
+  virtual void async_tm_addHosts(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddHostsReq& p_req) = 0;
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addHosts(const  ::nebula::meta::cpp2::AddHostsReq& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addHosts(const  ::nebula::meta::cpp2::AddHostsReq& p_req) = 0;
+  virtual void async_tm_addHostsIntoZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req) = 0;
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addHostsIntoZone(const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addHostsIntoZone(const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req) = 0;
+  virtual void async_tm_dropHosts(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropHostsReq& p_req) = 0;
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropHosts(const  ::nebula::meta::cpp2::DropHostsReq& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropHosts(const  ::nebula::meta::cpp2::DropHostsReq& p_req) = 0;
   virtual void async_tm_listHosts(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListHostsResp>> callback, const  ::nebula::meta::cpp2::ListHostsReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::ListHostsResp> future_listHosts(const  ::nebula::meta::cpp2::ListHostsReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::ListHostsResp> semifuture_listHosts(const  ::nebula::meta::cpp2::ListHostsReq& p_req) = 0;
@@ -190,18 +199,18 @@ class MetaServiceSvAsyncIf {
   virtual void async_tm_runAdminJob(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::AdminJobResp>> callback, const  ::nebula::meta::cpp2::AdminJobReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::AdminJobResp> future_runAdminJob(const  ::nebula::meta::cpp2::AdminJobReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::AdminJobResp> semifuture_runAdminJob(const  ::nebula::meta::cpp2::AdminJobReq& p_req) = 0;
-  virtual void async_tm_addZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddZoneReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addZone(const  ::nebula::meta::cpp2::AddZoneReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addZone(const  ::nebula::meta::cpp2::AddZoneReq& p_req) = 0;
+  virtual void async_tm_mergeZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::MergeZoneReq& p_req) = 0;
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_mergeZone(const  ::nebula::meta::cpp2::MergeZoneReq& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_mergeZone(const  ::nebula::meta::cpp2::MergeZoneReq& p_req) = 0;
   virtual void async_tm_dropZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropZoneReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropZone(const  ::nebula::meta::cpp2::DropZoneReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropZone(const  ::nebula::meta::cpp2::DropZoneReq& p_req) = 0;
-  virtual void async_tm_addHostIntoZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_addHostIntoZone(const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addHostIntoZone(const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req) = 0;
-  virtual void async_tm_dropHostFromZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropHostFromZone(const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropHostFromZone(const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req) = 0;
+  virtual void async_tm_splitZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req) = 0;
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req) = 0;
+  virtual void async_tm_renameZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RenameZoneReq& p_req) = 0;
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_renameZone(const  ::nebula::meta::cpp2::RenameZoneReq& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_renameZone(const  ::nebula::meta::cpp2::RenameZoneReq& p_req) = 0;
   virtual void async_tm_getZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetZoneResp>> callback, const  ::nebula::meta::cpp2::GetZoneReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::GetZoneResp> future_getZone(const  ::nebula::meta::cpp2::GetZoneReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::GetZoneResp> semifuture_getZone(const  ::nebula::meta::cpp2::GetZoneReq& p_req) = 0;
@@ -344,6 +353,18 @@ class MetaServiceSvIf : public MetaServiceSvAsyncIf, public apache::thrift::Serv
   folly::Future< ::nebula::meta::cpp2::ListEdgesResp> future_listEdges(const  ::nebula::meta::cpp2::ListEdgesReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::ListEdgesResp> semifuture_listEdges(const  ::nebula::meta::cpp2::ListEdgesReq& p_req) override;
   void async_tm_listEdges(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListEdgesResp>> callback, const  ::nebula::meta::cpp2::ListEdgesReq& p_req) override;
+  virtual void addHosts( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddHostsReq& /*req*/);
+  folly::Future< ::nebula::meta::cpp2::ExecResp> future_addHosts(const  ::nebula::meta::cpp2::AddHostsReq& p_req) override;
+  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addHosts(const  ::nebula::meta::cpp2::AddHostsReq& p_req) override;
+  void async_tm_addHosts(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddHostsReq& p_req) override;
+  virtual void addHostsIntoZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& /*req*/);
+  folly::Future< ::nebula::meta::cpp2::ExecResp> future_addHostsIntoZone(const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req) override;
+  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addHostsIntoZone(const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req) override;
+  void async_tm_addHostsIntoZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req) override;
+  virtual void dropHosts( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropHostsReq& /*req*/);
+  folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropHosts(const  ::nebula::meta::cpp2::DropHostsReq& p_req) override;
+  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropHosts(const  ::nebula::meta::cpp2::DropHostsReq& p_req) override;
+  void async_tm_dropHosts(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropHostsReq& p_req) override;
   virtual void listHosts( ::nebula::meta::cpp2::ListHostsResp& /*_return*/, const  ::nebula::meta::cpp2::ListHostsReq& /*req*/);
   folly::Future< ::nebula::meta::cpp2::ListHostsResp> future_listHosts(const  ::nebula::meta::cpp2::ListHostsReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::ListHostsResp> semifuture_listHosts(const  ::nebula::meta::cpp2::ListHostsReq& p_req) override;
@@ -500,22 +521,22 @@ class MetaServiceSvIf : public MetaServiceSvAsyncIf, public apache::thrift::Serv
   folly::Future< ::nebula::meta::cpp2::AdminJobResp> future_runAdminJob(const  ::nebula::meta::cpp2::AdminJobReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::AdminJobResp> semifuture_runAdminJob(const  ::nebula::meta::cpp2::AdminJobReq& p_req) override;
   void async_tm_runAdminJob(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::AdminJobResp>> callback, const  ::nebula::meta::cpp2::AdminJobReq& p_req) override;
-  virtual void addZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddZoneReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_addZone(const  ::nebula::meta::cpp2::AddZoneReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addZone(const  ::nebula::meta::cpp2::AddZoneReq& p_req) override;
-  void async_tm_addZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddZoneReq& p_req) override;
+  virtual void mergeZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::MergeZoneReq& /*req*/);
+  folly::Future< ::nebula::meta::cpp2::ExecResp> future_mergeZone(const  ::nebula::meta::cpp2::MergeZoneReq& p_req) override;
+  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_mergeZone(const  ::nebula::meta::cpp2::MergeZoneReq& p_req) override;
+  void async_tm_mergeZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::MergeZoneReq& p_req) override;
   virtual void dropZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropZoneReq& /*req*/);
   folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropZone(const  ::nebula::meta::cpp2::DropZoneReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropZone(const  ::nebula::meta::cpp2::DropZoneReq& p_req) override;
   void async_tm_dropZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropZoneReq& p_req) override;
-  virtual void addHostIntoZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_addHostIntoZone(const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_addHostIntoZone(const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req) override;
-  void async_tm_addHostIntoZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req) override;
-  virtual void dropHostFromZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropHostFromZoneReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropHostFromZone(const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropHostFromZone(const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req) override;
-  void async_tm_dropHostFromZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req) override;
+  virtual void splitZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SplitZoneReq& /*req*/);
+  folly::Future< ::nebula::meta::cpp2::ExecResp> future_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req) override;
+  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req) override;
+  void async_tm_splitZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req) override;
+  virtual void renameZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RenameZoneReq& /*req*/);
+  folly::Future< ::nebula::meta::cpp2::ExecResp> future_renameZone(const  ::nebula::meta::cpp2::RenameZoneReq& p_req) override;
+  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_renameZone(const  ::nebula::meta::cpp2::RenameZoneReq& p_req) override;
+  void async_tm_renameZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RenameZoneReq& p_req) override;
   virtual void getZone( ::nebula::meta::cpp2::GetZoneResp& /*_return*/, const  ::nebula::meta::cpp2::GetZoneReq& /*req*/);
   folly::Future< ::nebula::meta::cpp2::GetZoneResp> future_getZone(const  ::nebula::meta::cpp2::GetZoneReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::GetZoneResp> semifuture_getZone(const  ::nebula::meta::cpp2::GetZoneReq& p_req) override;
@@ -631,6 +652,9 @@ class MetaServiceSvNull : public MetaServiceSvIf {
   void dropEdge( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropEdgeReq& /*req*/) override;
   void getEdge( ::nebula::meta::cpp2::GetEdgeResp& /*_return*/, const  ::nebula::meta::cpp2::GetEdgeReq& /*req*/) override;
   void listEdges( ::nebula::meta::cpp2::ListEdgesResp& /*_return*/, const  ::nebula::meta::cpp2::ListEdgesReq& /*req*/) override;
+  void addHosts( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddHostsReq& /*req*/) override;
+  void addHostsIntoZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& /*req*/) override;
+  void dropHosts( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropHostsReq& /*req*/) override;
   void listHosts( ::nebula::meta::cpp2::ListHostsResp& /*_return*/, const  ::nebula::meta::cpp2::ListHostsReq& /*req*/) override;
   void getPartsAlloc( ::nebula::meta::cpp2::GetPartsAllocResp& /*_return*/, const  ::nebula::meta::cpp2::GetPartsAllocReq& /*req*/) override;
   void listParts( ::nebula::meta::cpp2::ListPartsResp& /*_return*/, const  ::nebula::meta::cpp2::ListPartsReq& /*req*/) override;
@@ -670,10 +694,10 @@ class MetaServiceSvNull : public MetaServiceSvIf {
   void dropSnapshot( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropSnapshotReq& /*req*/) override;
   void listSnapshots( ::nebula::meta::cpp2::ListSnapshotsResp& /*_return*/, const  ::nebula::meta::cpp2::ListSnapshotsReq& /*req*/) override;
   void runAdminJob( ::nebula::meta::cpp2::AdminJobResp& /*_return*/, const  ::nebula::meta::cpp2::AdminJobReq& /*req*/) override;
-  void addZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddZoneReq& /*req*/) override;
+  void mergeZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::MergeZoneReq& /*req*/) override;
   void dropZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropZoneReq& /*req*/) override;
-  void addHostIntoZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& /*req*/) override;
-  void dropHostFromZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropHostFromZoneReq& /*req*/) override;
+  void splitZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SplitZoneReq& /*req*/) override;
+  void renameZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RenameZoneReq& /*req*/) override;
   void getZone( ::nebula::meta::cpp2::GetZoneResp& /*_return*/, const  ::nebula::meta::cpp2::GetZoneReq& /*req*/) override;
   void listZones( ::nebula::meta::cpp2::ListZonesResp& /*_return*/, const  ::nebula::meta::cpp2::ListZonesReq& /*req*/) override;
   void createBackup( ::nebula::meta::cpp2::CreateBackupResp& /*_return*/, const  ::nebula::meta::cpp2::CreateBackupReq& /*req*/) override;
@@ -840,6 +864,30 @@ class MetaServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcess
   static folly::IOBufQueue return_listEdges(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ListEdgesResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_listEdges(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_addHosts(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_addHosts(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_addHosts(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_addHosts(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_addHostsIntoZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_addHostsIntoZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_addHostsIntoZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_addHostsIntoZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_dropHosts(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_dropHosts(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_dropHosts(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_dropHosts(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
   void setUpAndProcess_listHosts(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>
@@ -1153,13 +1201,13 @@ class MetaServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcess
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_runAdminJob(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_addZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  void setUpAndProcess_mergeZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_addZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  void process_mergeZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_addZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
+  static folly::IOBufQueue return_mergeZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_addZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  static void throw_wrapped_mergeZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
   void setUpAndProcess_dropZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>
@@ -1169,21 +1217,21 @@ class MetaServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcess
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_dropZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_addHostIntoZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  void setUpAndProcess_splitZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_addHostIntoZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  void process_splitZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_addHostIntoZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
+  static folly::IOBufQueue return_splitZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_addHostIntoZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  static void throw_wrapped_splitZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_dropHostFromZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  void setUpAndProcess_renameZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_dropHostFromZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  void process_renameZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_dropHostFromZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
+  static folly::IOBufQueue return_renameZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_dropHostFromZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  static void throw_wrapped_renameZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
   void setUpAndProcess_getZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>

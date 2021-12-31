@@ -137,7 +137,7 @@ struct VisitByThriftId<::nebula::meta::cpp2::SpaceDesc> {
     case 6:
       return f(5, static_cast<T&&>(t).vid_type_ref());
     case 7:
-      return f(6, static_cast<T&&>(t).group_name_ref());
+      return f(6, static_cast<T&&>(t).zone_names_ref());
     case 8:
       return f(7, static_cast<T&&>(t).isolation_level_ref());
     case 9:
@@ -799,6 +799,32 @@ struct VisitByThriftId<::nebula::meta::cpp2::ListEdgesResp> {
       return f(2, static_cast<T&&>(t).edges_ref());
     default:
       throwInvalidThriftId(id, "::nebula::meta::cpp2::ListEdgesResp");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::meta::cpp2::AddHostsReq> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).hosts_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::meta::cpp2::AddHostsReq");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::meta::cpp2::DropHostsReq> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).hosts_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::meta::cpp2::DropHostsReq");
     }
   }
 };
@@ -1771,16 +1797,16 @@ struct VisitByThriftId<::nebula::meta::cpp2::ListIndexStatusResp> {
 };
 
 template <>
-struct VisitByThriftId<::nebula::meta::cpp2::AddZoneReq> {
+struct VisitByThriftId<::nebula::meta::cpp2::MergeZoneReq> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
     switch (id) {
     case 1:
-      return f(0, static_cast<T&&>(t).zone_name_ref());
+      return f(0, static_cast<T&&>(t).zones_ref());
     case 2:
-      return f(1, static_cast<T&&>(t).nodes_ref());
+      return f(1, static_cast<T&&>(t).zone_name_ref());
     default:
-      throwInvalidThriftId(id, "::nebula::meta::cpp2::AddZoneReq");
+      throwInvalidThriftId(id, "::nebula::meta::cpp2::MergeZoneReq");
     }
   }
 };
@@ -1799,31 +1825,46 @@ struct VisitByThriftId<::nebula::meta::cpp2::DropZoneReq> {
 };
 
 template <>
-struct VisitByThriftId<::nebula::meta::cpp2::AddHostIntoZoneReq> {
+struct VisitByThriftId<::nebula::meta::cpp2::SplitZoneReq> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
     switch (id) {
     case 1:
-      return f(0, static_cast<T&&>(t).node_ref());
-    case 2:
-      return f(1, static_cast<T&&>(t).zone_name_ref());
+      return f(0, static_cast<T&&>(t).zone_name_ref());
     default:
-      throwInvalidThriftId(id, "::nebula::meta::cpp2::AddHostIntoZoneReq");
+      throwInvalidThriftId(id, "::nebula::meta::cpp2::SplitZoneReq");
     }
   }
 };
 
 template <>
-struct VisitByThriftId<::nebula::meta::cpp2::DropHostFromZoneReq> {
+struct VisitByThriftId<::nebula::meta::cpp2::RenameZoneReq> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
     switch (id) {
     case 1:
-      return f(0, static_cast<T&&>(t).node_ref());
+      return f(0, static_cast<T&&>(t).original_zone_name_ref());
     case 2:
       return f(1, static_cast<T&&>(t).zone_name_ref());
     default:
-      throwInvalidThriftId(id, "::nebula::meta::cpp2::DropHostFromZoneReq");
+      throwInvalidThriftId(id, "::nebula::meta::cpp2::RenameZoneReq");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::meta::cpp2::AddHostsIntoZoneReq> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).hosts_ref());
+    case 2:
+      return f(1, static_cast<T&&>(t).zone_name_ref());
+    case 3:
+      return f(2, static_cast<T&&>(t).is_new_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::meta::cpp2::AddHostsIntoZoneReq");
     }
   }
 };

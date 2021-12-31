@@ -25,7 +25,6 @@ DataSet ScanEdgeIter::next() {
   DCHECK(!!req_);
   auto partCursorMapReq = req_->get_parts();
   DCHECK_EQ(partCursorMapReq.size(), 1);
-  partCursorMapReq.begin()->second.set_has_next(true);
   partCursorMapReq.begin()->second.set_next_cursor(nextCursor_);
   req_->set_parts(partCursorMapReq);
   auto r = client_->doScanEdge(*req_);
@@ -44,9 +43,9 @@ DataSet ScanEdgeIter::next() {
   auto partCursorMapResp = scanResponse.get_cursors();
   DCHECK_EQ(partCursorMapResp.size(), 1);
   auto scanCursor = partCursorMapResp.begin()->second;
-  hasNext_ = scanCursor.get_has_next();
+  hasNext_ = scanCursor.next_cursor_ref().has_value();
   if (hasNext_) {
-    nextCursor_ = *scanCursor.get_next_cursor();
+    nextCursor_ = scanCursor.next_cursor_ref().value();
   }
 
   return *scanResponse.get_props();

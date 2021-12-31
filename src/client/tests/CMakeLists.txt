@@ -18,9 +18,50 @@ nebula_add_test(
 
 nebula_add_test(
     NAME
+        connection_ssl_test
+    SOURCES
+        ConnectionSSLTest.cpp
+    OBJECTS
+        ${NEBULA_CLIENT_OBJS}
+        $<TARGET_OBJECTS:nebula_common_obj>
+        $<TARGET_OBJECTS:nebula_graph_client_obj>
+    LIBRARIES
+        gtest
+        ${NEBULA_THIRD_PARTY_LIBRARIES}
+)
+
+nebula_add_test(
+    NAME
         session_test
     SOURCES
         SessionTest.cpp
+    OBJECTS
+        ${NEBULA_CLIENT_OBJS}
+        $<TARGET_OBJECTS:nebula_common_obj>
+        $<TARGET_OBJECTS:nebula_graph_client_obj>
+    LIBRARIES
+        gtest
+        ${NEBULA_THIRD_PARTY_LIBRARIES}
+)
+
+nebula_add_executable(
+    NAME
+        regist_host
+    SOURCES
+        RegistHost.cpp
+    OBJECTS
+        ${NEBULA_CLIENT_OBJS}
+        $<TARGET_OBJECTS:nebula_common_obj>
+        $<TARGET_OBJECTS:nebula_graph_client_obj>
+    LIBRARIES
+        ${NEBULA_THIRD_PARTY_LIBRARIES}
+)
+
+nebula_add_test(
+    NAME
+        session_ssl_test
+    SOURCES
+        SessionSSLTest.cpp
     OBJECTS
         ${NEBULA_CLIENT_OBJS}
         $<TARGET_OBJECTS:nebula_common_obj>

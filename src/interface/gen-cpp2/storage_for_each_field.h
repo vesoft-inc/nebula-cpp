@@ -402,8 +402,7 @@ template <>
 struct ForEachField<::nebula::storage::cpp2::ScanCursor> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).has_next_ref()...);
-    f(1, static_cast<T&&>(t).next_cursor_ref()...);
+    f(0, static_cast<T&&>(t).next_cursor_ref()...);
   }
 };
 

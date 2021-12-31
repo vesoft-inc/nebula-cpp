@@ -1051,8 +1051,7 @@ StructMetadata<::nebula::storage::cpp2::ScanCursor>::gen(ThriftMetadata& metadat
   storage_ScanCursor.is_union_ref() = false;
   static const EncodedThriftField
   storage_ScanCursor_fields[] = {
-    std::make_tuple(3, "has_next", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(4, "next_cursor", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(1, "next_cursor", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_ScanCursor_fields) {
     ::apache::thrift::metadata::ThriftField field;

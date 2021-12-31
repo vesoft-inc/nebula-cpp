@@ -446,6 +446,20 @@ template <> struct TStructDataStorage<::nebula::meta::cpp2::ListEdgesResp> {
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
+template <> struct TStructDataStorage<::nebula::meta::cpp2::AddHostsReq> {
+  static constexpr const std::size_t fields_size = 1;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::meta::cpp2::DropHostsReq> {
+  static constexpr const std::size_t fields_size = 1;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
 template <> struct TStructDataStorage<::nebula::meta::cpp2::ListHostsReq> {
   static constexpr const std::size_t fields_size = 1;
   static const std::array<folly::StringPiece, fields_size> fields_names;
@@ -873,7 +887,7 @@ template <> struct TStructDataStorage<::nebula::meta::cpp2::ListIndexStatusResp>
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::meta::cpp2::AddZoneReq> {
+template <> struct TStructDataStorage<::nebula::meta::cpp2::MergeZoneReq> {
   static constexpr const std::size_t fields_size = 2;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
@@ -887,15 +901,22 @@ template <> struct TStructDataStorage<::nebula::meta::cpp2::DropZoneReq> {
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::meta::cpp2::AddHostIntoZoneReq> {
+template <> struct TStructDataStorage<::nebula::meta::cpp2::SplitZoneReq> {
+  static constexpr const std::size_t fields_size = 1;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::meta::cpp2::RenameZoneReq> {
   static constexpr const std::size_t fields_size = 2;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::meta::cpp2::DropHostFromZoneReq> {
-  static constexpr const std::size_t fields_size = 2;
+template <> struct TStructDataStorage<::nebula::meta::cpp2::AddHostsIntoZoneReq> {
+  static constexpr const std::size_t fields_size = 3;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;

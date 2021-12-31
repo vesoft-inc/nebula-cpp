@@ -330,6 +330,69 @@ void MetaServiceSvIf::async_tm_listEdges(std::unique_ptr<apache::thrift::Handler
   });
 }
 
+void MetaServiceSvIf::addHosts( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddHostsReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("addHosts");
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_addHosts(const  ::nebula::meta::cpp2::AddHostsReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { addHosts(_return, p_req); });
+}
+
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_addHosts(const  ::nebula::meta::cpp2::AddHostsReq& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_addHosts(p_req), std::move(ka));
+}
+
+void MetaServiceSvIf::async_tm_addHosts(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddHostsReq& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_addHosts(p_req);
+  });
+}
+
+void MetaServiceSvIf::addHostsIntoZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("addHostsIntoZone");
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_addHostsIntoZone(const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { addHostsIntoZone(_return, p_req); });
+}
+
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_addHostsIntoZone(const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_addHostsIntoZone(p_req), std::move(ka));
+}
+
+void MetaServiceSvIf::async_tm_addHostsIntoZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_addHostsIntoZone(p_req);
+  });
+}
+
+void MetaServiceSvIf::dropHosts( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropHostsReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("dropHosts");
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_dropHosts(const  ::nebula::meta::cpp2::DropHostsReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { dropHosts(_return, p_req); });
+}
+
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_dropHosts(const  ::nebula::meta::cpp2::DropHostsReq& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_dropHosts(p_req), std::move(ka));
+}
+
+void MetaServiceSvIf::async_tm_dropHosts(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropHostsReq& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_dropHosts(p_req);
+  });
+}
+
 void MetaServiceSvIf::listHosts( ::nebula::meta::cpp2::ListHostsResp& /*_return*/, const  ::nebula::meta::cpp2::ListHostsReq& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("listHosts");
 }
@@ -1149,24 +1212,24 @@ void MetaServiceSvIf::async_tm_runAdminJob(std::unique_ptr<apache::thrift::Handl
   });
 }
 
-void MetaServiceSvIf::addZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddZoneReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("addZone");
+void MetaServiceSvIf::mergeZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::MergeZoneReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("mergeZone");
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_addZone(const  ::nebula::meta::cpp2::AddZoneReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { addZone(_return, p_req); });
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_mergeZone(const  ::nebula::meta::cpp2::MergeZoneReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { mergeZone(_return, p_req); });
 }
 
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_addZone(const  ::nebula::meta::cpp2::AddZoneReq& p_req) {
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_mergeZone(const  ::nebula::meta::cpp2::MergeZoneReq& p_req) {
   using Source = apache::thrift::concurrency::ThreadManager::Source;
   auto scope = getRequestContext()->getRequestExecutionScope();
   auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_addZone(p_req), std::move(ka));
+  return apache::thrift::detail::si::future(semifuture_mergeZone(p_req), std::move(ka));
 }
 
-void MetaServiceSvIf::async_tm_addZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddZoneReq& p_req) {
+void MetaServiceSvIf::async_tm_mergeZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::MergeZoneReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_addZone(p_req);
+    return future_mergeZone(p_req);
   });
 }
 
@@ -1191,45 +1254,45 @@ void MetaServiceSvIf::async_tm_dropZone(std::unique_ptr<apache::thrift::HandlerC
   });
 }
 
-void MetaServiceSvIf::addHostIntoZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("addHostIntoZone");
+void MetaServiceSvIf::splitZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SplitZoneReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("splitZone");
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_addHostIntoZone(const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { addHostIntoZone(_return, p_req); });
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { splitZone(_return, p_req); });
 }
 
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_addHostIntoZone(const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req) {
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_splitZone(const  ::nebula::meta::cpp2::SplitZoneReq& p_req) {
   using Source = apache::thrift::concurrency::ThreadManager::Source;
   auto scope = getRequestContext()->getRequestExecutionScope();
   auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_addHostIntoZone(p_req), std::move(ka));
+  return apache::thrift::detail::si::future(semifuture_splitZone(p_req), std::move(ka));
 }
 
-void MetaServiceSvIf::async_tm_addHostIntoZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& p_req) {
+void MetaServiceSvIf::async_tm_splitZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::SplitZoneReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_addHostIntoZone(p_req);
+    return future_splitZone(p_req);
   });
 }
 
-void MetaServiceSvIf::dropHostFromZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropHostFromZoneReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("dropHostFromZone");
+void MetaServiceSvIf::renameZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RenameZoneReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("renameZone");
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_dropHostFromZone(const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { dropHostFromZone(_return, p_req); });
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_renameZone(const  ::nebula::meta::cpp2::RenameZoneReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { renameZone(_return, p_req); });
 }
 
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_dropHostFromZone(const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req) {
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_renameZone(const  ::nebula::meta::cpp2::RenameZoneReq& p_req) {
   using Source = apache::thrift::concurrency::ThreadManager::Source;
   auto scope = getRequestContext()->getRequestExecutionScope();
   auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_dropHostFromZone(p_req), std::move(ka));
+  return apache::thrift::detail::si::future(semifuture_renameZone(p_req), std::move(ka));
 }
 
-void MetaServiceSvIf::async_tm_dropHostFromZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropHostFromZoneReq& p_req) {
+void MetaServiceSvIf::async_tm_renameZone(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RenameZoneReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_dropHostFromZone(p_req);
+    return future_renameZone(p_req);
   });
 }
 
@@ -1767,6 +1830,12 @@ void MetaServiceSvNull::getEdge( ::nebula::meta::cpp2::GetEdgeResp& /*_return*/,
 
 void MetaServiceSvNull::listEdges( ::nebula::meta::cpp2::ListEdgesResp& /*_return*/, const  ::nebula::meta::cpp2::ListEdgesReq& /*req*/) {}
 
+void MetaServiceSvNull::addHosts( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddHostsReq& /*req*/) {}
+
+void MetaServiceSvNull::addHostsIntoZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddHostsIntoZoneReq& /*req*/) {}
+
+void MetaServiceSvNull::dropHosts( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropHostsReq& /*req*/) {}
+
 void MetaServiceSvNull::listHosts( ::nebula::meta::cpp2::ListHostsResp& /*_return*/, const  ::nebula::meta::cpp2::ListHostsReq& /*req*/) {}
 
 void MetaServiceSvNull::getPartsAlloc( ::nebula::meta::cpp2::GetPartsAllocResp& /*_return*/, const  ::nebula::meta::cpp2::GetPartsAllocReq& /*req*/) {}
@@ -1845,13 +1914,13 @@ void MetaServiceSvNull::listSnapshots( ::nebula::meta::cpp2::ListSnapshotsResp& 
 
 void MetaServiceSvNull::runAdminJob( ::nebula::meta::cpp2::AdminJobResp& /*_return*/, const  ::nebula::meta::cpp2::AdminJobReq& /*req*/) {}
 
-void MetaServiceSvNull::addZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddZoneReq& /*req*/) {}
+void MetaServiceSvNull::mergeZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::MergeZoneReq& /*req*/) {}
 
 void MetaServiceSvNull::dropZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropZoneReq& /*req*/) {}
 
-void MetaServiceSvNull::addHostIntoZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AddHostIntoZoneReq& /*req*/) {}
+void MetaServiceSvNull::splitZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::SplitZoneReq& /*req*/) {}
 
-void MetaServiceSvNull::dropHostFromZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropHostFromZoneReq& /*req*/) {}
+void MetaServiceSvNull::renameZone( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RenameZoneReq& /*req*/) {}
 
 void MetaServiceSvNull::getZone( ::nebula::meta::cpp2::GetZoneResp& /*_return*/, const  ::nebula::meta::cpp2::GetZoneReq& /*req*/) {}
 
@@ -1939,6 +2008,9 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::binaryPro
   {"dropEdge", &MetaServiceAsyncProcessor::setUpAndProcess_dropEdge<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getEdge", &MetaServiceAsyncProcessor::setUpAndProcess_getEdge<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listEdges", &MetaServiceAsyncProcessor::setUpAndProcess_listEdges<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"addHosts", &MetaServiceAsyncProcessor::setUpAndProcess_addHosts<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"addHostsIntoZone", &MetaServiceAsyncProcessor::setUpAndProcess_addHostsIntoZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"dropHosts", &MetaServiceAsyncProcessor::setUpAndProcess_dropHosts<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listHosts", &MetaServiceAsyncProcessor::setUpAndProcess_listHosts<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getPartsAlloc", &MetaServiceAsyncProcessor::setUpAndProcess_getPartsAlloc<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listParts", &MetaServiceAsyncProcessor::setUpAndProcess_listParts<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -1978,10 +2050,10 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::binaryPro
   {"dropSnapshot", &MetaServiceAsyncProcessor::setUpAndProcess_dropSnapshot<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listSnapshots", &MetaServiceAsyncProcessor::setUpAndProcess_listSnapshots<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"runAdminJob", &MetaServiceAsyncProcessor::setUpAndProcess_runAdminJob<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"addZone", &MetaServiceAsyncProcessor::setUpAndProcess_addZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"mergeZone", &MetaServiceAsyncProcessor::setUpAndProcess_mergeZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"dropZone", &MetaServiceAsyncProcessor::setUpAndProcess_dropZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"addHostIntoZone", &MetaServiceAsyncProcessor::setUpAndProcess_addHostIntoZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"dropHostFromZone", &MetaServiceAsyncProcessor::setUpAndProcess_dropHostFromZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"splitZone", &MetaServiceAsyncProcessor::setUpAndProcess_splitZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"renameZone", &MetaServiceAsyncProcessor::setUpAndProcess_renameZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getZone", &MetaServiceAsyncProcessor::setUpAndProcess_getZone<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listZones", &MetaServiceAsyncProcessor::setUpAndProcess_listZones<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"createBackup", &MetaServiceAsyncProcessor::setUpAndProcess_createBackup<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -2028,6 +2100,9 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::compactPr
   {"dropEdge", &MetaServiceAsyncProcessor::setUpAndProcess_dropEdge<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getEdge", &MetaServiceAsyncProcessor::setUpAndProcess_getEdge<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listEdges", &MetaServiceAsyncProcessor::setUpAndProcess_listEdges<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"addHosts", &MetaServiceAsyncProcessor::setUpAndProcess_addHosts<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"addHostsIntoZone", &MetaServiceAsyncProcessor::setUpAndProcess_addHostsIntoZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"dropHosts", &MetaServiceAsyncProcessor::setUpAndProcess_dropHosts<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listHosts", &MetaServiceAsyncProcessor::setUpAndProcess_listHosts<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getPartsAlloc", &MetaServiceAsyncProcessor::setUpAndProcess_getPartsAlloc<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listParts", &MetaServiceAsyncProcessor::setUpAndProcess_listParts<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
@@ -2067,10 +2142,10 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::compactPr
   {"dropSnapshot", &MetaServiceAsyncProcessor::setUpAndProcess_dropSnapshot<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listSnapshots", &MetaServiceAsyncProcessor::setUpAndProcess_listSnapshots<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"runAdminJob", &MetaServiceAsyncProcessor::setUpAndProcess_runAdminJob<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"addZone", &MetaServiceAsyncProcessor::setUpAndProcess_addZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"mergeZone", &MetaServiceAsyncProcessor::setUpAndProcess_mergeZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"dropZone", &MetaServiceAsyncProcessor::setUpAndProcess_dropZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"addHostIntoZone", &MetaServiceAsyncProcessor::setUpAndProcess_addHostIntoZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"dropHostFromZone", &MetaServiceAsyncProcessor::setUpAndProcess_dropHostFromZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"splitZone", &MetaServiceAsyncProcessor::setUpAndProcess_splitZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"renameZone", &MetaServiceAsyncProcessor::setUpAndProcess_renameZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getZone", &MetaServiceAsyncProcessor::setUpAndProcess_getZone<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listZones", &MetaServiceAsyncProcessor::setUpAndProcess_listZones<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"createBackup", &MetaServiceAsyncProcessor::setUpAndProcess_createBackup<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},

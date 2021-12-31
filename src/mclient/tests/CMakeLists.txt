@@ -17,3 +17,19 @@ nebula_add_test(
         gtest
         ${NEBULA_THIRD_PARTY_LIBRARIES}
 )
+
+nebula_add_test(
+    NAME
+        meta_client_ssl_test
+    SOURCES
+        MetaClientSSLTest.cpp
+    OBJECTS
+        ${NEBULA_MCLIENT_OBJS}
+        $<TARGET_OBJECTS:graph_thrift_obj>
+        $<TARGET_OBJECTS:nebula_common_obj>
+        $<TARGET_OBJECTS:nebula_graph_client_obj>
+        $<TARGET_OBJECTS:nebula_meta_client_obj>
+    LIBRARIES
+        gtest
+        ${NEBULA_THIRD_PARTY_LIBRARIES}
+)
