@@ -77,6 +77,7 @@ struct ForEachField<::nebula::cpp2::Value> {
     f(13, static_cast<T&&>(t).uVal_ref()...);
     f(14, static_cast<T&&>(t).gVal_ref()...);
     f(15, static_cast<T&&>(t).ggVal_ref()...);
+    f(16, static_cast<T&&>(t).duVal_ref()...);
   }
 };
 
@@ -235,6 +236,16 @@ struct ForEachField<::nebula::cpp2::KeyValue> {
 };
 
 template <>
+struct ForEachField<::nebula::cpp2::Duration> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).seconds_ref()...);
+    f(1, static_cast<T&&>(t).microseconds_ref()...);
+    f(2, static_cast<T&&>(t).months_ref()...);
+  }
+};
+
+template <>
 struct ForEachField<::nebula::cpp2::LogInfo> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
@@ -253,28 +264,12 @@ struct ForEachField<::nebula::cpp2::DirInfo> {
 };
 
 template <>
-struct ForEachField<::nebula::cpp2::NodeInfo> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).host_ref()...);
-    f(1, static_cast<T&&>(t).dir_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::cpp2::PartitionBackupInfo> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).info_ref()...);
-  }
-};
-
-template <>
 struct ForEachField<::nebula::cpp2::CheckpointInfo> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).partition_info_ref()...);
-    f(1, static_cast<T&&>(t).path_ref()...);
+    f(0, static_cast<T&&>(t).space_id_ref()...);
+    f(1, static_cast<T&&>(t).parts_ref()...);
+    f(2, static_cast<T&&>(t).path_ref()...);
   }
 };
 

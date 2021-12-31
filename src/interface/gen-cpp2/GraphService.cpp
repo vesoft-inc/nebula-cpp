@@ -80,6 +80,27 @@ void GraphServiceSvIf::async_tm_execute(std::unique_ptr<apache::thrift::HandlerC
   });
 }
 
+void GraphServiceSvIf::executeWithParameter(nebula::ExecutionResponse& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/, const std::unordered_map<::std::string, nebula::Value>& /*parameterMap*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("executeWithParameter");
+}
+
+folly::SemiFuture<nebula::ExecutionResponse> GraphServiceSvIf::semifuture_executeWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  return apache::thrift::detail::si::semifuture_returning([&](nebula::ExecutionResponse& _return) { executeWithParameter(_return, p_sessionId, p_stmt, p_parameterMap); });
+}
+
+folly::Future<nebula::ExecutionResponse> GraphServiceSvIf::future_executeWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_executeWithParameter(p_sessionId, p_stmt, p_parameterMap), std::move(ka));
+}
+
+void GraphServiceSvIf::async_tm_executeWithParameter(std::unique_ptr<apache::thrift::HandlerCallback<nebula::ExecutionResponse>> callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_executeWithParameter(p_sessionId, p_stmt, p_parameterMap);
+  });
+}
+
 void GraphServiceSvIf::executeJson(::std::string& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("executeJson");
 }
@@ -98,6 +119,27 @@ folly::Future<::std::string> GraphServiceSvIf::future_executeJson(int64_t p_sess
 void GraphServiceSvIf::async_tm_executeJson(std::unique_ptr<apache::thrift::HandlerCallback<::std::string>> callback, int64_t p_sessionId, const ::std::string& p_stmt) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
     return future_executeJson(p_sessionId, p_stmt);
+  });
+}
+
+void GraphServiceSvIf::executeJsonWithParameter(::std::string& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/, const std::unordered_map<::std::string, nebula::Value>& /*parameterMap*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("executeJsonWithParameter");
+}
+
+folly::SemiFuture<::std::string> GraphServiceSvIf::semifuture_executeJsonWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  return apache::thrift::detail::si::semifuture_returning([&](::std::string& _return) { executeJsonWithParameter(_return, p_sessionId, p_stmt, p_parameterMap); });
+}
+
+folly::Future<::std::string> GraphServiceSvIf::future_executeJsonWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_executeJsonWithParameter(p_sessionId, p_stmt, p_parameterMap), std::move(ka));
+}
+
+void GraphServiceSvIf::async_tm_executeJsonWithParameter(std::unique_ptr<apache::thrift::HandlerCallback<::std::string>> callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_executeJsonWithParameter(p_sessionId, p_stmt, p_parameterMap);
   });
 }
 
@@ -130,7 +172,11 @@ void GraphServiceSvNull::signout(int64_t /*sessionId*/) {
 
 void GraphServiceSvNull::execute(nebula::ExecutionResponse& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/) {}
 
+void GraphServiceSvNull::executeWithParameter(nebula::ExecutionResponse& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/, const std::unordered_map<::std::string, nebula::Value>& /*parameterMap*/) {}
+
 void GraphServiceSvNull::executeJson(::std::string& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/) {}
+
+void GraphServiceSvNull::executeJsonWithParameter(::std::string& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/, const std::unordered_map<::std::string, nebula::Value>& /*parameterMap*/) {}
 
 void GraphServiceSvNull::verifyClientVersion(nebula::VerifyClientVersionResp& /*_return*/, const nebula::VerifyClientVersionReq& /*req*/) {}
 
@@ -160,7 +206,9 @@ const GraphServiceAsyncProcessor::ProcessMap GraphServiceAsyncProcessor::binaryP
   {"authenticate", &GraphServiceAsyncProcessor::setUpAndProcess_authenticate<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"signout", &GraphServiceAsyncProcessor::setUpAndProcess_signout<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"execute", &GraphServiceAsyncProcessor::setUpAndProcess_execute<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"executeWithParameter", &GraphServiceAsyncProcessor::setUpAndProcess_executeWithParameter<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"executeJson", &GraphServiceAsyncProcessor::setUpAndProcess_executeJson<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"executeJsonWithParameter", &GraphServiceAsyncProcessor::setUpAndProcess_executeJsonWithParameter<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"verifyClientVersion", &GraphServiceAsyncProcessor::setUpAndProcess_verifyClientVersion<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
 };
 
@@ -172,7 +220,9 @@ const GraphServiceAsyncProcessor::ProcessMap GraphServiceAsyncProcessor::compact
   {"authenticate", &GraphServiceAsyncProcessor::setUpAndProcess_authenticate<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"signout", &GraphServiceAsyncProcessor::setUpAndProcess_signout<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"execute", &GraphServiceAsyncProcessor::setUpAndProcess_execute<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"executeWithParameter", &GraphServiceAsyncProcessor::setUpAndProcess_executeWithParameter<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"executeJson", &GraphServiceAsyncProcessor::setUpAndProcess_executeJson<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"executeJsonWithParameter", &GraphServiceAsyncProcessor::setUpAndProcess_executeJsonWithParameter<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"verifyClientVersion", &GraphServiceAsyncProcessor::setUpAndProcess_verifyClientVersion<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
 };
 

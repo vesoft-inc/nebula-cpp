@@ -190,6 +190,7 @@ StructMetadata<::nebula::cpp2::Value>::gen(ThriftMetadata& metadata) {
     std::make_tuple(14, "uVal", false, std::make_unique<Typedef>("common.NSet", std::make_unique<Struct< ::nebula::cpp2::NSet>>("common.NSet")), std::vector<ThriftConstStruct>{}),
     std::make_tuple(15, "gVal", false, std::make_unique<Typedef>("common.DataSet", std::make_unique<Struct< ::nebula::cpp2::DataSet>>("common.DataSet")), std::vector<ThriftConstStruct>{}),
     std::make_tuple(16, "ggVal", false, std::make_unique<Typedef>("common.Geography", std::make_unique<Union< ::nebula::cpp2::Geography>>("common.Geography")), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(17, "duVal", false, std::make_unique<Typedef>("common.Duration", std::make_unique<Struct< ::nebula::cpp2::Duration>>("common.Duration")), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : common_Value_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -629,6 +630,32 @@ StructMetadata<::nebula::cpp2::KeyValue>::gen(ThriftMetadata& metadata) {
   return res.first->second;
 }
 const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::cpp2::Duration>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("common.Duration", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& common_Duration = res.first->second;
+  common_Duration.name_ref() = "common.Duration";
+  common_Duration.is_union_ref() = false;
+  static const EncodedThriftField
+  common_Duration_fields[] = {
+    std::make_tuple(1, "seconds", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "microseconds", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "months", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : common_Duration_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    common_Duration.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
 StructMetadata<::nebula::cpp2::LogInfo>::gen(ThriftMetadata& metadata) {
   auto res = metadata.structs_ref()->emplace("common.LogInfo", ::apache::thrift::metadata::ThriftStruct{});
   if (!res.second) {
@@ -679,55 +706,6 @@ StructMetadata<::nebula::cpp2::DirInfo>::gen(ThriftMetadata& metadata) {
   return res.first->second;
 }
 const ::apache::thrift::metadata::ThriftStruct&
-StructMetadata<::nebula::cpp2::NodeInfo>::gen(ThriftMetadata& metadata) {
-  auto res = metadata.structs_ref()->emplace("common.NodeInfo", ::apache::thrift::metadata::ThriftStruct{});
-  if (!res.second) {
-    return res.first->second;
-  }
-  ::apache::thrift::metadata::ThriftStruct& common_NodeInfo = res.first->second;
-  common_NodeInfo.name_ref() = "common.NodeInfo";
-  common_NodeInfo.is_union_ref() = false;
-  static const EncodedThriftField
-  common_NodeInfo_fields[] = {
-    std::make_tuple(1, "host", false, std::make_unique<Struct< ::nebula::cpp2::HostAddr>>("common.HostAddr"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(2, "dir", false, std::make_unique<Struct< ::nebula::cpp2::DirInfo>>("common.DirInfo"), std::vector<ThriftConstStruct>{}),
-  };
-  for (const auto& f : common_NodeInfo_fields) {
-    ::apache::thrift::metadata::ThriftField field;
-    field.id_ref() = std::get<0>(f);
-    field.name_ref() = std::get<1>(f);
-    field.is_optional_ref() = std::get<2>(f);
-    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
-    field.structured_annotations_ref() = std::get<4>(f);
-    common_NodeInfo.fields_ref()->push_back(std::move(field));
-  }
-  return res.first->second;
-}
-const ::apache::thrift::metadata::ThriftStruct&
-StructMetadata<::nebula::cpp2::PartitionBackupInfo>::gen(ThriftMetadata& metadata) {
-  auto res = metadata.structs_ref()->emplace("common.PartitionBackupInfo", ::apache::thrift::metadata::ThriftStruct{});
-  if (!res.second) {
-    return res.first->second;
-  }
-  ::apache::thrift::metadata::ThriftStruct& common_PartitionBackupInfo = res.first->second;
-  common_PartitionBackupInfo.name_ref() = "common.PartitionBackupInfo";
-  common_PartitionBackupInfo.is_union_ref() = false;
-  static const EncodedThriftField
-  common_PartitionBackupInfo_fields[] = {
-    std::make_tuple(1, "info", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<Struct< ::nebula::cpp2::LogInfo>>("common.LogInfo")), std::vector<ThriftConstStruct>{}),
-  };
-  for (const auto& f : common_PartitionBackupInfo_fields) {
-    ::apache::thrift::metadata::ThriftField field;
-    field.id_ref() = std::get<0>(f);
-    field.name_ref() = std::get<1>(f);
-    field.is_optional_ref() = std::get<2>(f);
-    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
-    field.structured_annotations_ref() = std::get<4>(f);
-    common_PartitionBackupInfo.fields_ref()->push_back(std::move(field));
-  }
-  return res.first->second;
-}
-const ::apache::thrift::metadata::ThriftStruct&
 StructMetadata<::nebula::cpp2::CheckpointInfo>::gen(ThriftMetadata& metadata) {
   auto res = metadata.structs_ref()->emplace("common.CheckpointInfo", ::apache::thrift::metadata::ThriftStruct{});
   if (!res.second) {
@@ -738,8 +716,9 @@ StructMetadata<::nebula::cpp2::CheckpointInfo>::gen(ThriftMetadata& metadata) {
   common_CheckpointInfo.is_union_ref() = false;
   static const EncodedThriftField
   common_CheckpointInfo_fields[] = {
-    std::make_tuple(1, "partition_info", false, std::make_unique<Struct< ::nebula::cpp2::PartitionBackupInfo>>("common.PartitionBackupInfo"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(2, "path", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(1, "space_id", false, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "parts", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<Struct< ::nebula::cpp2::LogInfo>>("common.LogInfo")), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "path", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : common_CheckpointInfo_fields) {
     ::apache::thrift::metadata::ThriftField field;

@@ -46,9 +46,15 @@ class GraphServiceSvAsyncIf {
   virtual void async_tm_execute(std::unique_ptr<apache::thrift::HandlerCallback<nebula::ExecutionResponse>> callback, int64_t p_sessionId, const ::std::string& p_stmt) = 0;
   virtual folly::Future<nebula::ExecutionResponse> future_execute(int64_t p_sessionId, const ::std::string& p_stmt) = 0;
   virtual folly::SemiFuture<nebula::ExecutionResponse> semifuture_execute(int64_t p_sessionId, const ::std::string& p_stmt) = 0;
+  virtual void async_tm_executeWithParameter(std::unique_ptr<apache::thrift::HandlerCallback<nebula::ExecutionResponse>> callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) = 0;
+  virtual folly::Future<nebula::ExecutionResponse> future_executeWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) = 0;
+  virtual folly::SemiFuture<nebula::ExecutionResponse> semifuture_executeWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) = 0;
   virtual void async_tm_executeJson(std::unique_ptr<apache::thrift::HandlerCallback<::std::string>> callback, int64_t p_sessionId, const ::std::string& p_stmt) = 0;
   virtual folly::Future<::std::string> future_executeJson(int64_t p_sessionId, const ::std::string& p_stmt) = 0;
   virtual folly::SemiFuture<::std::string> semifuture_executeJson(int64_t p_sessionId, const ::std::string& p_stmt) = 0;
+  virtual void async_tm_executeJsonWithParameter(std::unique_ptr<apache::thrift::HandlerCallback<::std::string>> callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) = 0;
+  virtual folly::Future<::std::string> future_executeJsonWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) = 0;
+  virtual folly::SemiFuture<::std::string> semifuture_executeJsonWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) = 0;
   virtual void async_tm_verifyClientVersion(std::unique_ptr<apache::thrift::HandlerCallback<nebula::VerifyClientVersionResp>> callback, const nebula::VerifyClientVersionReq& p_req) = 0;
   virtual folly::Future<nebula::VerifyClientVersionResp> future_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req) = 0;
   virtual folly::SemiFuture<nebula::VerifyClientVersionResp> semifuture_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req) = 0;
@@ -74,10 +80,18 @@ class GraphServiceSvIf : public GraphServiceSvAsyncIf, public apache::thrift::Se
   folly::Future<nebula::ExecutionResponse> future_execute(int64_t p_sessionId, const ::std::string& p_stmt) override;
   folly::SemiFuture<nebula::ExecutionResponse> semifuture_execute(int64_t p_sessionId, const ::std::string& p_stmt) override;
   void async_tm_execute(std::unique_ptr<apache::thrift::HandlerCallback<nebula::ExecutionResponse>> callback, int64_t p_sessionId, const ::std::string& p_stmt) override;
+  virtual void executeWithParameter(nebula::ExecutionResponse& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/, const std::unordered_map<::std::string, nebula::Value>& /*parameterMap*/);
+  folly::Future<nebula::ExecutionResponse> future_executeWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) override;
+  folly::SemiFuture<nebula::ExecutionResponse> semifuture_executeWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) override;
+  void async_tm_executeWithParameter(std::unique_ptr<apache::thrift::HandlerCallback<nebula::ExecutionResponse>> callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) override;
   virtual void executeJson(::std::string& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/);
   folly::Future<::std::string> future_executeJson(int64_t p_sessionId, const ::std::string& p_stmt) override;
   folly::SemiFuture<::std::string> semifuture_executeJson(int64_t p_sessionId, const ::std::string& p_stmt) override;
   void async_tm_executeJson(std::unique_ptr<apache::thrift::HandlerCallback<::std::string>> callback, int64_t p_sessionId, const ::std::string& p_stmt) override;
+  virtual void executeJsonWithParameter(::std::string& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/, const std::unordered_map<::std::string, nebula::Value>& /*parameterMap*/);
+  folly::Future<::std::string> future_executeJsonWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) override;
+  folly::SemiFuture<::std::string> semifuture_executeJsonWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) override;
+  void async_tm_executeJsonWithParameter(std::unique_ptr<apache::thrift::HandlerCallback<::std::string>> callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) override;
   virtual void verifyClientVersion(nebula::VerifyClientVersionResp& /*_return*/, const nebula::VerifyClientVersionReq& /*req*/);
   folly::Future<nebula::VerifyClientVersionResp> future_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req) override;
   folly::SemiFuture<nebula::VerifyClientVersionResp> semifuture_verifyClientVersion(const nebula::VerifyClientVersionReq& p_req) override;
@@ -89,7 +103,9 @@ class GraphServiceSvNull : public GraphServiceSvIf {
   void authenticate(nebula::AuthResponse& /*_return*/, const ::std::string& /*username*/, const ::std::string& /*password*/) override;
   void signout(int64_t /*sessionId*/) override;
   void execute(nebula::ExecutionResponse& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/) override;
+  void executeWithParameter(nebula::ExecutionResponse& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/, const std::unordered_map<::std::string, nebula::Value>& /*parameterMap*/) override;
   void executeJson(::std::string& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/) override;
+  void executeJsonWithParameter(::std::string& /*_return*/, int64_t /*sessionId*/, const ::std::string& /*stmt*/, const std::unordered_map<::std::string, nebula::Value>& /*parameterMap*/) override;
   void verifyClientVersion(nebula::VerifyClientVersionResp& /*_return*/, const nebula::VerifyClientVersionReq& /*req*/) override;
 };
 
@@ -134,6 +150,14 @@ class GraphServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProces
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_execute(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_executeWithParameter(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_executeWithParameter(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_executeWithParameter(int32_t protoSeqId, apache::thrift::ContextStack* ctx, nebula::ExecutionResponse const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_executeWithParameter(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
   void setUpAndProcess_executeJson(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>
   void process_executeJson(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
@@ -141,6 +165,14 @@ class GraphServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProces
   static folly::IOBufQueue return_executeJson(int32_t protoSeqId, apache::thrift::ContextStack* ctx, ::std::string const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_executeJson(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_executeJsonWithParameter(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_executeJsonWithParameter(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_executeJsonWithParameter(int32_t protoSeqId, apache::thrift::ContextStack* ctx, ::std::string const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_executeJsonWithParameter(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
   void setUpAndProcess_verifyClientVersion(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>

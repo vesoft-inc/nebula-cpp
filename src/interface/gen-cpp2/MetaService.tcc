@@ -19,6 +19,8 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetSpaceResp*>> MetaService_getSpace_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListSpacesReq*>> MetaService_listSpaces_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListSpacesResp*>> MetaService_listSpaces_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::AlterSpaceReq*>> MetaService_alterSpace_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_alterSpace_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::CreateSpaceAsReq*>> MetaService_createSpaceAs_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_createSpaceAs_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::CreateTagReq*>> MetaService_createTag_pargs;
@@ -53,6 +55,8 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetPartsAllocResp*>> MetaService_getPartsAlloc_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListPartsReq*>> MetaService_listParts_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListPartsResp*>> MetaService_listParts_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetWorkerIdReq*>> MetaService_getWorkerId_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetWorkerIdResp*>> MetaService_getWorkerId_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::MultiPutReq*>> MetaService_multiPut_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_multiPut_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetReq*>> MetaService_get_pargs;
@@ -109,6 +113,8 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_changePassword_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::HBReq*>> MetaService_heartBeat_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::HBResp*>> MetaService_heartBeat_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::AgentHBReq*>> MetaService_agentHeartbeat_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::AgentHBResp*>> MetaService_agentHeartbeat_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RegConfigReq*>> MetaService_regConfig_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_regConfig_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetConfigReq*>> MetaService_getConfig_pargs;
@@ -129,18 +135,14 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_mergeZone_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::DropZoneReq*>> MetaService_dropZone_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_dropZone_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::SplitZoneReq*>> MetaService_splitZone_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_splitZone_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::DivideZoneReq*>> MetaService_divideZone_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_divideZone_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RenameZoneReq*>> MetaService_renameZone_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_renameZone_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetZoneReq*>> MetaService_getZone_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetZoneResp*>> MetaService_getZone_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListZonesReq*>> MetaService_listZones_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListZonesResp*>> MetaService_listZones_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::CreateBackupReq*>> MetaService_createBackup_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::CreateBackupResp*>> MetaService_createBackup_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RestoreMetaReq*>> MetaService_restoreMeta_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_restoreMeta_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::AddListenerReq*>> MetaService_addListener_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_addListener_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RemoveListenerReq*>> MetaService_removeListener_pargs;
@@ -149,12 +151,12 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListListenerResp*>> MetaService_listListener_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetStatsReq*>> MetaService_getStats_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetStatsResp*>> MetaService_getStats_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::SignInFTServiceReq*>> MetaService_signInFTService_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_signInFTService_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::SignOutFTServiceReq*>> MetaService_signOutFTService_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_signOutFTService_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListFTClientsReq*>> MetaService_listFTClients_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListFTClientsResp*>> MetaService_listFTClients_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::SignInServiceReq*>> MetaService_signInService_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_signInService_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::SignOutServiceReq*>> MetaService_signOutService_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_signOutService_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListServiceClientsReq*>> MetaService_listServiceClients_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListServiceClientsResp*>> MetaService_listServiceClients_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::CreateFTIndexReq*>> MetaService_createFTIndex_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_createFTIndex_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::DropFTIndexReq*>> MetaService_dropFTIndex_pargs;
@@ -175,6 +177,10 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_killQuery_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ReportTaskReq*>> MetaService_reportTaskFinish_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_reportTaskFinish_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::CreateBackupReq*>> MetaService_createBackup_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::CreateBackupResp*>> MetaService_createBackup_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RestoreMetaReq*>> MetaService_restoreMeta_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_restoreMeta_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListClusterInfoReq*>> MetaService_listCluster_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListClusterInfoResp*>> MetaService_listCluster_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetMetaDirInfoReq*>> MetaService_getMetaDirInfo_pargs;
@@ -405,6 +411,63 @@ void MetaServiceAsyncProcessor::throw_wrapped_listSpaces(apache::thrift::Respons
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
         ew, std::move(req), reqCtx, ctx, "listSpaces");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::setUpAndProcess_alterSpace(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_alterSpace<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::process_alterSpace(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  MetaService_alterSpace_pargs args;
+   ::nebula::meta::cpp2::AlterSpaceReq uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.alterSpace", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "alterSpace");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_alterSpace<ProtocolIn_,ProtocolOut_>, throw_wrapped_alterSpace<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_alterSpace(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue MetaServiceAsyncProcessor::return_alterSpace(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
+  ProtocolOut_ prot;
+  MetaService_alterSpace_presult result;
+  result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("alterSpace", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void MetaServiceAsyncProcessor::throw_wrapped_alterSpace(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "alterSpace");
     return;
   }
 }
@@ -1374,6 +1437,63 @@ void MetaServiceAsyncProcessor::throw_wrapped_listParts(apache::thrift::Response
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
         ew, std::move(req), reqCtx, ctx, "listParts");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::setUpAndProcess_getWorkerId(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_getWorkerId<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::process_getWorkerId(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  MetaService_getWorkerId_pargs args;
+   ::nebula::meta::cpp2::GetWorkerIdReq uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.getWorkerId", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "getWorkerId");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetWorkerIdResp>>(std::move(req), std::move(ctxStack), return_getWorkerId<ProtocolIn_,ProtocolOut_>, throw_wrapped_getWorkerId<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_getWorkerId(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue MetaServiceAsyncProcessor::return_getWorkerId(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::GetWorkerIdResp const& _return) {
+  ProtocolOut_ prot;
+  MetaService_getWorkerId_presult result;
+  result.get<0>().value = const_cast< ::nebula::meta::cpp2::GetWorkerIdResp*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("getWorkerId", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void MetaServiceAsyncProcessor::throw_wrapped_getWorkerId(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "getWorkerId");
     return;
   }
 }
@@ -2975,6 +3095,63 @@ void MetaServiceAsyncProcessor::throw_wrapped_heartBeat(apache::thrift::Response
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::setUpAndProcess_agentHeartbeat(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_agentHeartbeat<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::process_agentHeartbeat(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  MetaService_agentHeartbeat_pargs args;
+   ::nebula::meta::cpp2::AgentHBReq uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.agentHeartbeat", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "agentHeartbeat");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::AgentHBResp>>(std::move(req), std::move(ctxStack), return_agentHeartbeat<ProtocolIn_,ProtocolOut_>, throw_wrapped_agentHeartbeat<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_agentHeartbeat(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue MetaServiceAsyncProcessor::return_agentHeartbeat(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::AgentHBResp const& _return) {
+  ProtocolOut_ prot;
+  MetaService_agentHeartbeat_presult result;
+  result.get<0>().value = const_cast< ::nebula::meta::cpp2::AgentHBResp*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("agentHeartbeat", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void MetaServiceAsyncProcessor::throw_wrapped_agentHeartbeat(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "agentHeartbeat");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
 void MetaServiceAsyncProcessor::setUpAndProcess_regConfig(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
     return;
@@ -3545,58 +3722,58 @@ void MetaServiceAsyncProcessor::throw_wrapped_dropZone(apache::thrift::ResponseC
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::setUpAndProcess_splitZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::setUpAndProcess_divideZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
     return;
   }
   auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
   ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_splitZone<ProtocolIn_, ProtocolOut_>, this);
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_divideZone<ProtocolIn_, ProtocolOut_>, this);
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::process_splitZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::process_divideZone(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   // make sure getRequestContext is null
   // so async calls don't accidentally use it
   iface_->setRequestContext(nullptr);
-  MetaService_splitZone_pargs args;
-   ::nebula::meta::cpp2::SplitZoneReq uarg_req;
+  MetaService_divideZone_pargs args;
+   ::nebula::meta::cpp2::DivideZoneReq uarg_req;
   args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.splitZone", ctx));
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.divideZone", ctx));
   try {
     deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
   }
   catch (const std::exception& ex) {
     apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "splitZone");
+        ex, std::move(req), ctx, eb, "divideZone");
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_splitZone<ProtocolIn_,ProtocolOut_>, throw_wrapped_splitZone<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_divideZone<ProtocolIn_,ProtocolOut_>, throw_wrapped_divideZone<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
-  iface_->async_tm_splitZone(std::move(callback), args.get<0>().ref());
+  iface_->async_tm_divideZone(std::move(callback), args.get<0>().ref());
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue MetaServiceAsyncProcessor::return_splitZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
+folly::IOBufQueue MetaServiceAsyncProcessor::return_divideZone(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
   ProtocolOut_ prot;
-  MetaService_splitZone_presult result;
+  MetaService_divideZone_presult result;
   result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
   result.setIsSet(0, true);
-  return serializeResponse("splitZone", &prot, protoSeqId, ctx, result);
+  return serializeResponse("divideZone", &prot, protoSeqId, ctx, result);
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-void MetaServiceAsyncProcessor::throw_wrapped_splitZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+void MetaServiceAsyncProcessor::throw_wrapped_divideZone(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
   if (!ew) {
     return;
   }
   {
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "splitZone");
+        ew, std::move(req), reqCtx, ctx, "divideZone");
     return;
   }
 }
@@ -3768,120 +3945,6 @@ void MetaServiceAsyncProcessor::throw_wrapped_listZones(apache::thrift::Response
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
         ew, std::move(req), reqCtx, ctx, "listZones");
-    return;
-  }
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::setUpAndProcess_createBackup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
-    return;
-  }
-  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
-  ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_createBackup<ProtocolIn_, ProtocolOut_>, this);
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::process_createBackup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  // make sure getRequestContext is null
-  // so async calls don't accidentally use it
-  iface_->setRequestContext(nullptr);
-  MetaService_createBackup_pargs args;
-   ::nebula::meta::cpp2::CreateBackupReq uarg_req;
-  args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.createBackup", ctx));
-  try {
-    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
-  }
-  catch (const std::exception& ex) {
-    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "createBackup");
-    return;
-  }
-  req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::CreateBackupResp>>(std::move(req), std::move(ctxStack), return_createBackup<ProtocolIn_,ProtocolOut_>, throw_wrapped_createBackup<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
-  if (!callback->isRequestActive()) {
-    return;
-  }
-  iface_->async_tm_createBackup(std::move(callback), args.get<0>().ref());
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue MetaServiceAsyncProcessor::return_createBackup(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::CreateBackupResp const& _return) {
-  ProtocolOut_ prot;
-  MetaService_createBackup_presult result;
-  result.get<0>().value = const_cast< ::nebula::meta::cpp2::CreateBackupResp*>(&_return);
-  result.setIsSet(0, true);
-  return serializeResponse("createBackup", &prot, protoSeqId, ctx, result);
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-void MetaServiceAsyncProcessor::throw_wrapped_createBackup(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
-  if (!ew) {
-    return;
-  }
-  {
-    (void)protoSeqId;
-    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "createBackup");
-    return;
-  }
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::setUpAndProcess_restoreMeta(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
-    return;
-  }
-  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
-  ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_restoreMeta<ProtocolIn_, ProtocolOut_>, this);
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::process_restoreMeta(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  // make sure getRequestContext is null
-  // so async calls don't accidentally use it
-  iface_->setRequestContext(nullptr);
-  MetaService_restoreMeta_pargs args;
-   ::nebula::meta::cpp2::RestoreMetaReq uarg_req;
-  args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.restoreMeta", ctx));
-  try {
-    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
-  }
-  catch (const std::exception& ex) {
-    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "restoreMeta");
-    return;
-  }
-  req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_restoreMeta<ProtocolIn_,ProtocolOut_>, throw_wrapped_restoreMeta<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
-  if (!callback->isRequestActive()) {
-    return;
-  }
-  iface_->async_tm_restoreMeta(std::move(callback), args.get<0>().ref());
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue MetaServiceAsyncProcessor::return_restoreMeta(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
-  ProtocolOut_ prot;
-  MetaService_restoreMeta_presult result;
-  result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
-  result.setIsSet(0, true);
-  return serializeResponse("restoreMeta", &prot, protoSeqId, ctx, result);
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-void MetaServiceAsyncProcessor::throw_wrapped_restoreMeta(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
-  if (!ew) {
-    return;
-  }
-  {
-    (void)protoSeqId;
-    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "restoreMeta");
     return;
   }
 }
@@ -4115,172 +4178,172 @@ void MetaServiceAsyncProcessor::throw_wrapped_getStats(apache::thrift::ResponseC
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::setUpAndProcess_signInFTService(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::setUpAndProcess_signInService(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
     return;
   }
   auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
   ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_signInFTService<ProtocolIn_, ProtocolOut_>, this);
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_signInService<ProtocolIn_, ProtocolOut_>, this);
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::process_signInFTService(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::process_signInService(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   // make sure getRequestContext is null
   // so async calls don't accidentally use it
   iface_->setRequestContext(nullptr);
-  MetaService_signInFTService_pargs args;
-   ::nebula::meta::cpp2::SignInFTServiceReq uarg_req;
+  MetaService_signInService_pargs args;
+   ::nebula::meta::cpp2::SignInServiceReq uarg_req;
   args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.signInFTService", ctx));
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.signInService", ctx));
   try {
     deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
   }
   catch (const std::exception& ex) {
     apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "signInFTService");
+        ex, std::move(req), ctx, eb, "signInService");
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_signInFTService<ProtocolIn_,ProtocolOut_>, throw_wrapped_signInFTService<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_signInService<ProtocolIn_,ProtocolOut_>, throw_wrapped_signInService<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
-  iface_->async_tm_signInFTService(std::move(callback), args.get<0>().ref());
+  iface_->async_tm_signInService(std::move(callback), args.get<0>().ref());
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue MetaServiceAsyncProcessor::return_signInFTService(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
+folly::IOBufQueue MetaServiceAsyncProcessor::return_signInService(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
   ProtocolOut_ prot;
-  MetaService_signInFTService_presult result;
+  MetaService_signInService_presult result;
   result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
   result.setIsSet(0, true);
-  return serializeResponse("signInFTService", &prot, protoSeqId, ctx, result);
+  return serializeResponse("signInService", &prot, protoSeqId, ctx, result);
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-void MetaServiceAsyncProcessor::throw_wrapped_signInFTService(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+void MetaServiceAsyncProcessor::throw_wrapped_signInService(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
   if (!ew) {
     return;
   }
   {
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "signInFTService");
+        ew, std::move(req), reqCtx, ctx, "signInService");
     return;
   }
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::setUpAndProcess_signOutFTService(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::setUpAndProcess_signOutService(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
     return;
   }
   auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
   ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_signOutFTService<ProtocolIn_, ProtocolOut_>, this);
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_signOutService<ProtocolIn_, ProtocolOut_>, this);
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::process_signOutFTService(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::process_signOutService(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   // make sure getRequestContext is null
   // so async calls don't accidentally use it
   iface_->setRequestContext(nullptr);
-  MetaService_signOutFTService_pargs args;
-   ::nebula::meta::cpp2::SignOutFTServiceReq uarg_req;
+  MetaService_signOutService_pargs args;
+   ::nebula::meta::cpp2::SignOutServiceReq uarg_req;
   args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.signOutFTService", ctx));
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.signOutService", ctx));
   try {
     deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
   }
   catch (const std::exception& ex) {
     apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "signOutFTService");
+        ex, std::move(req), ctx, eb, "signOutService");
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_signOutFTService<ProtocolIn_,ProtocolOut_>, throw_wrapped_signOutFTService<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_signOutService<ProtocolIn_,ProtocolOut_>, throw_wrapped_signOutService<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
-  iface_->async_tm_signOutFTService(std::move(callback), args.get<0>().ref());
+  iface_->async_tm_signOutService(std::move(callback), args.get<0>().ref());
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue MetaServiceAsyncProcessor::return_signOutFTService(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
+folly::IOBufQueue MetaServiceAsyncProcessor::return_signOutService(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
   ProtocolOut_ prot;
-  MetaService_signOutFTService_presult result;
+  MetaService_signOutService_presult result;
   result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
   result.setIsSet(0, true);
-  return serializeResponse("signOutFTService", &prot, protoSeqId, ctx, result);
+  return serializeResponse("signOutService", &prot, protoSeqId, ctx, result);
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-void MetaServiceAsyncProcessor::throw_wrapped_signOutFTService(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+void MetaServiceAsyncProcessor::throw_wrapped_signOutService(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
   if (!ew) {
     return;
   }
   {
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "signOutFTService");
+        ew, std::move(req), reqCtx, ctx, "signOutService");
     return;
   }
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::setUpAndProcess_listFTClients(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::setUpAndProcess_listServiceClients(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
     return;
   }
   auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
   ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_listFTClients<ProtocolIn_, ProtocolOut_>, this);
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_listServiceClients<ProtocolIn_, ProtocolOut_>, this);
 }
 
 template <typename ProtocolIn_, typename ProtocolOut_>
-void MetaServiceAsyncProcessor::process_listFTClients(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+void MetaServiceAsyncProcessor::process_listServiceClients(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   // make sure getRequestContext is null
   // so async calls don't accidentally use it
   iface_->setRequestContext(nullptr);
-  MetaService_listFTClients_pargs args;
-   ::nebula::meta::cpp2::ListFTClientsReq uarg_req;
+  MetaService_listServiceClients_pargs args;
+   ::nebula::meta::cpp2::ListServiceClientsReq uarg_req;
   args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.listFTClients", ctx));
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.listServiceClients", ctx));
   try {
     deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
   }
   catch (const std::exception& ex) {
     apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "listFTClients");
+        ex, std::move(req), ctx, eb, "listServiceClients");
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListFTClientsResp>>(std::move(req), std::move(ctxStack), return_listFTClients<ProtocolIn_,ProtocolOut_>, throw_wrapped_listFTClients<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListServiceClientsResp>>(std::move(req), std::move(ctxStack), return_listServiceClients<ProtocolIn_,ProtocolOut_>, throw_wrapped_listServiceClients<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
-  iface_->async_tm_listFTClients(std::move(callback), args.get<0>().ref());
+  iface_->async_tm_listServiceClients(std::move(callback), args.get<0>().ref());
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue MetaServiceAsyncProcessor::return_listFTClients(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ListFTClientsResp const& _return) {
+folly::IOBufQueue MetaServiceAsyncProcessor::return_listServiceClients(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ListServiceClientsResp const& _return) {
   ProtocolOut_ prot;
-  MetaService_listFTClients_presult result;
-  result.get<0>().value = const_cast< ::nebula::meta::cpp2::ListFTClientsResp*>(&_return);
+  MetaService_listServiceClients_presult result;
+  result.get<0>().value = const_cast< ::nebula::meta::cpp2::ListServiceClientsResp*>(&_return);
   result.setIsSet(0, true);
-  return serializeResponse("listFTClients", &prot, protoSeqId, ctx, result);
+  return serializeResponse("listServiceClients", &prot, protoSeqId, ctx, result);
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-void MetaServiceAsyncProcessor::throw_wrapped_listFTClients(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+void MetaServiceAsyncProcessor::throw_wrapped_listServiceClients(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
   if (!ew) {
     return;
   }
   {
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "listFTClients");
+        ew, std::move(req), reqCtx, ctx, "listServiceClients");
     return;
   }
 }
@@ -4851,6 +4914,120 @@ void MetaServiceAsyncProcessor::throw_wrapped_reportTaskFinish(apache::thrift::R
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
         ew, std::move(req), reqCtx, ctx, "reportTaskFinish");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::setUpAndProcess_createBackup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_createBackup<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::process_createBackup(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  MetaService_createBackup_pargs args;
+   ::nebula::meta::cpp2::CreateBackupReq uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.createBackup", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "createBackup");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::CreateBackupResp>>(std::move(req), std::move(ctxStack), return_createBackup<ProtocolIn_,ProtocolOut_>, throw_wrapped_createBackup<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_createBackup(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue MetaServiceAsyncProcessor::return_createBackup(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::CreateBackupResp const& _return) {
+  ProtocolOut_ prot;
+  MetaService_createBackup_presult result;
+  result.get<0>().value = const_cast< ::nebula::meta::cpp2::CreateBackupResp*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("createBackup", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void MetaServiceAsyncProcessor::throw_wrapped_createBackup(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "createBackup");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::setUpAndProcess_restoreMeta(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &MetaServiceAsyncProcessor::process_restoreMeta<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void MetaServiceAsyncProcessor::process_restoreMeta(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  MetaService_restoreMeta_pargs args;
+   ::nebula::meta::cpp2::RestoreMetaReq uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "MetaService.restoreMeta", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "restoreMeta");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(req), std::move(ctxStack), return_restoreMeta<ProtocolIn_,ProtocolOut_>, throw_wrapped_restoreMeta<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_restoreMeta(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue MetaServiceAsyncProcessor::return_restoreMeta(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return) {
+  ProtocolOut_ prot;
+  MetaService_restoreMeta_presult result;
+  result.get<0>().value = const_cast< ::nebula::meta::cpp2::ExecResp*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("restoreMeta", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void MetaServiceAsyncProcessor::throw_wrapped_restoreMeta(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "restoreMeta");
     return;
   }
 }

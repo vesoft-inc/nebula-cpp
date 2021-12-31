@@ -35,6 +35,9 @@ class InternalStorageServiceSvAsyncIf {
   virtual void async_tm_chainUpdateEdge(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::UpdateResponse>> callback, const  ::nebula::storage::cpp2::ChainUpdateEdgeRequest& p_req) = 0;
   virtual folly::Future< ::nebula::storage::cpp2::UpdateResponse> future_chainUpdateEdge(const  ::nebula::storage::cpp2::ChainUpdateEdgeRequest& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::storage::cpp2::UpdateResponse> semifuture_chainUpdateEdge(const  ::nebula::storage::cpp2::ChainUpdateEdgeRequest& p_req) = 0;
+  virtual void async_tm_chainDeleteEdges(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>> callback, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req) = 0;
+  virtual folly::Future< ::nebula::storage::cpp2::ExecResponse> future_chainDeleteEdges(const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> semifuture_chainDeleteEdges(const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req) = 0;
 };
 
 class InternalStorageServiceAsyncProcessor;
@@ -53,12 +56,17 @@ class InternalStorageServiceSvIf : public InternalStorageServiceSvAsyncIf, publi
   folly::Future< ::nebula::storage::cpp2::UpdateResponse> future_chainUpdateEdge(const  ::nebula::storage::cpp2::ChainUpdateEdgeRequest& p_req) override;
   folly::SemiFuture< ::nebula::storage::cpp2::UpdateResponse> semifuture_chainUpdateEdge(const  ::nebula::storage::cpp2::ChainUpdateEdgeRequest& p_req) override;
   void async_tm_chainUpdateEdge(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::UpdateResponse>> callback, const  ::nebula::storage::cpp2::ChainUpdateEdgeRequest& p_req) override;
+  virtual void chainDeleteEdges( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& /*req*/);
+  folly::Future< ::nebula::storage::cpp2::ExecResponse> future_chainDeleteEdges(const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req) override;
+  folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> semifuture_chainDeleteEdges(const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req) override;
+  void async_tm_chainDeleteEdges(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ExecResponse>> callback, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req) override;
 };
 
 class InternalStorageServiceSvNull : public InternalStorageServiceSvIf {
  public:
   void chainAddEdges( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::ChainAddEdgesRequest& /*req*/) override;
   void chainUpdateEdge( ::nebula::storage::cpp2::UpdateResponse& /*_return*/, const  ::nebula::storage::cpp2::ChainUpdateEdgeRequest& /*req*/) override;
+  void chainDeleteEdges( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& /*req*/) override;
 };
 
 class InternalStorageServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcessor {
@@ -97,6 +105,14 @@ class InternalStorageServiceAsyncProcessor : public ::apache::thrift::GeneratedA
   static folly::IOBufQueue return_chainUpdateEdge(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::UpdateResponse const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_chainUpdateEdge(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_chainDeleteEdges(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_chainDeleteEdges(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_chainDeleteEdges(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ExecResponse const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_chainDeleteEdges(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
  public:
   InternalStorageServiceAsyncProcessor(InternalStorageServiceSvIf* iface) :
       iface_(iface) {}

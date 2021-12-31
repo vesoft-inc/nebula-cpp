@@ -15,8 +15,12 @@ typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apach
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::integral, int64_t*>> GraphService_signout_pargs;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::integral, int64_t*>, apache::thrift::FieldData<2, ::apache::thrift::type_class::binary, ::std::string*>> GraphService_execute_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure, nebula::ExecutionResponse*>> GraphService_execute_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::integral, int64_t*>, apache::thrift::FieldData<2, ::apache::thrift::type_class::binary, ::std::string*>, apache::thrift::FieldData<3, ::apache::thrift::type_class::map<::apache::thrift::type_class::binary, ::apache::thrift::type_class::variant>, std::unordered_map<::std::string, nebula::Value>*>> GraphService_executeWithParameter_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure, nebula::ExecutionResponse*>> GraphService_executeWithParameter_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::integral, int64_t*>, apache::thrift::FieldData<2, ::apache::thrift::type_class::binary, ::std::string*>> GraphService_executeJson_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::binary, ::std::string*>> GraphService_executeJson_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::integral, int64_t*>, apache::thrift::FieldData<2, ::apache::thrift::type_class::binary, ::std::string*>, apache::thrift::FieldData<3, ::apache::thrift::type_class::map<::apache::thrift::type_class::binary, ::apache::thrift::type_class::variant>, std::unordered_map<::std::string, nebula::Value>*>> GraphService_executeJsonWithParameter_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::binary, ::std::string*>> GraphService_executeJsonWithParameter_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure, nebula::VerifyClientVersionReq*>> GraphService_verifyClientVersion_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure, nebula::VerifyClientVersionResp*>> GraphService_verifyClientVersion_presult;
 
@@ -62,6 +66,21 @@ void GraphServiceAsyncClient::executeT(Protocol_* prot, apache::thrift::RpcOptio
 }
 
 template <typename Protocol_>
+void GraphServiceAsyncClient::executeWithParameterT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+
+  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
+  GraphService_executeWithParameter_pargs args;
+  args.get<0>().value = &p_sessionId;
+  args.get<1>().value = const_cast<::std::string*>(&p_stmt);
+  args.get<2>().value = const_cast<std::unordered_map<::std::string, nebula::Value>*>(&p_parameterMap);
+  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
+  auto writer = [&](Protocol_* p) { args.write(p); };
+  static constexpr const folly::StringPiece methodName = "executeWithParameter";
+  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
+  ctx->reqContext.setRequestHeader(nullptr);
+}
+
+template <typename Protocol_>
 void GraphServiceAsyncClient::executeJsonT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, int64_t p_sessionId, const ::std::string& p_stmt) {
 
   std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
@@ -71,6 +90,21 @@ void GraphServiceAsyncClient::executeJsonT(Protocol_* prot, apache::thrift::RpcO
   auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
   auto writer = [&](Protocol_* p) { args.write(p); };
   static constexpr const folly::StringPiece methodName = "executeJson";
+  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
+  ctx->reqContext.setRequestHeader(nullptr);
+}
+
+template <typename Protocol_>
+void GraphServiceAsyncClient::executeJsonWithParameterT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+
+  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
+  GraphService_executeJsonWithParameter_pargs args;
+  args.get<0>().value = &p_sessionId;
+  args.get<1>().value = const_cast<::std::string*>(&p_stmt);
+  args.get<2>().value = const_cast<std::unordered_map<::std::string, nebula::Value>*>(&p_parameterMap);
+  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
+  auto writer = [&](Protocol_* p) { args.write(p); };
+  static constexpr const folly::StringPiece methodName = "executeJsonWithParameter";
   apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
   ctx->reqContext.setRequestHeader(nullptr);
 }
@@ -522,6 +556,173 @@ folly::exception_wrapper GraphServiceAsyncClient::recv_instance_wrapped_execute(
   return recv_wrapped_execute(_return, state);
 }
 
+void GraphServiceAsyncClient::executeWithParameter(std::unique_ptr<apache::thrift::RequestCallback> callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  executeWithParameter(rpcOptions, std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+}
+
+void GraphServiceAsyncClient::executeWithParameter(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  auto ctx = executeWithParameterCtx(&rpcOptions);
+  apache::thrift::RequestCallback::Context callbackContext;
+  callbackContext.protocolId =
+      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
+  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
+  executeWithParameterImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_sessionId, p_stmt, p_parameterMap);
+}
+
+void GraphServiceAsyncClient::executeWithParameterImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolWriter writer;
+      executeWithParameterT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+      break;
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolWriter writer;
+      executeWithParameterT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+      break;
+    }
+    default:
+    {
+      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
+    }
+  }
+}
+
+std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> GraphServiceAsyncClient::executeWithParameterCtx(apache::thrift::RpcOptions* rpcOptions) {
+  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
+      channel_->getProtocolId(),
+      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
+      handlers_,
+      getServiceName(),
+      "GraphService.executeWithParameter");
+}
+
+void GraphServiceAsyncClient::sync_executeWithParameter(nebula::ExecutionResponse& _return, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  sync_executeWithParameter(rpcOptions, _return, p_sessionId, p_stmt, p_parameterMap);
+}
+
+void GraphServiceAsyncClient::sync_executeWithParameter(apache::thrift::RpcOptions& rpcOptions, nebula::ExecutionResponse& _return, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  apache::thrift::ClientReceiveState returnState;
+  apache::thrift::ClientSyncCallback<false> callback(&returnState);
+  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
+  auto ctx = executeWithParameterCtx(&rpcOptions);
+  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
+  executeWithParameterImpl(rpcOptions, ctx, std::move(wrappedCallback), p_sessionId, p_stmt, p_parameterMap);
+  callback.waitUntilDone(evb);
+
+  if (returnState.isException()) {
+    returnState.exception().throw_exception();
+  }
+  returnState.resetProtocolId(protocolId);
+  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+  SCOPE_EXIT {
+    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
+      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
+    }
+  };
+  return folly::fibers::runInMainContext([&] {
+      recv_executeWithParameter(_return, returnState);
+  });
+}
+
+
+folly::Future<nebula::ExecutionResponse> GraphServiceAsyncClient::future_executeWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return future_executeWithParameter(rpcOptions, p_sessionId, p_stmt, p_parameterMap);
+}
+
+folly::SemiFuture<nebula::ExecutionResponse> GraphServiceAsyncClient::semifuture_executeWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return semifuture_executeWithParameter(rpcOptions, p_sessionId, p_stmt, p_parameterMap);
+}
+
+folly::Future<nebula::ExecutionResponse> GraphServiceAsyncClient::future_executeWithParameter(apache::thrift::RpcOptions& rpcOptions, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  folly::Promise<nebula::ExecutionResponse> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::FutureCallback<nebula::ExecutionResponse>>(std::move(promise), recv_wrapped_executeWithParameter, channel_);
+  executeWithParameter(rpcOptions, std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+  return future;
+}
+
+folly::SemiFuture<nebula::ExecutionResponse> GraphServiceAsyncClient::semifuture_executeWithParameter(apache::thrift::RpcOptions& rpcOptions, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_executeWithParameter, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  executeWithParameter(rpcOptions, std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+  return std::move(callbackAndFuture.second);
+}
+
+folly::Future<std::pair<nebula::ExecutionResponse, std::unique_ptr<apache::thrift::transport::THeader>>> GraphServiceAsyncClient::header_future_executeWithParameter(apache::thrift::RpcOptions& rpcOptions, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  folly::Promise<std::pair<nebula::ExecutionResponse, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback<nebula::ExecutionResponse>>(std::move(promise), recv_wrapped_executeWithParameter, channel_);
+  executeWithParameter(rpcOptions, std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+  return future;
+}
+
+folly::SemiFuture<std::pair<nebula::ExecutionResponse, std::unique_ptr<apache::thrift::transport::THeader>>> GraphServiceAsyncClient::header_semifuture_executeWithParameter(apache::thrift::RpcOptions& rpcOptions, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_executeWithParameter, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  executeWithParameter(rpcOptions, std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+  return std::move(callbackAndFuture.second);
+}
+
+void GraphServiceAsyncClient::executeWithParameter(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  executeWithParameter(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_sessionId, p_stmt, p_parameterMap);
+}
+
+#if FOLLY_HAS_COROUTINES
+#endif // FOLLY_HAS_COROUTINES
+folly::exception_wrapper GraphServiceAsyncClient::recv_wrapped_executeWithParameter(nebula::ExecutionResponse& _return, ::apache::thrift::ClientReceiveState& state) {
+  if (state.isException()) {
+    return std::move(state.exception());
+  }
+  if (!state.buf()) {
+    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
+  }
+
+  using result = GraphService_executeWithParameter_presult;
+  constexpr auto const fname = "executeWithParameter";
+  switch (state.protocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    default:
+    {
+    }
+  }
+  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
+}
+
+void GraphServiceAsyncClient::recv_executeWithParameter(nebula::ExecutionResponse& _return, ::apache::thrift::ClientReceiveState& state) {
+  auto ew = recv_wrapped_executeWithParameter(_return, state);
+  if (ew) {
+    ew.throw_exception();
+  }
+}
+
+void GraphServiceAsyncClient::recv_instance_executeWithParameter(nebula::ExecutionResponse& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_executeWithParameter(_return, state);
+}
+
+folly::exception_wrapper GraphServiceAsyncClient::recv_instance_wrapped_executeWithParameter(nebula::ExecutionResponse& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_wrapped_executeWithParameter(_return, state);
+}
+
 void GraphServiceAsyncClient::executeJson(std::unique_ptr<apache::thrift::RequestCallback> callback, int64_t p_sessionId, const ::std::string& p_stmt) {
   ::apache::thrift::RpcOptions rpcOptions;
   executeJson(rpcOptions, std::move(callback), p_sessionId, p_stmt);
@@ -687,6 +888,173 @@ void GraphServiceAsyncClient::recv_instance_executeJson(::std::string& _return, 
 
 folly::exception_wrapper GraphServiceAsyncClient::recv_instance_wrapped_executeJson(::std::string& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_wrapped_executeJson(_return, state);
+}
+
+void GraphServiceAsyncClient::executeJsonWithParameter(std::unique_ptr<apache::thrift::RequestCallback> callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  executeJsonWithParameter(rpcOptions, std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+}
+
+void GraphServiceAsyncClient::executeJsonWithParameter(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  auto ctx = executeJsonWithParameterCtx(&rpcOptions);
+  apache::thrift::RequestCallback::Context callbackContext;
+  callbackContext.protocolId =
+      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
+  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
+  executeJsonWithParameterImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_sessionId, p_stmt, p_parameterMap);
+}
+
+void GraphServiceAsyncClient::executeJsonWithParameterImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolWriter writer;
+      executeJsonWithParameterT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+      break;
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolWriter writer;
+      executeJsonWithParameterT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+      break;
+    }
+    default:
+    {
+      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
+    }
+  }
+}
+
+std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> GraphServiceAsyncClient::executeJsonWithParameterCtx(apache::thrift::RpcOptions* rpcOptions) {
+  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
+      channel_->getProtocolId(),
+      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
+      handlers_,
+      getServiceName(),
+      "GraphService.executeJsonWithParameter");
+}
+
+void GraphServiceAsyncClient::sync_executeJsonWithParameter(::std::string& _return, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  sync_executeJsonWithParameter(rpcOptions, _return, p_sessionId, p_stmt, p_parameterMap);
+}
+
+void GraphServiceAsyncClient::sync_executeJsonWithParameter(apache::thrift::RpcOptions& rpcOptions, ::std::string& _return, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  apache::thrift::ClientReceiveState returnState;
+  apache::thrift::ClientSyncCallback<false> callback(&returnState);
+  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
+  auto ctx = executeJsonWithParameterCtx(&rpcOptions);
+  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
+  executeJsonWithParameterImpl(rpcOptions, ctx, std::move(wrappedCallback), p_sessionId, p_stmt, p_parameterMap);
+  callback.waitUntilDone(evb);
+
+  if (returnState.isException()) {
+    returnState.exception().throw_exception();
+  }
+  returnState.resetProtocolId(protocolId);
+  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+  SCOPE_EXIT {
+    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
+      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
+    }
+  };
+  return folly::fibers::runInMainContext([&] {
+      recv_executeJsonWithParameter(_return, returnState);
+  });
+}
+
+
+folly::Future<::std::string> GraphServiceAsyncClient::future_executeJsonWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return future_executeJsonWithParameter(rpcOptions, p_sessionId, p_stmt, p_parameterMap);
+}
+
+folly::SemiFuture<::std::string> GraphServiceAsyncClient::semifuture_executeJsonWithParameter(int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return semifuture_executeJsonWithParameter(rpcOptions, p_sessionId, p_stmt, p_parameterMap);
+}
+
+folly::Future<::std::string> GraphServiceAsyncClient::future_executeJsonWithParameter(apache::thrift::RpcOptions& rpcOptions, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  folly::Promise<::std::string> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::FutureCallback<::std::string>>(std::move(promise), recv_wrapped_executeJsonWithParameter, channel_);
+  executeJsonWithParameter(rpcOptions, std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+  return future;
+}
+
+folly::SemiFuture<::std::string> GraphServiceAsyncClient::semifuture_executeJsonWithParameter(apache::thrift::RpcOptions& rpcOptions, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_executeJsonWithParameter, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  executeJsonWithParameter(rpcOptions, std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+  return std::move(callbackAndFuture.second);
+}
+
+folly::Future<std::pair<::std::string, std::unique_ptr<apache::thrift::transport::THeader>>> GraphServiceAsyncClient::header_future_executeJsonWithParameter(apache::thrift::RpcOptions& rpcOptions, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  folly::Promise<std::pair<::std::string, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback<::std::string>>(std::move(promise), recv_wrapped_executeJsonWithParameter, channel_);
+  executeJsonWithParameter(rpcOptions, std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+  return future;
+}
+
+folly::SemiFuture<std::pair<::std::string, std::unique_ptr<apache::thrift::transport::THeader>>> GraphServiceAsyncClient::header_semifuture_executeJsonWithParameter(apache::thrift::RpcOptions& rpcOptions, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_executeJsonWithParameter, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  executeJsonWithParameter(rpcOptions, std::move(callback), p_sessionId, p_stmt, p_parameterMap);
+  return std::move(callbackAndFuture.second);
+}
+
+void GraphServiceAsyncClient::executeJsonWithParameter(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, int64_t p_sessionId, const ::std::string& p_stmt, const std::unordered_map<::std::string, nebula::Value>& p_parameterMap) {
+  executeJsonWithParameter(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_sessionId, p_stmt, p_parameterMap);
+}
+
+#if FOLLY_HAS_COROUTINES
+#endif // FOLLY_HAS_COROUTINES
+folly::exception_wrapper GraphServiceAsyncClient::recv_wrapped_executeJsonWithParameter(::std::string& _return, ::apache::thrift::ClientReceiveState& state) {
+  if (state.isException()) {
+    return std::move(state.exception());
+  }
+  if (!state.buf()) {
+    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
+  }
+
+  using result = GraphService_executeJsonWithParameter_presult;
+  constexpr auto const fname = "executeJsonWithParameter";
+  switch (state.protocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    default:
+    {
+    }
+  }
+  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
+}
+
+void GraphServiceAsyncClient::recv_executeJsonWithParameter(::std::string& _return, ::apache::thrift::ClientReceiveState& state) {
+  auto ew = recv_wrapped_executeJsonWithParameter(_return, state);
+  if (ew) {
+    ew.throw_exception();
+  }
+}
+
+void GraphServiceAsyncClient::recv_instance_executeJsonWithParameter(::std::string& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_executeJsonWithParameter(_return, state);
+}
+
+folly::exception_wrapper GraphServiceAsyncClient::recv_instance_wrapped_executeJsonWithParameter(::std::string& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_wrapped_executeJsonWithParameter(_return, state);
 }
 
 void GraphServiceAsyncClient::verifyClientVersion(std::unique_ptr<apache::thrift::RequestCallback> callback, const nebula::VerifyClientVersionReq& p_req) {

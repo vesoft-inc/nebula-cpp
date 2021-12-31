@@ -323,6 +323,36 @@ void ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen_execute(Thrif
   func.is_oneway_ref() = false;
   service.functions_ref()->push_back(std::move(func));
 }
+void ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen_executeWithParameter(ThriftMetadata& metadata, ThriftService& service) {
+  ::apache::thrift::metadata::ThriftFunction func;
+  (void)metadata;
+  func.name_ref() = "executeWithParameter";
+  auto func_ret_type = std::make_unique<Struct< ::nebula::graph::cpp2::ExecutionResponse>>("graph.ExecutionResponse");
+  func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
+  ::apache::thrift::metadata::ThriftField graph_GraphService_executeWithParameter_sessionId_1;
+  graph_GraphService_executeWithParameter_sessionId_1.id_ref() = 1;
+  graph_GraphService_executeWithParameter_sessionId_1.name_ref() = "sessionId";
+  graph_GraphService_executeWithParameter_sessionId_1.is_optional_ref() = false;
+  auto graph_GraphService_executeWithParameter_sessionId_1_type = std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE);
+  graph_GraphService_executeWithParameter_sessionId_1_type->writeAndGenType(*graph_GraphService_executeWithParameter_sessionId_1.type_ref(), metadata);
+  func.arguments_ref()->push_back(std::move(graph_GraphService_executeWithParameter_sessionId_1));
+  ::apache::thrift::metadata::ThriftField graph_GraphService_executeWithParameter_stmt_2;
+  graph_GraphService_executeWithParameter_stmt_2.id_ref() = 2;
+  graph_GraphService_executeWithParameter_stmt_2.name_ref() = "stmt";
+  graph_GraphService_executeWithParameter_stmt_2.is_optional_ref() = false;
+  auto graph_GraphService_executeWithParameter_stmt_2_type = std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE);
+  graph_GraphService_executeWithParameter_stmt_2_type->writeAndGenType(*graph_GraphService_executeWithParameter_stmt_2.type_ref(), metadata);
+  func.arguments_ref()->push_back(std::move(graph_GraphService_executeWithParameter_stmt_2));
+  ::apache::thrift::metadata::ThriftField graph_GraphService_executeWithParameter_parameterMap_3;
+  graph_GraphService_executeWithParameter_parameterMap_3.id_ref() = 3;
+  graph_GraphService_executeWithParameter_parameterMap_3.name_ref() = "parameterMap";
+  graph_GraphService_executeWithParameter_parameterMap_3.is_optional_ref() = false;
+  auto graph_GraphService_executeWithParameter_parameterMap_3_type = std::make_unique<Map>(std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::make_unique<Union< ::nebula::cpp2::Value>>("common.Value"));
+  graph_GraphService_executeWithParameter_parameterMap_3_type->writeAndGenType(*graph_GraphService_executeWithParameter_parameterMap_3.type_ref(), metadata);
+  func.arguments_ref()->push_back(std::move(graph_GraphService_executeWithParameter_parameterMap_3));
+  func.is_oneway_ref() = false;
+  service.functions_ref()->push_back(std::move(func));
+}
 void ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen_executeJson(ThriftMetadata& metadata, ThriftService& service) {
   ::apache::thrift::metadata::ThriftFunction func;
   (void)metadata;
@@ -343,6 +373,36 @@ void ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen_executeJson(T
   auto graph_GraphService_executeJson_stmt_2_type = std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE);
   graph_GraphService_executeJson_stmt_2_type->writeAndGenType(*graph_GraphService_executeJson_stmt_2.type_ref(), metadata);
   func.arguments_ref()->push_back(std::move(graph_GraphService_executeJson_stmt_2));
+  func.is_oneway_ref() = false;
+  service.functions_ref()->push_back(std::move(func));
+}
+void ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen_executeJsonWithParameter(ThriftMetadata& metadata, ThriftService& service) {
+  ::apache::thrift::metadata::ThriftFunction func;
+  (void)metadata;
+  func.name_ref() = "executeJsonWithParameter";
+  auto func_ret_type = std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE);
+  func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
+  ::apache::thrift::metadata::ThriftField graph_GraphService_executeJsonWithParameter_sessionId_1;
+  graph_GraphService_executeJsonWithParameter_sessionId_1.id_ref() = 1;
+  graph_GraphService_executeJsonWithParameter_sessionId_1.name_ref() = "sessionId";
+  graph_GraphService_executeJsonWithParameter_sessionId_1.is_optional_ref() = false;
+  auto graph_GraphService_executeJsonWithParameter_sessionId_1_type = std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE);
+  graph_GraphService_executeJsonWithParameter_sessionId_1_type->writeAndGenType(*graph_GraphService_executeJsonWithParameter_sessionId_1.type_ref(), metadata);
+  func.arguments_ref()->push_back(std::move(graph_GraphService_executeJsonWithParameter_sessionId_1));
+  ::apache::thrift::metadata::ThriftField graph_GraphService_executeJsonWithParameter_stmt_2;
+  graph_GraphService_executeJsonWithParameter_stmt_2.id_ref() = 2;
+  graph_GraphService_executeJsonWithParameter_stmt_2.name_ref() = "stmt";
+  graph_GraphService_executeJsonWithParameter_stmt_2.is_optional_ref() = false;
+  auto graph_GraphService_executeJsonWithParameter_stmt_2_type = std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE);
+  graph_GraphService_executeJsonWithParameter_stmt_2_type->writeAndGenType(*graph_GraphService_executeJsonWithParameter_stmt_2.type_ref(), metadata);
+  func.arguments_ref()->push_back(std::move(graph_GraphService_executeJsonWithParameter_stmt_2));
+  ::apache::thrift::metadata::ThriftField graph_GraphService_executeJsonWithParameter_parameterMap_3;
+  graph_GraphService_executeJsonWithParameter_parameterMap_3.id_ref() = 3;
+  graph_GraphService_executeJsonWithParameter_parameterMap_3.name_ref() = "parameterMap";
+  graph_GraphService_executeJsonWithParameter_parameterMap_3.is_optional_ref() = false;
+  auto graph_GraphService_executeJsonWithParameter_parameterMap_3_type = std::make_unique<Map>(std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::make_unique<Union< ::nebula::cpp2::Value>>("common.Value"));
+  graph_GraphService_executeJsonWithParameter_parameterMap_3_type->writeAndGenType(*graph_GraphService_executeJsonWithParameter_parameterMap_3.type_ref(), metadata);
+  func.arguments_ref()->push_back(std::move(graph_GraphService_executeJsonWithParameter_parameterMap_3));
   func.is_oneway_ref() = false;
   service.functions_ref()->push_back(std::move(func));
 }
@@ -371,7 +431,9 @@ void ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen(ThriftMetadat
     ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen_authenticate,
     ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen_signout,
     ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen_execute,
+    ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen_executeWithParameter,
     ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen_executeJson,
+    ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen_executeJsonWithParameter,
     ServiceMetadata<::nebula::graph::cpp2::GraphServiceSvIf>::gen_verifyClientVersion,
   };
   for (auto& function_gen : functions) {

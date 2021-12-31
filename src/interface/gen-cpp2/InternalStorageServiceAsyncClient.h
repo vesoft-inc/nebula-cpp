@@ -193,6 +193,88 @@ class InternalStorageServiceAsyncClient : public apache::thrift::GeneratedAsyncC
   void chainUpdateEdgeT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::ChainUpdateEdgeRequest& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> chainUpdateEdgeCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
+  virtual void chainDeleteEdges(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+  virtual void chainDeleteEdges(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+ protected:
+  void chainDeleteEdgesImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+ public:
+
+  virtual void sync_chainDeleteEdges( ::nebula::storage::cpp2::ExecResponse& _return, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+  virtual void sync_chainDeleteEdges(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::ExecResponse& _return, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+
+  virtual folly::Future< ::nebula::storage::cpp2::ExecResponse> future_chainDeleteEdges(const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> semifuture_chainDeleteEdges(const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+  virtual folly::Future< ::nebula::storage::cpp2::ExecResponse> future_chainDeleteEdges(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::ExecResponse> semifuture_chainDeleteEdges(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+  virtual folly::Future<std::pair< ::nebula::storage::cpp2::ExecResponse, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_chainDeleteEdges(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::storage::cpp2::ExecResponse, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_chainDeleteEdges(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+
+#if FOLLY_HAS_COROUTINES
+  template <int = 0>
+  folly::coro::Task< ::nebula::storage::cpp2::ExecResponse> co_chainDeleteEdges(const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req) {
+    return co_chainDeleteEdges<false>(nullptr, p_req);
+  }
+  template <int = 0>
+  folly::coro::Task< ::nebula::storage::cpp2::ExecResponse> co_chainDeleteEdges(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req) {
+    return co_chainDeleteEdges<true>(&rpcOptions, p_req);
+  }
+ private:
+  template <bool hasRpcOptions>
+  folly::coro::Task< ::nebula::storage::cpp2::ExecResponse> co_chainDeleteEdges(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req) {
+    const folly::CancellationToken& cancelToken =
+        co_await folly::coro::co_current_cancellation_token;
+    const bool cancellable = cancelToken.canBeCancelled();
+    apache::thrift::ClientReceiveState returnState;
+    apache::thrift::ClientSyncCallback<false> callback(&returnState);
+    auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+    auto ctx = chainDeleteEdgesCtx(rpcOptions);
+    using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
+    auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
+    static const apache::thrift::RpcOptions defaultRpcOptions;
+    auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
+    if constexpr (hasRpcOptions) {
+      chainDeleteEdgesImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+    } else {
+      chainDeleteEdgesImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+    }
+    if (cancellable) {
+      folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
+      co_await callback.co_waitUntilDone();
+    } else {
+      co_await callback.co_waitUntilDone();
+    }
+    if (returnState.isException()) {
+      co_yield folly::coro::co_error(std::move(returnState.exception()));
+    }
+    returnState.resetProtocolId(protocolId);
+    returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+    SCOPE_EXIT {
+      if (hasRpcOptions && returnState.header() && !returnState.header()->getHeaders().empty()) {
+        rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
+      }
+    };
+     ::nebula::storage::cpp2::ExecResponse _return;
+    if (auto ew = recv_wrapped_chainDeleteEdges(_return, returnState)) {
+      co_yield folly::coro::co_error(std::move(ew));
+    }
+    co_return _return;
+  }
+ public:
+#endif // FOLLY_HAS_COROUTINES
+
+  virtual void chainDeleteEdges(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+
+
+  static folly::exception_wrapper recv_wrapped_chainDeleteEdges( ::nebula::storage::cpp2::ExecResponse& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_chainDeleteEdges( ::nebula::storage::cpp2::ExecResponse& _return, ::apache::thrift::ClientReceiveState& state);
+  // Mock friendly virtual instance method
+  virtual void recv_instance_chainDeleteEdges( ::nebula::storage::cpp2::ExecResponse& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_chainDeleteEdges( ::nebula::storage::cpp2::ExecResponse& _return, ::apache::thrift::ClientReceiveState& state);
+ private:
+  template <typename Protocol_>
+  void chainDeleteEdgesT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::ChainDeleteEdgesRequest& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> chainDeleteEdgesCtx(apache::thrift::RpcOptions* rpcOptions);
+ public:
 };
 
 }}} // nebula::storage::cpp2

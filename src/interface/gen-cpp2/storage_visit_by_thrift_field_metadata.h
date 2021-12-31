@@ -347,7 +347,9 @@ struct VisitByThriftId<::nebula::storage::cpp2::AddVerticesRequest> {
     case 4:
       return f(3, static_cast<T&&>(t).if_not_exists_ref());
     case 5:
-      return f(4, static_cast<T&&>(t).common_ref());
+      return f(4, static_cast<T&&>(t).ignore_existed_index_ref());
+    case 6:
+      return f(5, static_cast<T&&>(t).common_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::AddVerticesRequest");
     }
@@ -368,7 +370,9 @@ struct VisitByThriftId<::nebula::storage::cpp2::AddEdgesRequest> {
     case 4:
       return f(3, static_cast<T&&>(t).if_not_exists_ref());
     case 5:
-      return f(4, static_cast<T&&>(t).common_ref());
+      return f(4, static_cast<T&&>(t).ignore_existed_index_ref());
+    case 6:
+      return f(5, static_cast<T&&>(t).common_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::AddEdgesRequest");
     }
@@ -648,6 +652,8 @@ struct VisitByThriftId<::nebula::storage::cpp2::LookupIndexRequest> {
       return f(4, static_cast<T&&>(t).common_ref());
     case 6:
       return f(5, static_cast<T&&>(t).limit_ref());
+    case 7:
+      return f(6, static_cast<T&&>(t).order_by_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::LookupIndexRequest");
     }
@@ -982,7 +988,7 @@ struct VisitByThriftId<::nebula::storage::cpp2::CreateCPRequest> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
     switch (id) {
     case 1:
-      return f(0, static_cast<T&&>(t).space_id_ref());
+      return f(0, static_cast<T&&>(t).space_ids_ref());
     case 2:
       return f(1, static_cast<T&&>(t).name_ref());
     default:
@@ -997,7 +1003,7 @@ struct VisitByThriftId<::nebula::storage::cpp2::DropCPRequest> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
     switch (id) {
     case 1:
-      return f(0, static_cast<T&&>(t).space_id_ref());
+      return f(0, static_cast<T&&>(t).space_ids_ref());
     case 2:
       return f(1, static_cast<T&&>(t).name_ref());
     default:
@@ -1012,7 +1018,7 @@ struct VisitByThriftId<::nebula::storage::cpp2::BlockingSignRequest> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
     switch (id) {
     case 1:
-      return f(0, static_cast<T&&>(t).space_id_ref());
+      return f(0, static_cast<T&&>(t).space_ids_ref());
     case 2:
       return f(1, static_cast<T&&>(t).sign_ref());
     default:
@@ -1148,27 +1154,6 @@ struct VisitByThriftId<::nebula::storage::cpp2::StopAdminTaskRequest> {
 };
 
 template <>
-struct VisitByThriftId<::nebula::storage::cpp2::InternalTxnRequest> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    case 1:
-      return f(0, static_cast<T&&>(t).txn_id_ref());
-    case 2:
-      return f(1, static_cast<T&&>(t).term_of_parts_ref());
-    case 3:
-      return f(2, static_cast<T&&>(t).add_edge_req_ref());
-    case 4:
-      return f(3, static_cast<T&&>(t).upd_edge_req_ref());
-    case 5:
-      return f(4, static_cast<T&&>(t).edge_ver_ref());
-    default:
-      throwInvalidThriftId(id, "::nebula::storage::cpp2::InternalTxnRequest");
-    }
-  }
-};
-
-template <>
 struct VisitByThriftId<::nebula::storage::cpp2::ChainAddEdgesRequest> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
@@ -1208,6 +1193,25 @@ struct VisitByThriftId<::nebula::storage::cpp2::ChainUpdateEdgeRequest> {
       return f(4, static_cast<T&&>(t).parts_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::ChainUpdateEdgeRequest");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::storage::cpp2::ChainDeleteEdgesRequest> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).space_id_ref());
+    case 2:
+      return f(1, static_cast<T&&>(t).parts_ref());
+    case 3:
+      return f(2, static_cast<T&&>(t).txn_id_ref());
+    case 4:
+      return f(3, static_cast<T&&>(t).term_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::ChainDeleteEdgesRequest");
     }
   }
 };

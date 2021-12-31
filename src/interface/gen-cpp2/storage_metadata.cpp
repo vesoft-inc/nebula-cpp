@@ -569,7 +569,8 @@ StructMetadata<::nebula::storage::cpp2::AddVerticesRequest>::gen(ThriftMetadata&
     std::make_tuple(2, "parts", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<List>(std::make_unique<Struct< ::nebula::storage::cpp2::NewVertex>>("storage.NewVertex"))), std::vector<ThriftConstStruct>{}),
     std::make_tuple(3, "prop_names", false, std::make_unique<Map>(std::make_unique<Typedef>("common.TagID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<List>(std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE))), std::vector<ThriftConstStruct>{}),
     std::make_tuple(4, "if_not_exists", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(5, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(5, "ignore_existed_index", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(6, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_AddVerticesRequest_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -597,7 +598,8 @@ StructMetadata<::nebula::storage::cpp2::AddEdgesRequest>::gen(ThriftMetadata& me
     std::make_tuple(2, "parts", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<List>(std::make_unique<Struct< ::nebula::storage::cpp2::NewEdge>>("storage.NewEdge"))), std::vector<ThriftConstStruct>{}),
     std::make_tuple(3, "prop_names", false, std::make_unique<List>(std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE)), std::vector<ThriftConstStruct>{}),
     std::make_tuple(4, "if_not_exists", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(5, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(5, "ignore_existed_index", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(6, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_AddEdgesRequest_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -1000,6 +1002,7 @@ StructMetadata<::nebula::storage::cpp2::LookupIndexRequest>::gen(ThriftMetadata&
     std::make_tuple(4, "return_columns", true, std::make_unique<List>(std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE)), std::vector<ThriftConstStruct>{}),
     std::make_tuple(5, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(6, "limit", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(7, "order_by", true, std::make_unique<List>(std::make_unique<Struct< ::nebula::storage::cpp2::OrderBy>>("storage.OrderBy")), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_LookupIndexRequest_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -1487,7 +1490,7 @@ StructMetadata<::nebula::storage::cpp2::CreateCPRequest>::gen(ThriftMetadata& me
   storage_CreateCPRequest.is_union_ref() = false;
   static const EncodedThriftField
   storage_CreateCPRequest_fields[] = {
-    std::make_tuple(1, "space_id", false, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(1, "space_ids", false, std::make_unique<List>(std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE))), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "name", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_CreateCPRequest_fields) {
@@ -1512,7 +1515,7 @@ StructMetadata<::nebula::storage::cpp2::DropCPRequest>::gen(ThriftMetadata& meta
   storage_DropCPRequest.is_union_ref() = false;
   static const EncodedThriftField
   storage_DropCPRequest_fields[] = {
-    std::make_tuple(1, "space_id", false, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(1, "space_ids", false, std::make_unique<List>(std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE))), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "name", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_DropCPRequest_fields) {
@@ -1537,7 +1540,7 @@ StructMetadata<::nebula::storage::cpp2::BlockingSignRequest>::gen(ThriftMetadata
   storage_BlockingSignRequest.is_union_ref() = false;
   static const EncodedThriftField
   storage_BlockingSignRequest_fields[] = {
-    std::make_tuple(1, "space_id", false, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(1, "space_ids", false, std::make_unique<List>(std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE))), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "sign", false, std::make_unique<Enum< ::nebula::storage::cpp2::EngineSignType>>("storage.EngineSignType"), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_BlockingSignRequest_fields) {
@@ -1743,34 +1746,6 @@ StructMetadata<::nebula::storage::cpp2::StopAdminTaskRequest>::gen(ThriftMetadat
   return res.first->second;
 }
 const ::apache::thrift::metadata::ThriftStruct&
-StructMetadata<::nebula::storage::cpp2::InternalTxnRequest>::gen(ThriftMetadata& metadata) {
-  auto res = metadata.structs_ref()->emplace("storage.InternalTxnRequest", ::apache::thrift::metadata::ThriftStruct{});
-  if (!res.second) {
-    return res.first->second;
-  }
-  ::apache::thrift::metadata::ThriftStruct& storage_InternalTxnRequest = res.first->second;
-  storage_InternalTxnRequest.name_ref() = "storage.InternalTxnRequest";
-  storage_InternalTxnRequest.is_union_ref() = false;
-  static const EncodedThriftField
-  storage_InternalTxnRequest_fields[] = {
-    std::make_tuple(1, "txn_id", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(2, "term_of_parts", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE)), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(3, "add_edge_req", true, std::make_unique<Struct< ::nebula::storage::cpp2::AddEdgesRequest>>("storage.AddEdgesRequest"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(4, "upd_edge_req", true, std::make_unique<Struct< ::nebula::storage::cpp2::UpdateEdgeRequest>>("storage.UpdateEdgeRequest"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(5, "edge_ver", true, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<List>(std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE))), std::vector<ThriftConstStruct>{}),
-  };
-  for (const auto& f : storage_InternalTxnRequest_fields) {
-    ::apache::thrift::metadata::ThriftField field;
-    field.id_ref() = std::get<0>(f);
-    field.name_ref() = std::get<1>(f);
-    field.is_optional_ref() = std::get<2>(f);
-    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
-    field.structured_annotations_ref() = std::get<4>(f);
-    storage_InternalTxnRequest.fields_ref()->push_back(std::move(field));
-  }
-  return res.first->second;
-}
-const ::apache::thrift::metadata::ThriftStruct&
 StructMetadata<::nebula::storage::cpp2::ChainAddEdgesRequest>::gen(ThriftMetadata& metadata) {
   auto res = metadata.structs_ref()->emplace("storage.ChainAddEdgesRequest", ::apache::thrift::metadata::ThriftStruct{});
   if (!res.second) {
@@ -1824,6 +1799,33 @@ StructMetadata<::nebula::storage::cpp2::ChainUpdateEdgeRequest>::gen(ThriftMetad
     std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
     field.structured_annotations_ref() = std::get<4>(f);
     storage_ChainUpdateEdgeRequest.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::storage::cpp2::ChainDeleteEdgesRequest>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.ChainDeleteEdgesRequest", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& storage_ChainDeleteEdgesRequest = res.first->second;
+  storage_ChainDeleteEdgesRequest.name_ref() = "storage.ChainDeleteEdgesRequest";
+  storage_ChainDeleteEdgesRequest.is_union_ref() = false;
+  static const EncodedThriftField
+  storage_ChainDeleteEdgesRequest_fields[] = {
+    std::make_tuple(1, "space_id", false, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "parts", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<List>(std::make_unique<Struct< ::nebula::storage::cpp2::EdgeKey>>("storage.EdgeKey"))), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "txn_id", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(4, "term", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : storage_ChainDeleteEdgesRequest_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    storage_ChainDeleteEdgesRequest.fields_ref()->push_back(std::move(field));
   }
   return res.first->second;
 }
@@ -2084,6 +2086,22 @@ void ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_chai
   func.is_oneway_ref() = false;
   service.functions_ref()->push_back(std::move(func));
 }
+void ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_chainDeleteEdges(ThriftMetadata& metadata, ThriftService& service) {
+  ::apache::thrift::metadata::ThriftFunction func;
+  (void)metadata;
+  func.name_ref() = "chainDeleteEdges";
+  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::ExecResponse>>("storage.ExecResponse");
+  func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
+  ::apache::thrift::metadata::ThriftField storage_GraphStorageService_chainDeleteEdges_req_1;
+  storage_GraphStorageService_chainDeleteEdges_req_1.id_ref() = 1;
+  storage_GraphStorageService_chainDeleteEdges_req_1.name_ref() = "req";
+  storage_GraphStorageService_chainDeleteEdges_req_1.is_optional_ref() = false;
+  auto storage_GraphStorageService_chainDeleteEdges_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::DeleteEdgesRequest>>("storage.DeleteEdgesRequest");
+  storage_GraphStorageService_chainDeleteEdges_req_1_type->writeAndGenType(*storage_GraphStorageService_chainDeleteEdges_req_1.type_ref(), metadata);
+  func.arguments_ref()->push_back(std::move(storage_GraphStorageService_chainDeleteEdges_req_1));
+  func.is_oneway_ref() = false;
+  service.functions_ref()->push_back(std::move(func));
+}
 void ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_get(ThriftMetadata& metadata, ThriftService& service) {
   ::apache::thrift::metadata::ThriftFunction func;
   (void)metadata;
@@ -2154,6 +2172,7 @@ void ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen(Thri
     ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_lookupAndTraverse,
     ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_chainUpdateEdge,
     ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_chainAddEdges,
+    ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_chainDeleteEdges,
     ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_get,
     ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_put,
     ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_remove,
@@ -2406,22 +2425,6 @@ void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_stop
   func.is_oneway_ref() = false;
   service.functions_ref()->push_back(std::move(func));
 }
-void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_listClusterInfo(ThriftMetadata& metadata, ThriftService& service) {
-  ::apache::thrift::metadata::ThriftFunction func;
-  (void)metadata;
-  func.name_ref() = "listClusterInfo";
-  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::ListClusterInfoResp>>("storage.ListClusterInfoResp");
-  func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
-  ::apache::thrift::metadata::ThriftField storage_StorageAdminService_listClusterInfo_req_1;
-  storage_StorageAdminService_listClusterInfo_req_1.id_ref() = 1;
-  storage_StorageAdminService_listClusterInfo_req_1.name_ref() = "req";
-  storage_StorageAdminService_listClusterInfo_req_1.is_optional_ref() = false;
-  auto storage_StorageAdminService_listClusterInfo_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::ListClusterInfoReq>>("storage.ListClusterInfoReq");
-  storage_StorageAdminService_listClusterInfo_req_1_type->writeAndGenType(*storage_StorageAdminService_listClusterInfo_req_1.type_ref(), metadata);
-  func.arguments_ref()->push_back(std::move(storage_StorageAdminService_listClusterInfo_req_1));
-  func.is_oneway_ref() = false;
-  service.functions_ref()->push_back(std::move(func));
-}
 
 void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen(ThriftMetadata& metadata, ThriftServiceContext& context) {
   (void) metadata;
@@ -2443,7 +2446,6 @@ void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen(Thri
     ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_checkPeers,
     ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_addAdminTask,
     ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_stopAdminTask,
-    ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_listClusterInfo,
   };
   for (auto& function_gen : functions) {
     function_gen(metadata, storage_StorageAdminService);
@@ -2485,6 +2487,22 @@ void ServiceMetadata<::nebula::storage::cpp2::InternalStorageServiceSvIf>::gen_c
   func.is_oneway_ref() = false;
   service.functions_ref()->push_back(std::move(func));
 }
+void ServiceMetadata<::nebula::storage::cpp2::InternalStorageServiceSvIf>::gen_chainDeleteEdges(ThriftMetadata& metadata, ThriftService& service) {
+  ::apache::thrift::metadata::ThriftFunction func;
+  (void)metadata;
+  func.name_ref() = "chainDeleteEdges";
+  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::ExecResponse>>("storage.ExecResponse");
+  func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
+  ::apache::thrift::metadata::ThriftField storage_InternalStorageService_chainDeleteEdges_req_1;
+  storage_InternalStorageService_chainDeleteEdges_req_1.id_ref() = 1;
+  storage_InternalStorageService_chainDeleteEdges_req_1.name_ref() = "req";
+  storage_InternalStorageService_chainDeleteEdges_req_1.is_optional_ref() = false;
+  auto storage_InternalStorageService_chainDeleteEdges_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::ChainDeleteEdgesRequest>>("storage.ChainDeleteEdgesRequest");
+  storage_InternalStorageService_chainDeleteEdges_req_1_type->writeAndGenType(*storage_InternalStorageService_chainDeleteEdges_req_1.type_ref(), metadata);
+  func.arguments_ref()->push_back(std::move(storage_InternalStorageService_chainDeleteEdges_req_1));
+  func.is_oneway_ref() = false;
+  service.functions_ref()->push_back(std::move(func));
+}
 
 void ServiceMetadata<::nebula::storage::cpp2::InternalStorageServiceSvIf>::gen(ThriftMetadata& metadata, ThriftServiceContext& context) {
   (void) metadata;
@@ -2493,6 +2511,7 @@ void ServiceMetadata<::nebula::storage::cpp2::InternalStorageServiceSvIf>::gen(T
   static const ThriftFunctionGenerator functions[] = {
     ServiceMetadata<::nebula::storage::cpp2::InternalStorageServiceSvIf>::gen_chainAddEdges,
     ServiceMetadata<::nebula::storage::cpp2::InternalStorageServiceSvIf>::gen_chainUpdateEdge,
+    ServiceMetadata<::nebula::storage::cpp2::InternalStorageServiceSvIf>::gen_chainDeleteEdges,
   };
   for (auto& function_gen : functions) {
     function_gen(metadata, storage_InternalStorageService);

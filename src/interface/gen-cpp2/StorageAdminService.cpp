@@ -330,27 +330,6 @@ void StorageAdminServiceSvIf::async_tm_stopAdminTask(std::unique_ptr<apache::thr
   });
 }
 
-void StorageAdminServiceSvIf::listClusterInfo( ::nebula::storage::cpp2::ListClusterInfoResp& /*_return*/, const  ::nebula::storage::cpp2::ListClusterInfoReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("listClusterInfo");
-}
-
-folly::SemiFuture< ::nebula::storage::cpp2::ListClusterInfoResp> StorageAdminServiceSvIf::semifuture_listClusterInfo(const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::storage::cpp2::ListClusterInfoResp& _return) { listClusterInfo(_return, p_req); });
-}
-
-folly::Future< ::nebula::storage::cpp2::ListClusterInfoResp> StorageAdminServiceSvIf::future_listClusterInfo(const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_listClusterInfo(p_req), std::move(ka));
-}
-
-void StorageAdminServiceSvIf::async_tm_listClusterInfo(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ListClusterInfoResp>> callback, const  ::nebula::storage::cpp2::ListClusterInfoReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_listClusterInfo(p_req);
-  });
-}
-
 void StorageAdminServiceSvNull::transLeader( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::TransLeaderReq& /*req*/) {}
 
 void StorageAdminServiceSvNull::addPart( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::AddPartReq& /*req*/) {}
@@ -380,8 +359,6 @@ void StorageAdminServiceSvNull::checkPeers( ::nebula::storage::cpp2::AdminExecRe
 void StorageAdminServiceSvNull::addAdminTask( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::AddAdminTaskRequest& /*req*/) {}
 
 void StorageAdminServiceSvNull::stopAdminTask( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::StopAdminTaskRequest& /*req*/) {}
-
-void StorageAdminServiceSvNull::listClusterInfo( ::nebula::storage::cpp2::ListClusterInfoResp& /*_return*/, const  ::nebula::storage::cpp2::ListClusterInfoReq& /*req*/) {}
 
 
 
@@ -421,7 +398,6 @@ const StorageAdminServiceAsyncProcessor::ProcessMap StorageAdminServiceAsyncProc
   {"checkPeers", &StorageAdminServiceAsyncProcessor::setUpAndProcess_checkPeers<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"addAdminTask", &StorageAdminServiceAsyncProcessor::setUpAndProcess_addAdminTask<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"stopAdminTask", &StorageAdminServiceAsyncProcessor::setUpAndProcess_stopAdminTask<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"listClusterInfo", &StorageAdminServiceAsyncProcessor::setUpAndProcess_listClusterInfo<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
 };
 
 const StorageAdminServiceAsyncProcessor::ProcessMap& StorageAdminServiceAsyncProcessor::getCompactProtocolProcessMap() {
@@ -444,7 +420,6 @@ const StorageAdminServiceAsyncProcessor::ProcessMap StorageAdminServiceAsyncProc
   {"checkPeers", &StorageAdminServiceAsyncProcessor::setUpAndProcess_checkPeers<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"addAdminTask", &StorageAdminServiceAsyncProcessor::setUpAndProcess_addAdminTask<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"stopAdminTask", &StorageAdminServiceAsyncProcessor::setUpAndProcess_stopAdminTask<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"listClusterInfo", &StorageAdminServiceAsyncProcessor::setUpAndProcess_listClusterInfo<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
 };
 
 }}} // nebula::storage::cpp2

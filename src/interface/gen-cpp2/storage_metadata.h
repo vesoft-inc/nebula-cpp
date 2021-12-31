@@ -378,17 +378,17 @@ class StructMetadata<::nebula::storage::cpp2::StopAdminTaskRequest> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::storage::cpp2::InternalTxnRequest> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
 class StructMetadata<::nebula::storage::cpp2::ChainAddEdgesRequest> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
 class StructMetadata<::nebula::storage::cpp2::ChainUpdateEdgeRequest> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
+class StructMetadata<::nebula::storage::cpp2::ChainDeleteEdgesRequest> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
@@ -413,6 +413,7 @@ class ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf> {
   static void gen_lookupAndTraverse(ThriftMetadata& metadata, ThriftService& context);
   static void gen_chainUpdateEdge(ThriftMetadata& metadata, ThriftService& context);
   static void gen_chainAddEdges(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_chainDeleteEdges(ThriftMetadata& metadata, ThriftService& context);
   static void gen_get(ThriftMetadata& metadata, ThriftService& context);
   static void gen_put(ThriftMetadata& metadata, ThriftService& context);
   static void gen_remove(ThriftMetadata& metadata, ThriftService& context);
@@ -437,7 +438,6 @@ class ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf> {
   static void gen_checkPeers(ThriftMetadata& metadata, ThriftService& context);
   static void gen_addAdminTask(ThriftMetadata& metadata, ThriftService& context);
   static void gen_stopAdminTask(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_listClusterInfo(ThriftMetadata& metadata, ThriftService& context);
 };
 template <>
 class ServiceMetadata<::nebula::storage::cpp2::InternalStorageServiceSvIf> {
@@ -446,6 +446,7 @@ class ServiceMetadata<::nebula::storage::cpp2::InternalStorageServiceSvIf> {
  private:
   static void gen_chainAddEdges(ThriftMetadata& metadata, ThriftService& context);
   static void gen_chainUpdateEdge(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_chainDeleteEdges(ThriftMetadata& metadata, ThriftService& context);
 };
 } // namespace md
 } // namespace detail
