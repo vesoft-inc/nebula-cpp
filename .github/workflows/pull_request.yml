@@ -276,22 +276,13 @@ jobs:
           echo '127.0.0.1 graphd2' >> /etc/hosts
           # The connection maybe unstable, so we wait a while
           sleep 10
-      - name: CTest
+      - name: CTest SSL
         env:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
         run: |
           pushd build
           # register storage to meta
           ./bin/regist_host --enable_ssl=true --host=127.0.0.1:9779
-          ctest -j $(nproc) -E '\w*_ssl_test' --timeout 10000 --output-on-failure
-          make install
-          popd
-        timeout-minutes: 10
-      - name: CTest SSL
-        env:
-          ASAN_OPTIONS: fast_unwind_on_malloc=1
-        run: |
-          pushd build
           ctest -j $(nproc) -R '\w*_ssl_test' --timeout 10000 --output-on-failure
           make install
           popd
