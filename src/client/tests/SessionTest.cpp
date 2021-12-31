@@ -258,6 +258,30 @@ TEST_F(SessionTest, DurationResult) {
   EXPECT_TRUE(verifyResultWithoutOrder(*resp.data, expected));
 }
 
+TEST_F(SessionTest, ExecuteParameter) {
+  nebula::ConnectionPool pool;
+  nebula::Config c{10, 0, 10, 0, "", false};
+  pool.init({kServerHost ":9669"}, c);
+  auto session = pool.getSession("root", "nebula");
+  ASSERT_TRUE(session.valid());
+
+  auto resp = session.executeWithParameter("YIELD $var AS var", {{"var", 1}});
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
+  nebula::DataSet expected({"var"});
+  expected.emplace_back(nebula::Row({1}));
+  EXPECT_TRUE(verifyResultWithoutOrder(*resp.data, expected));
+
+  folly::Baton<> b;
+  session.asyncExecuteWithParameter(
+      "YIELD $var AS var", {{"var", 1}}, [&b, expected = std::move(expected)](auto&& aResp) {
+        ASSERT_EQ(aResp.errorCode, nebula::ErrorCode::SUCCEEDED);
+        EXPECT_TRUE(verifyResultWithoutOrder(*aResp.data, expected));
+        b.post();
+      });
+  b.wait();
+}
+
 int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
   nebula::init(&argc, &argv);

@@ -200,6 +200,34 @@ TEST_F(ConnectionTest, DurationResult) {
   EXPECT_TRUE(verifyResultWithoutOrder(*resp.data, expected));
 }
 
+TEST_F(ConnectionTest, ExecuteParameter) {
+  nebula::Connection c;
+
+  ASSERT_TRUE(c.open(kServerHost, 9669, 10, false, ""));
+
+  // auth
+  auto authResp = c.authenticate("root", "nebula");
+  ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
+  auto resp = c.executeWithParameter(*authResp.sessionId, "YIELD $var AS var", {{"var", 1}});
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
+  nebula::DataSet expected({"var"});
+  expected.emplace_back(nebula::Row({1}));
+  EXPECT_TRUE(verifyResultWithoutOrder(*resp.data, expected));
+
+  folly::Baton<> b;
+  c.asyncExecuteWithParameter(*authResp.sessionId,
+                              "YIELD $var AS var",
+                              {{"var", 1}},
+                              [&b, expected = std::move(expected)](auto &&aResp) {
+                                ASSERT_EQ(aResp.errorCode, nebula::ErrorCode::SUCCEEDED);
+                                EXPECT_TRUE(verifyResultWithoutOrder(*aResp.data, expected));
+                                b.post();
+                              });
+  b.wait();
+}
+
 TEST_F(ConnectionTest, InvalidPort) {
   nebula::Connection c;
 

@@ -175,6 +175,45 @@ void Connection::asyncExecute(int64_t sessionId, const std::string &stmt, Execut
   });
 }
 
+ExecutionResponse Connection::executeWithParameter(
+    int64_t sessionId,
+    const std::string &stmt,
+    const std::unordered_map<std::string, Value> &parameters) {
+  if (client_ == nullptr) {
+    return ExecutionResponse{ErrorCode::E_DISCONNECTED,
+                             0,
+                             nullptr,
+                             nullptr,
+                             std::make_unique<std::string>("Not open connection.")};
+  }
+
+  ExecutionResponse resp;
+  try {
+    resp = client_->future_executeWithParameter(sessionId, stmt, parameters).get();
+  } catch (const std::exception &ex) {
+    resp = ExecutionResponse{
+        ErrorCode::E_RPC_FAILURE, 0, nullptr, nullptr, std::make_unique<std::string>(ex.what())};
+  }
+
+  return resp;
+}
+
+void Connection::asyncExecuteWithParameter(int64_t sessionId,
+                                           const std::string &stmt,
+                                           const std::unordered_map<std::string, Value> &parameters,
+                                           ExecuteCallback cb) {
+  if (client_ == nullptr) {
+    cb(ExecutionResponse{ErrorCode::E_DISCONNECTED,
+                         0,
+                         nullptr,
+                         nullptr,
+                         std::make_unique<std::string>("Not open connection.")});
+    return;
+  }
+  client_->future_executeWithParameter(sessionId, stmt, parameters)
+      .thenValue([cb = std::move(cb)](auto &&resp) { cb(std::move(resp)); });
+}
+
 std::string Connection::executeJson(int64_t sessionId, const std::string &stmt) {
   if (client_ == nullptr) {
     // TODO handle error
@@ -201,6 +240,39 @@ void Connection::asyncExecuteJson(int64_t sessionId,
     return;
   }
   client_->future_executeJson(sessionId, stmt).thenValue(std::move(cb));
+}
+
+std::string Connection::executeJsonWithParameter(
+    int64_t sessionId,
+    const std::string &stmt,
+    const std::unordered_map<std::string, Value> &parameters) {
+  if (client_ == nullptr) {
+    // TODO handle error
+    return "";
+  }
+
+  std::string json;
+  try {
+    json = client_->future_executeJsonWithParameter(sessionId, stmt, parameters).get();
+  } catch (const std::exception &ex) {
+    // TODO handle error
+    json = "";
+  }
+
+  return json;
+}
+
+void Connection::asyncExecuteJsonWithParameter(
+    int64_t sessionId,
+    const std::string &stmt,
+    const std::unordered_map<std::string, Value> &parameters,
+    ExecuteJsonCallback cb) {
+  if (client_ == nullptr) {
+    // TODO handle error
+    cb("");
+    return;
+  }
+  client_->future_executeJsonWithParameter(sessionId, stmt, parameters).thenValue(std::move(cb));
 }
 
 bool Connection::isOpen() {

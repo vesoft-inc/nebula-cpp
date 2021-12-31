@@ -53,9 +53,23 @@ class Session {
 
   void asyncExecute(const std::string &stmt, ExecuteCallback cb);
 
+  ExecutionResponse executeWithParameter(const std::string &stmt,
+                                         const std::unordered_map<std::string, Value> &parameters);
+
+  void asyncExecuteWithParameter(const std::string &stmt,
+                                 const std::unordered_map<std::string, Value> &parameters,
+                                 ExecuteCallback cb);
+
   std::string executeJson(const std::string &stmt);
 
   void asyncExecuteJson(const std::string &stmt, ExecuteJsonCallback cb);
+
+  std::string executeJsonWithParameter(const std::string &stmt,
+                                       const std::unordered_map<std::string, Value> &parameters);
+
+  void asyncExecuteJsonWithParameter(const std::string &stmt,
+                                     const std::unordered_map<std::string, Value> &parameters,
+                                     ExecuteJsonCallback cb);
 
   bool ping();
 
