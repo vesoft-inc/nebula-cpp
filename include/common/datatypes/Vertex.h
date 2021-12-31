@@ -29,7 +29,9 @@ struct Tag {
     props.clear();
   }
 
-  void __clear() { clear(); }
+  void __clear() {
+    clear();
+  }
 
   std::string toString() const;
 
@@ -49,7 +51,9 @@ struct Tag {
     return *this;
   }
 
-  bool operator==(const Tag& rhs) const { return name == rhs.name && props == rhs.props; }
+  bool operator==(const Tag& rhs) const {
+    return name == rhs.name && props == rhs.props;
+  }
 };
 
 struct Vertex {
@@ -66,7 +70,9 @@ struct Vertex {
     tags.clear();
   }
 
-  void __clear() { clear(); }
+  void __clear() {
+    clear();
+  }
 
   std::string toString() const;
 
@@ -74,7 +80,9 @@ struct Vertex {
 
   Vertex& operator=(const Vertex& rhs);
 
-  bool operator==(const Vertex& rhs) const { return vid == rhs.vid && tags == rhs.tags; }
+  bool operator==(const Vertex& rhs) const {
+    return vid == rhs.vid && tags == rhs.tags;
+  }
 
   bool operator<(const Vertex& rhs) const;
 
@@ -89,7 +97,9 @@ inline void swap(Vertex& a, Vertex& b) {
   b = std::move(temp);
 }
 
-inline std::ostream& operator<<(std::ostream& os, const Vertex& v) { return os << v.toString(); }
+inline std::ostream& operator<<(std::ostream& os, const Vertex& v) {
+  return os << v.toString();
+}
 
 }  // namespace nebula
 

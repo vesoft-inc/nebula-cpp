@@ -17,7 +17,9 @@ struct Map {
   Map() = default;
   Map(const Map&) = default;
   Map(Map&&) noexcept = default;
-  explicit Map(std::unordered_map<std::string, Value> values) { kvs = std::move(values); }
+  explicit Map(std::unordered_map<std::string, Value> values) {
+    kvs = std::move(values);
+  }
 
   Map& operator=(const Map& rhs) {
     if (this == &rhs) {
@@ -34,15 +36,21 @@ struct Map {
     return *this;
   }
 
-  void clear() { kvs.clear(); }
+  void clear() {
+    kvs.clear();
+  }
 
-  void __clear() { clear(); }
+  void __clear() {
+    clear();
+  }
 
   // the configs of rocksdb will use the interface, so the value need modify to
   // string
   std::string toString() const;
 
-  bool operator==(const Map& rhs) const { return kvs == rhs.kvs; }
+  bool operator==(const Map& rhs) const {
+    return kvs == rhs.kvs;
+  }
 
   bool contains(const Value& value) const {
     if (!value.isStr()) {
@@ -59,10 +67,14 @@ struct Map {
     return iter->second;
   }
 
-  size_t size() const { return kvs.size(); }
+  size_t size() const {
+    return kvs.size();
+  }
 };
 
-inline std::ostream& operator<<(std::ostream& os, const Map& m) { return os << m.toString(); }
+inline std::ostream& operator<<(std::ostream& os, const Map& m) {
+  return os << m.toString();
+}
 
 }  // namespace nebula
 

@@ -30,7 +30,9 @@ struct HostAddr {
     port = 0;
   }
 
-  void __clear() { clear(); }
+  void __clear() {
+    clear();
+  }
 
   std::string toString() const {
     std::stringstream os;

@@ -84,9 +84,13 @@ Polygon& Geography::mutablePolygon() {
   return std::get<Polygon>(geo_);
 }
 
-std::string Geography::asWKT() const { return geo::WKTWriter().write(*this); }
+std::string Geography::asWKT() const {
+  return geo::WKTWriter().write(*this);
+}
 
-std::string Geography::asWKB() const { return geo::WKBWriter().write(*this); }
+std::string Geography::asWKB() const {
+  return geo::WKBWriter().write(*this);
+}
 
 bool Geography::operator==(const Geography& rhs) const {
   auto lhsShape = shape();

@@ -243,6 +243,21 @@ TEST_F(SessionTest, JsonResult) {
   b.wait();
 }
 
+TEST_F(SessionTest, DurationResult) {
+  nebula::ConnectionPool pool;
+  nebula::Config c{10, 0, 10, 0, "", false};
+  pool.init({kServerHost ":9669"}, c);
+  auto session = pool.getSession("root", "nebula");
+  ASSERT_TRUE(session.valid());
+
+  auto resp = session.execute("YIELD duration({years: 1, seconds: 2}) AS d");
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+
+  nebula::DataSet expected({"d"});
+  expected.emplace_back(nebula::Row({nebula::Duration().addYears(1).addSeconds(2)}));
+  EXPECT_TRUE(verifyResultWithoutOrder(*resp.data, expected));
+}
+
 int main(int argc, char** argv) {
   testing::InitGoogleTest(&argc, argv);
   nebula::init(&argc, &argv);

@@ -49,12 +49,16 @@ struct Coordinate {
     x = 0.0;
     y = 0.0;
   }
-  void __clear() { clear(); }
+  void __clear() {
+    clear();
+  }
 
   bool operator==(const Coordinate& rhs) const {
     return std::abs(x - rhs.x) < kEpsilon && std::abs(y - rhs.y) < kEpsilon;
   }
-  bool operator!=(const Coordinate& rhs) const { return !(*this == rhs); }
+  bool operator!=(const Coordinate& rhs) const {
+    return !(*this == rhs);
+  }
   bool operator<(const Coordinate& rhs) const {
     if (x != rhs.x) {
       return x < rhs.x;
@@ -73,11 +77,19 @@ struct Point {
   explicit Point(const Coordinate& v) : coord(v) {}
   explicit Point(Coordinate&& v) : coord(std::move(v)) {}
 
-  void clear() { coord.clear(); }
-  void __clear() { clear(); }
+  void clear() {
+    coord.clear();
+  }
+  void __clear() {
+    clear();
+  }
 
-  bool operator==(const Point& rhs) const { return coord == rhs.coord; }
-  bool operator<(const Point& rhs) const { return coord < rhs.coord; }
+  bool operator==(const Point& rhs) const {
+    return coord == rhs.coord;
+  }
+  bool operator<(const Point& rhs) const {
+    return coord < rhs.coord;
+  }
 };
 
 struct LineString {
@@ -87,13 +99,23 @@ struct LineString {
   explicit LineString(const std::vector<Coordinate>& v) : coordList(v) {}
   explicit LineString(std::vector<Coordinate>&& v) : coordList(std::move(v)) {}
 
-  uint32_t numCoord() const { return coordList.size(); }
+  uint32_t numCoord() const {
+    return coordList.size();
+  }
 
-  void clear() { coordList.clear(); }
-  void __clear() { clear(); }
+  void clear() {
+    coordList.clear();
+  }
+  void __clear() {
+    clear();
+  }
 
-  bool operator==(const LineString& rhs) const { return coordList == rhs.coordList; }
-  bool operator<(const LineString& rhs) const { return coordList < rhs.coordList; }
+  bool operator==(const LineString& rhs) const {
+    return coordList == rhs.coordList;
+  }
+  bool operator<(const LineString& rhs) const {
+    return coordList < rhs.coordList;
+  }
 };
 
 struct Polygon {
@@ -103,13 +125,23 @@ struct Polygon {
   explicit Polygon(const std::vector<std::vector<Coordinate>>& v) : coordListList(v) {}
   explicit Polygon(std::vector<std::vector<Coordinate>>&& v) : coordListList(std::move(v)) {}
 
-  uint32_t numCoordList() const { return coordListList.size(); }
+  uint32_t numCoordList() const {
+    return coordListList.size();
+  }
 
-  void clear() { coordListList.clear(); }
-  void __clear() { clear(); }
+  void clear() {
+    coordListList.clear();
+  }
+  void __clear() {
+    clear();
+  }
 
-  bool operator==(const Polygon& rhs) const { return coordListList == rhs.coordListList; }
-  bool operator<(const Polygon& rhs) const { return coordListList < rhs.coordListList; }
+  bool operator==(const Polygon& rhs) const {
+    return coordListList == rhs.coordListList;
+  }
+  bool operator<(const Polygon& rhs) const {
+    return coordListList < rhs.coordListList;
+  }
 };
 
 struct Geography {
@@ -137,17 +169,25 @@ struct Geography {
 
   std::string asWKB() const;
 
-  std::string toString() const { return asWKT(); }
+  std::string toString() const {
+    return asWKT();
+  }
 
-  void clear() { geo_.~variant(); }
+  void clear() {
+    geo_.~variant();
+  }
 
-  void __clear() { clear(); }
+  void __clear() {
+    clear();
+  }
 
   bool operator==(const Geography& rhs) const;
   bool operator<(const Geography& rhs) const;
 };
 
-inline std::ostream& operator<<(std::ostream& os, const Geography& g) { return os << g.toString(); }
+inline std::ostream& operator<<(std::ostream& os, const Geography& g) {
+  return os << g.toString();
+}
 
 }  // namespace nebula
 

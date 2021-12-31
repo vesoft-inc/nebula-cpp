@@ -29,7 +29,9 @@ class NebulaConnectionErrMessageCallback : public folly::AsyncSocket::ErrMessage
    *                  a message read from error queue associated
    *                  with the socket.
    */
-  void errMessage(const cmsghdr &) noexcept override { DLOG(ERROR) << "Connection error."; }
+  void errMessage(const cmsghdr &) noexcept override {
+    DLOG(ERROR) << "Connection error.";
+  }
 
   /**
    * errMessageError() will be invoked if an error occurs reading a message
@@ -41,7 +43,9 @@ class NebulaConnectionErrMessageCallback : public folly::AsyncSocket::ErrMessage
     DLOG(ERROR) << "Connection error: " << ex.what();
   }
 
-  static auto &instance() { return cb_; }
+  static auto &instance() {
+    return cb_;
+  }
 
  private:
   static NebulaConnectionErrMessageCallback cb_;
@@ -199,7 +203,9 @@ void Connection::asyncExecuteJson(int64_t sessionId,
   client_->future_executeJson(sessionId, stmt).thenValue(std::move(cb));
 }
 
-bool Connection::isOpen() { return ping(); }
+bool Connection::isOpen() {
+  return ping();
+}
 
 void Connection::close() {
   if (client_ != nullptr) {
