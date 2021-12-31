@@ -20,6 +20,19 @@ void Session::asyncExecute(const std::string &stmt, ExecuteCallback cb) {
   });
 }
 
+ExecutionResponse Session::executeWithParameter(
+    const std::string &stmt, const std::unordered_map<std::string, Value> &parameters) {
+  return ExecutionResponse(conn_.executeWithParameter(sessionId_, stmt, parameters));
+}
+
+void Session::asyncExecuteWithParameter(const std::string &stmt,
+                                        const std::unordered_map<std::string, Value> &parameters,
+                                        ExecuteCallback cb) {
+  conn_.asyncExecuteWithParameter(sessionId_, stmt, parameters, [cb = std::move(cb)](auto &&resp) {
+    cb(ExecutionResponse(std::move(resp)));
+  });
+}
+
 std::string Session::executeJson(const std::string &stmt) {
   return conn_.executeJson(sessionId_, stmt);
 }
@@ -27,6 +40,19 @@ std::string Session::executeJson(const std::string &stmt) {
 void Session::asyncExecuteJson(const std::string &stmt, ExecuteJsonCallback cb) {
   conn_.asyncExecuteJson(
       sessionId_, stmt, [cb = std::move(cb)](auto &&json) { cb(std::move(json)); });
+}
+
+std::string Session::executeJsonWithParameter(
+    const std::string &stmt, const std::unordered_map<std::string, Value> &parameters) {
+  return conn_.executeJsonWithParameter(sessionId_, stmt, parameters);
+}
+
+void Session::asyncExecuteJsonWithParameter(
+    const std::string &stmt,
+    const std::unordered_map<std::string, Value> &parameters,
+    ExecuteJsonCallback cb) {
+  conn_.asyncExecuteJsonWithParameter(
+      sessionId_, stmt, parameters, [cb = std::move(cb)](auto &&json) { cb(std::move(json)); });
 }
 
 bool Session::ping() {

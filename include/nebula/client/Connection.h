@@ -9,6 +9,7 @@
 #include <memory>
 #include <string>
 
+#include "common/datatypes/Value.h"
 #include "common/graph/Response.h"
 
 namespace folly {
@@ -58,9 +59,27 @@ class Connection {
 
   void asyncExecute(int64_t sessionId, const std::string &stmt, ExecuteCallback cb);
 
+  ExecutionResponse executeWithParameter(int64_t sessionId,
+                                         const std::string &stmt,
+                                         const std::unordered_map<std::string, Value> &parameters);
+
+  void asyncExecuteWithParameter(int64_t sessionId,
+                                 const std::string &stmt,
+                                 const std::unordered_map<std::string, Value> &parameters,
+                                 ExecuteCallback cb);
+
   std::string executeJson(int64_t sessionId, const std::string &stmt);
 
   void asyncExecuteJson(int64_t sessionId, const std::string &stmt, ExecuteJsonCallback cb);
+
+  std::string executeJsonWithParameter(int64_t sessionId,
+                                       const std::string &stmt,
+                                       const std::unordered_map<std::string, Value> &parameters);
+
+  void asyncExecuteJsonWithParameter(int64_t sessionId,
+                                     const std::string &stmt,
+                                     const std::unordered_map<std::string, Value> &parameters,
+                                     ExecuteJsonCallback cb);
 
   VerifyClientVersionResp verifyClientVersion(const VerifyClientVersionReq &req);
 
