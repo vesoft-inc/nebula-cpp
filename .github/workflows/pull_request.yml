@@ -168,6 +168,12 @@ jobs:
             popd
             ;;
           esac
+      - name: Upload logs
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: ${{ matrix.os }}-${{ matrix.compiler }}-test-logs
+          path:  /usr/local/nebula/logs/
       - name: Cleanup
         if: ${{ always() }}
         run: rm -rf build modules
@@ -287,6 +293,12 @@ jobs:
           make install
           popd
         timeout-minutes: 10
+      - name: Upload logs
+        uses: actions/upload-artifact@v2
+        if: ${{ failure() }}
+        with:
+          name: ${{ matrix.os }}-${{ matrix.compiler }}-ssl-test-logs
+          path:  /usr/local/nebula/logs/
       - name: Cleanup
         if: ${{ always() }}
         run: rm -rf build modules
