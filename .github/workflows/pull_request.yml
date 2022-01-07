@@ -33,7 +33,7 @@ jobs:
   build:
     name: build
     needs: lint
-    runs-on: ubuntu-20.04
+    runs-on: [self-hosted, nebula]
     strategy:
       fail-fast: false
       matrix:
@@ -181,7 +181,7 @@ jobs:
   build_ssl:
     name: build ssl
     needs: lint
-    runs-on: ubuntu-20.04
+    runs-on: [self-hosted, nebula]
     strategy:
       fail-fast: false
       matrix:
