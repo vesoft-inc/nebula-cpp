@@ -32,10 +32,10 @@ class StorageClientTest : public SClientTest {
     auto result = session.execute(
         "CREATE SPACE IF NOT EXISTS storage_client_test(vid_type=FIXED_STRING(8),"
         "partition_num=1);USE storage_client_test");
-    ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED);
+    ASSERT_EQ(result.errorCode, nebula::ErrorCode::SUCCEEDED) << *result.errorMsg;
 
     auto result2 = session.execute("CREATE EDGE IF NOT EXISTS like(likeness int)");
-    ASSERT_EQ(result2.errorCode, nebula::ErrorCode::SUCCEEDED);
+    ASSERT_EQ(result2.errorCode, nebula::ErrorCode::SUCCEEDED) << *result2.errorMsg;
 
     ::sleep(30);
 
