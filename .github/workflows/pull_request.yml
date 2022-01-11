@@ -206,6 +206,8 @@ jobs:
             case ${{ matrix.os }} in
             centos7)
               # build with Release type
+              export LIBRARY_PATH="$TOOLSET_GCC_DIR/lib64:$LIBRARY_PATH"
+              export LD_LIBRARY_PATH="$TOOLSET_GCC_DIR/lib64:$LD_LIBRARY_PATH"
               cmake \
                   -DCMAKE_CXX_COMPILER=$TOOLSET_GCC_DIR/bin/g++ \
                   -DCMAKE_C_COMPILER=$TOOLSET_GCC_DIR/bin/gcc \
@@ -217,6 +219,8 @@ jobs:
               ;;
             ubuntu2004)
               # build with Debug type
+              export LIBRARY_PATH="$TOOLSET_GCC_DIR/lib64:$LIBRARY_PATH"
+              export LD_LIBRARY_PATH="$TOOLSET_GCC_DIR/lib64:$LD_LIBRARY_PATH"
               cmake \
                   -DCMAKE_CXX_COMPILER=$TOOLSET_GCC_DIR/bin/g++ \
                   -DCMAKE_C_COMPILER=$TOOLSET_GCC_DIR/bin/gcc \
@@ -229,6 +233,8 @@ jobs:
             ;;
           clang-*)
             # build with Sanitizer
+            export LIBRARY_PATH="$TOOLSET_CLANG_DIR/lib64:$LIBRARY_PATH"
+            export LD_LIBRARY_PATH="$TOOLSET_CLANG_DIR/lib64:$LD_LIBRARY_PATH"
             cmake \
                 -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/clang++ \
                 -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/clang \
@@ -285,6 +291,7 @@ jobs:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
         run: |
           pushd build
+          ldd ./bin/test/connect_test
           # register storage to meta and wait heartbeat
           ./bin/regist_host --enable_ssl=true --host=127.0.0.1:9779 && sleep 20
           ctest -j $(nproc) -R '\w*_ssl_test' --timeout 10000 --output-on-failure
