@@ -2,7 +2,6 @@ name: cpp_test
 
 on:
   pull_request:
-    types: [synchronize, reopened, labeled]
     branches:
       - master
       - 'v[0-9]+.*'
@@ -17,7 +16,6 @@ defaults:
 jobs:
   lint:
     name: lint
-    if: ${{ contains(github.event.pull_request.labels.*.name, 'ready-for-testing') }}
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
