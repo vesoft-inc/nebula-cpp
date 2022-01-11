@@ -133,8 +133,8 @@ jobs:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
         run: |
           pushd build
-          # register storage to meta
-          ./bin/regist_host --host=127.0.0.1:9779
+          # register storage to meta and wait heartbeat
+          ./bin/regist_host --host=127.0.0.1:9779 && sleep 20
           ctest -j $(nproc) -E '\w*_ssl_test' --timeout 10000 --output-on-failure
           make install
           popd
@@ -287,8 +287,8 @@ jobs:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
         run: |
           pushd build
-          # register storage to meta
-          ./bin/regist_host --enable_ssl=true --host=127.0.0.1:9779
+          # register storage to meta and wait heartbeat
+          ./bin/regist_host --enable_ssl=true --host=127.0.0.1:9779 && sleep 20
           ctest -j $(nproc) -R '\w*_ssl_test' --timeout 10000 --output-on-failure
           make install
           popd
