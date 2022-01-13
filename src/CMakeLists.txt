@@ -84,7 +84,7 @@ set(NEBULA_THIRD_PARTY_LIBRARIES
     -static-libstdc++
     -Wl,--no-undefined
     ${GETTIME_LIB}
-    atomic
+    ${libatomic_link_flags}
 )
 
 nebula_add_subdirectory(interface)
