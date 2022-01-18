@@ -113,7 +113,8 @@ bool Connection::open(const std::string &address,
   if (!socket->good()) {
     return false;
   }
-  socket->setErrMessageCB(&NebulaConnectionErrMessageCallback::instance());
+  // TODO workaround for issue #72
+  // socket->setErrMessageCB(&NebulaConnectionErrMessageCallback::instance());
   auto channel = apache::thrift::HeaderClientChannel::newChannel(socket);
   channel->setTimeout(timeout);
   client_ = new graph::cpp2::GraphServiceAsyncClient(std::move(channel));
