@@ -258,7 +258,7 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::GetUUIDResp> {
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::LookupIndexResp> {
-  static constexpr const std::size_t fields_size = 2;
+  static constexpr const std::size_t fields_size = 3;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
@@ -286,7 +286,7 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::IndexSpec> {
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest> {
-  static constexpr const std::size_t fields_size = 7;
+  static constexpr const std::size_t fields_size = 8;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;

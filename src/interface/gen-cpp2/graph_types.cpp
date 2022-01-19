@@ -1006,7 +1006,7 @@ VerifyClientVersionReq::VerifyClientVersionReq(apache::thrift::FragileConstructo
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void VerifyClientVersionReq::__clear() {
   // clear all fields
-  version = apache::thrift::StringTraits< std::string>::fromStringLiteral("2.6.0");
+  version = apache::thrift::StringTraits< std::string>::fromStringLiteral("3.0.0");
 }
 
 bool VerifyClientVersionReq::operator==(const VerifyClientVersionReq& rhs) const {

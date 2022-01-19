@@ -340,6 +340,7 @@ struct ForEachField<::nebula::storage::cpp2::LookupIndexResp> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).result_ref()...);
     f(1, static_cast<T&&>(t).data_ref()...);
+    f(2, static_cast<T&&>(t).stat_data_ref()...);
   }
 };
 
@@ -386,6 +387,7 @@ struct ForEachField<::nebula::storage::cpp2::LookupIndexRequest> {
     f(4, static_cast<T&&>(t).common_ref()...);
     f(5, static_cast<T&&>(t).limit_ref()...);
     f(6, static_cast<T&&>(t).order_by_ref()...);
+    f(7, static_cast<T&&>(t).stat_columns_ref()...);
   }
 };
 

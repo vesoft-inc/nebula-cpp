@@ -128,6 +128,7 @@ struct result;
 struct id;
 struct result;
 struct data;
+struct stat_data;
 struct column_name;
 struct scan_type;
 struct begin_value;
@@ -146,6 +147,7 @@ struct return_columns;
 struct common;
 struct limit;
 struct order_by;
+struct stat_columns;
 struct space_id;
 struct parts;
 struct indices;
@@ -702,6 +704,10 @@ APACHE_THRIFT_DEFINE_ACCESSOR(result);
 #define APACHE_THRIFT_ACCESSOR_data
 APACHE_THRIFT_DEFINE_ACCESSOR(data);
 #endif
+#ifndef APACHE_THRIFT_ACCESSOR_stat_data
+#define APACHE_THRIFT_ACCESSOR_stat_data
+APACHE_THRIFT_DEFINE_ACCESSOR(stat_data);
+#endif
 #ifndef APACHE_THRIFT_ACCESSOR_column_name
 #define APACHE_THRIFT_ACCESSOR_column_name
 APACHE_THRIFT_DEFINE_ACCESSOR(column_name);
@@ -773,6 +779,10 @@ APACHE_THRIFT_DEFINE_ACCESSOR(limit);
 #ifndef APACHE_THRIFT_ACCESSOR_order_by
 #define APACHE_THRIFT_ACCESSOR_order_by
 APACHE_THRIFT_DEFINE_ACCESSOR(order_by);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_stat_columns
+#define APACHE_THRIFT_ACCESSOR_stat_columns
+APACHE_THRIFT_DEFINE_ACCESSOR(stat_columns);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_space_id
 #define APACHE_THRIFT_ACCESSOR_space_id
@@ -8112,7 +8122,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   LookupIndexResp() {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  LookupIndexResp(apache::thrift::FragileConstructor,  ::nebula::storage::cpp2::ResponseCommon result__arg, nebula::DataSet data__arg);
+  LookupIndexResp(apache::thrift::FragileConstructor,  ::nebula::storage::cpp2::ResponseCommon result__arg, nebula::DataSet data__arg, nebula::DataSet stat_data__arg);
 
   LookupIndexResp(LookupIndexResp&&) = default;
 
@@ -8128,11 +8138,14 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
    ::nebula::storage::cpp2::ResponseCommon result;
  private:
   nebula::DataSet data;
+ private:
+  nebula::DataSet stat_data;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
     bool data;
+    bool stat_data;
   } __isset = {};
   bool operator==(const LookupIndexResp& rhs) const;
 #ifndef SWIG
@@ -8193,6 +8206,28 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     return {std::move(this->data), __isset.data};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = nebula::DataSet>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> stat_data_ref() const& {
+    return {this->stat_data, __isset.stat_data};
+  }
+
+  template <typename..., typename T = nebula::DataSet>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> stat_data_ref() const&& {
+    return {std::move(this->stat_data), __isset.stat_data};
+  }
+
+  template <typename..., typename T = nebula::DataSet>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> stat_data_ref() & {
+    return {this->stat_data, __isset.stat_data};
+  }
+
+  template <typename..., typename T = nebula::DataSet>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> stat_data_ref() && {
+    return {std::move(this->stat_data), __isset.stat_data};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
   const  ::nebula::storage::cpp2::ResponseCommon& get_result() const&;
    ::nebula::storage::cpp2::ResponseCommon get_result() &&;
 
@@ -8212,6 +8247,18 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     __isset.data = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return data;
+  }
+  const nebula::DataSet* get_stat_data() const&;
+  nebula::DataSet* get_stat_data() &;
+  nebula::DataSet* get_stat_data() && = delete;
+
+  template <typename T_LookupIndexResp_stat_data_struct_setter = nebula::DataSet>
+  nebula::DataSet& set_stat_data(T_LookupIndexResp_stat_data_struct_setter&& stat_data_) {
+    stat_data = std::forward<T_LookupIndexResp_stat_data_struct_setter>(stat_data_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.stat_data = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return stat_data;
   }
 
   template <class Protocol_>
@@ -8921,7 +8968,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  LookupIndexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::vector< ::nebula::cpp2::PartitionID> parts__arg,  ::nebula::storage::cpp2::IndexSpec indices__arg, ::std::vector<::std::string> return_columns__arg,  ::nebula::storage::cpp2::RequestCommon common__arg, int64_t limit__arg, ::std::vector< ::nebula::storage::cpp2::OrderBy> order_by__arg);
+  LookupIndexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::vector< ::nebula::cpp2::PartitionID> parts__arg,  ::nebula::storage::cpp2::IndexSpec indices__arg, ::std::vector<::std::string> return_columns__arg,  ::nebula::storage::cpp2::RequestCommon common__arg, int64_t limit__arg, ::std::vector< ::nebula::storage::cpp2::OrderBy> order_by__arg, ::std::vector< ::nebula::storage::cpp2::StatProp> stat_columns__arg);
 
   LookupIndexRequest(LookupIndexRequest&&) = default;
 
@@ -8950,6 +8997,8 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
   int64_t limit;
  private:
   ::std::vector< ::nebula::storage::cpp2::OrderBy> order_by;
+ private:
+  ::std::vector< ::nebula::storage::cpp2::StatProp> stat_columns;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
@@ -8959,6 +9008,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     bool common;
     bool limit;
     bool order_by;
+    bool stat_columns;
   } __isset = {};
   bool operator==(const LookupIndexRequest& rhs) const;
 #ifndef SWIG
@@ -9127,6 +9177,28 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::vector< ::nebula::storage::cpp2::StatProp>>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> stat_columns_ref() const& {
+    return {this->stat_columns, __isset.stat_columns};
+  }
+
+  template <typename..., typename T = ::std::vector< ::nebula::storage::cpp2::StatProp>>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> stat_columns_ref() const&& {
+    return {std::move(this->stat_columns), __isset.stat_columns};
+  }
+
+  template <typename..., typename T = ::std::vector< ::nebula::storage::cpp2::StatProp>>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> stat_columns_ref() & {
+    return {this->stat_columns, __isset.stat_columns};
+  }
+
+  template <typename..., typename T = ::std::vector< ::nebula::storage::cpp2::StatProp>>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> stat_columns_ref() && {
+    return {std::move(this->stat_columns), __isset.stat_columns};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
    ::nebula::cpp2::GraphSpaceID get_space_id() const {
     return space_id;
   }
@@ -9206,6 +9278,18 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     __isset.order_by = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return order_by;
+  }
+  const ::std::vector< ::nebula::storage::cpp2::StatProp>* get_stat_columns() const&;
+  ::std::vector< ::nebula::storage::cpp2::StatProp>* get_stat_columns() &;
+  ::std::vector< ::nebula::storage::cpp2::StatProp>* get_stat_columns() && = delete;
+
+  template <typename T_LookupIndexRequest_stat_columns_struct_setter = ::std::vector< ::nebula::storage::cpp2::StatProp>>
+  ::std::vector< ::nebula::storage::cpp2::StatProp>& set_stat_columns(T_LookupIndexRequest_stat_columns_struct_setter&& stat_columns_) {
+    stat_columns = std::forward<T_LookupIndexRequest_stat_columns_struct_setter>(stat_columns_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.stat_columns = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return stat_columns;
   }
 
   template <class Protocol_>

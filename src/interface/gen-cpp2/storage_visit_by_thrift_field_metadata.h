@@ -574,6 +574,8 @@ struct VisitByThriftId<::nebula::storage::cpp2::LookupIndexResp> {
       return f(0, static_cast<T&&>(t).result_ref());
     case 2:
       return f(1, static_cast<T&&>(t).data_ref());
+    case 3:
+      return f(2, static_cast<T&&>(t).stat_data_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::LookupIndexResp");
     }
@@ -654,6 +656,8 @@ struct VisitByThriftId<::nebula::storage::cpp2::LookupIndexRequest> {
       return f(5, static_cast<T&&>(t).limit_ref());
     case 7:
       return f(6, static_cast<T&&>(t).order_by_ref());
+    case 8:
+      return f(7, static_cast<T&&>(t).stat_columns_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::LookupIndexRequest");
     }
