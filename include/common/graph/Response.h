@@ -423,7 +423,7 @@ struct VerifyClientVersionResp {
 
 struct VerifyClientVersionReq {
   // TODO initialize when build
-  std::string version{"2.6.0"};
+  std::string version{"3.0.0"};
 };
 
 }  // namespace nebula
