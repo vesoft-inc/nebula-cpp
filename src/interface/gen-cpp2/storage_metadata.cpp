@@ -893,7 +893,6 @@ StructMetadata<::nebula::storage::cpp2::LookupIndexResp>::gen(ThriftMetadata& me
   storage_LookupIndexResp_fields[] = {
     std::make_tuple(1, "result", false, std::make_unique<Struct< ::nebula::storage::cpp2::ResponseCommon>>("storage.ResponseCommon"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "data", true, std::make_unique<Struct< ::nebula::cpp2::DataSet>>("common.DataSet"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(3, "stat_data", true, std::make_unique<Struct< ::nebula::cpp2::DataSet>>("common.DataSet"), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_LookupIndexResp_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -1004,7 +1003,6 @@ StructMetadata<::nebula::storage::cpp2::LookupIndexRequest>::gen(ThriftMetadata&
     std::make_tuple(5, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(6, "limit", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(7, "order_by", true, std::make_unique<List>(std::make_unique<Struct< ::nebula::storage::cpp2::OrderBy>>("storage.OrderBy")), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(8, "stat_columns", true, std::make_unique<List>(std::make_unique<Struct< ::nebula::storage::cpp2::StatProp>>("storage.StatProp")), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_LookupIndexRequest_fields) {
     ::apache::thrift::metadata::ThriftField field;

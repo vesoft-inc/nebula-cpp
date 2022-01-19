@@ -522,8 +522,6 @@ enum class ErrorCode {
   E_CONFLICT = -2008,
   E_INVALID_PARM = -2009,
   E_WRONGCLUSTER = -2010,
-  E_ZONE_NOT_ENOUGH = -2011,
-  E_ZONE_IS_EMPTY = -2012,
   E_STORE_FAILURE = -2021,
   E_STORE_SEGMENT_ILLEGAL = -2022,
   E_BAD_BALANCE_PLAN = -2023,
@@ -684,7 +682,7 @@ template <> struct TEnumDataStorage<::nebula::cpp2::ErrorCode>;
 template <> struct TEnumTraits<::nebula::cpp2::ErrorCode> {
   using type = ::nebula::cpp2::ErrorCode;
 
-  static constexpr std::size_t const size = 145;
+  static constexpr std::size_t const size = 143;
   static folly::Range<type const*> const values;
   static folly::Range<folly::StringPiece const*> const names;
 

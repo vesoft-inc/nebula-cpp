@@ -34173,7 +34173,7 @@ class VerifyClientVersionReq final  {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   VerifyClientVersionReq() :
-      client_version(apache::thrift::StringTraits< std::string>::fromStringLiteral("3.0.0")) {}
+      client_version(apache::thrift::StringTraits< std::string>::fromStringLiteral("2.6.0")) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
   VerifyClientVersionReq(apache::thrift::FragileConstructor, ::std::string client_version__arg, nebula::HostAddr host__arg, ::std::string build_version__arg);

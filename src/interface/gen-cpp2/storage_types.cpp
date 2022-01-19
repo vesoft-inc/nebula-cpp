@@ -4186,19 +4186,16 @@ void TccStructTraits<::nebula::storage::cpp2::LookupIndexResp>::translateFieldNa
 namespace nebula { namespace storage { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-LookupIndexResp::LookupIndexResp(apache::thrift::FragileConstructor,  ::nebula::storage::cpp2::ResponseCommon result__arg, nebula::DataSet data__arg, nebula::DataSet stat_data__arg) :
+LookupIndexResp::LookupIndexResp(apache::thrift::FragileConstructor,  ::nebula::storage::cpp2::ResponseCommon result__arg, nebula::DataSet data__arg) :
     result(std::move(result__arg)),
-    data(std::move(data__arg)),
-    stat_data(std::move(stat_data__arg)) {
+    data(std::move(data__arg)) {
   __isset.data = true;
-  __isset.stat_data = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void LookupIndexResp::__clear() {
   // clear all fields
   result.__clear();
   data.__clear();
-  stat_data.__clear();
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -4212,9 +4209,6 @@ bool LookupIndexResp::operator==(const LookupIndexResp& rhs) const {
     return false;
   }
   if (lhs.data_ref() != rhs.data_ref()) {
-    return false;
-  }
-  if (lhs.stat_data_ref() != rhs.stat_data_ref()) {
     return false;
   }
   return true;
@@ -4236,20 +4230,11 @@ nebula::DataSet* LookupIndexResp::get_data() & {
   return data_ref().has_value() ? std::addressof(data) : nullptr;
 }
 
-const nebula::DataSet* LookupIndexResp::get_stat_data() const& {
-  return stat_data_ref().has_value() ? std::addressof(stat_data) : nullptr;
-}
-
-nebula::DataSet* LookupIndexResp::get_stat_data() & {
-  return stat_data_ref().has_value() ? std::addressof(stat_data) : nullptr;
-}
-
 
 void swap(LookupIndexResp& a, LookupIndexResp& b) {
   using ::std::swap;
   swap(a.result_ref().value(), b.result_ref().value());
   swap(a.data_ref().value_unchecked(), b.data_ref().value_unchecked());
-  swap(a.stat_data_ref().value_unchecked(), b.stat_data_ref().value_unchecked());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -4276,24 +4261,12 @@ static_assert(
         ::apache::thrift::type_class::structure,
         nebula::DataSet>,
     "inconsistent use of json option");
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        LookupIndexResp,
-        ::apache::thrift::type_class::structure,
-        nebula::DataSet>,
-    "inconsistent use of json option");
 
 static_assert(
     ::apache::thrift::detail::st::gen_check_nimble<
         LookupIndexResp,
         ::apache::thrift::type_class::structure,
          ::nebula::storage::cpp2::ResponseCommon>,
-    "inconsistent use of nimble option");
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        LookupIndexResp,
-        ::apache::thrift::type_class::structure,
-        nebula::DataSet>,
     "inconsistent use of nimble option");
 static_assert(
     ::apache::thrift::detail::st::gen_check_nimble<
@@ -4709,21 +4682,19 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 LookupIndexRequest::~LookupIndexRequest() {}
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-LookupIndexRequest::LookupIndexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::vector< ::nebula::cpp2::PartitionID> parts__arg,  ::nebula::storage::cpp2::IndexSpec indices__arg, ::std::vector<::std::string> return_columns__arg,  ::nebula::storage::cpp2::RequestCommon common__arg, int64_t limit__arg, ::std::vector< ::nebula::storage::cpp2::OrderBy> order_by__arg, ::std::vector< ::nebula::storage::cpp2::StatProp> stat_columns__arg) :
+LookupIndexRequest::LookupIndexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, ::std::vector< ::nebula::cpp2::PartitionID> parts__arg,  ::nebula::storage::cpp2::IndexSpec indices__arg, ::std::vector<::std::string> return_columns__arg,  ::nebula::storage::cpp2::RequestCommon common__arg, int64_t limit__arg, ::std::vector< ::nebula::storage::cpp2::OrderBy> order_by__arg) :
     space_id(std::move(space_id__arg)),
     parts(std::move(parts__arg)),
     indices(std::move(indices__arg)),
     return_columns(std::move(return_columns__arg)),
     common(std::move(common__arg)),
     limit(std::move(limit__arg)),
-    order_by(std::move(order_by__arg)),
-    stat_columns(std::move(stat_columns__arg)) {
+    order_by(std::move(order_by__arg)) {
   __isset.indices = true;
   __isset.return_columns = true;
   __isset.common = true;
   __isset.limit = true;
   __isset.order_by = true;
-  __isset.stat_columns = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void LookupIndexRequest::__clear() {
@@ -4735,7 +4706,6 @@ void LookupIndexRequest::__clear() {
   common.__clear();
   limit = 0;
   order_by.clear();
-  stat_columns.clear();
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -4764,9 +4734,6 @@ bool LookupIndexRequest::operator==(const LookupIndexRequest& rhs) const {
     return false;
   }
   if (lhs.order_by_ref() != rhs.order_by_ref()) {
-    return false;
-  }
-  if (lhs.stat_columns_ref() != rhs.stat_columns_ref()) {
     return false;
   }
   return true;
@@ -4812,14 +4779,6 @@ const ::std::vector< ::nebula::storage::cpp2::OrderBy>* LookupIndexRequest::get_
   return order_by_ref().has_value() ? std::addressof(order_by) : nullptr;
 }
 
-const ::std::vector< ::nebula::storage::cpp2::StatProp>* LookupIndexRequest::get_stat_columns() const& {
-  return stat_columns_ref().has_value() ? std::addressof(stat_columns) : nullptr;
-}
-
-::std::vector< ::nebula::storage::cpp2::StatProp>* LookupIndexRequest::get_stat_columns() & {
-  return stat_columns_ref().has_value() ? std::addressof(stat_columns) : nullptr;
-}
-
 
 void swap(LookupIndexRequest& a, LookupIndexRequest& b) {
   using ::std::swap;
@@ -4830,7 +4789,6 @@ void swap(LookupIndexRequest& a, LookupIndexRequest& b) {
   swap(a.common_ref().value_unchecked(), b.common_ref().value_unchecked());
   swap(a.limit_ref().value_unchecked(), b.limit_ref().value_unchecked());
   swap(a.order_by_ref().value_unchecked(), b.order_by_ref().value_unchecked());
-  swap(a.stat_columns_ref().value_unchecked(), b.stat_columns_ref().value_unchecked());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -4863,12 +4821,6 @@ static_assert(
         ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
         ::std::vector< ::nebula::storage::cpp2::OrderBy>>,
     "inconsistent use of json option");
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        LookupIndexRequest,
-        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
-        ::std::vector< ::nebula::storage::cpp2::StatProp>>,
-    "inconsistent use of json option");
 
 static_assert(
     ::apache::thrift::detail::st::gen_check_nimble<
@@ -4887,12 +4839,6 @@ static_assert(
         LookupIndexRequest,
         ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
         ::std::vector< ::nebula::storage::cpp2::OrderBy>>,
-    "inconsistent use of nimble option");
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        LookupIndexRequest,
-        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
-        ::std::vector< ::nebula::storage::cpp2::StatProp>>,
     "inconsistent use of nimble option");
 
 }}} // nebula::storage::cpp2

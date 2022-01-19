@@ -72,7 +72,7 @@ const std::array<folly::StringPiece, 17> TEnumDataStorage<::nebula::cpp2::Proper
   "GEOGRAPHY",
 }};
 
-const std::array<::nebula::cpp2::ErrorCode, 145> TEnumDataStorage<::nebula::cpp2::ErrorCode>::values = {{
+const std::array<::nebula::cpp2::ErrorCode, 143> TEnumDataStorage<::nebula::cpp2::ErrorCode>::values = {{
   type::SUCCEEDED,
   type::E_DISCONNECTED,
   type::E_FAIL_TO_CONNECT,
@@ -121,8 +121,6 @@ const std::array<::nebula::cpp2::ErrorCode, 145> TEnumDataStorage<::nebula::cpp2
   type::E_CONFLICT,
   type::E_INVALID_PARM,
   type::E_WRONGCLUSTER,
-  type::E_ZONE_NOT_ENOUGH,
-  type::E_ZONE_IS_EMPTY,
   type::E_STORE_FAILURE,
   type::E_STORE_SEGMENT_ILLEGAL,
   type::E_BAD_BALANCE_PLAN,
@@ -219,7 +217,7 @@ const std::array<::nebula::cpp2::ErrorCode, 145> TEnumDataStorage<::nebula::cpp2
   type::E_RAFT_ATOMIC_OP_FAILED,
   type::E_UNKNOWN,
 }};
-const std::array<folly::StringPiece, 145> TEnumDataStorage<::nebula::cpp2::ErrorCode>::names = {{
+const std::array<folly::StringPiece, 143> TEnumDataStorage<::nebula::cpp2::ErrorCode>::names = {{
   "SUCCEEDED",
   "E_DISCONNECTED",
   "E_FAIL_TO_CONNECT",
@@ -268,8 +266,6 @@ const std::array<folly::StringPiece, 145> TEnumDataStorage<::nebula::cpp2::Error
   "E_CONFLICT",
   "E_INVALID_PARM",
   "E_WRONGCLUSTER",
-  "E_ZONE_NOT_ENOUGH",
-  "E_ZONE_IS_EMPTY",
   "E_STORE_FAILURE",
   "E_STORE_SEGMENT_ILLEGAL",
   "E_BAD_BALANCE_PLAN",

@@ -608,18 +608,15 @@ const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2:
   TType::T_STRUCT,
 }};
 
-const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::storage::cpp2::LookupIndexResp>::fields_names = {{
+const std::array<folly::StringPiece, 2> TStructDataStorage<::nebula::storage::cpp2::LookupIndexResp>::fields_names = {{
   "result",
   "data",
-  "stat_data",
 }};
-const std::array<int16_t, 3> TStructDataStorage<::nebula::storage::cpp2::LookupIndexResp>::fields_ids = {{
+const std::array<int16_t, 2> TStructDataStorage<::nebula::storage::cpp2::LookupIndexResp>::fields_ids = {{
   1,
   2,
-  3,
 }};
-const std::array<protocol::TType, 3> TStructDataStorage<::nebula::storage::cpp2::LookupIndexResp>::fields_types = {{
-  TType::T_STRUCT,
+const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2::LookupIndexResp>::fields_types = {{
   TType::T_STRUCT,
   TType::T_STRUCT,
 }};
@@ -678,7 +675,7 @@ const std::array<protocol::TType, 2> TStructDataStorage<::nebula::storage::cpp2:
   TType::T_STRUCT,
 }};
 
-const std::array<folly::StringPiece, 8> TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest>::fields_names = {{
+const std::array<folly::StringPiece, 7> TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest>::fields_names = {{
   "space_id",
   "parts",
   "indices",
@@ -686,9 +683,8 @@ const std::array<folly::StringPiece, 8> TStructDataStorage<::nebula::storage::cp
   "common",
   "limit",
   "order_by",
-  "stat_columns",
 }};
-const std::array<int16_t, 8> TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest>::fields_ids = {{
+const std::array<int16_t, 7> TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest>::fields_ids = {{
   1,
   2,
   3,
@@ -696,16 +692,14 @@ const std::array<int16_t, 8> TStructDataStorage<::nebula::storage::cpp2::LookupI
   5,
   6,
   7,
-  8,
 }};
-const std::array<protocol::TType, 8> TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest>::fields_types = {{
+const std::array<protocol::TType, 7> TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest>::fields_types = {{
   TType::T_I32,
   TType::T_LIST,
   TType::T_STRUCT,
   TType::T_LIST,
   TType::T_STRUCT,
   TType::T_I64,
-  TType::T_LIST,
   TType::T_LIST,
 }};
 

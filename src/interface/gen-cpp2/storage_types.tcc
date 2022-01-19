@@ -6646,23 +6646,6 @@ _readField_data:
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
           2,
-          3,
-          apache::thrift::protocol::T_STRUCT))) {
-    goto _loop;
-  }
-_readField_stat_data:
-  {
-    _readState.beforeSubobject(iprot);
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::DataSet>::readWithContext(*iprot, this->stat_data, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.stat_data = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-    _readState.afterSubobject(iprot);
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          3,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -6699,14 +6682,6 @@ _loop:
         goto _skip;
       }
     }
-    case 3:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
-        goto _readField_stat_data;
-      } else {
-        goto _skip;
-      }
-    }
     default:
     {
 _skip:
@@ -6728,10 +6703,6 @@ uint32_t LookupIndexResp::serializedSize(Protocol_ const* prot_) const {
     xfer += prot_->serializedFieldSize("data", apache::thrift::protocol::T_STRUCT, 2);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::DataSet>::serializedSize<false>(*prot_, this->data);
   }
-  if (this->stat_data_ref().has_value()) {
-    xfer += prot_->serializedFieldSize("stat_data", apache::thrift::protocol::T_STRUCT, 3);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::DataSet>::serializedSize<false>(*prot_, this->stat_data);
-  }
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -6745,10 +6716,6 @@ uint32_t LookupIndexResp::serializedSizeZC(Protocol_ const* prot_) const {
   if (this->data_ref().has_value()) {
     xfer += prot_->serializedFieldSize("data", apache::thrift::protocol::T_STRUCT, 2);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::DataSet>::serializedSize<true>(*prot_, this->data);
-  }
-  if (this->stat_data_ref().has_value()) {
-    xfer += prot_->serializedFieldSize("stat_data", apache::thrift::protocol::T_STRUCT, 3);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::DataSet>::serializedSize<true>(*prot_, this->stat_data);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -6764,11 +6731,6 @@ uint32_t LookupIndexResp::write(Protocol_* prot_) const {
   if (this->data_ref().has_value()) {
     xfer += prot_->writeFieldBegin("data", apache::thrift::protocol::T_STRUCT, 2);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::DataSet>::write(*prot_, this->data);
-    xfer += prot_->writeFieldEnd();
-  }
-  if (this->stat_data_ref().has_value()) {
-    xfer += prot_->writeFieldBegin("stat_data", apache::thrift::protocol::T_STRUCT, 3);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::DataSet>::write(*prot_, this->stat_data);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -7491,24 +7453,6 @@ _readField_order_by:
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
           7,
-          8,
-          apache::thrift::protocol::T_LIST))) {
-    goto _loop;
-  }
-_readField_stat_columns:
-  {
-    _readState.beforeSubobject(iprot);
-    this->stat_columns = ::std::vector< ::nebula::storage::cpp2::StatProp>();
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector< ::nebula::storage::cpp2::StatProp>>::readWithContext(*iprot, this->stat_columns, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.stat_columns = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-    _readState.afterSubobject(iprot);
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          8,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -7585,14 +7529,6 @@ _loop:
         goto _skip;
       }
     }
-    case 8:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
-        goto _readField_stat_columns;
-      } else {
-        goto _skip;
-      }
-    }
     default:
     {
 _skip:
@@ -7630,10 +7566,6 @@ uint32_t LookupIndexRequest::serializedSize(Protocol_ const* prot_) const {
     xfer += prot_->serializedFieldSize("order_by", apache::thrift::protocol::T_LIST, 7);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector< ::nebula::storage::cpp2::OrderBy>>::serializedSize<false>(*prot_, this->order_by);
   }
-  if (this->stat_columns_ref().has_value()) {
-    xfer += prot_->serializedFieldSize("stat_columns", apache::thrift::protocol::T_LIST, 8);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector< ::nebula::storage::cpp2::StatProp>>::serializedSize<false>(*prot_, this->stat_columns);
-  }
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -7663,10 +7595,6 @@ uint32_t LookupIndexRequest::serializedSizeZC(Protocol_ const* prot_) const {
   if (this->order_by_ref().has_value()) {
     xfer += prot_->serializedFieldSize("order_by", apache::thrift::protocol::T_LIST, 7);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector< ::nebula::storage::cpp2::OrderBy>>::serializedSize<false>(*prot_, this->order_by);
-  }
-  if (this->stat_columns_ref().has_value()) {
-    xfer += prot_->serializedFieldSize("stat_columns", apache::thrift::protocol::T_LIST, 8);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector< ::nebula::storage::cpp2::StatProp>>::serializedSize<false>(*prot_, this->stat_columns);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -7703,11 +7631,6 @@ uint32_t LookupIndexRequest::write(Protocol_* prot_) const {
   if (this->order_by_ref().has_value()) {
     xfer += prot_->writeFieldBegin("order_by", apache::thrift::protocol::T_LIST, 7);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector< ::nebula::storage::cpp2::OrderBy>>::write(*prot_, this->order_by);
-    xfer += prot_->writeFieldEnd();
-  }
-  if (this->stat_columns_ref().has_value()) {
-    xfer += prot_->writeFieldBegin("stat_columns", apache::thrift::protocol::T_LIST, 8);
-    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector< ::nebula::storage::cpp2::StatProp>>::write(*prot_, this->stat_columns);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
