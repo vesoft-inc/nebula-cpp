@@ -31,7 +31,7 @@ int main(int argc, char** argv) {
   CHECK(session.valid());
 
   auto resp =
-      session.execute(folly::format("ADD HOSTS {} INTO NEW ZONE 'default_zone'", FLAGS_host).str());
+      session.execute(folly::format("ADD HOSTS {}", FLAGS_host).str());
   CHECK_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
   return 0;
 }
