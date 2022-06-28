@@ -128,6 +128,7 @@ void StorageClient::getResponse(std::pair<HostAddr, Request>&& request,
                      // exception occurred during RPC
                      if (t.hasException()) {
                        LOG(ERROR) << "Send request to " << host << " failed";
+                       LOG(ERROR) << "RpcResponse exception: " << t.exception().what().c_str();
                        pro.setValue(std::make_pair(false, Response()));
                        return;
                      }
