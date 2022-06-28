@@ -57,7 +57,7 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
   }
   int32_t spaceId = spaceIdResult.second;
   auto edgeTypeResult = mClient_->getEdgeTypeByNameFromCache(spaceId, edgeName);
-  if (!edgeTypeResult.second) {
+  if (!edgeTypeResult.first) {
     return {nullptr, nullptr, false};
   }
   int32_t edgeType = edgeTypeResult.second;
