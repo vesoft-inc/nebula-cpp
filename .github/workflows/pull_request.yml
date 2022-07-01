@@ -110,15 +110,6 @@ jobs:
           sleep 10
           popd
           popd
-      - name: CTest
-        env:
-          ASAN_OPTIONS: fast_unwind_on_malloc=1
-        run: |
-          pushd build
-          ctest -j $(($(nproc)/2+1)) --timeout 400 --output-on-failure
-          make install
-          popd
-        timeout-minutes: 4
       - name: Build example
         run: |
           case ${{ matrix.os }} in
