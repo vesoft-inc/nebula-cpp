@@ -45,6 +45,16 @@ class Session {
     session.pool_ = nullptr;
     session.offsetSecs_ = 0;
   }
+  void operator=(Session&& session) {
+    sessionId_ = session.sessionId_;
+    username_ = std::move(session.username_);
+    password_ = std::move(session.password_);
+    timezoneName_ = std::move(session.timezoneName_);
+    offsetSecs_ = session.offsetSecs_;
+    session.sessionId_ = -1;
+    session.pool_ = nullptr;
+    session.offsetSecs_ = 0;
+  }
   ~Session() {
     release();
   }
