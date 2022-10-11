@@ -43,6 +43,7 @@ set(NEBULA_CLIENT_SOURCES
     client/Connection.cpp
     client/ConnectionPool.cpp
     client/Session.cpp
+    client/SessionPool.cpp
 )
 
 set(NEBULA_MCLIENT_SOURCES

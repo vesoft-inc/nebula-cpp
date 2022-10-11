@@ -40,3 +40,5 @@ modules
 
 # Coredump
 core.*
+
+.cache

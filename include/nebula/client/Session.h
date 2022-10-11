@@ -33,6 +33,7 @@ class Session {
         password_(password),
         timezoneName_(timezoneName),
         offsetSecs_(offsetSecs) {}
+  Session(const Session &) = delete;  // no copy
   Session(Session &&session)
       : sessionId_(session.sessionId_),
         conn_(std::move(session.conn_)),

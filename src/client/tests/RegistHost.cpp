@@ -30,8 +30,7 @@ int main(int argc, char** argv) {
   auto session = pool.getSession("root", "nebula");
   CHECK(session.valid());
 
-  auto resp =
-      session.execute(folly::format("ADD HOSTS {}", FLAGS_host).str());
+  auto resp = session.execute(folly::format("ADD HOSTS {}", FLAGS_host).str());
   CHECK_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
   return 0;
 }
