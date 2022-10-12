@@ -4,6 +4,8 @@
 
 #include "nebula/client/SessionPool.h"
 
+#include <folly/json.h>
+
 #include "common/time/TimeConversion.h"
 #include "nebula/client/ConnectionPool.h"
 
@@ -13,6 +15,10 @@ ExecutionResponse SessionPool::execute(const std::string &stmt) {
   auto result = getIdleSession();
   if (result.second) {
     auto resp = result.first.execute(stmt);
+    if (*resp.spaceName != config_.spaceName_) {
+      // switch to origin space
+      result.first.execute("USE " + config_.spaceName_);
+    }
     giveBack(std::move(result.first));
     return resp;
   } else {
@@ -29,6 +35,10 @@ ExecutionResponse SessionPool::executeWithParameter(
   auto result = getIdleSession();
   if (result.second) {
     auto resp = result.first.executeWithParameter(stmt, parameters);
+    if (*resp.spaceName != config_.spaceName_) {
+      // switch to origin space
+      result.first.execute("USE " + config_.spaceName_);
+    }
     giveBack(std::move(result.first));
     return resp;
   } else {
@@ -44,6 +54,11 @@ std::string SessionPool::executeJson(const std::string &stmt) {
   auto result = getIdleSession();
   if (result.second) {
     auto resp = result.first.executeJson(stmt);
+    auto obj = folly::parseJson(resp);
+    if (obj["spaceName"].asString() != config_.spaceName_) {
+      // switch to origin space
+      result.first.execute("USE " + config_.spaceName_);
+    }
     giveBack(std::move(result.first));
     return resp;
   } else {
@@ -57,6 +72,11 @@ std::string SessionPool::executeJsonWithParameter(
   auto result = getIdleSession();
   if (result.second) {
     auto resp = result.first.executeJsonWithParameter(stmt, parameters);
+    auto obj = folly::parseJson(resp);
+    if (obj["spaceName"].asString() != config_.spaceName_) {
+      // switch to origin space
+      result.first.execute("USE " + config_.spaceName_);
+    }
     giveBack(std::move(result.first));
     return resp;
   } else {
