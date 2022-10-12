@@ -99,6 +99,15 @@ TEST_F(SessionPoolTest, SwitchSpace) {
       expected.emplace_back(nebula::Row({1}));
       ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
       ASSERT_EQ(*resp.spaceName, "session_pool_test");
+
+      // return json
+      auto json = pool.executeJson("USE session_pool_test2");
+      auto obj = folly::parseJson(json);
+      ASSERT_EQ(obj["errors"][0]["code"].asInt(), 0) << obj["errors"][0]["message"].asString();
+
+      resp = pool.execute("YIELD 1");
+      ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
+      ASSERT_EQ(*resp.spaceName, "session_pool_test");
     });
   }
   for (auto& t : threads) {

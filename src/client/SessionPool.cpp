@@ -55,7 +55,7 @@ std::string SessionPool::executeJson(const std::string &stmt) {
   if (result.second) {
     auto resp = result.first.executeJson(stmt);
     auto obj = folly::parseJson(resp);
-    if (obj["spaceName"].asString() != config_.spaceName_) {
+    if (obj["results"][0]["spaceName"].asString() != config_.spaceName_) {
       // switch to origin space
       result.first.execute("USE " + config_.spaceName_);
     }
@@ -73,7 +73,7 @@ std::string SessionPool::executeJsonWithParameter(
   if (result.second) {
     auto resp = result.first.executeJsonWithParameter(stmt, parameters);
     auto obj = folly::parseJson(resp);
-    if (obj["spaceName"].asString() != config_.spaceName_) {
+    if (obj["results"][0]["spaceName"].asString() != config_.spaceName_) {
       // switch to origin space
       result.first.execute("USE " + config_.spaceName_);
     }
