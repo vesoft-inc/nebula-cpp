@@ -116,7 +116,7 @@ jobs:
             set -e
             ;;
           esac
-          sed -i 's/--enable_authorize=false/--enable_authorize=true/g' /user/local/nebula/etc/nebula-graphd.conf
+          sed -i 's/--enable_authorize=false/--enable_authorize=true/g' /usr/local/nebula/etc/nebula-graphd.conf
           /usr/local/nebula/scripts/nebula.service start all
           /usr/local/nebula/scripts/nebula.service status all
           echo '127.0.0.1 graphd' >> /etc/hosts
