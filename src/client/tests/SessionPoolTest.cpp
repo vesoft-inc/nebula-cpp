@@ -159,123 +159,91 @@ TEST_F(SessionPoolTest, SwitchSpace) {
   config.password_ = "nebula";
   config.addrs_ = {kServerHost ":9669"};
   config.spaceName_ = "session_pool_test";
-  config.maxSize_ = 4;
+  config.maxSize_ = 1;
   nebula::SessionPool pool(config);
   pool.init();
   // switch space and auto switch back
   {
-    std::vector<std::thread> threads;
-    for (std::size_t i = 0; i < config.maxSize_; ++i) {
-      threads.emplace_back([&pool]() {
-        auto resp = pool.execute("USE session_pool_test2");
-        ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
+    auto resp = pool.execute("USE session_pool_test2;");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
 
-        resp = pool.execute("YIELD 1");
-        nebula::DataSet expected({"1"});
-        expected.emplace_back(nebula::Row({1}));
-        ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
-        ASSERT_EQ(*resp.spaceName, "session_pool_test");
+    resp = pool.execute("YIELD 1");
+    nebula::DataSet expected({"1"});
+    expected.emplace_back(nebula::Row({1}));
+    ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
+    ASSERT_EQ(*resp.spaceName, "session_pool_test");
 
-        // return json
-        auto json = pool.executeJson("USE session_pool_test2");
-        auto obj = folly::parseJson(json);
-        ASSERT_EQ(obj["errors"][0]["code"].asInt(), 0) << obj["errors"][0]["message"].asString();
+    // return json
+    auto json = pool.executeJson("USE session_pool_test2");
+    auto obj = folly::parseJson(json);
+    ASSERT_EQ(obj["errors"][0]["code"].asInt(), 0) << obj["errors"][0]["message"].asString();
 
-        resp = pool.execute("YIELD 1");
-        ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
-        ASSERT_EQ(*resp.spaceName, "session_pool_test");
-      });
-    }
-    for (auto& t : threads) {
-      t.join();
-    }
+    resp = pool.execute("YIELD 1");
+    ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
+    ASSERT_EQ(*resp.spaceName, "session_pool_test");
   }
 
   // switch to nonexistent space and auto switch back
   {
-    std::vector<std::thread> threads;
-    for (std::size_t i = 0; i < config.maxSize_; ++i) {
-      threads.emplace_back([&pool]() {
-        auto resp = pool.execute("USE nonexistent_space; YIELD 1");
-        ASSERT_NE(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+    auto resp = pool.execute("USE nonexistent_space; YIELD 1");
+    ASSERT_NE(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
 
-        resp = pool.execute("YIELD 1");
-        nebula::DataSet expected({"1"});
-        expected.emplace_back(nebula::Row({1}));
-        ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
-        ASSERT_EQ(*resp.spaceName, "session_pool_test");
+    resp = pool.execute("YIELD 1");
+    nebula::DataSet expected({"1"});
+    expected.emplace_back(nebula::Row({1}));
+    ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
+    ASSERT_EQ(*resp.spaceName, "session_pool_test");
 
-        // return json
-        auto json = pool.executeJson("USE nonexistent_space; YIELD 1");
-        auto obj = folly::parseJson(json);
-        ASSERT_NE(obj["errors"][0]["code"].asInt(), 0);
+    // return json
+    auto json = pool.executeJson("USE nonexistent_space; YIELD 1");
+    auto obj = folly::parseJson(json);
+    ASSERT_NE(obj["errors"][0]["code"].asInt(), 0);
 
-        resp = pool.execute("YIELD 1");
-        ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
-        ASSERT_EQ(*resp.spaceName, "session_pool_test");
-      });
-    }
-    for (auto& t : threads) {
-      t.join();
-    }
+    resp = pool.execute("YIELD 1");
+    ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
+    ASSERT_EQ(*resp.spaceName, "session_pool_test");
   }
 
   // switch to current space and auto switch back
   {
-    std::vector<std::thread> threads;
-    for (std::size_t i = 0; i < config.maxSize_; ++i) {
-      threads.emplace_back([&pool]() {
-        auto resp = pool.execute("USE session_pool_test");
-        ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
+    auto resp = pool.execute("USE session_pool_test");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
 
-        resp = pool.execute("YIELD 1");
-        nebula::DataSet expected({"1"});
-        expected.emplace_back(nebula::Row({1}));
-        ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
-        ASSERT_EQ(*resp.spaceName, "session_pool_test");
+    resp = pool.execute("YIELD 1");
+    nebula::DataSet expected({"1"});
+    expected.emplace_back(nebula::Row({1}));
+    ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
+    ASSERT_EQ(*resp.spaceName, "session_pool_test");
 
-        // return json
-        auto json = pool.executeJson("USE session_pool_test");
-        auto obj = folly::parseJson(json);
-        ASSERT_EQ(obj["errors"][0]["code"].asInt(), 0) << obj["errors"][0]["message"].asString();
+    // return json
+    auto json = pool.executeJson("USE session_pool_test");
+    auto obj = folly::parseJson(json);
+    ASSERT_EQ(obj["errors"][0]["code"].asInt(), 0) << obj["errors"][0]["message"].asString();
 
-        resp = pool.execute("YIELD 1");
-        ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
-        ASSERT_EQ(*resp.spaceName, "session_pool_test");
-      });
-    }
-    for (auto& t : threads) {
-      t.join();
-    }
+    resp = pool.execute("YIELD 1");
+    ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
+    ASSERT_EQ(*resp.spaceName, "session_pool_test");
   }
 
   // switch to two spaces and auto switch back
   {
-    std::vector<std::thread> threads;
-    for (std::size_t i = 0; i < config.maxSize_; ++i) {
-      threads.emplace_back([&pool]() {
-        auto resp = pool.execute("USE session_pool_test; USE session_pool_test2");
-        ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
+    auto resp = pool.execute("USE session_pool_test; USE session_pool_test2");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED) << *resp.errorMsg;
 
-        resp = pool.execute("YIELD 1");
-        nebula::DataSet expected({"1"});
-        expected.emplace_back(nebula::Row({1}));
-        ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
-        ASSERT_EQ(*resp.spaceName, "session_pool_test");
+    resp = pool.execute("YIELD 1");
+    nebula::DataSet expected({"1"});
+    expected.emplace_back(nebula::Row({1}));
+    ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
+    ASSERT_EQ(*resp.spaceName, "session_pool_test");
 
-        // return json
-        auto json = pool.executeJson("USE session_pool_test; USE session_pool_test2");
-        auto obj = folly::parseJson(json);
-        ASSERT_EQ(obj["errors"][0]["code"].asInt(), 0) << obj["errors"][0]["message"].asString();
+    // return json
+    auto json = pool.executeJson("USE session_pool_test; USE session_pool_test2");
+    auto obj = folly::parseJson(json);
+    ASSERT_EQ(obj["errors"][0]["code"].asInt(), 0) << obj["errors"][0]["message"].asString();
 
-        resp = pool.execute("YIELD 1");
-        ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
-        ASSERT_EQ(*resp.spaceName, "session_pool_test");
-      });
-    }
-    for (auto& t : threads) {
-      t.join();
-    }
+    resp = pool.execute("YIELD 1");
+    ASSERT_TRUE(verifyResultWithoutOrder(resp, expected));
+    ASSERT_EQ(*resp.spaceName, "session_pool_test");
   }
 }
 
