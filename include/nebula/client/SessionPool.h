@@ -55,6 +55,9 @@ class SessionPool {
     if (config_.spaceName_.empty()) {
       return false;
     }
+    if (config_.username_.empty() || config_.password_.empty()) {
+      return false;
+    }
     std::string useSpace = "USE " + config_.spaceName_;
     for (std::size_t i = 0; i < config_.maxSize_; ++i) {
       // use space
