@@ -45,32 +45,7 @@ class SessionPool {
   // return false when failed, otherwise return true
   // When return false, the pool is in invalid state, user must destruct it
   // instead of continue.
-  bool init() {
-    Config conf;
-    conf.maxConnectionPoolSize_ = config_.maxSize_;
-    conf.minConnectionPoolSize_ = config_.minSize_;
-    conf.idleTime_ = config_.idleTime_;
-    conf.timeout_ = config_.timeout_;
-    pool_->init(config_.addrs_, conf);
-    if (config_.spaceName_.empty()) {
-      return false;
-    }
-    if (config_.username_.empty() || config_.password_.empty()) {
-      return false;
-    }
-    std::string useSpace = "USE " + config_.spaceName_;
-    for (std::size_t i = 0; i < config_.maxSize_; ++i) {
-      // use space
-      auto session = pool_->getSession(config_.username_, config_.password_);
-      auto resp = session.execute(useSpace);
-      if (resp.errorCode == ErrorCode::SUCCEEDED) {
-        idleSessions_.emplace_back(std::move(session));
-      } else {
-        return false;
-      }
-    }
-    return true;
-  }
+  bool init();
 
   // Session pool use fixed space, don't switch space when execute
   ExecutionResponse execute(const std::string &stmt);
