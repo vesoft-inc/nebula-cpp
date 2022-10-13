@@ -29,7 +29,7 @@ struct SessionPoolConfig {
   std::uint32_t idleTime_{0};
   std::uint32_t maxSize_{10};  // max size of the session pool. should be adjusted according to the
                                // max threads will be using.
-  std::uint32_t minSize_{0};   // min size of  the session pool
+  std::uint32_t minSize_{1};   // min size of  the session pool
 };
 
 class SessionPool {
