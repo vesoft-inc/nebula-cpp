@@ -35,7 +35,7 @@ add_executable(session_example
     SessionExample.cpp
 )
 
-add_executable(session_example
+add_executable(session_pool_example
     SessionPoolExample.cpp
 )
 
