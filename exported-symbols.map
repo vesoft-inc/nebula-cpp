@@ -11,6 +11,7 @@ global:
         nebula::ConnectionPool::*;
         "nebula::init(int*, char***)";
         nebula::Session::*;
+        nebula::SessionPool::*;
         nebula::Value::*;
         nebula::DataSet::*;
         nebula::Date::*;
