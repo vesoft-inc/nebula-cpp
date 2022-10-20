@@ -8,13 +8,16 @@
 #include <atomic>
 #include <chrono>
 #include <thread>
+#include "nebula/client/Config.h"
 
 int main(int argc, char* argv[]) {
   nebula::init(&argc, &argv);
   {
     // Create space
     nebula::ConnectionPool pool;
-    pool.init({"127.0.0.1:9669"}, nebula::Config{0, 0, 1, 0, "", false});
+    auto config = nebula::Config{};
+    config.maxConnectionPoolSize_ = 1;
+    pool.init({"127.0.0.1:9669"}, config);
     auto session = pool.getSession("root", "nebula");
     assert(session.valid());
 
