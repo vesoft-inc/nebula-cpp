@@ -297,7 +297,9 @@ jobs:
           echo '--ca_path=' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
           echo '--password_path=share/resources/test.ca.password' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
           /usr/local/nebula/scripts/nebula.service status all
-          /usr/local/nebula/scripts/nebula.service stop all
+          pkill -9 nebula-graphd
+          pkill -9 nebula-storaged
+          pkill -9 nebula-metad
           sleep 10
           /usr/local/nebula/scripts/nebula.service start all
           /usr/local/nebula/scripts/nebula.service status all
