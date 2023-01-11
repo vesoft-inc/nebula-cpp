@@ -298,7 +298,7 @@ jobs:
           echo '--password_path=share/resources/test.ca.password' | tee -a /usr/local/nebula/etc/nebula-graphd.conf /usr/local/nebula/etc/nebula-storaged.conf /usr/local/nebula/etc/nebula-metad.conf
           /usr/local/nebula/scripts/nebula.service stop all
           sleep 10
-          /usr/local/nebula/scripts/nebula.service stop all
+          /usr/local/nebula/scripts/nebula.service start all
           /usr/local/nebula/scripts/nebula.service status all
           # The connection maybe unstable, so we wait a while
           sleep 10
