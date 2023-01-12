@@ -399,6 +399,9 @@ jobs:
           cp certs/* /usr/local/nebula/share/resources
           /usr/local/nebula/scripts/nebula.service start all
           /usr/local/nebula/scripts/nebula.service status all
+          echo '127.0.0.1 graphd' >> /etc/hosts
+          echo '127.0.0.1 graphd1' >> /etc/hosts
+          echo '127.0.0.1 graphd2' >> /etc/hosts
           # The connection maybe unstable, so we wait a while
           sleep 10
       - name: CTest self-signed SSL
