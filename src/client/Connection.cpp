@@ -108,11 +108,9 @@ bool Connection::open(const std::string &address,
         }
       });
   if (!complete) {
-    DLOG(ERROR) << "Connect failed.";
     return false;
   }
   if (!socket->good()) {
-    DLOG(ERROR) << "Connection is not good.";
     return false;
   }
   // TODO workaround for issue #72
