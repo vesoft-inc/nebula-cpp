@@ -16,6 +16,12 @@ nebula_add_test(
         ${NEBULA_THIRD_PARTY_LIBRARIES}
 )
 
+file(COPY ${CMAKE_SOURCE_DIR}/certs/test.ca.pem
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+file(COPY ${CMAKE_SOURCE_DIR}/certs/test.2.crt
+     DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
 nebula_add_test(
     NAME
         connection_ssl_test
