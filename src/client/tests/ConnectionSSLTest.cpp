@@ -35,6 +35,30 @@ TEST_F(ConnectionTest, SSL) {
   EXPECT_TRUE(verifyResultWithoutOrder(*resp.data, expected));
 }
 
+TEST_F(ConnectionTest, SSCA) {
+  {
+    nebula::Connection c;
+    ASSERT_TRUE(c.open(kServerHost, 9669, 10, true, "./test.ca.pem"));
+
+    // auth
+    auto authResp = c.authenticate("root", "nebula");
+    ASSERT_EQ(authResp.errorCode, nebula::ErrorCode::SUCCEEDED) << *authResp.errorMsg;
+
+    // execute
+    auto resp = c.execute(*authResp.sessionId, "YIELD 1");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+    nebula::DataSet expected({"1"});
+    expected.emplace_back(nebula::List({1}));
+    EXPECT_TRUE(verifyResultWithoutOrder(*resp.data, expected));
+  }
+
+  {
+    // mismatch
+    nebula::Connection c;
+    ASSERT_FALSE(c.open(kServerHost, 9669, 10, true, "./test.2.crt"));
+  }
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   nebula::init(&argc, &argv);
