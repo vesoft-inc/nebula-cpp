@@ -9,7 +9,7 @@ namespace java com.vesoft.nebula.storage
 namespace go nebula.storage
 namespace csharp nebula.storage
 namespace js nebula.storage
-namespace py nebula2.storage
+namespace py nebula3.storage
 
 include "common.thrift"
 include "meta.thrift"
@@ -158,6 +158,11 @@ struct TraverseSpec {
     10: optional i64                            limit,
     // If provided, only the rows satisfied the given expression will be returned
     11: optional binary                         filter,
+    // only contain filter expression for tag, tag_filter is a subset of filter
+    // Attention: tag_filter cannot extract expression from filter
+    //            when filter contains logicalOR expression
+    //            bcz $^.player.age > 30 OR like.likeness > 80 can't filter data only by tag_Filter
+    12: optional binary                         tag_filter,
 }
 
 
@@ -169,7 +174,7 @@ struct GetNeighborsRequest {
     // Column names for input data. The first column name must be "_vid"
     2: list<binary>                             column_names,
     // partId => rows
-    3: map<common.PartitionID, list<common.Row>>
+    3: map<common.PartitionID, list<common.Value>>
         (cpp.template = "std::unordered_map")   parts,
     4: TraverseSpec                             traverse_spec,
     5: optional RequestCommon                   common,
@@ -234,6 +239,21 @@ struct GetNeighborsResponse {
 /*
  * End of GetNeighbors section
  */
+
+struct GetDstBySrcRequest {
+    1: common.GraphSpaceID                      space_id,
+    // list of srcId in each part
+    2: map<common.PartitionID, list<common.Value>>
+        (cpp.template = "std::unordered_map")   parts,
+    3: list<common.EdgeType>                    edge_types,
+    4: optional RequestCommon                   common,
+}
+
+struct GetDstBySrcResponse {
+    1: required ResponseCommon                  result,
+    // Only one dst column, each row is a dst
+    2: optional common.DataSet                  dsts,
+}
 
 
 //
@@ -495,6 +515,8 @@ struct LookupIndexResp {
     // Each column represents one property. the column name is in the form of "tag_name.prop_alias"
     // or "edge_type_name.prop_alias" in the same order which specified in return_columns of request
     2: optional common.DataSet          data,
+    // stat_data only have one column, the column name is the order in LookupIndexRequest.stat_prop
+    3: optional common.DataSet          stat_data,
 }
 
 enum ScanType {
@@ -546,6 +568,7 @@ struct LookupIndexRequest {
     // max row count of each partition in this response
     6: optional i64                         limit,
     7: optional list<OrderBy>               order_by,
+    8: optional list<StatProp>              stat_columns,
 }
 
 
@@ -658,7 +681,8 @@ struct KVRemoveRequest {
 }
 
 service GraphStorageService {
-    GetNeighborsResponse getNeighbors(1: GetNeighborsRequest req)
+    GetNeighborsResponse getNeighbors(1: GetNeighborsRequest req);
+    GetDstBySrcResponse getDstBySrc(1: GetDstBySrcRequest req);
 
     // Get vertex or edge properties
     GetPropResponse getProps(1: GetPropRequest req);
@@ -700,7 +724,7 @@ service GraphStorageService {
 //////////////////////////////////////////////////////////
 // Common response for admin methods
 struct AdminExecResp {
-    1: required ResponseCommon   result,
+    1: required ResponseCommon  result,
     2: optional meta.StatsItem  stats,
 }
 
@@ -756,27 +780,36 @@ struct CreateCPRequest {
     2: binary                     name,
 }
 
+struct CreateCPResp {
+    1: common.ErrorCode             code,
+    2: list<common.CheckpointInfo>  info,
+}
 
 struct DropCPRequest {
     1: list<common.GraphSpaceID>  space_ids,
     2: binary                     name,
 }
 
+struct DropCPResp {
+    1: common.ErrorCode             code,
+}
 
 enum EngineSignType {
     BLOCK_ON = 1,
     BLOCK_OFF = 2,
 }
 
-
 struct BlockingSignRequest {
     1: list<common.GraphSpaceID>    space_ids,
     2: required EngineSignType      sign,
 }
 
+struct BlockingSignResp {
+    1: common.ErrorCode             code,
+}
 
 struct GetLeaderPartsResp {
-    1: required ResponseCommon result,
+    1: common.ErrorCode             code,
     2: map<common.GraphSpaceID, list<common.PartitionID>> (
         cpp.template = "std::unordered_map") leader_parts;
 }
@@ -795,11 +828,6 @@ struct RebuildIndexRequest {
     3: common.IndexID               index_id,
 }
 
-struct CreateCPResp {
-    1: required ResponseCommon      result,
-    2: list<common.CheckpointInfo>  info,
-}
-
 struct ListClusterInfoResp {
     1: required ResponseCommon  result,
     2: common.DirInfo           dir,
@@ -808,18 +836,33 @@ struct ListClusterInfoResp {
 struct ListClusterInfoReq {
 }
 
-struct AddAdminTaskRequest {
-    // rebuild index / flush / compact / statis
-    1: meta.AdminCmd                        cmd
+struct AddTaskRequest {
+    // Task distributed to storage to execute, e.g. flush, compact, stats, etc.
+    1: meta.JobType                         job_type
     2: i32                                  job_id
     3: i32                                  task_id
     4: TaskPara                             para
-    5: optional i32                         concurrency
 }
 
-struct StopAdminTaskRequest {
+struct AddTaskResp {
+    1: common.ErrorCode                     code,
+}
+
+struct StopTaskRequest {
     1: i32                                  job_id
     2: i32                                  task_id
+}
+
+struct StopTaskResp {
+    1: common.ErrorCode                     code,
+}
+
+struct ClearSpaceReq {
+    1: common.GraphSpaceID space_id,
+}
+
+struct ClearSpaceResp {
+    1: common.ErrorCode code,
 }
 
 service StorageAdminService {
@@ -833,20 +876,18 @@ service StorageAdminService {
 
     // Interfaces for nebula cluster checkpoint
     CreateCPResp  createCheckpoint(1: CreateCPRequest req);
-    AdminExecResp dropCheckpoint(1: DropCPRequest req);
-    AdminExecResp blockingWrites(1: BlockingSignRequest req);
-
-    // Interfaces for rebuild index
-    AdminExecResp rebuildTagIndex(1: RebuildIndexRequest req);
-    AdminExecResp rebuildEdgeIndex(1: RebuildIndexRequest req);
+    DropCPResp    dropCheckpoint(1: DropCPRequest req);
+    BlockingSignResp blockingWrites(1: BlockingSignRequest req);
 
     // Return all leader partitions on this host
     GetLeaderPartsResp getLeaderParts(1: GetLeaderReq req);
     // Return all peers
     AdminExecResp checkPeers(1: CheckPeersReq req);
 
-    AdminExecResp addAdminTask(1: AddAdminTaskRequest req);
-    AdminExecResp stopAdminTask(1: StopAdminTaskRequest req);
+    AddTaskResp   addAdminTask(1: AddTaskRequest req);
+    StopTaskResp  stopAdminTask(1: StopTaskRequest req);
+
+    ClearSpaceResp clearSpace(1: ClearSpaceReq req);
 }
 
 

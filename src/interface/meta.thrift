@@ -8,7 +8,7 @@ namespace java com.vesoft.nebula.meta
 namespace go nebula.meta
 namespace js nebula.meta
 namespace csharp nebula.meta
-namespace py nebula2.meta
+namespace py nebula3.meta
 
 include "common.thrift"
 
@@ -220,7 +220,7 @@ struct AlterSpaceReq {
 }
 
 // Job related data structures
-enum AdminJobOp {
+enum JobOp {
     ADD         = 0x01,
     SHOW_All    = 0x02,
     SHOW        = 0x03,
@@ -228,13 +228,7 @@ enum AdminJobOp {
     RECOVER     = 0x05,
 } (cpp.enum_strict)
 
-struct AdminJobReq {
-    1: AdminJobOp       op,
-    2: AdminCmd         cmd,
-    3: list<binary>     paras,
-}
-
-enum AdminCmd {
+enum JobType {
     COMPACT                  = 0,
     FLUSH                    = 1,
     REBUILD_TAG_INDEX        = 2,
@@ -249,6 +243,13 @@ enum AdminCmd {
     UNKNOWN                  = 99,
 } (cpp.enum_strict)
 
+struct AdminJobReq {
+    1: common.GraphSpaceID  space_id,
+    2: JobOp                op,
+    3: JobType              type,
+    4: list<binary>         paras,
+}
+
 enum JobStatus {
     QUEUE           = 0x01,
     RUNNING         = 0x02,
@@ -259,27 +260,31 @@ enum JobStatus {
 } (cpp.enum_strict)
 
 struct JobDesc {
-    1: i32              id,
-    2: AdminCmd         cmd,
-    3: list<string>     paras,
-    4: JobStatus        status,
-    5: i64              start_time,
-    6: i64              stop_time,
+    1: common.GraphSpaceID  space_id,
+    2: i32                  job_id,
+    3: JobType              type,
+    4: list<string>         paras,
+    5: JobStatus            status,
+    6: i64                  start_time,
+    7: i64                  stop_time,
+    8: common.ErrorCode     code,
 }
 
 struct TaskDesc {
-    1: i32              task_id,
-    2: common.HostAddr  host,
-    3: JobStatus        status,
-    4: i64              start_time,
-    5: i64              stop_time,
-    6: i32              job_id,
+    1: common.GraphSpaceID  space_id,
+    2: i32                  job_id,
+    3: i32                  task_id,
+    4: common.HostAddr      host,
+    5: JobStatus            status,
+    6: i64                  start_time,
+    7: i64                  stop_time,
+    8: common.ErrorCode     code,
 }
 
 struct AdminJobResult {
     // used in a new added job, e.g. "flush" "compact"
     // other job type which also need jobId in their result
-    // will use other filed. e.g. JobDesc::id
+    // will use other filed. e.g. JobDesc::job_id
     1: optional i32                 job_id,
 
     // used in "show jobs" and "show job <id>"
@@ -338,6 +343,11 @@ struct CreateSpaceAsReq {
 
 struct DropSpaceReq {
     1: binary space_name
+    2: bool   if_exists,
+}
+
+struct ClearSpaceReq {
+    1: binary space_name,
     2: bool   if_exists,
 }
 
@@ -459,11 +469,12 @@ struct DropHostsReq {
 
 enum ListHostType {
     // nebula 1.0 show hosts, show leader, partition info
-    ALLOC       = 0x00,
-    GRAPH       = 0x01,
-    META        = 0x02,
-    STORAGE     = 0x03,
-    AGENT       = 0x04,
+    ALLOC            = 0x00,
+    GRAPH            = 0x01,
+    META             = 0x02,
+    STORAGE          = 0x03,
+    AGENT            = 0x04,
+    STORAGE_LISTENER = 0x05,
 } (cpp.enum_strict)
 
 struct ListHostsReq {
@@ -509,7 +520,7 @@ struct GetPartsAllocResp {
 
 // get workerid for snowflake
 struct GetWorkerIdReq {
-    1: binary host, 
+    1: binary host,
 }
 
 struct GetWorkerIdResp {
@@ -518,56 +529,14 @@ struct GetWorkerIdResp {
     3: i64              workerid,
 }
 
-struct MultiPutReq {
-    // segment is used to avoid conflict with system data.
-    // it should be comprised of numbers and letters.
-    1: binary                   segment,
-    2: list<common.KeyValue>    pairs,
+struct GetSegmentIdReq {
+    1: i64 length
 }
 
-struct GetReq {
-    1: binary segment,
-    2: binary key,
-}
-
-struct GetResp {
+struct GetSegmentIdResp {
     1: common.ErrorCode code,
     2: common.HostAddr  leader,
-    3: binary           value,
-}
-
-struct MultiGetReq {
-    1: binary       segment,
-    2: list<binary> keys,
-}
-
-struct MultiGetResp {
-    1: common.ErrorCode code,
-    2: common.HostAddr  leader,
-    3: list<binary>     values,
-}
-
-struct RemoveReq {
-    1: binary segment,
-    2: binary key,
-}
-
-struct RemoveRangeReq {
-    1: binary segment,
-    2: binary start,
-    3: binary end,
-}
-
-struct ScanReq {
-    1: binary segment,
-    2: binary start,
-    3: binary end,
-}
-
-struct ScanResp {
-    1: common.ErrorCode code,
-    2: common.HostAddr  leader,
-    3: list<binary>     values,
+    3: i64              segment_id,
 }
 
 struct HBResp {
@@ -579,12 +548,12 @@ struct HBResp {
 }
 
 enum HostRole {
-    GRAPH       = 0x00,
-    META        = 0x01,
-    STORAGE     = 0x02,
-    LISTENER    = 0x03,
-    AGENT       = 0x04,
-    UNKNOWN     = 0x05
+    GRAPH               = 0x00,
+    META                = 0x01,
+    STORAGE             = 0x02,
+    STORAGE_LISTENER    = 0x03,
+    AGENT               = 0x04,
+    UNKNOWN             = 0x05
 } (cpp.enum_strict)
 
 struct LeaderInfo {
@@ -845,7 +814,7 @@ struct CreateSnapshotReq {
 }
 
 struct DropSnapshotReq {
-    1: binary   name,
+    1: list<binary> names,
 }
 
 struct ListSnapshotsReq {
@@ -985,7 +954,7 @@ struct SpaceBackupInfo {
 }
 
 struct BackupMeta {
-    // space_name => SpaceBackupInfo
+   // spaceId => SpaceBackupInfo
     1: map<common.GraphSpaceID, SpaceBackupInfo>(cpp.template = "std::unordered_map")  space_backups,
     // sst file
     2: list<binary>                               meta_files,
@@ -994,11 +963,21 @@ struct BackupMeta {
     4: bool                                       full,
     5: bool                                       all_spaces,
     6: i64                                        create_time,
+    7: binary                                     base_backup_name,
+    8: list<common.HostAddr>                      storage_hosts,
+    // The clusterId of the current cluster
+    9: ClusterID                                  cluster_id,
 }
 
 struct CreateBackupReq {
     // null means all spaces
     1: optional list<binary>  spaces,
+    // When empty, it means full backup
+    // When there is a value, it indicates the last incremental backup
+    2: optional binary        base_backup_name,
+    // The clusterId of the cluster corresponding to base_backup_name
+    3: optional ClusterID     cluster_id,
+
 }
 
 struct CreateBackupResp {
@@ -1015,6 +994,19 @@ struct HostPair {
 struct RestoreMetaReq {
     1: list<binary>     files,
     2: list<HostPair>   hosts,
+}
+
+struct PartInfo {
+    1: common.PartitionID    part_id,
+    2: list<common.HostAddr> hosts,
+}
+
+struct RestoreMetaResp {
+    1: common.ErrorCode code,
+    // Valid if ret equals E_LEADER_CHANGED.
+    2: common.HostAddr  leader,
+    3: map<common.GraphSpaceID, list<PartInfo>>
+    (cpp.template = "std::unordered_map")  part_hosts,
 }
 
 enum ExternalServiceType {
@@ -1122,6 +1114,7 @@ struct UpdateSessionsResp {
     2: common.HostAddr      leader,
     3: map<common.SessionID, map<common.ExecutionPlanID, QueryDesc> (cpp.template = "std::unordered_map")>
         (cpp.template = "std::unordered_map") killed_queries,
+    4: list<common.SessionID>       killed_sessions,
 }
 
 struct ListSessionsReq {
@@ -1144,7 +1137,13 @@ struct GetSessionResp {
 }
 
 struct RemoveSessionReq {
-    1: common.SessionID      session_id,
+    1: list<common.SessionID>      session_ids,
+}
+
+struct RemoveSessionResp {
+    1: common.ErrorCode         code,
+    2: common.HostAddr          leader,
+    3: list<common.SessionID>   removed_session_ids,
 }
 
 struct KillQueryReq {
@@ -1154,9 +1153,10 @@ struct KillQueryReq {
 
 struct ReportTaskReq {
     1: common.ErrorCode     code,
-    2: i32                  job_id,
-    3: i32                  task_id,
-    4: optional StatsItem   stats
+    2: common.GraphSpaceID  space_id,
+    3: i32                  job_id,
+    4: i32                  task_id,
+    5: optional StatsItem   stats
 }
 
 struct ListClusterInfoResp {
@@ -1179,11 +1179,24 @@ struct GetMetaDirInfoReq {
 struct VerifyClientVersionResp {
     1: common.ErrorCode         code,
     2: common.HostAddr          leader,
-    3: optional binary           error_msg;
+    3: optional binary          error_msg;
 }
 
-
 struct VerifyClientVersionReq {
+    1: required binary client_version = common.version;
+    2: common.HostAddr host;
+    3: binary build_version;
+}
+
+struct SaveGraphVersionResp {
+    1: common.ErrorCode         code,
+    2: common.HostAddr          leader,
+    3: optional binary          error_msg;
+}
+
+// SaveGraphVersionReq is used to save the graph version of a graph service.
+// This is for internal using only.
+struct SaveGraphVersionReq {
     1: required binary client_version = common.version;
     2: common.HostAddr host;
     3: binary build_version;
@@ -1192,6 +1205,7 @@ struct VerifyClientVersionReq {
 service MetaService {
     ExecResp createSpace(1: CreateSpaceReq req);
     ExecResp dropSpace(1: DropSpaceReq req);
+    ExecResp clearSpace(1: ClearSpaceReq req);
     GetSpaceResp getSpace(1: GetSpaceReq req);
     ListSpacesResp listSpaces(1: ListSpacesReq req);
     ExecResp alterSpace(1: AlterSpaceReq req);
@@ -1219,13 +1233,6 @@ service MetaService {
     ListPartsResp listParts(1: ListPartsReq req);
 
     GetWorkerIdResp getWorkerId(1: GetWorkerIdReq req);
-
-    ExecResp multiPut(1: MultiPutReq req);
-    GetResp get(1: GetReq req);
-    MultiGetResp multiGet(1: MultiGetReq req);
-    ExecResp remove(1: RemoveReq req);
-    ExecResp removeRange(1: RemoveRangeReq req);
-    ScanResp scan(1: ScanReq req);
 
     ExecResp             createTagIndex(1: CreateTagIndexReq req);
     ExecResp             dropTagIndex(1: DropTagIndexReq req );
@@ -1288,16 +1295,19 @@ service MetaService {
     UpdateSessionsResp updateSessions(1: UpdateSessionsReq req);
     ListSessionsResp listSessions(1: ListSessionsReq req);
     GetSessionResp getSession(1: GetSessionReq req);
-    ExecResp removeSession(1: RemoveSessionReq req);
+    RemoveSessionResp removeSession(1: RemoveSessionReq req);
     ExecResp killQuery(1: KillQueryReq req);
 
     ExecResp reportTaskFinish(1: ReportTaskReq req);
 
     // Interfaces for backup and restore
     CreateBackupResp createBackup(1: CreateBackupReq req);
-    ExecResp       restoreMeta(1: RestoreMetaReq req);
+    RestoreMetaResp  restoreMeta(1: RestoreMetaReq req);
     ListClusterInfoResp listCluster(1: ListClusterInfoReq req);
     GetMetaDirInfoResp getMetaDirInfo(1: GetMetaDirInfoReq req);
 
     VerifyClientVersionResp verifyClientVersion(1: VerifyClientVersionReq req)
+    SaveGraphVersionResp saveGraphVersion(1: SaveGraphVersionReq req)
+
+    GetSegmentIdResp getSegmentId(1: GetSegmentIdReq req);
 }

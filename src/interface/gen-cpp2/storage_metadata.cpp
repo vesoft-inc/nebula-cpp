@@ -305,6 +305,7 @@ StructMetadata<::nebula::storage::cpp2::TraverseSpec>::gen(ThriftMetadata& metad
     std::make_tuple(9, "random", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(10, "limit", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(11, "filter", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(12, "tag_filter", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_TraverseSpec_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -330,7 +331,7 @@ StructMetadata<::nebula::storage::cpp2::GetNeighborsRequest>::gen(ThriftMetadata
   storage_GetNeighborsRequest_fields[] = {
     std::make_tuple(1, "space_id", false, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "column_names", false, std::make_unique<List>(std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE)), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(3, "parts", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<List>(std::make_unique<Struct< ::nebula::cpp2::Row>>("common.Row"))), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "parts", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<List>(std::make_unique<Union< ::nebula::cpp2::Value>>("common.Value"))), std::vector<ThriftConstStruct>{}),
     std::make_tuple(4, "traverse_spec", false, std::make_unique<Struct< ::nebula::storage::cpp2::TraverseSpec>>("storage.TraverseSpec"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(5, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
   };
@@ -367,6 +368,58 @@ StructMetadata<::nebula::storage::cpp2::GetNeighborsResponse>::gen(ThriftMetadat
     std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
     field.structured_annotations_ref() = std::get<4>(f);
     storage_GetNeighborsResponse.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::storage::cpp2::GetDstBySrcRequest>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.GetDstBySrcRequest", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& storage_GetDstBySrcRequest = res.first->second;
+  storage_GetDstBySrcRequest.name_ref() = "storage.GetDstBySrcRequest";
+  storage_GetDstBySrcRequest.is_union_ref() = false;
+  static const EncodedThriftField
+  storage_GetDstBySrcRequest_fields[] = {
+    std::make_tuple(1, "space_id", false, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "parts", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<List>(std::make_unique<Union< ::nebula::cpp2::Value>>("common.Value"))), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "edge_types", false, std::make_unique<List>(std::make_unique<Typedef>("common.EdgeType", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE))), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(4, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : storage_GetDstBySrcRequest_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    storage_GetDstBySrcRequest.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::storage::cpp2::GetDstBySrcResponse>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.GetDstBySrcResponse", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& storage_GetDstBySrcResponse = res.first->second;
+  storage_GetDstBySrcResponse.name_ref() = "storage.GetDstBySrcResponse";
+  storage_GetDstBySrcResponse.is_union_ref() = false;
+  static const EncodedThriftField
+  storage_GetDstBySrcResponse_fields[] = {
+    std::make_tuple(1, "result", false, std::make_unique<Struct< ::nebula::storage::cpp2::ResponseCommon>>("storage.ResponseCommon"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "dsts", true, std::make_unique<Struct< ::nebula::cpp2::DataSet>>("common.DataSet"), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : storage_GetDstBySrcResponse_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    storage_GetDstBySrcResponse.fields_ref()->push_back(std::move(field));
   }
   return res.first->second;
 }
@@ -893,6 +946,7 @@ StructMetadata<::nebula::storage::cpp2::LookupIndexResp>::gen(ThriftMetadata& me
   storage_LookupIndexResp_fields[] = {
     std::make_tuple(1, "result", false, std::make_unique<Struct< ::nebula::storage::cpp2::ResponseCommon>>("storage.ResponseCommon"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "data", true, std::make_unique<Struct< ::nebula::cpp2::DataSet>>("common.DataSet"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "stat_data", true, std::make_unique<Struct< ::nebula::cpp2::DataSet>>("common.DataSet"), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_LookupIndexResp_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -1003,6 +1057,7 @@ StructMetadata<::nebula::storage::cpp2::LookupIndexRequest>::gen(ThriftMetadata&
     std::make_tuple(5, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(6, "limit", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(7, "order_by", true, std::make_unique<List>(std::make_unique<Struct< ::nebula::storage::cpp2::OrderBy>>("storage.OrderBy")), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(8, "stat_columns", true, std::make_unique<List>(std::make_unique<Struct< ::nebula::storage::cpp2::StatProp>>("storage.StatProp")), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_LookupIndexRequest_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -1505,6 +1560,31 @@ StructMetadata<::nebula::storage::cpp2::CreateCPRequest>::gen(ThriftMetadata& me
   return res.first->second;
 }
 const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::storage::cpp2::CreateCPResp>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.CreateCPResp", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& storage_CreateCPResp = res.first->second;
+  storage_CreateCPResp.name_ref() = "storage.CreateCPResp";
+  storage_CreateCPResp.is_union_ref() = false;
+  static const EncodedThriftField
+  storage_CreateCPResp_fields[] = {
+    std::make_tuple(1, "code", false, std::make_unique<Enum< ::nebula::cpp2::ErrorCode>>("common.ErrorCode"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "info", false, std::make_unique<List>(std::make_unique<Struct< ::nebula::cpp2::CheckpointInfo>>("common.CheckpointInfo")), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : storage_CreateCPResp_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    storage_CreateCPResp.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
 StructMetadata<::nebula::storage::cpp2::DropCPRequest>::gen(ThriftMetadata& metadata) {
   auto res = metadata.structs_ref()->emplace("storage.DropCPRequest", ::apache::thrift::metadata::ThriftStruct{});
   if (!res.second) {
@@ -1526,6 +1606,30 @@ StructMetadata<::nebula::storage::cpp2::DropCPRequest>::gen(ThriftMetadata& meta
     std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
     field.structured_annotations_ref() = std::get<4>(f);
     storage_DropCPRequest.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::storage::cpp2::DropCPResp>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.DropCPResp", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& storage_DropCPResp = res.first->second;
+  storage_DropCPResp.name_ref() = "storage.DropCPResp";
+  storage_DropCPResp.is_union_ref() = false;
+  static const EncodedThriftField
+  storage_DropCPResp_fields[] = {
+    std::make_tuple(1, "code", false, std::make_unique<Enum< ::nebula::cpp2::ErrorCode>>("common.ErrorCode"), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : storage_DropCPResp_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    storage_DropCPResp.fields_ref()->push_back(std::move(field));
   }
   return res.first->second;
 }
@@ -1555,6 +1659,30 @@ StructMetadata<::nebula::storage::cpp2::BlockingSignRequest>::gen(ThriftMetadata
   return res.first->second;
 }
 const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::storage::cpp2::BlockingSignResp>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.BlockingSignResp", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& storage_BlockingSignResp = res.first->second;
+  storage_BlockingSignResp.name_ref() = "storage.BlockingSignResp";
+  storage_BlockingSignResp.is_union_ref() = false;
+  static const EncodedThriftField
+  storage_BlockingSignResp_fields[] = {
+    std::make_tuple(1, "code", false, std::make_unique<Enum< ::nebula::cpp2::ErrorCode>>("common.ErrorCode"), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : storage_BlockingSignResp_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    storage_BlockingSignResp.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
 StructMetadata<::nebula::storage::cpp2::GetLeaderPartsResp>::gen(ThriftMetadata& metadata) {
   auto res = metadata.structs_ref()->emplace("storage.GetLeaderPartsResp", ::apache::thrift::metadata::ThriftStruct{});
   if (!res.second) {
@@ -1565,7 +1693,7 @@ StructMetadata<::nebula::storage::cpp2::GetLeaderPartsResp>::gen(ThriftMetadata&
   storage_GetLeaderPartsResp.is_union_ref() = false;
   static const EncodedThriftField
   storage_GetLeaderPartsResp_fields[] = {
-    std::make_tuple(1, "result", false, std::make_unique<Struct< ::nebula::storage::cpp2::ResponseCommon>>("storage.ResponseCommon"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(1, "code", false, std::make_unique<Enum< ::nebula::cpp2::ErrorCode>>("common.ErrorCode"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "leader_parts", false, std::make_unique<Map>(std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<List>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)))), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_GetLeaderPartsResp_fields) {
@@ -1632,31 +1760,6 @@ StructMetadata<::nebula::storage::cpp2::RebuildIndexRequest>::gen(ThriftMetadata
   return res.first->second;
 }
 const ::apache::thrift::metadata::ThriftStruct&
-StructMetadata<::nebula::storage::cpp2::CreateCPResp>::gen(ThriftMetadata& metadata) {
-  auto res = metadata.structs_ref()->emplace("storage.CreateCPResp", ::apache::thrift::metadata::ThriftStruct{});
-  if (!res.second) {
-    return res.first->second;
-  }
-  ::apache::thrift::metadata::ThriftStruct& storage_CreateCPResp = res.first->second;
-  storage_CreateCPResp.name_ref() = "storage.CreateCPResp";
-  storage_CreateCPResp.is_union_ref() = false;
-  static const EncodedThriftField
-  storage_CreateCPResp_fields[] = {
-    std::make_tuple(1, "result", false, std::make_unique<Struct< ::nebula::storage::cpp2::ResponseCommon>>("storage.ResponseCommon"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(2, "info", false, std::make_unique<List>(std::make_unique<Struct< ::nebula::cpp2::CheckpointInfo>>("common.CheckpointInfo")), std::vector<ThriftConstStruct>{}),
-  };
-  for (const auto& f : storage_CreateCPResp_fields) {
-    ::apache::thrift::metadata::ThriftField field;
-    field.id_ref() = std::get<0>(f);
-    field.name_ref() = std::get<1>(f);
-    field.is_optional_ref() = std::get<2>(f);
-    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
-    field.structured_annotations_ref() = std::get<4>(f);
-    storage_CreateCPResp.fields_ref()->push_back(std::move(field));
-  }
-  return res.first->second;
-}
-const ::apache::thrift::metadata::ThriftStruct&
 StructMetadata<::nebula::storage::cpp2::ListClusterInfoResp>::gen(ThriftMetadata& metadata) {
   auto res = metadata.structs_ref()->emplace("storage.ListClusterInfoResp", ::apache::thrift::metadata::ThriftStruct{});
   if (!res.second) {
@@ -1693,55 +1796,150 @@ StructMetadata<::nebula::storage::cpp2::ListClusterInfoReq>::gen(ThriftMetadata&
   return res.first->second;
 }
 const ::apache::thrift::metadata::ThriftStruct&
-StructMetadata<::nebula::storage::cpp2::AddAdminTaskRequest>::gen(ThriftMetadata& metadata) {
-  auto res = metadata.structs_ref()->emplace("storage.AddAdminTaskRequest", ::apache::thrift::metadata::ThriftStruct{});
+StructMetadata<::nebula::storage::cpp2::AddTaskRequest>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.AddTaskRequest", ::apache::thrift::metadata::ThriftStruct{});
   if (!res.second) {
     return res.first->second;
   }
-  ::apache::thrift::metadata::ThriftStruct& storage_AddAdminTaskRequest = res.first->second;
-  storage_AddAdminTaskRequest.name_ref() = "storage.AddAdminTaskRequest";
-  storage_AddAdminTaskRequest.is_union_ref() = false;
+  ::apache::thrift::metadata::ThriftStruct& storage_AddTaskRequest = res.first->second;
+  storage_AddTaskRequest.name_ref() = "storage.AddTaskRequest";
+  storage_AddTaskRequest.is_union_ref() = false;
   static const EncodedThriftField
-  storage_AddAdminTaskRequest_fields[] = {
-    std::make_tuple(1, "cmd", false, std::make_unique<Enum< ::nebula::meta::cpp2::AdminCmd>>("meta.AdminCmd"), std::vector<ThriftConstStruct>{}),
+  storage_AddTaskRequest_fields[] = {
+    std::make_tuple(1, "job_type", false, std::make_unique<Enum< ::nebula::meta::cpp2::JobType>>("meta.JobType"), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "job_id", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(3, "task_id", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(4, "para", false, std::make_unique<Struct< ::nebula::storage::cpp2::TaskPara>>("storage.TaskPara"), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(5, "concurrency", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE), std::vector<ThriftConstStruct>{}),
   };
-  for (const auto& f : storage_AddAdminTaskRequest_fields) {
+  for (const auto& f : storage_AddTaskRequest_fields) {
     ::apache::thrift::metadata::ThriftField field;
     field.id_ref() = std::get<0>(f);
     field.name_ref() = std::get<1>(f);
     field.is_optional_ref() = std::get<2>(f);
     std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
     field.structured_annotations_ref() = std::get<4>(f);
-    storage_AddAdminTaskRequest.fields_ref()->push_back(std::move(field));
+    storage_AddTaskRequest.fields_ref()->push_back(std::move(field));
   }
   return res.first->second;
 }
 const ::apache::thrift::metadata::ThriftStruct&
-StructMetadata<::nebula::storage::cpp2::StopAdminTaskRequest>::gen(ThriftMetadata& metadata) {
-  auto res = metadata.structs_ref()->emplace("storage.StopAdminTaskRequest", ::apache::thrift::metadata::ThriftStruct{});
+StructMetadata<::nebula::storage::cpp2::AddTaskResp>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.AddTaskResp", ::apache::thrift::metadata::ThriftStruct{});
   if (!res.second) {
     return res.first->second;
   }
-  ::apache::thrift::metadata::ThriftStruct& storage_StopAdminTaskRequest = res.first->second;
-  storage_StopAdminTaskRequest.name_ref() = "storage.StopAdminTaskRequest";
-  storage_StopAdminTaskRequest.is_union_ref() = false;
+  ::apache::thrift::metadata::ThriftStruct& storage_AddTaskResp = res.first->second;
+  storage_AddTaskResp.name_ref() = "storage.AddTaskResp";
+  storage_AddTaskResp.is_union_ref() = false;
   static const EncodedThriftField
-  storage_StopAdminTaskRequest_fields[] = {
-    std::make_tuple(1, "job_id", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(2, "task_id", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE), std::vector<ThriftConstStruct>{}),
+  storage_AddTaskResp_fields[] = {
+    std::make_tuple(1, "code", false, std::make_unique<Enum< ::nebula::cpp2::ErrorCode>>("common.ErrorCode"), std::vector<ThriftConstStruct>{}),
   };
-  for (const auto& f : storage_StopAdminTaskRequest_fields) {
+  for (const auto& f : storage_AddTaskResp_fields) {
     ::apache::thrift::metadata::ThriftField field;
     field.id_ref() = std::get<0>(f);
     field.name_ref() = std::get<1>(f);
     field.is_optional_ref() = std::get<2>(f);
     std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
     field.structured_annotations_ref() = std::get<4>(f);
-    storage_StopAdminTaskRequest.fields_ref()->push_back(std::move(field));
+    storage_AddTaskResp.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::storage::cpp2::StopTaskRequest>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.StopTaskRequest", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& storage_StopTaskRequest = res.first->second;
+  storage_StopTaskRequest.name_ref() = "storage.StopTaskRequest";
+  storage_StopTaskRequest.is_union_ref() = false;
+  static const EncodedThriftField
+  storage_StopTaskRequest_fields[] = {
+    std::make_tuple(1, "job_id", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(2, "task_id", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : storage_StopTaskRequest_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    storage_StopTaskRequest.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::storage::cpp2::StopTaskResp>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.StopTaskResp", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& storage_StopTaskResp = res.first->second;
+  storage_StopTaskResp.name_ref() = "storage.StopTaskResp";
+  storage_StopTaskResp.is_union_ref() = false;
+  static const EncodedThriftField
+  storage_StopTaskResp_fields[] = {
+    std::make_tuple(1, "code", false, std::make_unique<Enum< ::nebula::cpp2::ErrorCode>>("common.ErrorCode"), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : storage_StopTaskResp_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    storage_StopTaskResp.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::storage::cpp2::ClearSpaceReq>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.ClearSpaceReq", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& storage_ClearSpaceReq = res.first->second;
+  storage_ClearSpaceReq.name_ref() = "storage.ClearSpaceReq";
+  storage_ClearSpaceReq.is_union_ref() = false;
+  static const EncodedThriftField
+  storage_ClearSpaceReq_fields[] = {
+    std::make_tuple(1, "space_id", false, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : storage_ClearSpaceReq_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    storage_ClearSpaceReq.fields_ref()->push_back(std::move(field));
+  }
+  return res.first->second;
+}
+const ::apache::thrift::metadata::ThriftStruct&
+StructMetadata<::nebula::storage::cpp2::ClearSpaceResp>::gen(ThriftMetadata& metadata) {
+  auto res = metadata.structs_ref()->emplace("storage.ClearSpaceResp", ::apache::thrift::metadata::ThriftStruct{});
+  if (!res.second) {
+    return res.first->second;
+  }
+  ::apache::thrift::metadata::ThriftStruct& storage_ClearSpaceResp = res.first->second;
+  storage_ClearSpaceResp.name_ref() = "storage.ClearSpaceResp";
+  storage_ClearSpaceResp.is_union_ref() = false;
+  static const EncodedThriftField
+  storage_ClearSpaceResp_fields[] = {
+    std::make_tuple(1, "code", false, std::make_unique<Enum< ::nebula::cpp2::ErrorCode>>("common.ErrorCode"), std::vector<ThriftConstStruct>{}),
+  };
+  for (const auto& f : storage_ClearSpaceResp_fields) {
+    ::apache::thrift::metadata::ThriftField field;
+    field.id_ref() = std::get<0>(f);
+    field.name_ref() = std::get<1>(f);
+    field.is_optional_ref() = std::get<2>(f);
+    std::get<3>(f)->writeAndGenType(*field.type_ref(), metadata);
+    field.structured_annotations_ref() = std::get<4>(f);
+    storage_ClearSpaceResp.fields_ref()->push_back(std::move(field));
   }
   return res.first->second;
 }
@@ -1843,6 +2041,22 @@ void ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_getN
   auto storage_GraphStorageService_getNeighbors_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::GetNeighborsRequest>>("storage.GetNeighborsRequest");
   storage_GraphStorageService_getNeighbors_req_1_type->writeAndGenType(*storage_GraphStorageService_getNeighbors_req_1.type_ref(), metadata);
   func.arguments_ref()->push_back(std::move(storage_GraphStorageService_getNeighbors_req_1));
+  func.is_oneway_ref() = false;
+  service.functions_ref()->push_back(std::move(func));
+}
+void ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_getDstBySrc(ThriftMetadata& metadata, ThriftService& service) {
+  ::apache::thrift::metadata::ThriftFunction func;
+  (void)metadata;
+  func.name_ref() = "getDstBySrc";
+  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::GetDstBySrcResponse>>("storage.GetDstBySrcResponse");
+  func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
+  ::apache::thrift::metadata::ThriftField storage_GraphStorageService_getDstBySrc_req_1;
+  storage_GraphStorageService_getDstBySrc_req_1.id_ref() = 1;
+  storage_GraphStorageService_getDstBySrc_req_1.name_ref() = "req";
+  storage_GraphStorageService_getDstBySrc_req_1.is_optional_ref() = false;
+  auto storage_GraphStorageService_getDstBySrc_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::GetDstBySrcRequest>>("storage.GetDstBySrcRequest");
+  storage_GraphStorageService_getDstBySrc_req_1_type->writeAndGenType(*storage_GraphStorageService_getDstBySrc_req_1.type_ref(), metadata);
+  func.arguments_ref()->push_back(std::move(storage_GraphStorageService_getDstBySrc_req_1));
   func.is_oneway_ref() = false;
   service.functions_ref()->push_back(std::move(func));
 }
@@ -2157,6 +2371,7 @@ void ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen(Thri
   storage_GraphStorageService.name_ref() = "storage.GraphStorageService";
   static const ThriftFunctionGenerator functions[] = {
     ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_getNeighbors,
+    ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_getDstBySrc,
     ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_getProps,
     ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_addVertices,
     ServiceMetadata<::nebula::storage::cpp2::GraphStorageServiceSvIf>::gen_addEdges,
@@ -2301,7 +2516,7 @@ void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_drop
   ::apache::thrift::metadata::ThriftFunction func;
   (void)metadata;
   func.name_ref() = "dropCheckpoint";
-  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::AdminExecResp>>("storage.AdminExecResp");
+  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::DropCPResp>>("storage.DropCPResp");
   func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
   ::apache::thrift::metadata::ThriftField storage_StorageAdminService_dropCheckpoint_req_1;
   storage_StorageAdminService_dropCheckpoint_req_1.id_ref() = 1;
@@ -2317,7 +2532,7 @@ void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_bloc
   ::apache::thrift::metadata::ThriftFunction func;
   (void)metadata;
   func.name_ref() = "blockingWrites";
-  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::AdminExecResp>>("storage.AdminExecResp");
+  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::BlockingSignResp>>("storage.BlockingSignResp");
   func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
   ::apache::thrift::metadata::ThriftField storage_StorageAdminService_blockingWrites_req_1;
   storage_StorageAdminService_blockingWrites_req_1.id_ref() = 1;
@@ -2326,38 +2541,6 @@ void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_bloc
   auto storage_StorageAdminService_blockingWrites_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::BlockingSignRequest>>("storage.BlockingSignRequest");
   storage_StorageAdminService_blockingWrites_req_1_type->writeAndGenType(*storage_StorageAdminService_blockingWrites_req_1.type_ref(), metadata);
   func.arguments_ref()->push_back(std::move(storage_StorageAdminService_blockingWrites_req_1));
-  func.is_oneway_ref() = false;
-  service.functions_ref()->push_back(std::move(func));
-}
-void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_rebuildTagIndex(ThriftMetadata& metadata, ThriftService& service) {
-  ::apache::thrift::metadata::ThriftFunction func;
-  (void)metadata;
-  func.name_ref() = "rebuildTagIndex";
-  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::AdminExecResp>>("storage.AdminExecResp");
-  func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
-  ::apache::thrift::metadata::ThriftField storage_StorageAdminService_rebuildTagIndex_req_1;
-  storage_StorageAdminService_rebuildTagIndex_req_1.id_ref() = 1;
-  storage_StorageAdminService_rebuildTagIndex_req_1.name_ref() = "req";
-  storage_StorageAdminService_rebuildTagIndex_req_1.is_optional_ref() = false;
-  auto storage_StorageAdminService_rebuildTagIndex_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::RebuildIndexRequest>>("storage.RebuildIndexRequest");
-  storage_StorageAdminService_rebuildTagIndex_req_1_type->writeAndGenType(*storage_StorageAdminService_rebuildTagIndex_req_1.type_ref(), metadata);
-  func.arguments_ref()->push_back(std::move(storage_StorageAdminService_rebuildTagIndex_req_1));
-  func.is_oneway_ref() = false;
-  service.functions_ref()->push_back(std::move(func));
-}
-void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_rebuildEdgeIndex(ThriftMetadata& metadata, ThriftService& service) {
-  ::apache::thrift::metadata::ThriftFunction func;
-  (void)metadata;
-  func.name_ref() = "rebuildEdgeIndex";
-  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::AdminExecResp>>("storage.AdminExecResp");
-  func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
-  ::apache::thrift::metadata::ThriftField storage_StorageAdminService_rebuildEdgeIndex_req_1;
-  storage_StorageAdminService_rebuildEdgeIndex_req_1.id_ref() = 1;
-  storage_StorageAdminService_rebuildEdgeIndex_req_1.name_ref() = "req";
-  storage_StorageAdminService_rebuildEdgeIndex_req_1.is_optional_ref() = false;
-  auto storage_StorageAdminService_rebuildEdgeIndex_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::RebuildIndexRequest>>("storage.RebuildIndexRequest");
-  storage_StorageAdminService_rebuildEdgeIndex_req_1_type->writeAndGenType(*storage_StorageAdminService_rebuildEdgeIndex_req_1.type_ref(), metadata);
-  func.arguments_ref()->push_back(std::move(storage_StorageAdminService_rebuildEdgeIndex_req_1));
   func.is_oneway_ref() = false;
   service.functions_ref()->push_back(std::move(func));
 }
@@ -2397,13 +2580,13 @@ void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_addA
   ::apache::thrift::metadata::ThriftFunction func;
   (void)metadata;
   func.name_ref() = "addAdminTask";
-  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::AdminExecResp>>("storage.AdminExecResp");
+  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::AddTaskResp>>("storage.AddTaskResp");
   func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
   ::apache::thrift::metadata::ThriftField storage_StorageAdminService_addAdminTask_req_1;
   storage_StorageAdminService_addAdminTask_req_1.id_ref() = 1;
   storage_StorageAdminService_addAdminTask_req_1.name_ref() = "req";
   storage_StorageAdminService_addAdminTask_req_1.is_optional_ref() = false;
-  auto storage_StorageAdminService_addAdminTask_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::AddAdminTaskRequest>>("storage.AddAdminTaskRequest");
+  auto storage_StorageAdminService_addAdminTask_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::AddTaskRequest>>("storage.AddTaskRequest");
   storage_StorageAdminService_addAdminTask_req_1_type->writeAndGenType(*storage_StorageAdminService_addAdminTask_req_1.type_ref(), metadata);
   func.arguments_ref()->push_back(std::move(storage_StorageAdminService_addAdminTask_req_1));
   func.is_oneway_ref() = false;
@@ -2413,15 +2596,31 @@ void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_stop
   ::apache::thrift::metadata::ThriftFunction func;
   (void)metadata;
   func.name_ref() = "stopAdminTask";
-  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::AdminExecResp>>("storage.AdminExecResp");
+  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::StopTaskResp>>("storage.StopTaskResp");
   func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
   ::apache::thrift::metadata::ThriftField storage_StorageAdminService_stopAdminTask_req_1;
   storage_StorageAdminService_stopAdminTask_req_1.id_ref() = 1;
   storage_StorageAdminService_stopAdminTask_req_1.name_ref() = "req";
   storage_StorageAdminService_stopAdminTask_req_1.is_optional_ref() = false;
-  auto storage_StorageAdminService_stopAdminTask_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::StopAdminTaskRequest>>("storage.StopAdminTaskRequest");
+  auto storage_StorageAdminService_stopAdminTask_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::StopTaskRequest>>("storage.StopTaskRequest");
   storage_StorageAdminService_stopAdminTask_req_1_type->writeAndGenType(*storage_StorageAdminService_stopAdminTask_req_1.type_ref(), metadata);
   func.arguments_ref()->push_back(std::move(storage_StorageAdminService_stopAdminTask_req_1));
+  func.is_oneway_ref() = false;
+  service.functions_ref()->push_back(std::move(func));
+}
+void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_clearSpace(ThriftMetadata& metadata, ThriftService& service) {
+  ::apache::thrift::metadata::ThriftFunction func;
+  (void)metadata;
+  func.name_ref() = "clearSpace";
+  auto func_ret_type = std::make_unique<Struct< ::nebula::storage::cpp2::ClearSpaceResp>>("storage.ClearSpaceResp");
+  func_ret_type->writeAndGenType(*func.return_type_ref(), metadata);
+  ::apache::thrift::metadata::ThriftField storage_StorageAdminService_clearSpace_req_1;
+  storage_StorageAdminService_clearSpace_req_1.id_ref() = 1;
+  storage_StorageAdminService_clearSpace_req_1.name_ref() = "req";
+  storage_StorageAdminService_clearSpace_req_1.is_optional_ref() = false;
+  auto storage_StorageAdminService_clearSpace_req_1_type = std::make_unique<Struct< ::nebula::storage::cpp2::ClearSpaceReq>>("storage.ClearSpaceReq");
+  storage_StorageAdminService_clearSpace_req_1_type->writeAndGenType(*storage_StorageAdminService_clearSpace_req_1.type_ref(), metadata);
+  func.arguments_ref()->push_back(std::move(storage_StorageAdminService_clearSpace_req_1));
   func.is_oneway_ref() = false;
   service.functions_ref()->push_back(std::move(func));
 }
@@ -2440,12 +2639,11 @@ void ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen(Thri
     ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_createCheckpoint,
     ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_dropCheckpoint,
     ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_blockingWrites,
-    ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_rebuildTagIndex,
-    ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_rebuildEdgeIndex,
     ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_getLeaderParts,
     ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_checkPeers,
     ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_addAdminTask,
     ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_stopAdminTask,
+    ServiceMetadata<::nebula::storage::cpp2::StorageAdminServiceSvIf>::gen_clearSpace,
   };
   for (auto& function_gen : functions) {
     function_gen(metadata, storage_StorageAdminService);

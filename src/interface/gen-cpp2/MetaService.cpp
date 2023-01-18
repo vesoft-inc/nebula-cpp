@@ -57,6 +57,27 @@ void MetaServiceSvIf::async_tm_dropSpace(std::unique_ptr<apache::thrift::Handler
   });
 }
 
+void MetaServiceSvIf::clearSpace( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::ClearSpaceReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("clearSpace");
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_clearSpace(const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { clearSpace(_return, p_req); });
+}
+
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_clearSpace(const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_clearSpace(p_req), std::move(ka));
+}
+
+void MetaServiceSvIf::async_tm_clearSpace(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_clearSpace(p_req);
+  });
+}
+
 void MetaServiceSvIf::getSpace( ::nebula::meta::cpp2::GetSpaceResp& /*_return*/, const  ::nebula::meta::cpp2::GetSpaceReq& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("getSpace");
 }
@@ -495,132 +516,6 @@ folly::Future< ::nebula::meta::cpp2::GetWorkerIdResp> MetaServiceSvIf::future_ge
 void MetaServiceSvIf::async_tm_getWorkerId(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetWorkerIdResp>> callback, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
     return future_getWorkerId(p_req);
-  });
-}
-
-void MetaServiceSvIf::multiPut( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::MultiPutReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("multiPut");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_multiPut(const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { multiPut(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_multiPut(const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_multiPut(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_multiPut(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_multiPut(p_req);
-  });
-}
-
-void MetaServiceSvIf::get( ::nebula::meta::cpp2::GetResp& /*_return*/, const  ::nebula::meta::cpp2::GetReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("get");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::GetResp> MetaServiceSvIf::semifuture_get(const  ::nebula::meta::cpp2::GetReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::GetResp& _return) { get(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::GetResp> MetaServiceSvIf::future_get(const  ::nebula::meta::cpp2::GetReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_get(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_get(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetResp>> callback, const  ::nebula::meta::cpp2::GetReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_get(p_req);
-  });
-}
-
-void MetaServiceSvIf::multiGet( ::nebula::meta::cpp2::MultiGetResp& /*_return*/, const  ::nebula::meta::cpp2::MultiGetReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("multiGet");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::MultiGetResp> MetaServiceSvIf::semifuture_multiGet(const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::MultiGetResp& _return) { multiGet(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::MultiGetResp> MetaServiceSvIf::future_multiGet(const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_multiGet(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_multiGet(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::MultiGetResp>> callback, const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_multiGet(p_req);
-  });
-}
-
-void MetaServiceSvIf::remove( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("remove");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_remove(const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { remove(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_remove(const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_remove(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_remove(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_remove(p_req);
-  });
-}
-
-void MetaServiceSvIf::removeRange( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveRangeReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("removeRange");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_removeRange(const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { removeRange(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_removeRange(const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_removeRange(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_removeRange(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_removeRange(p_req);
-  });
-}
-
-void MetaServiceSvIf::scan( ::nebula::meta::cpp2::ScanResp& /*_return*/, const  ::nebula::meta::cpp2::ScanReq& /*req*/) {
-  apache::thrift::detail::si::throw_app_exn_unimplemented("scan");
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ScanResp> MetaServiceSvIf::semifuture_scan(const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ScanResp& _return) { scan(_return, p_req); });
-}
-
-folly::Future< ::nebula::meta::cpp2::ScanResp> MetaServiceSvIf::future_scan(const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  using Source = apache::thrift::concurrency::ThreadManager::Source;
-  auto scope = getRequestContext()->getRequestExecutionScope();
-  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
-  return apache::thrift::detail::si::future(semifuture_scan(p_req), std::move(ka));
-}
-
-void MetaServiceSvIf::async_tm_scan(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ScanResp>> callback, const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
-    return future_scan(p_req);
   });
 }
 
@@ -1695,22 +1590,22 @@ void MetaServiceSvIf::async_tm_getSession(std::unique_ptr<apache::thrift::Handle
   });
 }
 
-void MetaServiceSvIf::removeSession( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveSessionReq& /*req*/) {
+void MetaServiceSvIf::removeSession( ::nebula::meta::cpp2::RemoveSessionResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveSessionReq& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("removeSession");
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { removeSession(_return, p_req); });
+folly::SemiFuture< ::nebula::meta::cpp2::RemoveSessionResp> MetaServiceSvIf::semifuture_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::RemoveSessionResp& _return) { removeSession(_return, p_req); });
 }
 
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
+folly::Future< ::nebula::meta::cpp2::RemoveSessionResp> MetaServiceSvIf::future_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
   using Source = apache::thrift::concurrency::ThreadManager::Source;
   auto scope = getRequestContext()->getRequestExecutionScope();
   auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
   return apache::thrift::detail::si::future(semifuture_removeSession(p_req), std::move(ka));
 }
 
-void MetaServiceSvIf::async_tm_removeSession(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
+void MetaServiceSvIf::async_tm_removeSession(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::RemoveSessionResp>> callback, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
     return future_removeSession(p_req);
   });
@@ -1779,22 +1674,22 @@ void MetaServiceSvIf::async_tm_createBackup(std::unique_ptr<apache::thrift::Hand
   });
 }
 
-void MetaServiceSvIf::restoreMeta( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/) {
+void MetaServiceSvIf::restoreMeta( ::nebula::meta::cpp2::RestoreMetaResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("restoreMeta");
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::semifuture_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
-  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::ExecResp& _return) { restoreMeta(_return, p_req); });
+folly::SemiFuture< ::nebula::meta::cpp2::RestoreMetaResp> MetaServiceSvIf::semifuture_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::RestoreMetaResp& _return) { restoreMeta(_return, p_req); });
 }
 
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceSvIf::future_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+folly::Future< ::nebula::meta::cpp2::RestoreMetaResp> MetaServiceSvIf::future_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
   using Source = apache::thrift::concurrency::ThreadManager::Source;
   auto scope = getRequestContext()->getRequestExecutionScope();
   auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
   return apache::thrift::detail::si::future(semifuture_restoreMeta(p_req), std::move(ka));
 }
 
-void MetaServiceSvIf::async_tm_restoreMeta(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+void MetaServiceSvIf::async_tm_restoreMeta(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::RestoreMetaResp>> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
   apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
     return future_restoreMeta(p_req);
   });
@@ -1863,9 +1758,53 @@ void MetaServiceSvIf::async_tm_verifyClientVersion(std::unique_ptr<apache::thrif
   });
 }
 
+void MetaServiceSvIf::saveGraphVersion( ::nebula::meta::cpp2::SaveGraphVersionResp& /*_return*/, const  ::nebula::meta::cpp2::SaveGraphVersionReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("saveGraphVersion");
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::SaveGraphVersionResp> MetaServiceSvIf::semifuture_saveGraphVersion(const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::SaveGraphVersionResp& _return) { saveGraphVersion(_return, p_req); });
+}
+
+folly::Future< ::nebula::meta::cpp2::SaveGraphVersionResp> MetaServiceSvIf::future_saveGraphVersion(const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_saveGraphVersion(p_req), std::move(ka));
+}
+
+void MetaServiceSvIf::async_tm_saveGraphVersion(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::SaveGraphVersionResp>> callback, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_saveGraphVersion(p_req);
+  });
+}
+
+void MetaServiceSvIf::getSegmentId( ::nebula::meta::cpp2::GetSegmentIdResp& /*_return*/, const  ::nebula::meta::cpp2::GetSegmentIdReq& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("getSegmentId");
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::GetSegmentIdResp> MetaServiceSvIf::semifuture_getSegmentId(const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::meta::cpp2::GetSegmentIdResp& _return) { getSegmentId(_return, p_req); });
+}
+
+folly::Future< ::nebula::meta::cpp2::GetSegmentIdResp> MetaServiceSvIf::future_getSegmentId(const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_getSegmentId(p_req), std::move(ka));
+}
+
+void MetaServiceSvIf::async_tm_getSegmentId(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetSegmentIdResp>> callback, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_getSegmentId(p_req);
+  });
+}
+
 void MetaServiceSvNull::createSpace( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::CreateSpaceReq& /*req*/) {}
 
 void MetaServiceSvNull::dropSpace( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropSpaceReq& /*req*/) {}
+
+void MetaServiceSvNull::clearSpace( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::ClearSpaceReq& /*req*/) {}
 
 void MetaServiceSvNull::getSpace( ::nebula::meta::cpp2::GetSpaceResp& /*_return*/, const  ::nebula::meta::cpp2::GetSpaceReq& /*req*/) {}
 
@@ -1908,18 +1847,6 @@ void MetaServiceSvNull::getPartsAlloc( ::nebula::meta::cpp2::GetPartsAllocResp& 
 void MetaServiceSvNull::listParts( ::nebula::meta::cpp2::ListPartsResp& /*_return*/, const  ::nebula::meta::cpp2::ListPartsReq& /*req*/) {}
 
 void MetaServiceSvNull::getWorkerId( ::nebula::meta::cpp2::GetWorkerIdResp& /*_return*/, const  ::nebula::meta::cpp2::GetWorkerIdReq& /*req*/) {}
-
-void MetaServiceSvNull::multiPut( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::MultiPutReq& /*req*/) {}
-
-void MetaServiceSvNull::get( ::nebula::meta::cpp2::GetResp& /*_return*/, const  ::nebula::meta::cpp2::GetReq& /*req*/) {}
-
-void MetaServiceSvNull::multiGet( ::nebula::meta::cpp2::MultiGetResp& /*_return*/, const  ::nebula::meta::cpp2::MultiGetReq& /*req*/) {}
-
-void MetaServiceSvNull::remove( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveReq& /*req*/) {}
-
-void MetaServiceSvNull::removeRange( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveRangeReq& /*req*/) {}
-
-void MetaServiceSvNull::scan( ::nebula::meta::cpp2::ScanResp& /*_return*/, const  ::nebula::meta::cpp2::ScanReq& /*req*/) {}
 
 void MetaServiceSvNull::createTagIndex( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::CreateTagIndexReq& /*req*/) {}
 
@@ -2023,7 +1950,7 @@ void MetaServiceSvNull::listSessions( ::nebula::meta::cpp2::ListSessionsResp& /*
 
 void MetaServiceSvNull::getSession( ::nebula::meta::cpp2::GetSessionResp& /*_return*/, const  ::nebula::meta::cpp2::GetSessionReq& /*req*/) {}
 
-void MetaServiceSvNull::removeSession( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveSessionReq& /*req*/) {}
+void MetaServiceSvNull::removeSession( ::nebula::meta::cpp2::RemoveSessionResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveSessionReq& /*req*/) {}
 
 void MetaServiceSvNull::killQuery( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::KillQueryReq& /*req*/) {}
 
@@ -2031,13 +1958,17 @@ void MetaServiceSvNull::reportTaskFinish( ::nebula::meta::cpp2::ExecResp& /*_ret
 
 void MetaServiceSvNull::createBackup( ::nebula::meta::cpp2::CreateBackupResp& /*_return*/, const  ::nebula::meta::cpp2::CreateBackupReq& /*req*/) {}
 
-void MetaServiceSvNull::restoreMeta( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/) {}
+void MetaServiceSvNull::restoreMeta( ::nebula::meta::cpp2::RestoreMetaResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/) {}
 
 void MetaServiceSvNull::listCluster( ::nebula::meta::cpp2::ListClusterInfoResp& /*_return*/, const  ::nebula::meta::cpp2::ListClusterInfoReq& /*req*/) {}
 
 void MetaServiceSvNull::getMetaDirInfo( ::nebula::meta::cpp2::GetMetaDirInfoResp& /*_return*/, const  ::nebula::meta::cpp2::GetMetaDirInfoReq& /*req*/) {}
 
 void MetaServiceSvNull::verifyClientVersion( ::nebula::meta::cpp2::VerifyClientVersionResp& /*_return*/, const  ::nebula::meta::cpp2::VerifyClientVersionReq& /*req*/) {}
+
+void MetaServiceSvNull::saveGraphVersion( ::nebula::meta::cpp2::SaveGraphVersionResp& /*_return*/, const  ::nebula::meta::cpp2::SaveGraphVersionReq& /*req*/) {}
+
+void MetaServiceSvNull::getSegmentId( ::nebula::meta::cpp2::GetSegmentIdResp& /*_return*/, const  ::nebula::meta::cpp2::GetSegmentIdReq& /*req*/) {}
 
 
 
@@ -2064,6 +1995,7 @@ const MetaServiceAsyncProcessor::ProcessMap& MetaServiceAsyncProcessor::getBinar
 const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::binaryProcessMap_ {
   {"createSpace", &MetaServiceAsyncProcessor::setUpAndProcess_createSpace<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"dropSpace", &MetaServiceAsyncProcessor::setUpAndProcess_dropSpace<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"clearSpace", &MetaServiceAsyncProcessor::setUpAndProcess_clearSpace<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getSpace", &MetaServiceAsyncProcessor::setUpAndProcess_getSpace<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listSpaces", &MetaServiceAsyncProcessor::setUpAndProcess_listSpaces<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"alterSpace", &MetaServiceAsyncProcessor::setUpAndProcess_alterSpace<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -2085,12 +2017,6 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::binaryPro
   {"getPartsAlloc", &MetaServiceAsyncProcessor::setUpAndProcess_getPartsAlloc<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"listParts", &MetaServiceAsyncProcessor::setUpAndProcess_listParts<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getWorkerId", &MetaServiceAsyncProcessor::setUpAndProcess_getWorkerId<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"multiPut", &MetaServiceAsyncProcessor::setUpAndProcess_multiPut<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"get", &MetaServiceAsyncProcessor::setUpAndProcess_get<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"multiGet", &MetaServiceAsyncProcessor::setUpAndProcess_multiGet<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"remove", &MetaServiceAsyncProcessor::setUpAndProcess_remove<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"removeRange", &MetaServiceAsyncProcessor::setUpAndProcess_removeRange<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
-  {"scan", &MetaServiceAsyncProcessor::setUpAndProcess_scan<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"createTagIndex", &MetaServiceAsyncProcessor::setUpAndProcess_createTagIndex<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"dropTagIndex", &MetaServiceAsyncProcessor::setUpAndProcess_dropTagIndex<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getTagIndex", &MetaServiceAsyncProcessor::setUpAndProcess_getTagIndex<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -2150,6 +2076,8 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::binaryPro
   {"listCluster", &MetaServiceAsyncProcessor::setUpAndProcess_listCluster<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getMetaDirInfo", &MetaServiceAsyncProcessor::setUpAndProcess_getMetaDirInfo<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"verifyClientVersion", &MetaServiceAsyncProcessor::setUpAndProcess_verifyClientVersion<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"saveGraphVersion", &MetaServiceAsyncProcessor::setUpAndProcess_saveGraphVersion<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"getSegmentId", &MetaServiceAsyncProcessor::setUpAndProcess_getSegmentId<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
 };
 
 const MetaServiceAsyncProcessor::ProcessMap& MetaServiceAsyncProcessor::getCompactProtocolProcessMap() {
@@ -2159,6 +2087,7 @@ const MetaServiceAsyncProcessor::ProcessMap& MetaServiceAsyncProcessor::getCompa
 const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::compactProcessMap_ {
   {"createSpace", &MetaServiceAsyncProcessor::setUpAndProcess_createSpace<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"dropSpace", &MetaServiceAsyncProcessor::setUpAndProcess_dropSpace<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"clearSpace", &MetaServiceAsyncProcessor::setUpAndProcess_clearSpace<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getSpace", &MetaServiceAsyncProcessor::setUpAndProcess_getSpace<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listSpaces", &MetaServiceAsyncProcessor::setUpAndProcess_listSpaces<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"alterSpace", &MetaServiceAsyncProcessor::setUpAndProcess_alterSpace<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
@@ -2180,12 +2109,6 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::compactPr
   {"getPartsAlloc", &MetaServiceAsyncProcessor::setUpAndProcess_getPartsAlloc<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"listParts", &MetaServiceAsyncProcessor::setUpAndProcess_listParts<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getWorkerId", &MetaServiceAsyncProcessor::setUpAndProcess_getWorkerId<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"multiPut", &MetaServiceAsyncProcessor::setUpAndProcess_multiPut<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"get", &MetaServiceAsyncProcessor::setUpAndProcess_get<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"multiGet", &MetaServiceAsyncProcessor::setUpAndProcess_multiGet<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"remove", &MetaServiceAsyncProcessor::setUpAndProcess_remove<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"removeRange", &MetaServiceAsyncProcessor::setUpAndProcess_removeRange<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
-  {"scan", &MetaServiceAsyncProcessor::setUpAndProcess_scan<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"createTagIndex", &MetaServiceAsyncProcessor::setUpAndProcess_createTagIndex<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"dropTagIndex", &MetaServiceAsyncProcessor::setUpAndProcess_dropTagIndex<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getTagIndex", &MetaServiceAsyncProcessor::setUpAndProcess_getTagIndex<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
@@ -2245,6 +2168,8 @@ const MetaServiceAsyncProcessor::ProcessMap MetaServiceAsyncProcessor::compactPr
   {"listCluster", &MetaServiceAsyncProcessor::setUpAndProcess_listCluster<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getMetaDirInfo", &MetaServiceAsyncProcessor::setUpAndProcess_getMetaDirInfo<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"verifyClientVersion", &MetaServiceAsyncProcessor::setUpAndProcess_verifyClientVersion<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"saveGraphVersion", &MetaServiceAsyncProcessor::setUpAndProcess_saveGraphVersion<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"getSegmentId", &MetaServiceAsyncProcessor::setUpAndProcess_getSegmentId<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
 };
 
 }}} // nebula::meta::cpp2

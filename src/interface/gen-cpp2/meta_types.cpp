@@ -245,20 +245,20 @@ FOLLY_POP_WARNING
 
 namespace apache { namespace thrift {
 
-constexpr std::size_t const TEnumTraits<::nebula::meta::cpp2::AdminJobOp>::size;
-folly::Range<::nebula::meta::cpp2::AdminJobOp const*> const TEnumTraits<::nebula::meta::cpp2::AdminJobOp>::values = folly::range(TEnumDataStorage<::nebula::meta::cpp2::AdminJobOp>::values);
-folly::Range<folly::StringPiece const*> const TEnumTraits<::nebula::meta::cpp2::AdminJobOp>::names = folly::range(TEnumDataStorage<::nebula::meta::cpp2::AdminJobOp>::names);
+constexpr std::size_t const TEnumTraits<::nebula::meta::cpp2::JobOp>::size;
+folly::Range<::nebula::meta::cpp2::JobOp const*> const TEnumTraits<::nebula::meta::cpp2::JobOp>::values = folly::range(TEnumDataStorage<::nebula::meta::cpp2::JobOp>::values);
+folly::Range<folly::StringPiece const*> const TEnumTraits<::nebula::meta::cpp2::JobOp>::names = folly::range(TEnumDataStorage<::nebula::meta::cpp2::JobOp>::names);
 
-char const* TEnumTraits<::nebula::meta::cpp2::AdminJobOp>::findName(type value) {
-  using factory = ::nebula::meta::cpp2::_AdminJobOp_EnumMapFactory;
+char const* TEnumTraits<::nebula::meta::cpp2::JobOp>::findName(type value) {
+  using factory = ::nebula::meta::cpp2::_JobOp_EnumMapFactory;
   static folly::Indestructible<factory::ValuesToNamesMapType> const map{
       factory::makeValuesToNamesMap()};
   auto found = map->find(value);
   return found == map->end() ? nullptr : found->second;
 }
 
-bool TEnumTraits<::nebula::meta::cpp2::AdminJobOp>::findValue(char const* name, type* out) {
-  using factory = ::nebula::meta::cpp2::_AdminJobOp_EnumMapFactory;
+bool TEnumTraits<::nebula::meta::cpp2::JobOp>::findValue(char const* name, type* out) {
+  using factory = ::nebula::meta::cpp2::_JobOp_EnumMapFactory;
   static folly::Indestructible<factory::NamesToValuesMapType> const map{
       factory::makeNamesToValuesMap()};
   auto found = map->find(name);
@@ -270,28 +270,28 @@ bool TEnumTraits<::nebula::meta::cpp2::AdminJobOp>::findValue(char const* name, 
 namespace nebula { namespace meta { namespace cpp2 {
 FOLLY_PUSH_WARNING
 FOLLY_GNU_DISABLE_WARNING("-Wdeprecated-declarations")
-const _AdminJobOp_EnumMapFactory::ValuesToNamesMapType _AdminJobOp_VALUES_TO_NAMES = _AdminJobOp_EnumMapFactory::makeValuesToNamesMap();
-const _AdminJobOp_EnumMapFactory::NamesToValuesMapType _AdminJobOp_NAMES_TO_VALUES = _AdminJobOp_EnumMapFactory::makeNamesToValuesMap();
+const _JobOp_EnumMapFactory::ValuesToNamesMapType _JobOp_VALUES_TO_NAMES = _JobOp_EnumMapFactory::makeValuesToNamesMap();
+const _JobOp_EnumMapFactory::NamesToValuesMapType _JobOp_NAMES_TO_VALUES = _JobOp_EnumMapFactory::makeNamesToValuesMap();
 FOLLY_POP_WARNING
 
 }}} // nebula::meta::cpp2
 
 namespace apache { namespace thrift {
 
-constexpr std::size_t const TEnumTraits<::nebula::meta::cpp2::AdminCmd>::size;
-folly::Range<::nebula::meta::cpp2::AdminCmd const*> const TEnumTraits<::nebula::meta::cpp2::AdminCmd>::values = folly::range(TEnumDataStorage<::nebula::meta::cpp2::AdminCmd>::values);
-folly::Range<folly::StringPiece const*> const TEnumTraits<::nebula::meta::cpp2::AdminCmd>::names = folly::range(TEnumDataStorage<::nebula::meta::cpp2::AdminCmd>::names);
+constexpr std::size_t const TEnumTraits<::nebula::meta::cpp2::JobType>::size;
+folly::Range<::nebula::meta::cpp2::JobType const*> const TEnumTraits<::nebula::meta::cpp2::JobType>::values = folly::range(TEnumDataStorage<::nebula::meta::cpp2::JobType>::values);
+folly::Range<folly::StringPiece const*> const TEnumTraits<::nebula::meta::cpp2::JobType>::names = folly::range(TEnumDataStorage<::nebula::meta::cpp2::JobType>::names);
 
-char const* TEnumTraits<::nebula::meta::cpp2::AdminCmd>::findName(type value) {
-  using factory = ::nebula::meta::cpp2::_AdminCmd_EnumMapFactory;
+char const* TEnumTraits<::nebula::meta::cpp2::JobType>::findName(type value) {
+  using factory = ::nebula::meta::cpp2::_JobType_EnumMapFactory;
   static folly::Indestructible<factory::ValuesToNamesMapType> const map{
       factory::makeValuesToNamesMap()};
   auto found = map->find(value);
   return found == map->end() ? nullptr : found->second;
 }
 
-bool TEnumTraits<::nebula::meta::cpp2::AdminCmd>::findValue(char const* name, type* out) {
-  using factory = ::nebula::meta::cpp2::_AdminCmd_EnumMapFactory;
+bool TEnumTraits<::nebula::meta::cpp2::JobType>::findValue(char const* name, type* out) {
+  using factory = ::nebula::meta::cpp2::_JobType_EnumMapFactory;
   static folly::Indestructible<factory::NamesToValuesMapType> const map{
       factory::makeNamesToValuesMap()};
   auto found = map->find(name);
@@ -303,8 +303,8 @@ bool TEnumTraits<::nebula::meta::cpp2::AdminCmd>::findValue(char const* name, ty
 namespace nebula { namespace meta { namespace cpp2 {
 FOLLY_PUSH_WARNING
 FOLLY_GNU_DISABLE_WARNING("-Wdeprecated-declarations")
-const _AdminCmd_EnumMapFactory::ValuesToNamesMapType _AdminCmd_VALUES_TO_NAMES = _AdminCmd_EnumMapFactory::makeValuesToNamesMap();
-const _AdminCmd_EnumMapFactory::NamesToValuesMapType _AdminCmd_NAMES_TO_VALUES = _AdminCmd_EnumMapFactory::makeNamesToValuesMap();
+const _JobType_EnumMapFactory::ValuesToNamesMapType _JobType_VALUES_TO_NAMES = _JobType_EnumMapFactory::makeValuesToNamesMap();
+const _JobType_EnumMapFactory::NamesToValuesMapType _JobType_NAMES_TO_VALUES = _JobType_EnumMapFactory::makeNamesToValuesMap();
 FOLLY_POP_WARNING
 
 }}} // nebula::meta::cpp2
@@ -3030,19 +3030,22 @@ void TccStructTraits<::nebula::meta::cpp2::AdminJobReq>::translateFieldName(
 namespace nebula { namespace meta { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-AdminJobReq::AdminJobReq(apache::thrift::FragileConstructor,  ::nebula::meta::cpp2::AdminJobOp op__arg,  ::nebula::meta::cpp2::AdminCmd cmd__arg, ::std::vector<::std::string> paras__arg) :
+AdminJobReq::AdminJobReq(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg,  ::nebula::meta::cpp2::JobOp op__arg,  ::nebula::meta::cpp2::JobType type__arg, ::std::vector<::std::string> paras__arg) :
+    space_id(std::move(space_id__arg)),
     op(std::move(op__arg)),
-    cmd(std::move(cmd__arg)),
+    type(std::move(type__arg)),
     paras(std::move(paras__arg)) {
+  __isset.space_id = true;
   __isset.op = true;
-  __isset.cmd = true;
+  __isset.type = true;
   __isset.paras = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void AdminJobReq::__clear() {
   // clear all fields
-  op = static_cast< ::nebula::meta::cpp2::AdminJobOp>(0);
-  cmd =  ::nebula::meta::cpp2::AdminCmd::COMPACT;
+  space_id = 0;
+  op = static_cast< ::nebula::meta::cpp2::JobOp>(0);
+  type =  ::nebula::meta::cpp2::JobType::COMPACT;
   paras.clear();
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
@@ -3053,10 +3056,13 @@ bool AdminJobReq::operator==(const AdminJobReq& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
+  if (!(lhs.space_id == rhs.space_id)) {
+    return false;
+  }
   if (!(lhs.op == rhs.op)) {
     return false;
   }
-  if (!(lhs.cmd == rhs.cmd)) {
+  if (!(lhs.type == rhs.type)) {
     return false;
   }
   if (!(lhs.paras == rhs.paras)) {
@@ -3069,11 +3075,14 @@ bool AdminJobReq::operator<(const AdminJobReq& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
+  if (!(lhs.space_id == rhs.space_id)) {
+    return lhs.space_id < rhs.space_id;
+  }
   if (!(lhs.op == rhs.op)) {
     return lhs.op < rhs.op;
   }
-  if (!(lhs.cmd == rhs.cmd)) {
-    return lhs.cmd < rhs.cmd;
+  if (!(lhs.type == rhs.type)) {
+    return lhs.type < rhs.type;
   }
   if (!(lhs.paras == rhs.paras)) {
     return lhs.paras < rhs.paras;
@@ -3092,8 +3101,9 @@ const ::std::vector<::std::string>& AdminJobReq::get_paras() const& {
 
 void swap(AdminJobReq& a, AdminJobReq& b) {
   using ::std::swap;
+  swap(a.space_id_ref().value(), b.space_id_ref().value());
   swap(a.op_ref().value(), b.op_ref().value());
-  swap(a.cmd_ref().value(), b.cmd_ref().value());
+  swap(a.type_ref().value(), b.type_ref().value());
   swap(a.paras_ref().value(), b.paras_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
@@ -3138,40 +3148,48 @@ namespace nebula { namespace meta { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 JobDesc::JobDesc() :
-      id(0),
-      cmd( ::nebula::meta::cpp2::AdminCmd::COMPACT),
+      space_id(0),
+      job_id(0),
+      type( ::nebula::meta::cpp2::JobType::COMPACT),
       status(static_cast< ::nebula::meta::cpp2::JobStatus>(0)),
       start_time(0),
-      stop_time(0) {}
+      stop_time(0),
+      code( ::nebula::cpp2::ErrorCode::SUCCEEDED) {}
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 
 JobDesc::~JobDesc() {}
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-JobDesc::JobDesc(apache::thrift::FragileConstructor, int32_t id__arg,  ::nebula::meta::cpp2::AdminCmd cmd__arg, ::std::vector<::std::string> paras__arg,  ::nebula::meta::cpp2::JobStatus status__arg, int64_t start_time__arg, int64_t stop_time__arg) :
-    id(std::move(id__arg)),
-    cmd(std::move(cmd__arg)),
+JobDesc::JobDesc(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, int32_t job_id__arg,  ::nebula::meta::cpp2::JobType type__arg, ::std::vector<::std::string> paras__arg,  ::nebula::meta::cpp2::JobStatus status__arg, int64_t start_time__arg, int64_t stop_time__arg,  ::nebula::cpp2::ErrorCode code__arg) :
+    space_id(std::move(space_id__arg)),
+    job_id(std::move(job_id__arg)),
+    type(std::move(type__arg)),
     paras(std::move(paras__arg)),
     status(std::move(status__arg)),
     start_time(std::move(start_time__arg)),
-    stop_time(std::move(stop_time__arg)) {
-  __isset.id = true;
-  __isset.cmd = true;
+    stop_time(std::move(stop_time__arg)),
+    code(std::move(code__arg)) {
+  __isset.space_id = true;
+  __isset.job_id = true;
+  __isset.type = true;
   __isset.paras = true;
   __isset.status = true;
   __isset.start_time = true;
   __isset.stop_time = true;
+  __isset.code = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void JobDesc::__clear() {
   // clear all fields
-  id = 0;
-  cmd =  ::nebula::meta::cpp2::AdminCmd::COMPACT;
+  space_id = 0;
+  job_id = 0;
+  type =  ::nebula::meta::cpp2::JobType::COMPACT;
   paras.clear();
   status = static_cast< ::nebula::meta::cpp2::JobStatus>(0);
   start_time = 0;
   stop_time = 0;
+  code =  ::nebula::cpp2::ErrorCode::SUCCEEDED;
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -3181,10 +3199,13 @@ bool JobDesc::operator==(const JobDesc& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.id == rhs.id)) {
+  if (!(lhs.space_id == rhs.space_id)) {
     return false;
   }
-  if (!(lhs.cmd == rhs.cmd)) {
+  if (!(lhs.job_id == rhs.job_id)) {
+    return false;
+  }
+  if (!(lhs.type == rhs.type)) {
     return false;
   }
   if (!(lhs.paras == rhs.paras)) {
@@ -3199,6 +3220,9 @@ bool JobDesc::operator==(const JobDesc& rhs) const {
   if (!(lhs.stop_time == rhs.stop_time)) {
     return false;
   }
+  if (!(lhs.code == rhs.code)) {
+    return false;
+  }
   return true;
 }
 
@@ -3206,11 +3230,14 @@ bool JobDesc::operator<(const JobDesc& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.id == rhs.id)) {
-    return lhs.id < rhs.id;
+  if (!(lhs.space_id == rhs.space_id)) {
+    return lhs.space_id < rhs.space_id;
   }
-  if (!(lhs.cmd == rhs.cmd)) {
-    return lhs.cmd < rhs.cmd;
+  if (!(lhs.job_id == rhs.job_id)) {
+    return lhs.job_id < rhs.job_id;
+  }
+  if (!(lhs.type == rhs.type)) {
+    return lhs.type < rhs.type;
   }
   if (!(lhs.paras == rhs.paras)) {
     return lhs.paras < rhs.paras;
@@ -3223,6 +3250,9 @@ bool JobDesc::operator<(const JobDesc& rhs) const {
   }
   if (!(lhs.stop_time == rhs.stop_time)) {
     return lhs.stop_time < rhs.stop_time;
+  }
+  if (!(lhs.code == rhs.code)) {
+    return lhs.code < rhs.code;
   }
   return false;
 }
@@ -3238,12 +3268,14 @@ const ::std::vector<::std::string>& JobDesc::get_paras() const& {
 
 void swap(JobDesc& a, JobDesc& b) {
   using ::std::swap;
-  swap(a.id_ref().value(), b.id_ref().value());
-  swap(a.cmd_ref().value(), b.cmd_ref().value());
+  swap(a.space_id_ref().value(), b.space_id_ref().value());
+  swap(a.job_id_ref().value(), b.job_id_ref().value());
+  swap(a.type_ref().value(), b.type_ref().value());
   swap(a.paras_ref().value(), b.paras_ref().value());
   swap(a.status_ref().value(), b.status_ref().value());
   swap(a.start_time_ref().value(), b.start_time_ref().value());
   swap(a.stop_time_ref().value(), b.stop_time_ref().value());
+  swap(a.code_ref().value(), b.code_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -3286,29 +3318,35 @@ void TccStructTraits<::nebula::meta::cpp2::TaskDesc>::translateFieldName(
 namespace nebula { namespace meta { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-TaskDesc::TaskDesc(apache::thrift::FragileConstructor, int32_t task_id__arg, nebula::HostAddr host__arg,  ::nebula::meta::cpp2::JobStatus status__arg, int64_t start_time__arg, int64_t stop_time__arg, int32_t job_id__arg) :
+TaskDesc::TaskDesc(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, int32_t job_id__arg, int32_t task_id__arg, nebula::HostAddr host__arg,  ::nebula::meta::cpp2::JobStatus status__arg, int64_t start_time__arg, int64_t stop_time__arg,  ::nebula::cpp2::ErrorCode code__arg) :
+    space_id(std::move(space_id__arg)),
+    job_id(std::move(job_id__arg)),
     task_id(std::move(task_id__arg)),
     host(std::move(host__arg)),
     status(std::move(status__arg)),
     start_time(std::move(start_time__arg)),
     stop_time(std::move(stop_time__arg)),
-    job_id(std::move(job_id__arg)) {
+    code(std::move(code__arg)) {
+  __isset.space_id = true;
+  __isset.job_id = true;
   __isset.task_id = true;
   __isset.host = true;
   __isset.status = true;
   __isset.start_time = true;
   __isset.stop_time = true;
-  __isset.job_id = true;
+  __isset.code = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void TaskDesc::__clear() {
   // clear all fields
+  space_id = 0;
+  job_id = 0;
   task_id = 0;
   host.__clear();
   status = static_cast< ::nebula::meta::cpp2::JobStatus>(0);
   start_time = 0;
   stop_time = 0;
-  job_id = 0;
+  code =  ::nebula::cpp2::ErrorCode::SUCCEEDED;
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -3318,6 +3356,12 @@ bool TaskDesc::operator==(const TaskDesc& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
+  if (!(lhs.space_id == rhs.space_id)) {
+    return false;
+  }
+  if (!(lhs.job_id == rhs.job_id)) {
+    return false;
+  }
   if (!(lhs.task_id == rhs.task_id)) {
     return false;
   }
@@ -3333,7 +3377,7 @@ bool TaskDesc::operator==(const TaskDesc& rhs) const {
   if (!(lhs.stop_time == rhs.stop_time)) {
     return false;
   }
-  if (!(lhs.job_id == rhs.job_id)) {
+  if (!(lhs.code == rhs.code)) {
     return false;
   }
   return true;
@@ -3343,6 +3387,12 @@ bool TaskDesc::operator<(const TaskDesc& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
+  if (!(lhs.space_id == rhs.space_id)) {
+    return lhs.space_id < rhs.space_id;
+  }
+  if (!(lhs.job_id == rhs.job_id)) {
+    return lhs.job_id < rhs.job_id;
+  }
   if (!(lhs.task_id == rhs.task_id)) {
     return lhs.task_id < rhs.task_id;
   }
@@ -3358,8 +3408,8 @@ bool TaskDesc::operator<(const TaskDesc& rhs) const {
   if (!(lhs.stop_time == rhs.stop_time)) {
     return lhs.stop_time < rhs.stop_time;
   }
-  if (!(lhs.job_id == rhs.job_id)) {
-    return lhs.job_id < rhs.job_id;
+  if (!(lhs.code == rhs.code)) {
+    return lhs.code < rhs.code;
   }
   return false;
 }
@@ -3375,12 +3425,14 @@ nebula::HostAddr TaskDesc::get_host() && {
 
 void swap(TaskDesc& a, TaskDesc& b) {
   using ::std::swap;
+  swap(a.space_id_ref().value(), b.space_id_ref().value());
+  swap(a.job_id_ref().value(), b.job_id_ref().value());
   swap(a.task_id_ref().value(), b.task_id_ref().value());
   swap(a.host_ref().value(), b.host_ref().value());
   swap(a.status_ref().value(), b.status_ref().value());
   swap(a.start_time_ref().value(), b.start_time_ref().value());
   swap(a.stop_time_ref().value(), b.stop_time_ref().value());
-  swap(a.job_id_ref().value(), b.job_id_ref().value());
+  swap(a.code_ref().value(), b.code_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -4247,6 +4299,95 @@ template void DropSpaceReq::readNoXfer<>(apache::thrift::CompactProtocolReader*)
 template uint32_t DropSpaceReq::write<>(apache::thrift::CompactProtocolWriter*) const;
 template uint32_t DropSpaceReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 template uint32_t DropSpaceReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+
+
+}}} // nebula::meta::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits<::nebula::meta::cpp2::ClearSpaceReq>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::ClearSpaceReq>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace meta { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+ClearSpaceReq::ClearSpaceReq(apache::thrift::FragileConstructor, ::std::string space_name__arg, bool if_exists__arg) :
+    space_name(std::move(space_name__arg)),
+    if_exists(std::move(if_exists__arg)) {
+  __isset.space_name = true;
+  __isset.if_exists = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void ClearSpaceReq::__clear() {
+  // clear all fields
+  space_name = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  if_exists = 0;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool ClearSpaceReq::operator==(const ClearSpaceReq& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.space_name, rhs.space_name)) {
+    return false;
+  }
+  if (!(lhs.if_exists == rhs.if_exists)) {
+    return false;
+  }
+  return true;
+}
+
+bool ClearSpaceReq::operator<(const ClearSpaceReq& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.space_name, rhs.space_name)) {
+    return apache::thrift::StringTraits<std::string>::isLess(lhs.space_name, rhs.space_name);
+  }
+  if (!(lhs.if_exists == rhs.if_exists)) {
+    return lhs.if_exists < rhs.if_exists;
+  }
+  return false;
+}
+
+
+void swap(ClearSpaceReq& a, ClearSpaceReq& b) {
+  using ::std::swap;
+  swap(a.space_name_ref().value(), b.space_name_ref().value());
+  swap(a.if_exists_ref().value(), b.if_exists_ref().value());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void ClearSpaceReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t ClearSpaceReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t ClearSpaceReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t ClearSpaceReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void ClearSpaceReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t ClearSpaceReq::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t ClearSpaceReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t ClearSpaceReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 
 
@@ -7560,11 +7701,11 @@ namespace apache {
 namespace thrift {
 namespace detail {
 
-void TccStructTraits<::nebula::meta::cpp2::MultiPutReq>::translateFieldName(
+void TccStructTraits<::nebula::meta::cpp2::GetSegmentIdReq>::translateFieldName(
     folly::StringPiece _fname,
     int16_t& fid,
     apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::MultiPutReq>;
+  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::GetSegmentIdReq>;
   static const st::translate_field_name_table table{
       data::fields_size,
       data::fields_names.data(),
@@ -7580,175 +7721,56 @@ void TccStructTraits<::nebula::meta::cpp2::MultiPutReq>::translateFieldName(
 namespace nebula { namespace meta { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-MultiPutReq::MultiPutReq(apache::thrift::FragileConstructor, ::std::string segment__arg, ::std::vector<nebula::KeyValue> pairs__arg) :
-    segment(std::move(segment__arg)),
-    pairs(std::move(pairs__arg)) {
-  __isset.segment = true;
-  __isset.pairs = true;
+GetSegmentIdReq::GetSegmentIdReq(apache::thrift::FragileConstructor, int64_t length__arg) :
+    length(std::move(length__arg)) {
+  __isset.length = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-void MultiPutReq::__clear() {
+void GetSegmentIdReq::__clear() {
   // clear all fields
-  segment = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-  pairs.clear();
+  length = 0;
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 }
 
-bool MultiPutReq::operator==(const MultiPutReq& rhs) const {
+bool GetSegmentIdReq::operator==(const GetSegmentIdReq& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.segment, rhs.segment)) {
-    return false;
-  }
-  if (!(lhs.pairs == rhs.pairs)) {
+  if (!(lhs.length == rhs.length)) {
     return false;
   }
   return true;
 }
 
-bool MultiPutReq::operator<(const MultiPutReq& rhs) const {
+bool GetSegmentIdReq::operator<(const GetSegmentIdReq& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.segment, rhs.segment)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.segment, rhs.segment);
-  }
-  if (!(lhs.pairs == rhs.pairs)) {
-    return lhs.pairs < rhs.pairs;
-  }
-  return false;
-}
-
-const ::std::vector<nebula::KeyValue>& MultiPutReq::get_pairs() const& {
-  return pairs;
-}
-
-::std::vector<nebula::KeyValue> MultiPutReq::get_pairs() && {
-  return std::move(pairs);
-}
-
-
-void swap(MultiPutReq& a, MultiPutReq& b) {
-  using ::std::swap;
-  swap(a.segment_ref().value(), b.segment_ref().value());
-  swap(a.pairs_ref().value(), b.pairs_ref().value());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-template void MultiPutReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t MultiPutReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t MultiPutReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t MultiPutReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void MultiPutReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t MultiPutReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t MultiPutReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t MultiPutReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        MultiPutReq,
-        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
-        ::std::vector<nebula::KeyValue>>,
-    "inconsistent use of json option");
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        MultiPutReq,
-        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
-        ::std::vector<nebula::KeyValue>>,
-    "inconsistent use of nimble option");
-
-}}} // nebula::meta::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
-void TccStructTraits<::nebula::meta::cpp2::GetReq>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::GetReq>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace meta { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-GetReq::GetReq(apache::thrift::FragileConstructor, ::std::string segment__arg, ::std::string key__arg) :
-    segment(std::move(segment__arg)),
-    key(std::move(key__arg)) {
-  __isset.segment = true;
-  __isset.key = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void GetReq::__clear() {
-  // clear all fields
-  segment = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-  key = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-bool GetReq::operator==(const GetReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.segment, rhs.segment)) {
-    return false;
-  }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.key, rhs.key)) {
-    return false;
-  }
-  return true;
-}
-
-bool GetReq::operator<(const GetReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.segment, rhs.segment)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.segment, rhs.segment);
-  }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.key, rhs.key)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.key, rhs.key);
+  if (!(lhs.length == rhs.length)) {
+    return lhs.length < rhs.length;
   }
   return false;
 }
 
 
-void swap(GetReq& a, GetReq& b) {
+void swap(GetSegmentIdReq& a, GetSegmentIdReq& b) {
   using ::std::swap;
-  swap(a.segment_ref().value(), b.segment_ref().value());
-  swap(a.key_ref().value(), b.key_ref().value());
+  swap(a.length_ref().value(), b.length_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 }
 
-template void GetReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t GetReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t GetReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t GetReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void GetReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t GetReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t GetReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t GetReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+template void GetSegmentIdReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t GetSegmentIdReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t GetSegmentIdReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t GetSegmentIdReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void GetSegmentIdReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t GetSegmentIdReq::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t GetSegmentIdReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t GetSegmentIdReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 
 
@@ -7758,11 +7780,11 @@ namespace apache {
 namespace thrift {
 namespace detail {
 
-void TccStructTraits<::nebula::meta::cpp2::GetResp>::translateFieldName(
+void TccStructTraits<::nebula::meta::cpp2::GetSegmentIdResp>::translateFieldName(
     folly::StringPiece _fname,
     int16_t& fid,
     apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::GetResp>;
+  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::GetSegmentIdResp>;
   static const st::translate_field_name_table table{
       data::fields_size,
       data::fields_names.data(),
@@ -7778,26 +7800,26 @@ void TccStructTraits<::nebula::meta::cpp2::GetResp>::translateFieldName(
 namespace nebula { namespace meta { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-GetResp::GetResp(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg, nebula::HostAddr leader__arg, ::std::string value__arg) :
+GetSegmentIdResp::GetSegmentIdResp(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg, nebula::HostAddr leader__arg, int64_t segment_id__arg) :
     code(std::move(code__arg)),
     leader(std::move(leader__arg)),
-    value(std::move(value__arg)) {
+    segment_id(std::move(segment_id__arg)) {
   __isset.code = true;
   __isset.leader = true;
-  __isset.value = true;
+  __isset.segment_id = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-void GetResp::__clear() {
+void GetSegmentIdResp::__clear() {
   // clear all fields
   code =  ::nebula::cpp2::ErrorCode::SUCCEEDED;
   leader.__clear();
-  value = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  segment_id = 0;
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 }
 
-bool GetResp::operator==(const GetResp& rhs) const {
+bool GetSegmentIdResp::operator==(const GetSegmentIdResp& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
@@ -7807,13 +7829,13 @@ bool GetResp::operator==(const GetResp& rhs) const {
   if (!(lhs.leader == rhs.leader)) {
     return false;
   }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.value, rhs.value)) {
+  if (!(lhs.segment_id == rhs.segment_id)) {
     return false;
   }
   return true;
 }
 
-bool GetResp::operator<(const GetResp& rhs) const {
+bool GetSegmentIdResp::operator<(const GetSegmentIdResp& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
@@ -7823,688 +7845,50 @@ bool GetResp::operator<(const GetResp& rhs) const {
   if (!(lhs.leader == rhs.leader)) {
     return lhs.leader < rhs.leader;
   }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.value, rhs.value)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.value, rhs.value);
+  if (!(lhs.segment_id == rhs.segment_id)) {
+    return lhs.segment_id < rhs.segment_id;
   }
   return false;
 }
 
-const nebula::HostAddr& GetResp::get_leader() const& {
+const nebula::HostAddr& GetSegmentIdResp::get_leader() const& {
   return leader;
 }
 
-nebula::HostAddr GetResp::get_leader() && {
+nebula::HostAddr GetSegmentIdResp::get_leader() && {
   return std::move(leader);
 }
 
 
-void swap(GetResp& a, GetResp& b) {
+void swap(GetSegmentIdResp& a, GetSegmentIdResp& b) {
   using ::std::swap;
   swap(a.code_ref().value(), b.code_ref().value());
   swap(a.leader_ref().value(), b.leader_ref().value());
-  swap(a.value_ref().value(), b.value_ref().value());
+  swap(a.segment_id_ref().value(), b.segment_id_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 }
 
-template void GetResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t GetResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t GetResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t GetResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void GetResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t GetResp::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t GetResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t GetResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+template void GetSegmentIdResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t GetSegmentIdResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t GetSegmentIdResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t GetSegmentIdResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void GetSegmentIdResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t GetSegmentIdResp::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t GetSegmentIdResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t GetSegmentIdResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 static_assert(
     ::apache::thrift::detail::st::gen_check_json<
-        GetResp,
+        GetSegmentIdResp,
         ::apache::thrift::type_class::structure,
         nebula::HostAddr>,
     "inconsistent use of json option");
 
 static_assert(
     ::apache::thrift::detail::st::gen_check_nimble<
-        GetResp,
-        ::apache::thrift::type_class::structure,
-        nebula::HostAddr>,
-    "inconsistent use of nimble option");
-
-}}} // nebula::meta::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
-void TccStructTraits<::nebula::meta::cpp2::MultiGetReq>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::MultiGetReq>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace meta { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-MultiGetReq::MultiGetReq(apache::thrift::FragileConstructor, ::std::string segment__arg, ::std::vector<::std::string> keys__arg) :
-    segment(std::move(segment__arg)),
-    keys(std::move(keys__arg)) {
-  __isset.segment = true;
-  __isset.keys = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void MultiGetReq::__clear() {
-  // clear all fields
-  segment = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-  keys.clear();
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-bool MultiGetReq::operator==(const MultiGetReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.segment, rhs.segment)) {
-    return false;
-  }
-  if (!(lhs.keys == rhs.keys)) {
-    return false;
-  }
-  return true;
-}
-
-bool MultiGetReq::operator<(const MultiGetReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.segment, rhs.segment)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.segment, rhs.segment);
-  }
-  if (!(lhs.keys == rhs.keys)) {
-    return lhs.keys < rhs.keys;
-  }
-  return false;
-}
-
-const ::std::vector<::std::string>& MultiGetReq::get_keys() const& {
-  return keys;
-}
-
-::std::vector<::std::string> MultiGetReq::get_keys() && {
-  return std::move(keys);
-}
-
-
-void swap(MultiGetReq& a, MultiGetReq& b) {
-  using ::std::swap;
-  swap(a.segment_ref().value(), b.segment_ref().value());
-  swap(a.keys_ref().value(), b.keys_ref().value());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-template void MultiGetReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t MultiGetReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t MultiGetReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t MultiGetReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void MultiGetReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t MultiGetReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t MultiGetReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t MultiGetReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-
-
-}}} // nebula::meta::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
-void TccStructTraits<::nebula::meta::cpp2::MultiGetResp>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::MultiGetResp>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace meta { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-MultiGetResp::MultiGetResp(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg, nebula::HostAddr leader__arg, ::std::vector<::std::string> values__arg) :
-    code(std::move(code__arg)),
-    leader(std::move(leader__arg)),
-    values(std::move(values__arg)) {
-  __isset.code = true;
-  __isset.leader = true;
-  __isset.values = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void MultiGetResp::__clear() {
-  // clear all fields
-  code =  ::nebula::cpp2::ErrorCode::SUCCEEDED;
-  leader.__clear();
-  values.clear();
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-bool MultiGetResp::operator==(const MultiGetResp& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!(lhs.code == rhs.code)) {
-    return false;
-  }
-  if (!(lhs.leader == rhs.leader)) {
-    return false;
-  }
-  if (!(lhs.values == rhs.values)) {
-    return false;
-  }
-  return true;
-}
-
-bool MultiGetResp::operator<(const MultiGetResp& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!(lhs.code == rhs.code)) {
-    return lhs.code < rhs.code;
-  }
-  if (!(lhs.leader == rhs.leader)) {
-    return lhs.leader < rhs.leader;
-  }
-  if (!(lhs.values == rhs.values)) {
-    return lhs.values < rhs.values;
-  }
-  return false;
-}
-
-const nebula::HostAddr& MultiGetResp::get_leader() const& {
-  return leader;
-}
-
-nebula::HostAddr MultiGetResp::get_leader() && {
-  return std::move(leader);
-}
-
-const ::std::vector<::std::string>& MultiGetResp::get_values() const& {
-  return values;
-}
-
-::std::vector<::std::string> MultiGetResp::get_values() && {
-  return std::move(values);
-}
-
-
-void swap(MultiGetResp& a, MultiGetResp& b) {
-  using ::std::swap;
-  swap(a.code_ref().value(), b.code_ref().value());
-  swap(a.leader_ref().value(), b.leader_ref().value());
-  swap(a.values_ref().value(), b.values_ref().value());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-template void MultiGetResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t MultiGetResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t MultiGetResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t MultiGetResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void MultiGetResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t MultiGetResp::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t MultiGetResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t MultiGetResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        MultiGetResp,
-        ::apache::thrift::type_class::structure,
-        nebula::HostAddr>,
-    "inconsistent use of json option");
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        MultiGetResp,
-        ::apache::thrift::type_class::structure,
-        nebula::HostAddr>,
-    "inconsistent use of nimble option");
-
-}}} // nebula::meta::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
-void TccStructTraits<::nebula::meta::cpp2::RemoveReq>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::RemoveReq>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace meta { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-RemoveReq::RemoveReq(apache::thrift::FragileConstructor, ::std::string segment__arg, ::std::string key__arg) :
-    segment(std::move(segment__arg)),
-    key(std::move(key__arg)) {
-  __isset.segment = true;
-  __isset.key = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void RemoveReq::__clear() {
-  // clear all fields
-  segment = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-  key = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-bool RemoveReq::operator==(const RemoveReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.segment, rhs.segment)) {
-    return false;
-  }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.key, rhs.key)) {
-    return false;
-  }
-  return true;
-}
-
-bool RemoveReq::operator<(const RemoveReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.segment, rhs.segment)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.segment, rhs.segment);
-  }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.key, rhs.key)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.key, rhs.key);
-  }
-  return false;
-}
-
-
-void swap(RemoveReq& a, RemoveReq& b) {
-  using ::std::swap;
-  swap(a.segment_ref().value(), b.segment_ref().value());
-  swap(a.key_ref().value(), b.key_ref().value());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-template void RemoveReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t RemoveReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t RemoveReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t RemoveReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void RemoveReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t RemoveReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t RemoveReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t RemoveReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-
-
-}}} // nebula::meta::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
-void TccStructTraits<::nebula::meta::cpp2::RemoveRangeReq>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::RemoveRangeReq>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace meta { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-RemoveRangeReq::RemoveRangeReq(apache::thrift::FragileConstructor, ::std::string segment__arg, ::std::string start__arg, ::std::string end__arg) :
-    segment(std::move(segment__arg)),
-    start(std::move(start__arg)),
-    end(std::move(end__arg)) {
-  __isset.segment = true;
-  __isset.start = true;
-  __isset.end = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void RemoveRangeReq::__clear() {
-  // clear all fields
-  segment = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-  start = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-  end = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-bool RemoveRangeReq::operator==(const RemoveRangeReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.segment, rhs.segment)) {
-    return false;
-  }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.start, rhs.start)) {
-    return false;
-  }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.end, rhs.end)) {
-    return false;
-  }
-  return true;
-}
-
-bool RemoveRangeReq::operator<(const RemoveRangeReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.segment, rhs.segment)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.segment, rhs.segment);
-  }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.start, rhs.start)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.start, rhs.start);
-  }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.end, rhs.end)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.end, rhs.end);
-  }
-  return false;
-}
-
-
-void swap(RemoveRangeReq& a, RemoveRangeReq& b) {
-  using ::std::swap;
-  swap(a.segment_ref().value(), b.segment_ref().value());
-  swap(a.start_ref().value(), b.start_ref().value());
-  swap(a.end_ref().value(), b.end_ref().value());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-template void RemoveRangeReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t RemoveRangeReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t RemoveRangeReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t RemoveRangeReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void RemoveRangeReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t RemoveRangeReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t RemoveRangeReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t RemoveRangeReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-
-
-}}} // nebula::meta::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
-void TccStructTraits<::nebula::meta::cpp2::ScanReq>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::ScanReq>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace meta { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-ScanReq::ScanReq(apache::thrift::FragileConstructor, ::std::string segment__arg, ::std::string start__arg, ::std::string end__arg) :
-    segment(std::move(segment__arg)),
-    start(std::move(start__arg)),
-    end(std::move(end__arg)) {
-  __isset.segment = true;
-  __isset.start = true;
-  __isset.end = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void ScanReq::__clear() {
-  // clear all fields
-  segment = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-  start = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-  end = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-bool ScanReq::operator==(const ScanReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.segment, rhs.segment)) {
-    return false;
-  }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.start, rhs.start)) {
-    return false;
-  }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.end, rhs.end)) {
-    return false;
-  }
-  return true;
-}
-
-bool ScanReq::operator<(const ScanReq& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.segment, rhs.segment)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.segment, rhs.segment);
-  }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.start, rhs.start)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.start, rhs.start);
-  }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.end, rhs.end)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.end, rhs.end);
-  }
-  return false;
-}
-
-
-void swap(ScanReq& a, ScanReq& b) {
-  using ::std::swap;
-  swap(a.segment_ref().value(), b.segment_ref().value());
-  swap(a.start_ref().value(), b.start_ref().value());
-  swap(a.end_ref().value(), b.end_ref().value());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-template void ScanReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t ScanReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t ScanReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t ScanReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void ScanReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t ScanReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t ScanReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t ScanReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-
-
-}}} // nebula::meta::cpp2
-
-namespace apache {
-namespace thrift {
-namespace detail {
-
-void TccStructTraits<::nebula::meta::cpp2::ScanResp>::translateFieldName(
-    folly::StringPiece _fname,
-    int16_t& fid,
-    apache::thrift::protocol::TType& _ftype) noexcept {
-  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::ScanResp>;
-  static const st::translate_field_name_table table{
-      data::fields_size,
-      data::fields_names.data(),
-      data::fields_ids.data(),
-      data::fields_types.data()};
-  st::translate_field_name(_fname, fid, _ftype, table);
-}
-
-} // namespace detail
-} // namespace thrift
-} // namespace apache
-
-namespace nebula { namespace meta { namespace cpp2 {
-
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-ScanResp::ScanResp(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg, nebula::HostAddr leader__arg, ::std::vector<::std::string> values__arg) :
-    code(std::move(code__arg)),
-    leader(std::move(leader__arg)),
-    values(std::move(values__arg)) {
-  __isset.code = true;
-  __isset.leader = true;
-  __isset.values = true;
-}
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-void ScanResp::__clear() {
-  // clear all fields
-  code =  ::nebula::cpp2::ErrorCode::SUCCEEDED;
-  leader.__clear();
-  values.clear();
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  __isset = {};
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-bool ScanResp::operator==(const ScanResp& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!(lhs.code == rhs.code)) {
-    return false;
-  }
-  if (!(lhs.leader == rhs.leader)) {
-    return false;
-  }
-  if (!(lhs.values == rhs.values)) {
-    return false;
-  }
-  return true;
-}
-
-bool ScanResp::operator<(const ScanResp& rhs) const {
-  (void)rhs;
-  auto& lhs = *this;
-  (void)lhs;
-  if (!(lhs.code == rhs.code)) {
-    return lhs.code < rhs.code;
-  }
-  if (!(lhs.leader == rhs.leader)) {
-    return lhs.leader < rhs.leader;
-  }
-  if (!(lhs.values == rhs.values)) {
-    return lhs.values < rhs.values;
-  }
-  return false;
-}
-
-const nebula::HostAddr& ScanResp::get_leader() const& {
-  return leader;
-}
-
-nebula::HostAddr ScanResp::get_leader() && {
-  return std::move(leader);
-}
-
-const ::std::vector<::std::string>& ScanResp::get_values() const& {
-  return values;
-}
-
-::std::vector<::std::string> ScanResp::get_values() && {
-  return std::move(values);
-}
-
-
-void swap(ScanResp& a, ScanResp& b) {
-  using ::std::swap;
-  swap(a.code_ref().value(), b.code_ref().value());
-  swap(a.leader_ref().value(), b.leader_ref().value());
-  swap(a.values_ref().value(), b.values_ref().value());
-THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-  swap(a.__isset, b.__isset);
-THRIFT_IGNORE_ISSET_USE_WARNING_END
-}
-
-template void ScanResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-template uint32_t ScanResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
-template uint32_t ScanResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-template uint32_t ScanResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-template void ScanResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-template uint32_t ScanResp::write<>(apache::thrift::CompactProtocolWriter*) const;
-template uint32_t ScanResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-template uint32_t ScanResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_json<
-        ScanResp,
-        ::apache::thrift::type_class::structure,
-        nebula::HostAddr>,
-    "inconsistent use of json option");
-
-static_assert(
-    ::apache::thrift::detail::st::gen_check_nimble<
-        ScanResp,
+        GetSegmentIdResp,
         ::apache::thrift::type_class::structure,
         nebula::HostAddr>,
     "inconsistent use of nimble option");
@@ -13083,14 +12467,14 @@ void TccStructTraits<::nebula::meta::cpp2::DropSnapshotReq>::translateFieldName(
 namespace nebula { namespace meta { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-DropSnapshotReq::DropSnapshotReq(apache::thrift::FragileConstructor, ::std::string name__arg) :
-    name(std::move(name__arg)) {
-  __isset.name = true;
+DropSnapshotReq::DropSnapshotReq(apache::thrift::FragileConstructor, ::std::vector<::std::string> names__arg) :
+    names(std::move(names__arg)) {
+  __isset.names = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void DropSnapshotReq::__clear() {
   // clear all fields
-  name = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  names.clear();
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -13100,7 +12484,7 @@ bool DropSnapshotReq::operator==(const DropSnapshotReq& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.name, rhs.name)) {
+  if (!(lhs.names == rhs.names)) {
     return false;
   }
   return true;
@@ -13110,16 +12494,24 @@ bool DropSnapshotReq::operator<(const DropSnapshotReq& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.name, rhs.name)) {
-    return apache::thrift::StringTraits<std::string>::isLess(lhs.name, rhs.name);
+  if (!(lhs.names == rhs.names)) {
+    return lhs.names < rhs.names;
   }
   return false;
+}
+
+const ::std::vector<::std::string>& DropSnapshotReq::get_names() const& {
+  return names;
+}
+
+::std::vector<::std::string> DropSnapshotReq::get_names() && {
+  return std::move(names);
 }
 
 
 void swap(DropSnapshotReq& a, DropSnapshotReq& b) {
   using ::std::swap;
-  swap(a.name_ref().value(), b.name_ref().value());
+  swap(a.names_ref().value(), b.names_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -15773,26 +15165,33 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 BackupMeta::BackupMeta() :
       full(0),
       all_spaces(0),
-      create_time(0) {}
+      create_time(0),
+      cluster_id(0) {}
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 
 BackupMeta::~BackupMeta() {}
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-BackupMeta::BackupMeta(apache::thrift::FragileConstructor, std::unordered_map< ::nebula::cpp2::GraphSpaceID,  ::nebula::meta::cpp2::SpaceBackupInfo> space_backups__arg, ::std::vector<::std::string> meta_files__arg, ::std::string backup_name__arg, bool full__arg, bool all_spaces__arg, int64_t create_time__arg) :
+BackupMeta::BackupMeta(apache::thrift::FragileConstructor, std::unordered_map< ::nebula::cpp2::GraphSpaceID,  ::nebula::meta::cpp2::SpaceBackupInfo> space_backups__arg, ::std::vector<::std::string> meta_files__arg, ::std::string backup_name__arg, bool full__arg, bool all_spaces__arg, int64_t create_time__arg, ::std::string base_backup_name__arg, ::std::vector<nebula::HostAddr> storage_hosts__arg,  ::nebula::meta::cpp2::ClusterID cluster_id__arg) :
     space_backups(std::move(space_backups__arg)),
     meta_files(std::move(meta_files__arg)),
     backup_name(std::move(backup_name__arg)),
     full(std::move(full__arg)),
     all_spaces(std::move(all_spaces__arg)),
-    create_time(std::move(create_time__arg)) {
+    create_time(std::move(create_time__arg)),
+    base_backup_name(std::move(base_backup_name__arg)),
+    storage_hosts(std::move(storage_hosts__arg)),
+    cluster_id(std::move(cluster_id__arg)) {
   __isset.space_backups = true;
   __isset.meta_files = true;
   __isset.backup_name = true;
   __isset.full = true;
   __isset.all_spaces = true;
   __isset.create_time = true;
+  __isset.base_backup_name = true;
+  __isset.storage_hosts = true;
+  __isset.cluster_id = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void BackupMeta::__clear() {
@@ -15803,6 +15202,9 @@ void BackupMeta::__clear() {
   full = 0;
   all_spaces = 0;
   create_time = 0;
+  base_backup_name = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  storage_hosts.clear();
+  cluster_id = 0;
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -15830,6 +15232,15 @@ bool BackupMeta::operator==(const BackupMeta& rhs) const {
   if (!(lhs.create_time == rhs.create_time)) {
     return false;
   }
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.base_backup_name, rhs.base_backup_name)) {
+    return false;
+  }
+  if (!(lhs.storage_hosts == rhs.storage_hosts)) {
+    return false;
+  }
+  if (!(lhs.cluster_id == rhs.cluster_id)) {
+    return false;
+  }
   return true;
 }
 
@@ -15849,6 +15260,14 @@ const ::std::vector<::std::string>& BackupMeta::get_meta_files() const& {
   return std::move(meta_files);
 }
 
+const ::std::vector<nebula::HostAddr>& BackupMeta::get_storage_hosts() const& {
+  return storage_hosts;
+}
+
+::std::vector<nebula::HostAddr> BackupMeta::get_storage_hosts() && {
+  return std::move(storage_hosts);
+}
+
 
 void swap(BackupMeta& a, BackupMeta& b) {
   using ::std::swap;
@@ -15858,6 +15277,9 @@ void swap(BackupMeta& a, BackupMeta& b) {
   swap(a.full_ref().value(), b.full_ref().value());
   swap(a.all_spaces_ref().value(), b.all_spaces_ref().value());
   swap(a.create_time_ref().value(), b.create_time_ref().value());
+  swap(a.base_backup_name_ref().value(), b.base_backup_name_ref().value());
+  swap(a.storage_hosts_ref().value(), b.storage_hosts_ref().value());
+  swap(a.cluster_id_ref().value(), b.cluster_id_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -15878,12 +15300,24 @@ static_assert(
         ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>,
         std::unordered_map< ::nebula::cpp2::GraphSpaceID,  ::nebula::meta::cpp2::SpaceBackupInfo>>,
     "inconsistent use of json option");
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        BackupMeta,
+        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
+        ::std::vector<nebula::HostAddr>>,
+    "inconsistent use of json option");
 
 static_assert(
     ::apache::thrift::detail::st::gen_check_nimble<
         BackupMeta,
         ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>,
         std::unordered_map< ::nebula::cpp2::GraphSpaceID,  ::nebula::meta::cpp2::SpaceBackupInfo>>,
+    "inconsistent use of nimble option");
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        BackupMeta,
+        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
+        ::std::vector<nebula::HostAddr>>,
     "inconsistent use of nimble option");
 
 }}} // nebula::meta::cpp2
@@ -15912,14 +15346,20 @@ void TccStructTraits<::nebula::meta::cpp2::CreateBackupReq>::translateFieldName(
 namespace nebula { namespace meta { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-CreateBackupReq::CreateBackupReq(apache::thrift::FragileConstructor, ::std::vector<::std::string> spaces__arg) :
-    spaces(std::move(spaces__arg)) {
+CreateBackupReq::CreateBackupReq(apache::thrift::FragileConstructor, ::std::vector<::std::string> spaces__arg, ::std::string base_backup_name__arg,  ::nebula::meta::cpp2::ClusterID cluster_id__arg) :
+    spaces(std::move(spaces__arg)),
+    base_backup_name(std::move(base_backup_name__arg)),
+    cluster_id(std::move(cluster_id__arg)) {
   __isset.spaces = true;
+  __isset.base_backup_name = true;
+  __isset.cluster_id = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void CreateBackupReq::__clear() {
   // clear all fields
   spaces.clear();
+  base_backup_name = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  cluster_id = 0;
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -15932,6 +15372,17 @@ bool CreateBackupReq::operator==(const CreateBackupReq& rhs) const {
   if (lhs.spaces_ref() != rhs.spaces_ref()) {
     return false;
   }
+  if (lhs.base_backup_name_ref().has_value() != rhs.base_backup_name_ref().has_value()) {
+    return false;
+  }
+  if (lhs.base_backup_name_ref().has_value()) {
+    if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.base_backup_name, rhs.base_backup_name)) {
+      return false;
+    }
+  }
+  if (lhs.cluster_id_ref() != rhs.cluster_id_ref()) {
+    return false;
+  }
   return true;
 }
 
@@ -15941,6 +15392,17 @@ bool CreateBackupReq::operator<(const CreateBackupReq& rhs) const {
   (void)lhs;
   if (lhs.spaces_ref() != rhs.spaces_ref()) {
     return lhs.spaces_ref() < rhs.spaces_ref();
+  }
+  if (lhs.base_backup_name_ref().has_value() != rhs.base_backup_name_ref().has_value()) {
+    return lhs.base_backup_name_ref().has_value() < rhs.base_backup_name_ref().has_value();
+  }
+  if (lhs.base_backup_name_ref().has_value()) {
+    if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.base_backup_name, rhs.base_backup_name)) {
+      return apache::thrift::StringTraits<std::string>::isLess(lhs.base_backup_name, rhs.base_backup_name);
+    }
+  }
+  if (lhs.cluster_id_ref() != rhs.cluster_id_ref()) {
+    return lhs.cluster_id_ref() < rhs.cluster_id_ref();
   }
   return false;
 }
@@ -15957,6 +15419,8 @@ const ::std::vector<::std::string>* CreateBackupReq::get_spaces() const& {
 void swap(CreateBackupReq& a, CreateBackupReq& b) {
   using ::std::swap;
   swap(a.spaces_ref().value_unchecked(), b.spaces_ref().value_unchecked());
+  swap(a.base_backup_name_ref().value_unchecked(), b.base_backup_name_ref().value_unchecked());
+  swap(a.cluster_id_ref().value_unchecked(), b.cluster_id_ref().value_unchecked());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -16340,6 +15804,238 @@ static_assert(
         RestoreMetaReq,
         ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
         ::std::vector< ::nebula::meta::cpp2::HostPair>>,
+    "inconsistent use of nimble option");
+
+}}} // nebula::meta::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits<::nebula::meta::cpp2::PartInfo>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::PartInfo>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace meta { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+PartInfo::PartInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::PartitionID part_id__arg, ::std::vector<nebula::HostAddr> hosts__arg) :
+    part_id(std::move(part_id__arg)),
+    hosts(std::move(hosts__arg)) {
+  __isset.part_id = true;
+  __isset.hosts = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void PartInfo::__clear() {
+  // clear all fields
+  part_id = 0;
+  hosts.clear();
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool PartInfo::operator==(const PartInfo& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.part_id == rhs.part_id)) {
+    return false;
+  }
+  if (!(lhs.hosts == rhs.hosts)) {
+    return false;
+  }
+  return true;
+}
+
+bool PartInfo::operator<(const PartInfo& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.part_id == rhs.part_id)) {
+    return lhs.part_id < rhs.part_id;
+  }
+  if (!(lhs.hosts == rhs.hosts)) {
+    return lhs.hosts < rhs.hosts;
+  }
+  return false;
+}
+
+const ::std::vector<nebula::HostAddr>& PartInfo::get_hosts() const& {
+  return hosts;
+}
+
+::std::vector<nebula::HostAddr> PartInfo::get_hosts() && {
+  return std::move(hosts);
+}
+
+
+void swap(PartInfo& a, PartInfo& b) {
+  using ::std::swap;
+  swap(a.part_id_ref().value(), b.part_id_ref().value());
+  swap(a.hosts_ref().value(), b.hosts_ref().value());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void PartInfo::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t PartInfo::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t PartInfo::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t PartInfo::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void PartInfo::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t PartInfo::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t PartInfo::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t PartInfo::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        PartInfo,
+        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
+        ::std::vector<nebula::HostAddr>>,
+    "inconsistent use of json option");
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        PartInfo,
+        ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>,
+        ::std::vector<nebula::HostAddr>>,
+    "inconsistent use of nimble option");
+
+}}} // nebula::meta::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits<::nebula::meta::cpp2::RestoreMetaResp>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::RestoreMetaResp>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace meta { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+RestoreMetaResp::RestoreMetaResp(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg, nebula::HostAddr leader__arg, std::unordered_map< ::nebula::cpp2::GraphSpaceID, ::std::vector< ::nebula::meta::cpp2::PartInfo>> part_hosts__arg) :
+    code(std::move(code__arg)),
+    leader(std::move(leader__arg)),
+    part_hosts(std::move(part_hosts__arg)) {
+  __isset.code = true;
+  __isset.leader = true;
+  __isset.part_hosts = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void RestoreMetaResp::__clear() {
+  // clear all fields
+  code =  ::nebula::cpp2::ErrorCode::SUCCEEDED;
+  leader.__clear();
+  part_hosts.clear();
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool RestoreMetaResp::operator==(const RestoreMetaResp& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.code == rhs.code)) {
+    return false;
+  }
+  if (!(lhs.leader == rhs.leader)) {
+    return false;
+  }
+  if (!(lhs.part_hosts == rhs.part_hosts)) {
+    return false;
+  }
+  return true;
+}
+
+const nebula::HostAddr& RestoreMetaResp::get_leader() const& {
+  return leader;
+}
+
+nebula::HostAddr RestoreMetaResp::get_leader() && {
+  return std::move(leader);
+}
+
+const std::unordered_map< ::nebula::cpp2::GraphSpaceID, ::std::vector< ::nebula::meta::cpp2::PartInfo>>& RestoreMetaResp::get_part_hosts() const& {
+  return part_hosts;
+}
+
+std::unordered_map< ::nebula::cpp2::GraphSpaceID, ::std::vector< ::nebula::meta::cpp2::PartInfo>> RestoreMetaResp::get_part_hosts() && {
+  return std::move(part_hosts);
+}
+
+
+void swap(RestoreMetaResp& a, RestoreMetaResp& b) {
+  using ::std::swap;
+  swap(a.code_ref().value(), b.code_ref().value());
+  swap(a.leader_ref().value(), b.leader_ref().value());
+  swap(a.part_hosts_ref().value(), b.part_hosts_ref().value());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void RestoreMetaResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t RestoreMetaResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t RestoreMetaResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t RestoreMetaResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void RestoreMetaResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t RestoreMetaResp::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t RestoreMetaResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t RestoreMetaResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        RestoreMetaResp,
+        ::apache::thrift::type_class::structure,
+        nebula::HostAddr>,
+    "inconsistent use of json option");
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        RestoreMetaResp,
+        ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>,
+        std::unordered_map< ::nebula::cpp2::GraphSpaceID, ::std::vector< ::nebula::meta::cpp2::PartInfo>>>,
+    "inconsistent use of json option");
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        RestoreMetaResp,
+        ::apache::thrift::type_class::structure,
+        nebula::HostAddr>,
+    "inconsistent use of nimble option");
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        RestoreMetaResp,
+        ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>,
+        std::unordered_map< ::nebula::cpp2::GraphSpaceID, ::std::vector< ::nebula::meta::cpp2::PartInfo>>>,
     "inconsistent use of nimble option");
 
 }}} // nebula::meta::cpp2
@@ -18111,13 +17807,15 @@ void TccStructTraits<::nebula::meta::cpp2::UpdateSessionsResp>::translateFieldNa
 namespace nebula { namespace meta { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-UpdateSessionsResp::UpdateSessionsResp(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg, nebula::HostAddr leader__arg, std::unordered_map< ::nebula::cpp2::SessionID, std::unordered_map< ::nebula::cpp2::ExecutionPlanID,  ::nebula::meta::cpp2::QueryDesc>> killed_queries__arg) :
+UpdateSessionsResp::UpdateSessionsResp(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg, nebula::HostAddr leader__arg, std::unordered_map< ::nebula::cpp2::SessionID, std::unordered_map< ::nebula::cpp2::ExecutionPlanID,  ::nebula::meta::cpp2::QueryDesc>> killed_queries__arg, ::std::vector< ::nebula::cpp2::SessionID> killed_sessions__arg) :
     code(std::move(code__arg)),
     leader(std::move(leader__arg)),
-    killed_queries(std::move(killed_queries__arg)) {
+    killed_queries(std::move(killed_queries__arg)),
+    killed_sessions(std::move(killed_sessions__arg)) {
   __isset.code = true;
   __isset.leader = true;
   __isset.killed_queries = true;
+  __isset.killed_sessions = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void UpdateSessionsResp::__clear() {
@@ -18125,6 +17823,7 @@ void UpdateSessionsResp::__clear() {
   code =  ::nebula::cpp2::ErrorCode::SUCCEEDED;
   leader.__clear();
   killed_queries.clear();
+  killed_sessions.clear();
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -18141,6 +17840,9 @@ bool UpdateSessionsResp::operator==(const UpdateSessionsResp& rhs) const {
     return false;
   }
   if (!(lhs.killed_queries == rhs.killed_queries)) {
+    return false;
+  }
+  if (!(lhs.killed_sessions == rhs.killed_sessions)) {
     return false;
   }
   return true;
@@ -18162,12 +17864,21 @@ std::unordered_map< ::nebula::cpp2::SessionID, std::unordered_map< ::nebula::cpp
   return std::move(killed_queries);
 }
 
+const ::std::vector< ::nebula::cpp2::SessionID>& UpdateSessionsResp::get_killed_sessions() const& {
+  return killed_sessions;
+}
+
+::std::vector< ::nebula::cpp2::SessionID> UpdateSessionsResp::get_killed_sessions() && {
+  return std::move(killed_sessions);
+}
+
 
 void swap(UpdateSessionsResp& a, UpdateSessionsResp& b) {
   using ::std::swap;
   swap(a.code_ref().value(), b.code_ref().value());
   swap(a.leader_ref().value(), b.leader_ref().value());
   swap(a.killed_queries_ref().value(), b.killed_queries_ref().value());
+  swap(a.killed_sessions_ref().value(), b.killed_sessions_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -18623,14 +18334,14 @@ void TccStructTraits<::nebula::meta::cpp2::RemoveSessionReq>::translateFieldName
 namespace nebula { namespace meta { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-RemoveSessionReq::RemoveSessionReq(apache::thrift::FragileConstructor,  ::nebula::cpp2::SessionID session_id__arg) :
-    session_id(std::move(session_id__arg)) {
-  __isset.session_id = true;
+RemoveSessionReq::RemoveSessionReq(apache::thrift::FragileConstructor, ::std::vector< ::nebula::cpp2::SessionID> session_ids__arg) :
+    session_ids(std::move(session_ids__arg)) {
+  __isset.session_ids = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void RemoveSessionReq::__clear() {
   // clear all fields
-  session_id = 0;
+  session_ids.clear();
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -18640,7 +18351,7 @@ bool RemoveSessionReq::operator==(const RemoveSessionReq& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.session_id == rhs.session_id)) {
+  if (!(lhs.session_ids == rhs.session_ids)) {
     return false;
   }
   return true;
@@ -18650,16 +18361,24 @@ bool RemoveSessionReq::operator<(const RemoveSessionReq& rhs) const {
   (void)rhs;
   auto& lhs = *this;
   (void)lhs;
-  if (!(lhs.session_id == rhs.session_id)) {
-    return lhs.session_id < rhs.session_id;
+  if (!(lhs.session_ids == rhs.session_ids)) {
+    return lhs.session_ids < rhs.session_ids;
   }
   return false;
+}
+
+const ::std::vector< ::nebula::cpp2::SessionID>& RemoveSessionReq::get_session_ids() const& {
+  return session_ids;
+}
+
+::std::vector< ::nebula::cpp2::SessionID> RemoveSessionReq::get_session_ids() && {
+  return std::move(session_ids);
 }
 
 
 void swap(RemoveSessionReq& a, RemoveSessionReq& b) {
   using ::std::swap;
-  swap(a.session_id_ref().value(), b.session_id_ref().value());
+  swap(a.session_ids_ref().value(), b.session_ids_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -18675,6 +18394,133 @@ template uint32_t RemoveSessionReq::serializedSize<>(apache::thrift::CompactProt
 template uint32_t RemoveSessionReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 
+
+}}} // nebula::meta::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits<::nebula::meta::cpp2::RemoveSessionResp>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::RemoveSessionResp>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace meta { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+RemoveSessionResp::RemoveSessionResp(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg, nebula::HostAddr leader__arg, ::std::vector< ::nebula::cpp2::SessionID> removed_session_ids__arg) :
+    code(std::move(code__arg)),
+    leader(std::move(leader__arg)),
+    removed_session_ids(std::move(removed_session_ids__arg)) {
+  __isset.code = true;
+  __isset.leader = true;
+  __isset.removed_session_ids = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void RemoveSessionResp::__clear() {
+  // clear all fields
+  code =  ::nebula::cpp2::ErrorCode::SUCCEEDED;
+  leader.__clear();
+  removed_session_ids.clear();
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool RemoveSessionResp::operator==(const RemoveSessionResp& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.code == rhs.code)) {
+    return false;
+  }
+  if (!(lhs.leader == rhs.leader)) {
+    return false;
+  }
+  if (!(lhs.removed_session_ids == rhs.removed_session_ids)) {
+    return false;
+  }
+  return true;
+}
+
+bool RemoveSessionResp::operator<(const RemoveSessionResp& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.code == rhs.code)) {
+    return lhs.code < rhs.code;
+  }
+  if (!(lhs.leader == rhs.leader)) {
+    return lhs.leader < rhs.leader;
+  }
+  if (!(lhs.removed_session_ids == rhs.removed_session_ids)) {
+    return lhs.removed_session_ids < rhs.removed_session_ids;
+  }
+  return false;
+}
+
+const nebula::HostAddr& RemoveSessionResp::get_leader() const& {
+  return leader;
+}
+
+nebula::HostAddr RemoveSessionResp::get_leader() && {
+  return std::move(leader);
+}
+
+const ::std::vector< ::nebula::cpp2::SessionID>& RemoveSessionResp::get_removed_session_ids() const& {
+  return removed_session_ids;
+}
+
+::std::vector< ::nebula::cpp2::SessionID> RemoveSessionResp::get_removed_session_ids() && {
+  return std::move(removed_session_ids);
+}
+
+
+void swap(RemoveSessionResp& a, RemoveSessionResp& b) {
+  using ::std::swap;
+  swap(a.code_ref().value(), b.code_ref().value());
+  swap(a.leader_ref().value(), b.leader_ref().value());
+  swap(a.removed_session_ids_ref().value(), b.removed_session_ids_ref().value());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void RemoveSessionResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t RemoveSessionResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t RemoveSessionResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t RemoveSessionResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void RemoveSessionResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t RemoveSessionResp::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t RemoveSessionResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t RemoveSessionResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        RemoveSessionResp,
+        ::apache::thrift::type_class::structure,
+        nebula::HostAddr>,
+    "inconsistent use of json option");
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        RemoveSessionResp,
+        ::apache::thrift::type_class::structure,
+        nebula::HostAddr>,
+    "inconsistent use of nimble option");
 
 }}} // nebula::meta::cpp2
 
@@ -18779,12 +18625,14 @@ void TccStructTraits<::nebula::meta::cpp2::ReportTaskReq>::translateFieldName(
 namespace nebula { namespace meta { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-ReportTaskReq::ReportTaskReq(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg, int32_t job_id__arg, int32_t task_id__arg,  ::nebula::meta::cpp2::StatsItem stats__arg) :
+ReportTaskReq::ReportTaskReq(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg,  ::nebula::cpp2::GraphSpaceID space_id__arg, int32_t job_id__arg, int32_t task_id__arg,  ::nebula::meta::cpp2::StatsItem stats__arg) :
     code(std::move(code__arg)),
+    space_id(std::move(space_id__arg)),
     job_id(std::move(job_id__arg)),
     task_id(std::move(task_id__arg)),
     stats(std::move(stats__arg)) {
   __isset.code = true;
+  __isset.space_id = true;
   __isset.job_id = true;
   __isset.task_id = true;
   __isset.stats = true;
@@ -18793,6 +18641,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 void ReportTaskReq::__clear() {
   // clear all fields
   code =  ::nebula::cpp2::ErrorCode::SUCCEEDED;
+  space_id = 0;
   job_id = 0;
   task_id = 0;
   stats.__clear();
@@ -18806,6 +18655,9 @@ bool ReportTaskReq::operator==(const ReportTaskReq& rhs) const {
   auto& lhs = *this;
   (void)lhs;
   if (!(lhs.code == rhs.code)) {
+    return false;
+  }
+  if (!(lhs.space_id == rhs.space_id)) {
     return false;
   }
   if (!(lhs.job_id == rhs.job_id)) {
@@ -18832,6 +18684,7 @@ const  ::nebula::meta::cpp2::StatsItem* ReportTaskReq::get_stats() const& {
 void swap(ReportTaskReq& a, ReportTaskReq& b) {
   using ::std::swap;
   swap(a.code_ref().value(), b.code_ref().value());
+  swap(a.space_id_ref().value(), b.space_id_ref().value());
   swap(a.job_id_ref().value(), b.job_id_ref().value());
   swap(a.task_id_ref().value(), b.task_id_ref().value());
   swap(a.stats_ref().value_unchecked(), b.stats_ref().value_unchecked());
@@ -19388,7 +19241,7 @@ VerifyClientVersionReq::VerifyClientVersionReq(apache::thrift::FragileConstructo
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void VerifyClientVersionReq::__clear() {
   // clear all fields
-  client_version = apache::thrift::StringTraits< std::string>::fromStringLiteral("2.6.0");
+  client_version = apache::thrift::StringTraits< std::string>::fromStringLiteral("3.0.0");
   host.__clear();
   build_version = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
@@ -19466,6 +19319,253 @@ static_assert(
 static_assert(
     ::apache::thrift::detail::st::gen_check_nimble<
         VerifyClientVersionReq,
+        ::apache::thrift::type_class::structure,
+        nebula::HostAddr>,
+    "inconsistent use of nimble option");
+
+}}} // nebula::meta::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits<::nebula::meta::cpp2::SaveGraphVersionResp>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::SaveGraphVersionResp>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace meta { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+SaveGraphVersionResp::SaveGraphVersionResp(apache::thrift::FragileConstructor,  ::nebula::cpp2::ErrorCode code__arg, nebula::HostAddr leader__arg, ::std::string error_msg__arg) :
+    code(std::move(code__arg)),
+    leader(std::move(leader__arg)),
+    error_msg(std::move(error_msg__arg)) {
+  __isset.code = true;
+  __isset.leader = true;
+  __isset.error_msg = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void SaveGraphVersionResp::__clear() {
+  // clear all fields
+  code =  ::nebula::cpp2::ErrorCode::SUCCEEDED;
+  leader.__clear();
+  error_msg = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool SaveGraphVersionResp::operator==(const SaveGraphVersionResp& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.code == rhs.code)) {
+    return false;
+  }
+  if (!(lhs.leader == rhs.leader)) {
+    return false;
+  }
+  if (lhs.error_msg_ref().has_value() != rhs.error_msg_ref().has_value()) {
+    return false;
+  }
+  if (lhs.error_msg_ref().has_value()) {
+    if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.error_msg, rhs.error_msg)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool SaveGraphVersionResp::operator<(const SaveGraphVersionResp& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!(lhs.code == rhs.code)) {
+    return lhs.code < rhs.code;
+  }
+  if (!(lhs.leader == rhs.leader)) {
+    return lhs.leader < rhs.leader;
+  }
+  if (lhs.error_msg_ref().has_value() != rhs.error_msg_ref().has_value()) {
+    return lhs.error_msg_ref().has_value() < rhs.error_msg_ref().has_value();
+  }
+  if (lhs.error_msg_ref().has_value()) {
+    if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.error_msg, rhs.error_msg)) {
+      return apache::thrift::StringTraits<std::string>::isLess(lhs.error_msg, rhs.error_msg);
+    }
+  }
+  return false;
+}
+
+const nebula::HostAddr& SaveGraphVersionResp::get_leader() const& {
+  return leader;
+}
+
+nebula::HostAddr SaveGraphVersionResp::get_leader() && {
+  return std::move(leader);
+}
+
+
+void swap(SaveGraphVersionResp& a, SaveGraphVersionResp& b) {
+  using ::std::swap;
+  swap(a.code_ref().value(), b.code_ref().value());
+  swap(a.leader_ref().value(), b.leader_ref().value());
+  swap(a.error_msg_ref().value_unchecked(), b.error_msg_ref().value_unchecked());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void SaveGraphVersionResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t SaveGraphVersionResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t SaveGraphVersionResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t SaveGraphVersionResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void SaveGraphVersionResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t SaveGraphVersionResp::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t SaveGraphVersionResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t SaveGraphVersionResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        SaveGraphVersionResp,
+        ::apache::thrift::type_class::structure,
+        nebula::HostAddr>,
+    "inconsistent use of json option");
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        SaveGraphVersionResp,
+        ::apache::thrift::type_class::structure,
+        nebula::HostAddr>,
+    "inconsistent use of nimble option");
+
+}}} // nebula::meta::cpp2
+
+namespace apache {
+namespace thrift {
+namespace detail {
+
+void TccStructTraits<::nebula::meta::cpp2::SaveGraphVersionReq>::translateFieldName(
+    folly::StringPiece _fname,
+    int16_t& fid,
+    apache::thrift::protocol::TType& _ftype) noexcept {
+  using data = apache::thrift::TStructDataStorage<::nebula::meta::cpp2::SaveGraphVersionReq>;
+  static const st::translate_field_name_table table{
+      data::fields_size,
+      data::fields_names.data(),
+      data::fields_ids.data(),
+      data::fields_types.data()};
+  st::translate_field_name(_fname, fid, _ftype, table);
+}
+
+} // namespace detail
+} // namespace thrift
+} // namespace apache
+
+namespace nebula { namespace meta { namespace cpp2 {
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+SaveGraphVersionReq::SaveGraphVersionReq(apache::thrift::FragileConstructor, ::std::string client_version__arg, nebula::HostAddr host__arg, ::std::string build_version__arg) :
+    client_version(std::move(client_version__arg)),
+    host(std::move(host__arg)),
+    build_version(std::move(build_version__arg)) {
+  __isset.host = true;
+  __isset.build_version = true;
+}
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+void SaveGraphVersionReq::__clear() {
+  // clear all fields
+  client_version = apache::thrift::StringTraits< std::string>::fromStringLiteral("3.0.0");
+  host.__clear();
+  build_version = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  __isset = {};
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+bool SaveGraphVersionReq::operator==(const SaveGraphVersionReq& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.client_version, rhs.client_version)) {
+    return false;
+  }
+  if (!(lhs.host == rhs.host)) {
+    return false;
+  }
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.build_version, rhs.build_version)) {
+    return false;
+  }
+  return true;
+}
+
+bool SaveGraphVersionReq::operator<(const SaveGraphVersionReq& rhs) const {
+  (void)rhs;
+  auto& lhs = *this;
+  (void)lhs;
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.client_version, rhs.client_version)) {
+    return apache::thrift::StringTraits<std::string>::isLess(lhs.client_version, rhs.client_version);
+  }
+  if (!(lhs.host == rhs.host)) {
+    return lhs.host < rhs.host;
+  }
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.build_version, rhs.build_version)) {
+    return apache::thrift::StringTraits<std::string>::isLess(lhs.build_version, rhs.build_version);
+  }
+  return false;
+}
+
+const nebula::HostAddr& SaveGraphVersionReq::get_host() const& {
+  return host;
+}
+
+nebula::HostAddr SaveGraphVersionReq::get_host() && {
+  return std::move(host);
+}
+
+
+void swap(SaveGraphVersionReq& a, SaveGraphVersionReq& b) {
+  using ::std::swap;
+  swap(a.client_version_ref().value(), b.client_version_ref().value());
+  swap(a.host_ref().value(), b.host_ref().value());
+  swap(a.build_version_ref().value(), b.build_version_ref().value());
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  swap(a.__isset, b.__isset);
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+}
+
+template void SaveGraphVersionReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+template uint32_t SaveGraphVersionReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
+template uint32_t SaveGraphVersionReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+template uint32_t SaveGraphVersionReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+template void SaveGraphVersionReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+template uint32_t SaveGraphVersionReq::write<>(apache::thrift::CompactProtocolWriter*) const;
+template uint32_t SaveGraphVersionReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+template uint32_t SaveGraphVersionReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_json<
+        SaveGraphVersionReq,
+        ::apache::thrift::type_class::structure,
+        nebula::HostAddr>,
+    "inconsistent use of json option");
+
+static_assert(
+    ::apache::thrift::detail::st::gen_check_nimble<
+        SaveGraphVersionReq,
         ::apache::thrift::type_class::structure,
         nebula::HostAddr>,
     "inconsistent use of nimble option");

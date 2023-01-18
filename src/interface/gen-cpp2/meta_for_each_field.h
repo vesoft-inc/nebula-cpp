@@ -216,9 +216,10 @@ template <>
 struct ForEachField<::nebula::meta::cpp2::AdminJobReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).op_ref()...);
-    f(1, static_cast<T&&>(t).cmd_ref()...);
-    f(2, static_cast<T&&>(t).paras_ref()...);
+    f(0, static_cast<T&&>(t).space_id_ref()...);
+    f(1, static_cast<T&&>(t).op_ref()...);
+    f(2, static_cast<T&&>(t).type_ref()...);
+    f(3, static_cast<T&&>(t).paras_ref()...);
   }
 };
 
@@ -226,12 +227,14 @@ template <>
 struct ForEachField<::nebula::meta::cpp2::JobDesc> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).id_ref()...);
-    f(1, static_cast<T&&>(t).cmd_ref()...);
-    f(2, static_cast<T&&>(t).paras_ref()...);
-    f(3, static_cast<T&&>(t).status_ref()...);
-    f(4, static_cast<T&&>(t).start_time_ref()...);
-    f(5, static_cast<T&&>(t).stop_time_ref()...);
+    f(0, static_cast<T&&>(t).space_id_ref()...);
+    f(1, static_cast<T&&>(t).job_id_ref()...);
+    f(2, static_cast<T&&>(t).type_ref()...);
+    f(3, static_cast<T&&>(t).paras_ref()...);
+    f(4, static_cast<T&&>(t).status_ref()...);
+    f(5, static_cast<T&&>(t).start_time_ref()...);
+    f(6, static_cast<T&&>(t).stop_time_ref()...);
+    f(7, static_cast<T&&>(t).code_ref()...);
   }
 };
 
@@ -239,12 +242,14 @@ template <>
 struct ForEachField<::nebula::meta::cpp2::TaskDesc> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).task_id_ref()...);
-    f(1, static_cast<T&&>(t).host_ref()...);
-    f(2, static_cast<T&&>(t).status_ref()...);
-    f(3, static_cast<T&&>(t).start_time_ref()...);
-    f(4, static_cast<T&&>(t).stop_time_ref()...);
-    f(5, static_cast<T&&>(t).job_id_ref()...);
+    f(0, static_cast<T&&>(t).space_id_ref()...);
+    f(1, static_cast<T&&>(t).job_id_ref()...);
+    f(2, static_cast<T&&>(t).task_id_ref()...);
+    f(3, static_cast<T&&>(t).host_ref()...);
+    f(4, static_cast<T&&>(t).status_ref()...);
+    f(5, static_cast<T&&>(t).start_time_ref()...);
+    f(6, static_cast<T&&>(t).stop_time_ref()...);
+    f(7, static_cast<T&&>(t).code_ref()...);
   }
 };
 
@@ -312,6 +317,15 @@ struct ForEachField<::nebula::meta::cpp2::CreateSpaceAsReq> {
 
 template <>
 struct ForEachField<::nebula::meta::cpp2::DropSpaceReq> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).space_name_ref()...);
+    f(1, static_cast<T&&>(t).if_exists_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::ClearSpaceReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).space_name_ref()...);
@@ -596,88 +610,20 @@ struct ForEachField<::nebula::meta::cpp2::GetWorkerIdResp> {
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::MultiPutReq> {
+struct ForEachField<::nebula::meta::cpp2::GetSegmentIdReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).segment_ref()...);
-    f(1, static_cast<T&&>(t).pairs_ref()...);
+    f(0, static_cast<T&&>(t).length_ref()...);
   }
 };
 
 template <>
-struct ForEachField<::nebula::meta::cpp2::GetReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).segment_ref()...);
-    f(1, static_cast<T&&>(t).key_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::GetResp> {
+struct ForEachField<::nebula::meta::cpp2::GetSegmentIdResp> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).code_ref()...);
     f(1, static_cast<T&&>(t).leader_ref()...);
-    f(2, static_cast<T&&>(t).value_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::MultiGetReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).segment_ref()...);
-    f(1, static_cast<T&&>(t).keys_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::MultiGetResp> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).code_ref()...);
-    f(1, static_cast<T&&>(t).leader_ref()...);
-    f(2, static_cast<T&&>(t).values_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::RemoveReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).segment_ref()...);
-    f(1, static_cast<T&&>(t).key_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::RemoveRangeReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).segment_ref()...);
-    f(1, static_cast<T&&>(t).start_ref()...);
-    f(2, static_cast<T&&>(t).end_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::ScanReq> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).segment_ref()...);
-    f(1, static_cast<T&&>(t).start_ref()...);
-    f(2, static_cast<T&&>(t).end_ref()...);
-  }
-};
-
-template <>
-struct ForEachField<::nebula::meta::cpp2::ScanResp> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).code_ref()...);
-    f(1, static_cast<T&&>(t).leader_ref()...);
-    f(2, static_cast<T&&>(t).values_ref()...);
+    f(2, static_cast<T&&>(t).segment_id_ref()...);
   }
 };
 
@@ -1079,7 +1025,7 @@ template <>
 struct ForEachField<::nebula::meta::cpp2::DropSnapshotReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).name_ref()...);
+    f(0, static_cast<T&&>(t).names_ref()...);
   }
 };
 
@@ -1320,6 +1266,9 @@ struct ForEachField<::nebula::meta::cpp2::BackupMeta> {
     f(3, static_cast<T&&>(t).full_ref()...);
     f(4, static_cast<T&&>(t).all_spaces_ref()...);
     f(5, static_cast<T&&>(t).create_time_ref()...);
+    f(6, static_cast<T&&>(t).base_backup_name_ref()...);
+    f(7, static_cast<T&&>(t).storage_hosts_ref()...);
+    f(8, static_cast<T&&>(t).cluster_id_ref()...);
   }
 };
 
@@ -1328,6 +1277,8 @@ struct ForEachField<::nebula::meta::cpp2::CreateBackupReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).spaces_ref()...);
+    f(1, static_cast<T&&>(t).base_backup_name_ref()...);
+    f(2, static_cast<T&&>(t).cluster_id_ref()...);
   }
 };
 
@@ -1356,6 +1307,25 @@ struct ForEachField<::nebula::meta::cpp2::RestoreMetaReq> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).files_ref()...);
     f(1, static_cast<T&&>(t).hosts_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::PartInfo> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).part_id_ref()...);
+    f(1, static_cast<T&&>(t).hosts_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::RestoreMetaResp> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).code_ref()...);
+    f(1, static_cast<T&&>(t).leader_ref()...);
+    f(2, static_cast<T&&>(t).part_hosts_ref()...);
   }
 };
 
@@ -1514,6 +1484,7 @@ struct ForEachField<::nebula::meta::cpp2::UpdateSessionsResp> {
     f(0, static_cast<T&&>(t).code_ref()...);
     f(1, static_cast<T&&>(t).leader_ref()...);
     f(2, static_cast<T&&>(t).killed_queries_ref()...);
+    f(3, static_cast<T&&>(t).killed_sessions_ref()...);
   }
 };
 
@@ -1556,7 +1527,17 @@ template <>
 struct ForEachField<::nebula::meta::cpp2::RemoveSessionReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).session_id_ref()...);
+    f(0, static_cast<T&&>(t).session_ids_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::RemoveSessionResp> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).code_ref()...);
+    f(1, static_cast<T&&>(t).leader_ref()...);
+    f(2, static_cast<T&&>(t).removed_session_ids_ref()...);
   }
 };
 
@@ -1573,9 +1554,10 @@ struct ForEachField<::nebula::meta::cpp2::ReportTaskReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).code_ref()...);
-    f(1, static_cast<T&&>(t).job_id_ref()...);
-    f(2, static_cast<T&&>(t).task_id_ref()...);
-    f(3, static_cast<T&&>(t).stats_ref()...);
+    f(1, static_cast<T&&>(t).space_id_ref()...);
+    f(2, static_cast<T&&>(t).job_id_ref()...);
+    f(3, static_cast<T&&>(t).task_id_ref()...);
+    f(4, static_cast<T&&>(t).stats_ref()...);
   }
 };
 
@@ -1624,6 +1606,26 @@ struct ForEachField<::nebula::meta::cpp2::VerifyClientVersionResp> {
 
 template <>
 struct ForEachField<::nebula::meta::cpp2::VerifyClientVersionReq> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).client_version_ref()...);
+    f(1, static_cast<T&&>(t).host_ref()...);
+    f(2, static_cast<T&&>(t).build_version_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::SaveGraphVersionResp> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).code_ref()...);
+    f(1, static_cast<T&&>(t).leader_ref()...);
+    f(2, static_cast<T&&>(t).error_msg_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::meta::cpp2::SaveGraphVersionReq> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).client_version_ref()...);

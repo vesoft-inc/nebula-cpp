@@ -14,7 +14,7 @@ namespace nebula { namespace cpp2 {
 
 struct common_constants {
 
-  static constexpr char const * const version_ = "2.6.0";
+  static constexpr char const * const version_ = "3.0.0";
 
   static constexpr char const * version() {
     return version_;

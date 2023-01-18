@@ -4543,6 +4543,36 @@ _readField_term_id:
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
           2,
+          3,
+          apache::thrift::protocol::T_I64))) {
+    goto _loop;
+  }
+_readField_commit_log_id:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::LogID>::readWithContext(*iprot, this->commit_log_id, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.commit_log_id = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          3,
+          4,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_checkpoint_path:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->checkpoint_path, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.checkpoint_path = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          4,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -4579,6 +4609,22 @@ _loop:
         goto _skip;
       }
     }
+    case 3:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
+        goto _readField_commit_log_id;
+      } else {
+        goto _skip;
+      }
+    }
+    case 4:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_checkpoint_path;
+      } else {
+        goto _skip;
+      }
+    }
     default:
     {
 _skip:
@@ -4598,6 +4644,10 @@ uint32_t LogInfo::serializedSize(Protocol_ const* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::LogID>::serializedSize<false>(*prot_, this->log_id);
   xfer += prot_->serializedFieldSize("term_id", apache::thrift::protocol::T_I64, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::TermID>::serializedSize<false>(*prot_, this->term_id);
+  xfer += prot_->serializedFieldSize("commit_log_id", apache::thrift::protocol::T_I64, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::LogID>::serializedSize<false>(*prot_, this->commit_log_id);
+  xfer += prot_->serializedFieldSize("checkpoint_path", apache::thrift::protocol::T_STRING, 4);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->checkpoint_path);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -4610,6 +4660,10 @@ uint32_t LogInfo::serializedSizeZC(Protocol_ const* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::LogID>::serializedSize<false>(*prot_, this->log_id);
   xfer += prot_->serializedFieldSize("term_id", apache::thrift::protocol::T_I64, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::TermID>::serializedSize<false>(*prot_, this->term_id);
+  xfer += prot_->serializedFieldSize("commit_log_id", apache::thrift::protocol::T_I64, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::LogID>::serializedSize<false>(*prot_, this->commit_log_id);
+  xfer += prot_->serializedFieldSize("checkpoint_path", apache::thrift::protocol::T_STRING, 4);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->checkpoint_path);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -4623,6 +4677,12 @@ uint32_t LogInfo::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldBegin("term_id", apache::thrift::protocol::T_I64, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::TermID>::write(*prot_, this->term_id);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("commit_log_id", apache::thrift::protocol::T_I64, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::LogID>::write(*prot_, this->commit_log_id);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("checkpoint_path", apache::thrift::protocol::T_STRING, 4);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->checkpoint_path);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
@@ -4833,11 +4893,11 @@ _readField_parts:
           apache::thrift::protocol::T_STRING))) {
     goto _loop;
   }
-_readField_path:
+_readField_data_path:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->path, _readState);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->data_path, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.path = true;
+    this->__isset.data_path = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
   }
 
@@ -4883,7 +4943,7 @@ _loop:
     case 3:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_path;
+        goto _readField_data_path;
       } else {
         goto _skip;
       }
@@ -4907,8 +4967,8 @@ uint32_t CheckpointInfo::serializedSize(Protocol_ const* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::serializedSize<false>(*prot_, this->space_id);
   xfer += prot_->serializedFieldSize("parts", apache::thrift::protocol::T_MAP, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>::serializedSize<false>(*prot_, this->parts);
-  xfer += prot_->serializedFieldSize("path", apache::thrift::protocol::T_STRING, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->path);
+  xfer += prot_->serializedFieldSize("data_path", apache::thrift::protocol::T_STRING, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->data_path);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -4921,8 +4981,8 @@ uint32_t CheckpointInfo::serializedSizeZC(Protocol_ const* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::serializedSize<false>(*prot_, this->space_id);
   xfer += prot_->serializedFieldSize("parts", apache::thrift::protocol::T_MAP, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>::serializedSize<false>(*prot_, this->parts);
-  xfer += prot_->serializedFieldSize("path", apache::thrift::protocol::T_STRING, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->path);
+  xfer += prot_->serializedFieldSize("data_path", apache::thrift::protocol::T_STRING, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->data_path);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -4937,8 +4997,8 @@ uint32_t CheckpointInfo::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldBegin("parts", apache::thrift::protocol::T_MAP, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo>>::write(*prot_, this->parts);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("path", apache::thrift::protocol::T_STRING, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->path);
+  xfer += prot_->writeFieldBegin("data_path", apache::thrift::protocol::T_STRING, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->data_path);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();

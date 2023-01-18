@@ -338,6 +338,13 @@ struct TccStructTraits<::nebula::meta::cpp2::DropSpaceReq> {
       apache::thrift::protocol::TType& _ftype) noexcept;
 };
 template <>
+struct TccStructTraits<::nebula::meta::cpp2::ClearSpaceReq> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
 struct TccStructTraits<::nebula::meta::cpp2::ListSpacesReq> {
   static void translateFieldName(
       folly::StringPiece _fname,
@@ -541,63 +548,14 @@ struct TccStructTraits<::nebula::meta::cpp2::GetWorkerIdResp> {
       apache::thrift::protocol::TType& _ftype) noexcept;
 };
 template <>
-struct TccStructTraits<::nebula::meta::cpp2::MultiPutReq> {
+struct TccStructTraits<::nebula::meta::cpp2::GetSegmentIdReq> {
   static void translateFieldName(
       folly::StringPiece _fname,
       int16_t& fid,
       apache::thrift::protocol::TType& _ftype) noexcept;
 };
 template <>
-struct TccStructTraits<::nebula::meta::cpp2::GetReq> {
-  static void translateFieldName(
-      folly::StringPiece _fname,
-      int16_t& fid,
-      apache::thrift::protocol::TType& _ftype) noexcept;
-};
-template <>
-struct TccStructTraits<::nebula::meta::cpp2::GetResp> {
-  static void translateFieldName(
-      folly::StringPiece _fname,
-      int16_t& fid,
-      apache::thrift::protocol::TType& _ftype) noexcept;
-};
-template <>
-struct TccStructTraits<::nebula::meta::cpp2::MultiGetReq> {
-  static void translateFieldName(
-      folly::StringPiece _fname,
-      int16_t& fid,
-      apache::thrift::protocol::TType& _ftype) noexcept;
-};
-template <>
-struct TccStructTraits<::nebula::meta::cpp2::MultiGetResp> {
-  static void translateFieldName(
-      folly::StringPiece _fname,
-      int16_t& fid,
-      apache::thrift::protocol::TType& _ftype) noexcept;
-};
-template <>
-struct TccStructTraits<::nebula::meta::cpp2::RemoveReq> {
-  static void translateFieldName(
-      folly::StringPiece _fname,
-      int16_t& fid,
-      apache::thrift::protocol::TType& _ftype) noexcept;
-};
-template <>
-struct TccStructTraits<::nebula::meta::cpp2::RemoveRangeReq> {
-  static void translateFieldName(
-      folly::StringPiece _fname,
-      int16_t& fid,
-      apache::thrift::protocol::TType& _ftype) noexcept;
-};
-template <>
-struct TccStructTraits<::nebula::meta::cpp2::ScanReq> {
-  static void translateFieldName(
-      folly::StringPiece _fname,
-      int16_t& fid,
-      apache::thrift::protocol::TType& _ftype) noexcept;
-};
-template <>
-struct TccStructTraits<::nebula::meta::cpp2::ScanResp> {
+struct TccStructTraits<::nebula::meta::cpp2::GetSegmentIdResp> {
   static void translateFieldName(
       folly::StringPiece _fname,
       int16_t& fid,
@@ -1108,6 +1066,20 @@ struct TccStructTraits<::nebula::meta::cpp2::RestoreMetaReq> {
       apache::thrift::protocol::TType& _ftype) noexcept;
 };
 template <>
+struct TccStructTraits<::nebula::meta::cpp2::PartInfo> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
+struct TccStructTraits<::nebula::meta::cpp2::RestoreMetaResp> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
 struct TccStructTraits<::nebula::meta::cpp2::ServiceClient> {
   static void translateFieldName(
       folly::StringPiece _fname,
@@ -1255,6 +1227,13 @@ struct TccStructTraits<::nebula::meta::cpp2::RemoveSessionReq> {
       apache::thrift::protocol::TType& _ftype) noexcept;
 };
 template <>
+struct TccStructTraits<::nebula::meta::cpp2::RemoveSessionResp> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
 struct TccStructTraits<::nebula::meta::cpp2::KillQueryReq> {
   static void translateFieldName(
       folly::StringPiece _fname,
@@ -1305,6 +1284,20 @@ struct TccStructTraits<::nebula::meta::cpp2::VerifyClientVersionResp> {
 };
 template <>
 struct TccStructTraits<::nebula::meta::cpp2::VerifyClientVersionReq> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
+struct TccStructTraits<::nebula::meta::cpp2::SaveGraphVersionResp> {
+  static void translateFieldName(
+      folly::StringPiece _fname,
+      int16_t& fid,
+      apache::thrift::protocol::TType& _ftype) noexcept;
+};
+template <>
+struct TccStructTraits<::nebula::meta::cpp2::SaveGraphVersionReq> {
   static void translateFieldName(
       folly::StringPiece _fname,
       int16_t& fid,
@@ -5085,11 +5078,11 @@ void AdminJobReq::readNoXfer(Protocol_* iprot) {
           apache::thrift::protocol::T_I32))) {
     goto _loop;
   }
-_readField_op:
+_readField_space_id:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::AdminJobOp>::readWithContext(*iprot, this->op, _readState);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::readWithContext(*iprot, this->space_id, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.op = true;
+    this->__isset.space_id = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
   }
 
@@ -5100,11 +5093,11 @@ _readField_op:
           apache::thrift::protocol::T_I32))) {
     goto _loop;
   }
-_readField_cmd:
+_readField_op:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::AdminCmd>::readWithContext(*iprot, this->cmd, _readState);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobOp>::readWithContext(*iprot, this->op, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.cmd = true;
+    this->__isset.op = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
   }
 
@@ -5112,6 +5105,21 @@ _readField_cmd:
           iprot,
           2,
           3,
+          apache::thrift::protocol::T_I32))) {
+    goto _loop;
+  }
+_readField_type:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobType>::readWithContext(*iprot, this->type, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.type = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          3,
+          4,
           apache::thrift::protocol::T_LIST))) {
     goto _loop;
   }
@@ -5128,7 +5136,7 @@ _readField_paras:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          3,
+          4,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -5152,7 +5160,7 @@ _loop:
     case 1:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
-        goto _readField_op;
+        goto _readField_space_id;
       } else {
         goto _skip;
       }
@@ -5160,12 +5168,20 @@ _loop:
     case 2:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
-        goto _readField_cmd;
+        goto _readField_op;
       } else {
         goto _skip;
       }
     }
     case 3:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
+        goto _readField_type;
+      } else {
+        goto _skip;
+      }
+    }
+    case 4:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
         goto _readField_paras;
@@ -5188,11 +5204,13 @@ template <class Protocol_>
 uint32_t AdminJobReq::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("AdminJobReq");
-  xfer += prot_->serializedFieldSize("op", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::AdminJobOp>::serializedSize<false>(*prot_, this->op);
-  xfer += prot_->serializedFieldSize("cmd", apache::thrift::protocol::T_I32, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::AdminCmd>::serializedSize<false>(*prot_, this->cmd);
-  xfer += prot_->serializedFieldSize("paras", apache::thrift::protocol::T_LIST, 3);
+  xfer += prot_->serializedFieldSize("space_id", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::serializedSize<false>(*prot_, this->space_id);
+  xfer += prot_->serializedFieldSize("op", apache::thrift::protocol::T_I32, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobOp>::serializedSize<false>(*prot_, this->op);
+  xfer += prot_->serializedFieldSize("type", apache::thrift::protocol::T_I32, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobType>::serializedSize<false>(*prot_, this->type);
+  xfer += prot_->serializedFieldSize("paras", apache::thrift::protocol::T_LIST, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->paras);
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -5202,11 +5220,13 @@ template <class Protocol_>
 uint32_t AdminJobReq::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("AdminJobReq");
-  xfer += prot_->serializedFieldSize("op", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::AdminJobOp>::serializedSize<false>(*prot_, this->op);
-  xfer += prot_->serializedFieldSize("cmd", apache::thrift::protocol::T_I32, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::AdminCmd>::serializedSize<false>(*prot_, this->cmd);
-  xfer += prot_->serializedFieldSize("paras", apache::thrift::protocol::T_LIST, 3);
+  xfer += prot_->serializedFieldSize("space_id", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::serializedSize<false>(*prot_, this->space_id);
+  xfer += prot_->serializedFieldSize("op", apache::thrift::protocol::T_I32, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobOp>::serializedSize<false>(*prot_, this->op);
+  xfer += prot_->serializedFieldSize("type", apache::thrift::protocol::T_I32, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobType>::serializedSize<false>(*prot_, this->type);
+  xfer += prot_->serializedFieldSize("paras", apache::thrift::protocol::T_LIST, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->paras);
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -5216,13 +5236,16 @@ template <class Protocol_>
 uint32_t AdminJobReq::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->writeStructBegin("AdminJobReq");
-  xfer += prot_->writeFieldBegin("op", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::AdminJobOp>::write(*prot_, this->op);
+  xfer += prot_->writeFieldBegin("space_id", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::write(*prot_, this->space_id);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("cmd", apache::thrift::protocol::T_I32, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::AdminCmd>::write(*prot_, this->cmd);
+  xfer += prot_->writeFieldBegin("op", apache::thrift::protocol::T_I32, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobOp>::write(*prot_, this->op);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("paras", apache::thrift::protocol::T_LIST, 3);
+  xfer += prot_->writeFieldBegin("type", apache::thrift::protocol::T_I32, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobType>::write(*prot_, this->type);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("paras", apache::thrift::protocol::T_LIST, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::write(*prot_, this->paras);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
@@ -5258,11 +5281,11 @@ void JobDesc::readNoXfer(Protocol_* iprot) {
           apache::thrift::protocol::T_I32))) {
     goto _loop;
   }
-_readField_id:
+_readField_space_id:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::readWithContext(*iprot, this->id, _readState);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::readWithContext(*iprot, this->space_id, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.id = true;
+    this->__isset.space_id = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
   }
 
@@ -5273,11 +5296,11 @@ _readField_id:
           apache::thrift::protocol::T_I32))) {
     goto _loop;
   }
-_readField_cmd:
+_readField_job_id:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::AdminCmd>::readWithContext(*iprot, this->cmd, _readState);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::readWithContext(*iprot, this->job_id, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.cmd = true;
+    this->__isset.job_id = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
   }
 
@@ -5285,6 +5308,21 @@ _readField_cmd:
           iprot,
           2,
           3,
+          apache::thrift::protocol::T_I32))) {
+    goto _loop;
+  }
+_readField_type:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobType>::readWithContext(*iprot, this->type, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.type = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          3,
+          4,
           apache::thrift::protocol::T_LIST))) {
     goto _loop;
   }
@@ -5301,8 +5339,8 @@ _readField_paras:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          3,
           4,
+          5,
           apache::thrift::protocol::T_I32))) {
     goto _loop;
   }
@@ -5316,8 +5354,8 @@ _readField_status:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          4,
           5,
+          6,
           apache::thrift::protocol::T_I64))) {
     goto _loop;
   }
@@ -5331,8 +5369,8 @@ _readField_start_time:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          5,
           6,
+          7,
           apache::thrift::protocol::T_I64))) {
     goto _loop;
   }
@@ -5346,7 +5384,22 @@ _readField_stop_time:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          6,
+          7,
+          8,
+          apache::thrift::protocol::T_I32))) {
+    goto _loop;
+  }
+_readField_code:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::readWithContext(*iprot, this->code, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.code = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          8,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -5370,7 +5423,7 @@ _loop:
     case 1:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
-        goto _readField_id;
+        goto _readField_space_id;
       } else {
         goto _skip;
       }
@@ -5378,12 +5431,20 @@ _loop:
     case 2:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
-        goto _readField_cmd;
+        goto _readField_job_id;
       } else {
         goto _skip;
       }
     }
     case 3:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
+        goto _readField_type;
+      } else {
+        goto _skip;
+      }
+    }
+    case 4:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
         goto _readField_paras;
@@ -5391,7 +5452,7 @@ _loop:
         goto _skip;
       }
     }
-    case 4:
+    case 5:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
         goto _readField_status;
@@ -5399,7 +5460,7 @@ _loop:
         goto _skip;
       }
     }
-    case 5:
+    case 6:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
         goto _readField_start_time;
@@ -5407,10 +5468,18 @@ _loop:
         goto _skip;
       }
     }
-    case 6:
+    case 7:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
         goto _readField_stop_time;
+      } else {
+        goto _skip;
+      }
+    }
+    case 8:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
+        goto _readField_code;
       } else {
         goto _skip;
       }
@@ -5430,18 +5499,22 @@ template <class Protocol_>
 uint32_t JobDesc::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("JobDesc");
-  xfer += prot_->serializedFieldSize("id", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->id);
-  xfer += prot_->serializedFieldSize("cmd", apache::thrift::protocol::T_I32, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::AdminCmd>::serializedSize<false>(*prot_, this->cmd);
-  xfer += prot_->serializedFieldSize("paras", apache::thrift::protocol::T_LIST, 3);
+  xfer += prot_->serializedFieldSize("space_id", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::serializedSize<false>(*prot_, this->space_id);
+  xfer += prot_->serializedFieldSize("job_id", apache::thrift::protocol::T_I32, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->job_id);
+  xfer += prot_->serializedFieldSize("type", apache::thrift::protocol::T_I32, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobType>::serializedSize<false>(*prot_, this->type);
+  xfer += prot_->serializedFieldSize("paras", apache::thrift::protocol::T_LIST, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::string>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->paras);
-  xfer += prot_->serializedFieldSize("status", apache::thrift::protocol::T_I32, 4);
+  xfer += prot_->serializedFieldSize("status", apache::thrift::protocol::T_I32, 5);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobStatus>::serializedSize<false>(*prot_, this->status);
-  xfer += prot_->serializedFieldSize("start_time", apache::thrift::protocol::T_I64, 5);
+  xfer += prot_->serializedFieldSize("start_time", apache::thrift::protocol::T_I64, 6);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->start_time);
-  xfer += prot_->serializedFieldSize("stop_time", apache::thrift::protocol::T_I64, 6);
+  xfer += prot_->serializedFieldSize("stop_time", apache::thrift::protocol::T_I64, 7);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->stop_time);
+  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 8);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -5450,18 +5523,22 @@ template <class Protocol_>
 uint32_t JobDesc::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("JobDesc");
-  xfer += prot_->serializedFieldSize("id", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->id);
-  xfer += prot_->serializedFieldSize("cmd", apache::thrift::protocol::T_I32, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::AdminCmd>::serializedSize<false>(*prot_, this->cmd);
-  xfer += prot_->serializedFieldSize("paras", apache::thrift::protocol::T_LIST, 3);
+  xfer += prot_->serializedFieldSize("space_id", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::serializedSize<false>(*prot_, this->space_id);
+  xfer += prot_->serializedFieldSize("job_id", apache::thrift::protocol::T_I32, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->job_id);
+  xfer += prot_->serializedFieldSize("type", apache::thrift::protocol::T_I32, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobType>::serializedSize<false>(*prot_, this->type);
+  xfer += prot_->serializedFieldSize("paras", apache::thrift::protocol::T_LIST, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::string>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->paras);
-  xfer += prot_->serializedFieldSize("status", apache::thrift::protocol::T_I32, 4);
+  xfer += prot_->serializedFieldSize("status", apache::thrift::protocol::T_I32, 5);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobStatus>::serializedSize<false>(*prot_, this->status);
-  xfer += prot_->serializedFieldSize("start_time", apache::thrift::protocol::T_I64, 5);
+  xfer += prot_->serializedFieldSize("start_time", apache::thrift::protocol::T_I64, 6);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->start_time);
-  xfer += prot_->serializedFieldSize("stop_time", apache::thrift::protocol::T_I64, 6);
+  xfer += prot_->serializedFieldSize("stop_time", apache::thrift::protocol::T_I64, 7);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->stop_time);
+  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 8);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -5470,23 +5547,29 @@ template <class Protocol_>
 uint32_t JobDesc::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->writeStructBegin("JobDesc");
-  xfer += prot_->writeFieldBegin("id", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::write(*prot_, this->id);
+  xfer += prot_->writeFieldBegin("space_id", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::write(*prot_, this->space_id);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("cmd", apache::thrift::protocol::T_I32, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::AdminCmd>::write(*prot_, this->cmd);
+  xfer += prot_->writeFieldBegin("job_id", apache::thrift::protocol::T_I32, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::write(*prot_, this->job_id);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("paras", apache::thrift::protocol::T_LIST, 3);
+  xfer += prot_->writeFieldBegin("type", apache::thrift::protocol::T_I32, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobType>::write(*prot_, this->type);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("paras", apache::thrift::protocol::T_LIST, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::string>, ::std::vector<::std::string>>::write(*prot_, this->paras);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("status", apache::thrift::protocol::T_I32, 4);
+  xfer += prot_->writeFieldBegin("status", apache::thrift::protocol::T_I32, 5);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobStatus>::write(*prot_, this->status);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("start_time", apache::thrift::protocol::T_I64, 5);
+  xfer += prot_->writeFieldBegin("start_time", apache::thrift::protocol::T_I64, 6);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::write(*prot_, this->start_time);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("stop_time", apache::thrift::protocol::T_I64, 6);
+  xfer += prot_->writeFieldBegin("stop_time", apache::thrift::protocol::T_I64, 7);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::write(*prot_, this->stop_time);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("code", apache::thrift::protocol::T_I32, 8);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::write(*prot_, this->code);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
@@ -5521,6 +5604,36 @@ void TaskDesc::readNoXfer(Protocol_* iprot) {
           apache::thrift::protocol::T_I32))) {
     goto _loop;
   }
+_readField_space_id:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::readWithContext(*iprot, this->space_id, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.space_id = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          2,
+          apache::thrift::protocol::T_I32))) {
+    goto _loop;
+  }
+_readField_job_id:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::readWithContext(*iprot, this->job_id, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.job_id = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          2,
+          3,
+          apache::thrift::protocol::T_I32))) {
+    goto _loop;
+  }
 _readField_task_id:
   {
     ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::readWithContext(*iprot, this->task_id, _readState);
@@ -5531,8 +5644,8 @@ _readField_task_id:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          1,
-          2,
+          3,
+          4,
           apache::thrift::protocol::T_STRUCT))) {
     goto _loop;
   }
@@ -5548,8 +5661,8 @@ _readField_host:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          2,
-          3,
+          4,
+          5,
           apache::thrift::protocol::T_I32))) {
     goto _loop;
   }
@@ -5563,8 +5676,8 @@ _readField_status:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          3,
-          4,
+          5,
+          6,
           apache::thrift::protocol::T_I64))) {
     goto _loop;
   }
@@ -5578,8 +5691,8 @@ _readField_start_time:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          4,
-          5,
+          6,
+          7,
           apache::thrift::protocol::T_I64))) {
     goto _loop;
   }
@@ -5593,22 +5706,22 @@ _readField_stop_time:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          5,
-          6,
+          7,
+          8,
           apache::thrift::protocol::T_I32))) {
     goto _loop;
   }
-_readField_job_id:
+_readField_code:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::readWithContext(*iprot, this->job_id, _readState);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::readWithContext(*iprot, this->code, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.job_id = true;
+    this->__isset.code = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
   }
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          6,
+          8,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -5632,15 +5745,15 @@ _loop:
     case 1:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
-        goto _readField_task_id;
+        goto _readField_space_id;
       } else {
         goto _skip;
       }
     }
     case 2:
     {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
-        goto _readField_host;
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
+        goto _readField_job_id;
       } else {
         goto _skip;
       }
@@ -5648,12 +5761,28 @@ _loop:
     case 3:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
-        goto _readField_status;
+        goto _readField_task_id;
       } else {
         goto _skip;
       }
     }
     case 4:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
+        goto _readField_host;
+      } else {
+        goto _skip;
+      }
+    }
+    case 5:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
+        goto _readField_status;
+      } else {
+        goto _skip;
+      }
+    }
+    case 6:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
         goto _readField_start_time;
@@ -5661,7 +5790,7 @@ _loop:
         goto _skip;
       }
     }
-    case 5:
+    case 7:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
         goto _readField_stop_time;
@@ -5669,10 +5798,10 @@ _loop:
         goto _skip;
       }
     }
-    case 6:
+    case 8:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
-        goto _readField_job_id;
+        goto _readField_code;
       } else {
         goto _skip;
       }
@@ -5692,18 +5821,22 @@ template <class Protocol_>
 uint32_t TaskDesc::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("TaskDesc");
-  xfer += prot_->serializedFieldSize("task_id", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->task_id);
-  xfer += prot_->serializedFieldSize("host", apache::thrift::protocol::T_STRUCT, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<false>(*prot_, this->host);
-  xfer += prot_->serializedFieldSize("status", apache::thrift::protocol::T_I32, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobStatus>::serializedSize<false>(*prot_, this->status);
-  xfer += prot_->serializedFieldSize("start_time", apache::thrift::protocol::T_I64, 4);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->start_time);
-  xfer += prot_->serializedFieldSize("stop_time", apache::thrift::protocol::T_I64, 5);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->stop_time);
-  xfer += prot_->serializedFieldSize("job_id", apache::thrift::protocol::T_I32, 6);
+  xfer += prot_->serializedFieldSize("space_id", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::serializedSize<false>(*prot_, this->space_id);
+  xfer += prot_->serializedFieldSize("job_id", apache::thrift::protocol::T_I32, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->job_id);
+  xfer += prot_->serializedFieldSize("task_id", apache::thrift::protocol::T_I32, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->task_id);
+  xfer += prot_->serializedFieldSize("host", apache::thrift::protocol::T_STRUCT, 4);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<false>(*prot_, this->host);
+  xfer += prot_->serializedFieldSize("status", apache::thrift::protocol::T_I32, 5);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobStatus>::serializedSize<false>(*prot_, this->status);
+  xfer += prot_->serializedFieldSize("start_time", apache::thrift::protocol::T_I64, 6);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->start_time);
+  xfer += prot_->serializedFieldSize("stop_time", apache::thrift::protocol::T_I64, 7);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->stop_time);
+  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 8);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -5712,18 +5845,22 @@ template <class Protocol_>
 uint32_t TaskDesc::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("TaskDesc");
-  xfer += prot_->serializedFieldSize("task_id", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->task_id);
-  xfer += prot_->serializedFieldSize("host", apache::thrift::protocol::T_STRUCT, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<true>(*prot_, this->host);
-  xfer += prot_->serializedFieldSize("status", apache::thrift::protocol::T_I32, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobStatus>::serializedSize<false>(*prot_, this->status);
-  xfer += prot_->serializedFieldSize("start_time", apache::thrift::protocol::T_I64, 4);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->start_time);
-  xfer += prot_->serializedFieldSize("stop_time", apache::thrift::protocol::T_I64, 5);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->stop_time);
-  xfer += prot_->serializedFieldSize("job_id", apache::thrift::protocol::T_I32, 6);
+  xfer += prot_->serializedFieldSize("space_id", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::serializedSize<false>(*prot_, this->space_id);
+  xfer += prot_->serializedFieldSize("job_id", apache::thrift::protocol::T_I32, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->job_id);
+  xfer += prot_->serializedFieldSize("task_id", apache::thrift::protocol::T_I32, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->task_id);
+  xfer += prot_->serializedFieldSize("host", apache::thrift::protocol::T_STRUCT, 4);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<true>(*prot_, this->host);
+  xfer += prot_->serializedFieldSize("status", apache::thrift::protocol::T_I32, 5);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobStatus>::serializedSize<false>(*prot_, this->status);
+  xfer += prot_->serializedFieldSize("start_time", apache::thrift::protocol::T_I64, 6);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->start_time);
+  xfer += prot_->serializedFieldSize("stop_time", apache::thrift::protocol::T_I64, 7);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->stop_time);
+  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 8);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -5732,23 +5869,29 @@ template <class Protocol_>
 uint32_t TaskDesc::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->writeStructBegin("TaskDesc");
-  xfer += prot_->writeFieldBegin("task_id", apache::thrift::protocol::T_I32, 1);
+  xfer += prot_->writeFieldBegin("space_id", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::write(*prot_, this->space_id);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("job_id", apache::thrift::protocol::T_I32, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::write(*prot_, this->job_id);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("task_id", apache::thrift::protocol::T_I32, 3);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::write(*prot_, this->task_id);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("host", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += prot_->writeFieldBegin("host", apache::thrift::protocol::T_STRUCT, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::write(*prot_, this->host);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("status", apache::thrift::protocol::T_I32, 3);
+  xfer += prot_->writeFieldBegin("status", apache::thrift::protocol::T_I32, 5);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::meta::cpp2::JobStatus>::write(*prot_, this->status);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("start_time", apache::thrift::protocol::T_I64, 4);
+  xfer += prot_->writeFieldBegin("start_time", apache::thrift::protocol::T_I64, 6);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::write(*prot_, this->start_time);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("stop_time", apache::thrift::protocol::T_I64, 5);
+  xfer += prot_->writeFieldBegin("stop_time", apache::thrift::protocol::T_I64, 7);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::write(*prot_, this->stop_time);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("job_id", apache::thrift::protocol::T_I32, 6);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::write(*prot_, this->job_id);
+  xfer += prot_->writeFieldBegin("code", apache::thrift::protocol::T_I32, 8);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::write(*prot_, this->code);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
@@ -7031,6 +7174,146 @@ extern template void DropSpaceReq::readNoXfer<>(apache::thrift::CompactProtocolR
 extern template uint32_t DropSpaceReq::write<>(apache::thrift::CompactProtocolWriter*) const;
 extern template uint32_t DropSpaceReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 extern template uint32_t DropSpaceReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}}} // nebula::meta::cpp2
+namespace nebula { namespace meta { namespace cpp2 {
+
+template <class Protocol_>
+void ClearSpaceReq::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_space_name:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->space_name, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.space_name = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          2,
+          apache::thrift::protocol::T_BOOL))) {
+    goto _loop;
+  }
+_readField_if_exists:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::readWithContext(*iprot, this->if_exists, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.if_exists = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          2,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<ClearSpaceReq>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_space_name;
+      } else {
+        goto _skip;
+      }
+    }
+    case 2:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_BOOL))) {
+        goto _readField_if_exists;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t ClearSpaceReq::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("ClearSpaceReq");
+  xfer += prot_->serializedFieldSize("space_name", apache::thrift::protocol::T_STRING, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->space_name);
+  xfer += prot_->serializedFieldSize("if_exists", apache::thrift::protocol::T_BOOL, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->if_exists);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t ClearSpaceReq::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("ClearSpaceReq");
+  xfer += prot_->serializedFieldSize("space_name", apache::thrift::protocol::T_STRING, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->space_name);
+  xfer += prot_->serializedFieldSize("if_exists", apache::thrift::protocol::T_BOOL, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->if_exists);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t ClearSpaceReq::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("ClearSpaceReq");
+  xfer += prot_->writeFieldBegin("space_name", apache::thrift::protocol::T_STRING, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->space_name);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("if_exists", apache::thrift::protocol::T_BOOL, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::write(*prot_, this->if_exists);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void ClearSpaceReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t ClearSpaceReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t ClearSpaceReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t ClearSpaceReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void ClearSpaceReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t ClearSpaceReq::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t ClearSpaceReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t ClearSpaceReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // nebula::meta::cpp2
 namespace nebula { namespace meta { namespace cpp2 {
@@ -11626,7 +11909,7 @@ extern template uint32_t GetWorkerIdResp::serializedSizeZC<>(apache::thrift::Com
 namespace nebula { namespace meta { namespace cpp2 {
 
 template <class Protocol_>
-void MultiPutReq::readNoXfer(Protocol_* iprot) {
+void GetSegmentIdReq::readNoXfer(Protocol_* iprot) {
   apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
 
   _readState.readStructBegin(iprot);
@@ -11638,38 +11921,20 @@ void MultiPutReq::readNoXfer(Protocol_* iprot) {
           iprot,
           0,
           1,
-          apache::thrift::protocol::T_STRING))) {
+          apache::thrift::protocol::T_I64))) {
     goto _loop;
   }
-_readField_segment:
+_readField_length:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->segment, _readState);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::readWithContext(*iprot, this->length, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.segment = true;
+    this->__isset.length = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
   }
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
           1,
-          2,
-          apache::thrift::protocol::T_LIST))) {
-    goto _loop;
-  }
-_readField_pairs:
-  {
-    _readState.beforeSubobject(iprot);
-    this->pairs = ::std::vector<nebula::KeyValue>();
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::KeyValue>>::readWithContext(*iprot, this->pairs, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.pairs = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-    _readState.afterSubobject(iprot);
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          2,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -11686,22 +11951,14 @@ _loop:
     goto _end;
   }
   if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<MultiPutReq>>();
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<GetSegmentIdReq>>();
   }
 
   switch (_readState.fieldId) {
     case 1:
     {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_segment;
-      } else {
-        goto _skip;
-      }
-    }
-    case 2:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
-        goto _readField_pairs;
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
+        goto _readField_length;
       } else {
         goto _skip;
       }
@@ -11718,198 +11975,51 @@ _skip:
 }
 
 template <class Protocol_>
-uint32_t MultiPutReq::serializedSize(Protocol_ const* prot_) const {
+uint32_t GetSegmentIdReq::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("MultiPutReq");
-  xfer += prot_->serializedFieldSize("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->segment);
-  xfer += prot_->serializedFieldSize("pairs", apache::thrift::protocol::T_LIST, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::KeyValue>>::serializedSize<false>(*prot_, this->pairs);
+  xfer += prot_->serializedStructSize("GetSegmentIdReq");
+  xfer += prot_->serializedFieldSize("length", apache::thrift::protocol::T_I64, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->length);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
 
 template <class Protocol_>
-uint32_t MultiPutReq::serializedSizeZC(Protocol_ const* prot_) const {
+uint32_t GetSegmentIdReq::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("MultiPutReq");
-  xfer += prot_->serializedFieldSize("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->segment);
-  xfer += prot_->serializedFieldSize("pairs", apache::thrift::protocol::T_LIST, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::KeyValue>>::serializedSize<false>(*prot_, this->pairs);
+  xfer += prot_->serializedStructSize("GetSegmentIdReq");
+  xfer += prot_->serializedFieldSize("length", apache::thrift::protocol::T_I64, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->length);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
 
 template <class Protocol_>
-uint32_t MultiPutReq::write(Protocol_* prot_) const {
+uint32_t GetSegmentIdReq::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->writeStructBegin("MultiPutReq");
-  xfer += prot_->writeFieldBegin("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->segment);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("pairs", apache::thrift::protocol::T_LIST, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::KeyValue>>::write(*prot_, this->pairs);
+  xfer += prot_->writeStructBegin("GetSegmentIdReq");
+  xfer += prot_->writeFieldBegin("length", apache::thrift::protocol::T_I64, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::write(*prot_, this->length);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
   return xfer;
 }
 
-extern template void MultiPutReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t MultiPutReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t MultiPutReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t MultiPutReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void MultiPutReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t MultiPutReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t MultiPutReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t MultiPutReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template void GetSegmentIdReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t GetSegmentIdReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t GetSegmentIdReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t GetSegmentIdReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void GetSegmentIdReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t GetSegmentIdReq::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t GetSegmentIdReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t GetSegmentIdReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // nebula::meta::cpp2
 namespace nebula { namespace meta { namespace cpp2 {
 
 template <class Protocol_>
-void GetReq::readNoXfer(Protocol_* iprot) {
-  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
-
-  _readState.readStructBegin(iprot);
-
-  using apache::thrift::TProtocolException;
-
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          0,
-          1,
-          apache::thrift::protocol::T_STRING))) {
-    goto _loop;
-  }
-_readField_segment:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->segment, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.segment = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          1,
-          2,
-          apache::thrift::protocol::T_STRING))) {
-    goto _loop;
-  }
-_readField_key:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->key, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.key = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          2,
-          0,
-          apache::thrift::protocol::T_STOP))) {
-    goto _loop;
-  }
-
-_end:
-  _readState.readStructEnd(iprot);
-
-  return;
-
-_loop:
-  _readState.afterAdvanceFailure(iprot);
-  if (_readState.atStop()) {
-    goto _end;
-  }
-  if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<GetReq>>();
-  }
-
-  switch (_readState.fieldId) {
-    case 1:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_segment;
-      } else {
-        goto _skip;
-      }
-    }
-    case 2:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_key;
-      } else {
-        goto _skip;
-      }
-    }
-    default:
-    {
-_skip:
-      _readState.skip(iprot);
-      _readState.readFieldEnd(iprot);
-      _readState.readFieldBeginNoInline(iprot);
-      goto _loop;
-    }
-  }
-}
-
-template <class Protocol_>
-uint32_t GetReq::serializedSize(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("GetReq");
-  xfer += prot_->serializedFieldSize("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->segment);
-  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->key);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t GetReq::serializedSizeZC(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("GetReq");
-  xfer += prot_->serializedFieldSize("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->segment);
-  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->key);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t GetReq::write(Protocol_* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->writeStructBegin("GetReq");
-  xfer += prot_->writeFieldBegin("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->segment);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("key", apache::thrift::protocol::T_STRING, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->key);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldStop();
-  xfer += prot_->writeStructEnd();
-  return xfer;
-}
-
-extern template void GetReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t GetReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t GetReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t GetReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void GetReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t GetReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t GetReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t GetReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-}}} // nebula::meta::cpp2
-namespace nebula { namespace meta { namespace cpp2 {
-
-template <class Protocol_>
-void GetResp::readNoXfer(Protocol_* iprot) {
+void GetSegmentIdResp::readNoXfer(Protocol_* iprot) {
   apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
 
   _readState.readStructBegin(iprot);
@@ -11953,14 +12063,14 @@ _readField_leader:
           iprot,
           2,
           3,
-          apache::thrift::protocol::T_STRING))) {
+          apache::thrift::protocol::T_I64))) {
     goto _loop;
   }
-_readField_value:
+_readField_segment_id:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->value, _readState);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::readWithContext(*iprot, this->segment_id, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.value = true;
+    this->__isset.segment_id = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
   }
 
@@ -11983,7 +12093,7 @@ _loop:
     goto _end;
   }
   if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<GetResp>>();
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<GetSegmentIdResp>>();
   }
 
   switch (_readState.fieldId) {
@@ -12005,8 +12115,8 @@ _loop:
     }
     case 3:
     {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_value;
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
+        goto _readField_segment_id;
       } else {
         goto _skip;
       }
@@ -12023,1032 +12133,59 @@ _skip:
 }
 
 template <class Protocol_>
-uint32_t GetResp::serializedSize(Protocol_ const* prot_) const {
+uint32_t GetSegmentIdResp::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("GetResp");
+  xfer += prot_->serializedStructSize("GetSegmentIdResp");
   xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
   xfer += prot_->serializedFieldSize("leader", apache::thrift::protocol::T_STRUCT, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<false>(*prot_, this->leader);
-  xfer += prot_->serializedFieldSize("value", apache::thrift::protocol::T_STRING, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->value);
+  xfer += prot_->serializedFieldSize("segment_id", apache::thrift::protocol::T_I64, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->segment_id);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
 
 template <class Protocol_>
-uint32_t GetResp::serializedSizeZC(Protocol_ const* prot_) const {
+uint32_t GetSegmentIdResp::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("GetResp");
+  xfer += prot_->serializedStructSize("GetSegmentIdResp");
   xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
   xfer += prot_->serializedFieldSize("leader", apache::thrift::protocol::T_STRUCT, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<true>(*prot_, this->leader);
-  xfer += prot_->serializedFieldSize("value", apache::thrift::protocol::T_STRING, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->value);
+  xfer += prot_->serializedFieldSize("segment_id", apache::thrift::protocol::T_I64, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->segment_id);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
 
 template <class Protocol_>
-uint32_t GetResp::write(Protocol_* prot_) const {
+uint32_t GetSegmentIdResp::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
-  xfer += prot_->writeStructBegin("GetResp");
+  xfer += prot_->writeStructBegin("GetSegmentIdResp");
   xfer += prot_->writeFieldBegin("code", apache::thrift::protocol::T_I32, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::write(*prot_, this->code);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldBegin("leader", apache::thrift::protocol::T_STRUCT, 2);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::write(*prot_, this->leader);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("value", apache::thrift::protocol::T_STRING, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->value);
+  xfer += prot_->writeFieldBegin("segment_id", apache::thrift::protocol::T_I64, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::write(*prot_, this->segment_id);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
   return xfer;
 }
 
-extern template void GetResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t GetResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t GetResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t GetResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void GetResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t GetResp::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t GetResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t GetResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-}}} // nebula::meta::cpp2
-namespace nebula { namespace meta { namespace cpp2 {
-
-template <class Protocol_>
-void MultiGetReq::readNoXfer(Protocol_* iprot) {
-  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
-
-  _readState.readStructBegin(iprot);
-
-  using apache::thrift::TProtocolException;
-
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          0,
-          1,
-          apache::thrift::protocol::T_STRING))) {
-    goto _loop;
-  }
-_readField_segment:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->segment, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.segment = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          1,
-          2,
-          apache::thrift::protocol::T_LIST))) {
-    goto _loop;
-  }
-_readField_keys:
-  {
-    _readState.beforeSubobject(iprot);
-    this->keys = ::std::vector<::std::string>();
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::readWithContext(*iprot, this->keys, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.keys = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-    _readState.afterSubobject(iprot);
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          2,
-          0,
-          apache::thrift::protocol::T_STOP))) {
-    goto _loop;
-  }
-
-_end:
-  _readState.readStructEnd(iprot);
-
-  return;
-
-_loop:
-  _readState.afterAdvanceFailure(iprot);
-  if (_readState.atStop()) {
-    goto _end;
-  }
-  if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<MultiGetReq>>();
-  }
-
-  switch (_readState.fieldId) {
-    case 1:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_segment;
-      } else {
-        goto _skip;
-      }
-    }
-    case 2:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
-        goto _readField_keys;
-      } else {
-        goto _skip;
-      }
-    }
-    default:
-    {
-_skip:
-      _readState.skip(iprot);
-      _readState.readFieldEnd(iprot);
-      _readState.readFieldBeginNoInline(iprot);
-      goto _loop;
-    }
-  }
-}
-
-template <class Protocol_>
-uint32_t MultiGetReq::serializedSize(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("MultiGetReq");
-  xfer += prot_->serializedFieldSize("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->segment);
-  xfer += prot_->serializedFieldSize("keys", apache::thrift::protocol::T_LIST, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->keys);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t MultiGetReq::serializedSizeZC(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("MultiGetReq");
-  xfer += prot_->serializedFieldSize("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->segment);
-  xfer += prot_->serializedFieldSize("keys", apache::thrift::protocol::T_LIST, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->keys);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t MultiGetReq::write(Protocol_* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->writeStructBegin("MultiGetReq");
-  xfer += prot_->writeFieldBegin("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->segment);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("keys", apache::thrift::protocol::T_LIST, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::write(*prot_, this->keys);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldStop();
-  xfer += prot_->writeStructEnd();
-  return xfer;
-}
-
-extern template void MultiGetReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t MultiGetReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t MultiGetReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t MultiGetReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void MultiGetReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t MultiGetReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t MultiGetReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t MultiGetReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-}}} // nebula::meta::cpp2
-namespace nebula { namespace meta { namespace cpp2 {
-
-template <class Protocol_>
-void MultiGetResp::readNoXfer(Protocol_* iprot) {
-  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
-
-  _readState.readStructBegin(iprot);
-
-  using apache::thrift::TProtocolException;
-
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          0,
-          1,
-          apache::thrift::protocol::T_I32))) {
-    goto _loop;
-  }
-_readField_code:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::readWithContext(*iprot, this->code, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.code = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          1,
-          2,
-          apache::thrift::protocol::T_STRUCT))) {
-    goto _loop;
-  }
-_readField_leader:
-  {
-    _readState.beforeSubobject(iprot);
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::readWithContext(*iprot, this->leader, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.leader = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-    _readState.afterSubobject(iprot);
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          2,
-          3,
-          apache::thrift::protocol::T_LIST))) {
-    goto _loop;
-  }
-_readField_values:
-  {
-    _readState.beforeSubobject(iprot);
-    this->values = ::std::vector<::std::string>();
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::readWithContext(*iprot, this->values, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.values = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-    _readState.afterSubobject(iprot);
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          3,
-          0,
-          apache::thrift::protocol::T_STOP))) {
-    goto _loop;
-  }
-
-_end:
-  _readState.readStructEnd(iprot);
-
-  return;
-
-_loop:
-  _readState.afterAdvanceFailure(iprot);
-  if (_readState.atStop()) {
-    goto _end;
-  }
-  if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<MultiGetResp>>();
-  }
-
-  switch (_readState.fieldId) {
-    case 1:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
-        goto _readField_code;
-      } else {
-        goto _skip;
-      }
-    }
-    case 2:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
-        goto _readField_leader;
-      } else {
-        goto _skip;
-      }
-    }
-    case 3:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
-        goto _readField_values;
-      } else {
-        goto _skip;
-      }
-    }
-    default:
-    {
-_skip:
-      _readState.skip(iprot);
-      _readState.readFieldEnd(iprot);
-      _readState.readFieldBeginNoInline(iprot);
-      goto _loop;
-    }
-  }
-}
-
-template <class Protocol_>
-uint32_t MultiGetResp::serializedSize(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("MultiGetResp");
-  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
-  xfer += prot_->serializedFieldSize("leader", apache::thrift::protocol::T_STRUCT, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<false>(*prot_, this->leader);
-  xfer += prot_->serializedFieldSize("values", apache::thrift::protocol::T_LIST, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->values);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t MultiGetResp::serializedSizeZC(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("MultiGetResp");
-  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
-  xfer += prot_->serializedFieldSize("leader", apache::thrift::protocol::T_STRUCT, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<true>(*prot_, this->leader);
-  xfer += prot_->serializedFieldSize("values", apache::thrift::protocol::T_LIST, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->values);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t MultiGetResp::write(Protocol_* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->writeStructBegin("MultiGetResp");
-  xfer += prot_->writeFieldBegin("code", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::write(*prot_, this->code);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("leader", apache::thrift::protocol::T_STRUCT, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::write(*prot_, this->leader);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("values", apache::thrift::protocol::T_LIST, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::write(*prot_, this->values);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldStop();
-  xfer += prot_->writeStructEnd();
-  return xfer;
-}
-
-extern template void MultiGetResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t MultiGetResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t MultiGetResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t MultiGetResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void MultiGetResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t MultiGetResp::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t MultiGetResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t MultiGetResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-}}} // nebula::meta::cpp2
-namespace nebula { namespace meta { namespace cpp2 {
-
-template <class Protocol_>
-void RemoveReq::readNoXfer(Protocol_* iprot) {
-  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
-
-  _readState.readStructBegin(iprot);
-
-  using apache::thrift::TProtocolException;
-
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          0,
-          1,
-          apache::thrift::protocol::T_STRING))) {
-    goto _loop;
-  }
-_readField_segment:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->segment, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.segment = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          1,
-          2,
-          apache::thrift::protocol::T_STRING))) {
-    goto _loop;
-  }
-_readField_key:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->key, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.key = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          2,
-          0,
-          apache::thrift::protocol::T_STOP))) {
-    goto _loop;
-  }
-
-_end:
-  _readState.readStructEnd(iprot);
-
-  return;
-
-_loop:
-  _readState.afterAdvanceFailure(iprot);
-  if (_readState.atStop()) {
-    goto _end;
-  }
-  if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<RemoveReq>>();
-  }
-
-  switch (_readState.fieldId) {
-    case 1:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_segment;
-      } else {
-        goto _skip;
-      }
-    }
-    case 2:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_key;
-      } else {
-        goto _skip;
-      }
-    }
-    default:
-    {
-_skip:
-      _readState.skip(iprot);
-      _readState.readFieldEnd(iprot);
-      _readState.readFieldBeginNoInline(iprot);
-      goto _loop;
-    }
-  }
-}
-
-template <class Protocol_>
-uint32_t RemoveReq::serializedSize(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("RemoveReq");
-  xfer += prot_->serializedFieldSize("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->segment);
-  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->key);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t RemoveReq::serializedSizeZC(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("RemoveReq");
-  xfer += prot_->serializedFieldSize("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->segment);
-  xfer += prot_->serializedFieldSize("key", apache::thrift::protocol::T_STRING, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->key);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t RemoveReq::write(Protocol_* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->writeStructBegin("RemoveReq");
-  xfer += prot_->writeFieldBegin("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->segment);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("key", apache::thrift::protocol::T_STRING, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->key);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldStop();
-  xfer += prot_->writeStructEnd();
-  return xfer;
-}
-
-extern template void RemoveReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t RemoveReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t RemoveReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t RemoveReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void RemoveReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t RemoveReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t RemoveReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t RemoveReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-}}} // nebula::meta::cpp2
-namespace nebula { namespace meta { namespace cpp2 {
-
-template <class Protocol_>
-void RemoveRangeReq::readNoXfer(Protocol_* iprot) {
-  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
-
-  _readState.readStructBegin(iprot);
-
-  using apache::thrift::TProtocolException;
-
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          0,
-          1,
-          apache::thrift::protocol::T_STRING))) {
-    goto _loop;
-  }
-_readField_segment:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->segment, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.segment = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          1,
-          2,
-          apache::thrift::protocol::T_STRING))) {
-    goto _loop;
-  }
-_readField_start:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->start, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.start = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          2,
-          3,
-          apache::thrift::protocol::T_STRING))) {
-    goto _loop;
-  }
-_readField_end:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->end, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.end = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          3,
-          0,
-          apache::thrift::protocol::T_STOP))) {
-    goto _loop;
-  }
-
-_end:
-  _readState.readStructEnd(iprot);
-
-  return;
-
-_loop:
-  _readState.afterAdvanceFailure(iprot);
-  if (_readState.atStop()) {
-    goto _end;
-  }
-  if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<RemoveRangeReq>>();
-  }
-
-  switch (_readState.fieldId) {
-    case 1:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_segment;
-      } else {
-        goto _skip;
-      }
-    }
-    case 2:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_start;
-      } else {
-        goto _skip;
-      }
-    }
-    case 3:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_end;
-      } else {
-        goto _skip;
-      }
-    }
-    default:
-    {
-_skip:
-      _readState.skip(iprot);
-      _readState.readFieldEnd(iprot);
-      _readState.readFieldBeginNoInline(iprot);
-      goto _loop;
-    }
-  }
-}
-
-template <class Protocol_>
-uint32_t RemoveRangeReq::serializedSize(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("RemoveRangeReq");
-  xfer += prot_->serializedFieldSize("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->segment);
-  xfer += prot_->serializedFieldSize("start", apache::thrift::protocol::T_STRING, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->start);
-  xfer += prot_->serializedFieldSize("end", apache::thrift::protocol::T_STRING, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->end);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t RemoveRangeReq::serializedSizeZC(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("RemoveRangeReq");
-  xfer += prot_->serializedFieldSize("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->segment);
-  xfer += prot_->serializedFieldSize("start", apache::thrift::protocol::T_STRING, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->start);
-  xfer += prot_->serializedFieldSize("end", apache::thrift::protocol::T_STRING, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->end);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t RemoveRangeReq::write(Protocol_* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->writeStructBegin("RemoveRangeReq");
-  xfer += prot_->writeFieldBegin("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->segment);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("start", apache::thrift::protocol::T_STRING, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->start);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("end", apache::thrift::protocol::T_STRING, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->end);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldStop();
-  xfer += prot_->writeStructEnd();
-  return xfer;
-}
-
-extern template void RemoveRangeReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t RemoveRangeReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t RemoveRangeReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t RemoveRangeReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void RemoveRangeReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t RemoveRangeReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t RemoveRangeReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t RemoveRangeReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-}}} // nebula::meta::cpp2
-namespace nebula { namespace meta { namespace cpp2 {
-
-template <class Protocol_>
-void ScanReq::readNoXfer(Protocol_* iprot) {
-  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
-
-  _readState.readStructBegin(iprot);
-
-  using apache::thrift::TProtocolException;
-
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          0,
-          1,
-          apache::thrift::protocol::T_STRING))) {
-    goto _loop;
-  }
-_readField_segment:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->segment, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.segment = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          1,
-          2,
-          apache::thrift::protocol::T_STRING))) {
-    goto _loop;
-  }
-_readField_start:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->start, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.start = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          2,
-          3,
-          apache::thrift::protocol::T_STRING))) {
-    goto _loop;
-  }
-_readField_end:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->end, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.end = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          3,
-          0,
-          apache::thrift::protocol::T_STOP))) {
-    goto _loop;
-  }
-
-_end:
-  _readState.readStructEnd(iprot);
-
-  return;
-
-_loop:
-  _readState.afterAdvanceFailure(iprot);
-  if (_readState.atStop()) {
-    goto _end;
-  }
-  if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<ScanReq>>();
-  }
-
-  switch (_readState.fieldId) {
-    case 1:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_segment;
-      } else {
-        goto _skip;
-      }
-    }
-    case 2:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_start;
-      } else {
-        goto _skip;
-      }
-    }
-    case 3:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_end;
-      } else {
-        goto _skip;
-      }
-    }
-    default:
-    {
-_skip:
-      _readState.skip(iprot);
-      _readState.readFieldEnd(iprot);
-      _readState.readFieldBeginNoInline(iprot);
-      goto _loop;
-    }
-  }
-}
-
-template <class Protocol_>
-uint32_t ScanReq::serializedSize(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("ScanReq");
-  xfer += prot_->serializedFieldSize("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->segment);
-  xfer += prot_->serializedFieldSize("start", apache::thrift::protocol::T_STRING, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->start);
-  xfer += prot_->serializedFieldSize("end", apache::thrift::protocol::T_STRING, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->end);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t ScanReq::serializedSizeZC(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("ScanReq");
-  xfer += prot_->serializedFieldSize("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->segment);
-  xfer += prot_->serializedFieldSize("start", apache::thrift::protocol::T_STRING, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->start);
-  xfer += prot_->serializedFieldSize("end", apache::thrift::protocol::T_STRING, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->end);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t ScanReq::write(Protocol_* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->writeStructBegin("ScanReq");
-  xfer += prot_->writeFieldBegin("segment", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->segment);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("start", apache::thrift::protocol::T_STRING, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->start);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("end", apache::thrift::protocol::T_STRING, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->end);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldStop();
-  xfer += prot_->writeStructEnd();
-  return xfer;
-}
-
-extern template void ScanReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t ScanReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t ScanReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t ScanReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void ScanReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t ScanReq::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t ScanReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t ScanReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
-
-}}} // nebula::meta::cpp2
-namespace nebula { namespace meta { namespace cpp2 {
-
-template <class Protocol_>
-void ScanResp::readNoXfer(Protocol_* iprot) {
-  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
-
-  _readState.readStructBegin(iprot);
-
-  using apache::thrift::TProtocolException;
-
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          0,
-          1,
-          apache::thrift::protocol::T_I32))) {
-    goto _loop;
-  }
-_readField_code:
-  {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::readWithContext(*iprot, this->code, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.code = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          1,
-          2,
-          apache::thrift::protocol::T_STRUCT))) {
-    goto _loop;
-  }
-_readField_leader:
-  {
-    _readState.beforeSubobject(iprot);
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::readWithContext(*iprot, this->leader, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.leader = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-    _readState.afterSubobject(iprot);
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          2,
-          3,
-          apache::thrift::protocol::T_LIST))) {
-    goto _loop;
-  }
-_readField_values:
-  {
-    _readState.beforeSubobject(iprot);
-    this->values = ::std::vector<::std::string>();
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::readWithContext(*iprot, this->values, _readState);
-    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.values = true;
-    THRIFT_IGNORE_ISSET_USE_WARNING_END
-    _readState.afterSubobject(iprot);
-  }
-
-  if (UNLIKELY(!_readState.advanceToNextField(
-          iprot,
-          3,
-          0,
-          apache::thrift::protocol::T_STOP))) {
-    goto _loop;
-  }
-
-_end:
-  _readState.readStructEnd(iprot);
-
-  return;
-
-_loop:
-  _readState.afterAdvanceFailure(iprot);
-  if (_readState.atStop()) {
-    goto _end;
-  }
-  if (iprot->kUsesFieldNames()) {
-    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<ScanResp>>();
-  }
-
-  switch (_readState.fieldId) {
-    case 1:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
-        goto _readField_code;
-      } else {
-        goto _skip;
-      }
-    }
-    case 2:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
-        goto _readField_leader;
-      } else {
-        goto _skip;
-      }
-    }
-    case 3:
-    {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
-        goto _readField_values;
-      } else {
-        goto _skip;
-      }
-    }
-    default:
-    {
-_skip:
-      _readState.skip(iprot);
-      _readState.readFieldEnd(iprot);
-      _readState.readFieldBeginNoInline(iprot);
-      goto _loop;
-    }
-  }
-}
-
-template <class Protocol_>
-uint32_t ScanResp::serializedSize(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("ScanResp");
-  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
-  xfer += prot_->serializedFieldSize("leader", apache::thrift::protocol::T_STRUCT, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<false>(*prot_, this->leader);
-  xfer += prot_->serializedFieldSize("values", apache::thrift::protocol::T_LIST, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->values);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t ScanResp::serializedSizeZC(Protocol_ const* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->serializedStructSize("ScanResp");
-  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
-  xfer += prot_->serializedFieldSize("leader", apache::thrift::protocol::T_STRUCT, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<true>(*prot_, this->leader);
-  xfer += prot_->serializedFieldSize("values", apache::thrift::protocol::T_LIST, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->values);
-  xfer += prot_->serializedSizeStop();
-  return xfer;
-}
-
-template <class Protocol_>
-uint32_t ScanResp::write(Protocol_* prot_) const {
-  uint32_t xfer = 0;
-  xfer += prot_->writeStructBegin("ScanResp");
-  xfer += prot_->writeFieldBegin("code", apache::thrift::protocol::T_I32, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::write(*prot_, this->code);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("leader", apache::thrift::protocol::T_STRUCT, 2);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::write(*prot_, this->leader);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("values", apache::thrift::protocol::T_LIST, 3);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::write(*prot_, this->values);
-  xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldStop();
-  xfer += prot_->writeStructEnd();
-  return xfer;
-}
-
-extern template void ScanResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
-extern template uint32_t ScanResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
-extern template uint32_t ScanResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template uint32_t ScanResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
-extern template void ScanResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
-extern template uint32_t ScanResp::write<>(apache::thrift::CompactProtocolWriter*) const;
-extern template uint32_t ScanResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
-extern template uint32_t ScanResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template void GetSegmentIdResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t GetSegmentIdResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t GetSegmentIdResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t GetSegmentIdResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void GetSegmentIdResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t GetSegmentIdResp::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t GetSegmentIdResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t GetSegmentIdResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // nebula::meta::cpp2
 namespace nebula { namespace meta { namespace cpp2 {
@@ -19698,15 +18835,18 @@ void DropSnapshotReq::readNoXfer(Protocol_* iprot) {
           iprot,
           0,
           1,
-          apache::thrift::protocol::T_STRING))) {
+          apache::thrift::protocol::T_LIST))) {
     goto _loop;
   }
-_readField_name:
+_readField_names:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->name, _readState);
+    _readState.beforeSubobject(iprot);
+    this->names = ::std::vector<::std::string>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::readWithContext(*iprot, this->names, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.name = true;
+    this->__isset.names = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
   }
 
   if (UNLIKELY(!_readState.advanceToNextField(
@@ -19734,8 +18874,8 @@ _loop:
   switch (_readState.fieldId) {
     case 1:
     {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
-        goto _readField_name;
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_names;
       } else {
         goto _skip;
       }
@@ -19755,8 +18895,8 @@ template <class Protocol_>
 uint32_t DropSnapshotReq::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("DropSnapshotReq");
-  xfer += prot_->serializedFieldSize("name", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->name);
+  xfer += prot_->serializedFieldSize("names", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->names);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -19765,8 +18905,8 @@ template <class Protocol_>
 uint32_t DropSnapshotReq::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("DropSnapshotReq");
-  xfer += prot_->serializedFieldSize("name", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->name);
+  xfer += prot_->serializedFieldSize("names", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->names);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -19775,8 +18915,8 @@ template <class Protocol_>
 uint32_t DropSnapshotReq::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->writeStructBegin("DropSnapshotReq");
-  xfer += prot_->writeFieldBegin("name", apache::thrift::protocol::T_STRING, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->name);
+  xfer += prot_->writeFieldBegin("names", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::write(*prot_, this->names);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
@@ -23517,6 +22657,54 @@ _readField_create_time:
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
           6,
+          7,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_base_backup_name:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->base_backup_name, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.base_backup_name = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          7,
+          8,
+          apache::thrift::protocol::T_LIST))) {
+    goto _loop;
+  }
+_readField_storage_hosts:
+  {
+    _readState.beforeSubobject(iprot);
+    this->storage_hosts = ::std::vector<nebula::HostAddr>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::readWithContext(*iprot, this->storage_hosts, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.storage_hosts = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          8,
+          9,
+          apache::thrift::protocol::T_I64))) {
+    goto _loop;
+  }
+_readField_cluster_id:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::meta::cpp2::ClusterID>::readWithContext(*iprot, this->cluster_id, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.cluster_id = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          9,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -23585,6 +22773,30 @@ _loop:
         goto _skip;
       }
     }
+    case 7:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_base_backup_name;
+      } else {
+        goto _skip;
+      }
+    }
+    case 8:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_storage_hosts;
+      } else {
+        goto _skip;
+      }
+    }
+    case 9:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
+        goto _readField_cluster_id;
+      } else {
+        goto _skip;
+      }
+    }
     default:
     {
 _skip:
@@ -23612,6 +22824,12 @@ uint32_t BackupMeta::serializedSize(Protocol_ const* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->all_spaces);
   xfer += prot_->serializedFieldSize("create_time", apache::thrift::protocol::T_I64, 6);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->create_time);
+  xfer += prot_->serializedFieldSize("base_backup_name", apache::thrift::protocol::T_STRING, 7);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->base_backup_name);
+  xfer += prot_->serializedFieldSize("storage_hosts", apache::thrift::protocol::T_LIST, 8);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::serializedSize<false>(*prot_, this->storage_hosts);
+  xfer += prot_->serializedFieldSize("cluster_id", apache::thrift::protocol::T_I64, 9);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::meta::cpp2::ClusterID>::serializedSize<false>(*prot_, this->cluster_id);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -23632,6 +22850,12 @@ uint32_t BackupMeta::serializedSizeZC(Protocol_ const* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->all_spaces);
   xfer += prot_->serializedFieldSize("create_time", apache::thrift::protocol::T_I64, 6);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::serializedSize<false>(*prot_, this->create_time);
+  xfer += prot_->serializedFieldSize("base_backup_name", apache::thrift::protocol::T_STRING, 7);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->base_backup_name);
+  xfer += prot_->serializedFieldSize("storage_hosts", apache::thrift::protocol::T_LIST, 8);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::serializedSize<false>(*prot_, this->storage_hosts);
+  xfer += prot_->serializedFieldSize("cluster_id", apache::thrift::protocol::T_I64, 9);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::meta::cpp2::ClusterID>::serializedSize<false>(*prot_, this->cluster_id);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -23657,6 +22881,15 @@ uint32_t BackupMeta::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldBegin("create_time", apache::thrift::protocol::T_I64, 6);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int64_t>::write(*prot_, this->create_time);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("base_backup_name", apache::thrift::protocol::T_STRING, 7);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->base_backup_name);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("storage_hosts", apache::thrift::protocol::T_LIST, 8);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::write(*prot_, this->storage_hosts);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("cluster_id", apache::thrift::protocol::T_I64, 9);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::meta::cpp2::ClusterID>::write(*prot_, this->cluster_id);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
@@ -23705,6 +22938,36 @@ _readField_spaces:
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
           1,
+          2,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_base_backup_name:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->base_backup_name, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.base_backup_name = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          2,
+          3,
+          apache::thrift::protocol::T_I64))) {
+    goto _loop;
+  }
+_readField_cluster_id:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::meta::cpp2::ClusterID>::readWithContext(*iprot, this->cluster_id, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.cluster_id = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          3,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -23733,6 +22996,22 @@ _loop:
         goto _skip;
       }
     }
+    case 2:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_base_backup_name;
+      } else {
+        goto _skip;
+      }
+    }
+    case 3:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
+        goto _readField_cluster_id;
+      } else {
+        goto _skip;
+      }
+    }
     default:
     {
 _skip:
@@ -23752,6 +23031,14 @@ uint32_t CreateBackupReq::serializedSize(Protocol_ const* prot_) const {
     xfer += prot_->serializedFieldSize("spaces", apache::thrift::protocol::T_LIST, 1);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->spaces);
   }
+  if (this->base_backup_name_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("base_backup_name", apache::thrift::protocol::T_STRING, 2);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->base_backup_name);
+  }
+  if (this->cluster_id_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("cluster_id", apache::thrift::protocol::T_I64, 3);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::meta::cpp2::ClusterID>::serializedSize<false>(*prot_, this->cluster_id);
+  }
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -23764,6 +23051,14 @@ uint32_t CreateBackupReq::serializedSizeZC(Protocol_ const* prot_) const {
     xfer += prot_->serializedFieldSize("spaces", apache::thrift::protocol::T_LIST, 1);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::serializedSize<false>(*prot_, this->spaces);
   }
+  if (this->base_backup_name_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("base_backup_name", apache::thrift::protocol::T_STRING, 2);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->base_backup_name);
+  }
+  if (this->cluster_id_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("cluster_id", apache::thrift::protocol::T_I64, 3);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::meta::cpp2::ClusterID>::serializedSize<false>(*prot_, this->cluster_id);
+  }
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -23775,6 +23070,16 @@ uint32_t CreateBackupReq::write(Protocol_* prot_) const {
   if (this->spaces_ref().has_value()) {
     xfer += prot_->writeFieldBegin("spaces", apache::thrift::protocol::T_LIST, 1);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::binary>, ::std::vector<::std::string>>::write(*prot_, this->spaces);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->base_backup_name_ref().has_value()) {
+    xfer += prot_->writeFieldBegin("base_backup_name", apache::thrift::protocol::T_STRING, 2);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->base_backup_name);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->cluster_id_ref().has_value()) {
+    xfer += prot_->writeFieldBegin("cluster_id", apache::thrift::protocol::T_I64, 3);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::meta::cpp2::ClusterID>::write(*prot_, this->cluster_id);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -24254,6 +23559,324 @@ extern template void RestoreMetaReq::readNoXfer<>(apache::thrift::CompactProtoco
 extern template uint32_t RestoreMetaReq::write<>(apache::thrift::CompactProtocolWriter*) const;
 extern template uint32_t RestoreMetaReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 extern template uint32_t RestoreMetaReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}}} // nebula::meta::cpp2
+namespace nebula { namespace meta { namespace cpp2 {
+
+template <class Protocol_>
+void PartInfo::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_I32))) {
+    goto _loop;
+  }
+_readField_part_id:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::PartitionID>::readWithContext(*iprot, this->part_id, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.part_id = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          2,
+          apache::thrift::protocol::T_LIST))) {
+    goto _loop;
+  }
+_readField_hosts:
+  {
+    _readState.beforeSubobject(iprot);
+    this->hosts = ::std::vector<nebula::HostAddr>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::readWithContext(*iprot, this->hosts, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.hosts = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          2,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<PartInfo>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
+        goto _readField_part_id;
+      } else {
+        goto _skip;
+      }
+    }
+    case 2:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_hosts;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t PartInfo::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("PartInfo");
+  xfer += prot_->serializedFieldSize("part_id", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::PartitionID>::serializedSize<false>(*prot_, this->part_id);
+  xfer += prot_->serializedFieldSize("hosts", apache::thrift::protocol::T_LIST, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::serializedSize<false>(*prot_, this->hosts);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t PartInfo::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("PartInfo");
+  xfer += prot_->serializedFieldSize("part_id", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::PartitionID>::serializedSize<false>(*prot_, this->part_id);
+  xfer += prot_->serializedFieldSize("hosts", apache::thrift::protocol::T_LIST, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::serializedSize<false>(*prot_, this->hosts);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t PartInfo::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("PartInfo");
+  xfer += prot_->writeFieldBegin("part_id", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::PartitionID>::write(*prot_, this->part_id);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("hosts", apache::thrift::protocol::T_LIST, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>, ::std::vector<nebula::HostAddr>>::write(*prot_, this->hosts);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void PartInfo::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t PartInfo::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t PartInfo::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t PartInfo::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void PartInfo::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t PartInfo::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t PartInfo::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t PartInfo::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}}} // nebula::meta::cpp2
+namespace nebula { namespace meta { namespace cpp2 {
+
+template <class Protocol_>
+void RestoreMetaResp::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_I32))) {
+    goto _loop;
+  }
+_readField_code:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::readWithContext(*iprot, this->code, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.code = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          2,
+          apache::thrift::protocol::T_STRUCT))) {
+    goto _loop;
+  }
+_readField_leader:
+  {
+    _readState.beforeSubobject(iprot);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::readWithContext(*iprot, this->leader, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.leader = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          2,
+          3,
+          apache::thrift::protocol::T_MAP))) {
+    goto _loop;
+  }
+_readField_part_hosts:
+  {
+    _readState.beforeSubobject(iprot);
+    this->part_hosts = std::unordered_map< ::nebula::cpp2::GraphSpaceID, ::std::vector< ::nebula::meta::cpp2::PartInfo>>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>, std::unordered_map< ::nebula::cpp2::GraphSpaceID, ::std::vector< ::nebula::meta::cpp2::PartInfo>>>::readWithContext(*iprot, this->part_hosts, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.part_hosts = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          3,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<RestoreMetaResp>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
+        goto _readField_code;
+      } else {
+        goto _skip;
+      }
+    }
+    case 2:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
+        goto _readField_leader;
+      } else {
+        goto _skip;
+      }
+    }
+    case 3:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_MAP))) {
+        goto _readField_part_hosts;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t RestoreMetaResp::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("RestoreMetaResp");
+  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
+  xfer += prot_->serializedFieldSize("leader", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<false>(*prot_, this->leader);
+  xfer += prot_->serializedFieldSize("part_hosts", apache::thrift::protocol::T_MAP, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>, std::unordered_map< ::nebula::cpp2::GraphSpaceID, ::std::vector< ::nebula::meta::cpp2::PartInfo>>>::serializedSize<false>(*prot_, this->part_hosts);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t RestoreMetaResp::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("RestoreMetaResp");
+  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
+  xfer += prot_->serializedFieldSize("leader", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<true>(*prot_, this->leader);
+  xfer += prot_->serializedFieldSize("part_hosts", apache::thrift::protocol::T_MAP, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>, std::unordered_map< ::nebula::cpp2::GraphSpaceID, ::std::vector< ::nebula::meta::cpp2::PartInfo>>>::serializedSize<false>(*prot_, this->part_hosts);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t RestoreMetaResp::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("RestoreMetaResp");
+  xfer += prot_->writeFieldBegin("code", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::write(*prot_, this->code);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("leader", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::write(*prot_, this->leader);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("part_hosts", apache::thrift::protocol::T_MAP, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::list<::apache::thrift::type_class::structure>>, std::unordered_map< ::nebula::cpp2::GraphSpaceID, ::std::vector< ::nebula::meta::cpp2::PartInfo>>>::write(*prot_, this->part_hosts);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void RestoreMetaResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t RestoreMetaResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t RestoreMetaResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t RestoreMetaResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void RestoreMetaResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t RestoreMetaResp::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t RestoreMetaResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t RestoreMetaResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // nebula::meta::cpp2
 namespace nebula { namespace meta { namespace cpp2 {
@@ -26865,6 +26488,24 @@ _readField_killed_queries:
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
           3,
+          4,
+          apache::thrift::protocol::T_LIST))) {
+    goto _loop;
+  }
+_readField_killed_sessions:
+  {
+    _readState.beforeSubobject(iprot);
+    this->killed_sessions = ::std::vector< ::nebula::cpp2::SessionID>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::integral>, ::std::vector< ::nebula::cpp2::SessionID>>::readWithContext(*iprot, this->killed_sessions, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.killed_sessions = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          4,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -26909,6 +26550,14 @@ _loop:
         goto _skip;
       }
     }
+    case 4:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_killed_sessions;
+      } else {
+        goto _skip;
+      }
+    }
     default:
     {
 _skip:
@@ -26930,6 +26579,8 @@ uint32_t UpdateSessionsResp::serializedSize(Protocol_ const* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<false>(*prot_, this->leader);
   xfer += prot_->serializedFieldSize("killed_queries", apache::thrift::protocol::T_MAP, 3);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>>, std::unordered_map< ::nebula::cpp2::SessionID, std::unordered_map< ::nebula::cpp2::ExecutionPlanID,  ::nebula::meta::cpp2::QueryDesc>>>::serializedSize<false>(*prot_, this->killed_queries);
+  xfer += prot_->serializedFieldSize("killed_sessions", apache::thrift::protocol::T_LIST, 4);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::integral>, ::std::vector< ::nebula::cpp2::SessionID>>::serializedSize<false>(*prot_, this->killed_sessions);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -26944,6 +26595,8 @@ uint32_t UpdateSessionsResp::serializedSizeZC(Protocol_ const* prot_) const {
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<true>(*prot_, this->leader);
   xfer += prot_->serializedFieldSize("killed_queries", apache::thrift::protocol::T_MAP, 3);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>>, std::unordered_map< ::nebula::cpp2::SessionID, std::unordered_map< ::nebula::cpp2::ExecutionPlanID,  ::nebula::meta::cpp2::QueryDesc>>>::serializedSize<false>(*prot_, this->killed_queries);
+  xfer += prot_->serializedFieldSize("killed_sessions", apache::thrift::protocol::T_LIST, 4);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::integral>, ::std::vector< ::nebula::cpp2::SessionID>>::serializedSize<false>(*prot_, this->killed_sessions);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -26960,6 +26613,9 @@ uint32_t UpdateSessionsResp::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldBegin("killed_queries", apache::thrift::protocol::T_MAP, 3);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::map<::apache::thrift::type_class::integral, ::apache::thrift::type_class::structure>>, std::unordered_map< ::nebula::cpp2::SessionID, std::unordered_map< ::nebula::cpp2::ExecutionPlanID,  ::nebula::meta::cpp2::QueryDesc>>>::write(*prot_, this->killed_queries);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("killed_sessions", apache::thrift::protocol::T_LIST, 4);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::integral>, ::std::vector< ::nebula::cpp2::SessionID>>::write(*prot_, this->killed_sessions);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
@@ -27529,15 +27185,18 @@ void RemoveSessionReq::readNoXfer(Protocol_* iprot) {
           iprot,
           0,
           1,
-          apache::thrift::protocol::T_I64))) {
+          apache::thrift::protocol::T_LIST))) {
     goto _loop;
   }
-_readField_session_id:
+_readField_session_ids:
   {
-    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::SessionID>::readWithContext(*iprot, this->session_id, _readState);
+    _readState.beforeSubobject(iprot);
+    this->session_ids = ::std::vector< ::nebula::cpp2::SessionID>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::integral>, ::std::vector< ::nebula::cpp2::SessionID>>::readWithContext(*iprot, this->session_ids, _readState);
     THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    this->__isset.session_id = true;
+    this->__isset.session_ids = true;
     THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
   }
 
   if (UNLIKELY(!_readState.advanceToNextField(
@@ -27565,8 +27224,8 @@ _loop:
   switch (_readState.fieldId) {
     case 1:
     {
-      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I64))) {
-        goto _readField_session_id;
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_session_ids;
       } else {
         goto _skip;
       }
@@ -27586,8 +27245,8 @@ template <class Protocol_>
 uint32_t RemoveSessionReq::serializedSize(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("RemoveSessionReq");
-  xfer += prot_->serializedFieldSize("session_id", apache::thrift::protocol::T_I64, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::SessionID>::serializedSize<false>(*prot_, this->session_id);
+  xfer += prot_->serializedFieldSize("session_ids", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::integral>, ::std::vector< ::nebula::cpp2::SessionID>>::serializedSize<false>(*prot_, this->session_ids);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -27596,8 +27255,8 @@ template <class Protocol_>
 uint32_t RemoveSessionReq::serializedSizeZC(Protocol_ const* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->serializedStructSize("RemoveSessionReq");
-  xfer += prot_->serializedFieldSize("session_id", apache::thrift::protocol::T_I64, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::SessionID>::serializedSize<false>(*prot_, this->session_id);
+  xfer += prot_->serializedFieldSize("session_ids", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::integral>, ::std::vector< ::nebula::cpp2::SessionID>>::serializedSize<false>(*prot_, this->session_ids);
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -27606,8 +27265,8 @@ template <class Protocol_>
 uint32_t RemoveSessionReq::write(Protocol_* prot_) const {
   uint32_t xfer = 0;
   xfer += prot_->writeStructBegin("RemoveSessionReq");
-  xfer += prot_->writeFieldBegin("session_id", apache::thrift::protocol::T_I64, 1);
-  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::SessionID>::write(*prot_, this->session_id);
+  xfer += prot_->writeFieldBegin("session_ids", apache::thrift::protocol::T_LIST, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::integral>, ::std::vector< ::nebula::cpp2::SessionID>>::write(*prot_, this->session_ids);
   xfer += prot_->writeFieldEnd();
   xfer += prot_->writeFieldStop();
   xfer += prot_->writeStructEnd();
@@ -27622,6 +27281,181 @@ extern template void RemoveSessionReq::readNoXfer<>(apache::thrift::CompactProto
 extern template uint32_t RemoveSessionReq::write<>(apache::thrift::CompactProtocolWriter*) const;
 extern template uint32_t RemoveSessionReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 extern template uint32_t RemoveSessionReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}}} // nebula::meta::cpp2
+namespace nebula { namespace meta { namespace cpp2 {
+
+template <class Protocol_>
+void RemoveSessionResp::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_I32))) {
+    goto _loop;
+  }
+_readField_code:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::readWithContext(*iprot, this->code, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.code = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          2,
+          apache::thrift::protocol::T_STRUCT))) {
+    goto _loop;
+  }
+_readField_leader:
+  {
+    _readState.beforeSubobject(iprot);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::readWithContext(*iprot, this->leader, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.leader = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          2,
+          3,
+          apache::thrift::protocol::T_LIST))) {
+    goto _loop;
+  }
+_readField_removed_session_ids:
+  {
+    _readState.beforeSubobject(iprot);
+    this->removed_session_ids = ::std::vector< ::nebula::cpp2::SessionID>();
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::integral>, ::std::vector< ::nebula::cpp2::SessionID>>::readWithContext(*iprot, this->removed_session_ids, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.removed_session_ids = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          3,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<RemoveSessionResp>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
+        goto _readField_code;
+      } else {
+        goto _skip;
+      }
+    }
+    case 2:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
+        goto _readField_leader;
+      } else {
+        goto _skip;
+      }
+    }
+    case 3:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_LIST))) {
+        goto _readField_removed_session_ids;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t RemoveSessionResp::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("RemoveSessionResp");
+  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
+  xfer += prot_->serializedFieldSize("leader", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<false>(*prot_, this->leader);
+  xfer += prot_->serializedFieldSize("removed_session_ids", apache::thrift::protocol::T_LIST, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::integral>, ::std::vector< ::nebula::cpp2::SessionID>>::serializedSize<false>(*prot_, this->removed_session_ids);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t RemoveSessionResp::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("RemoveSessionResp");
+  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
+  xfer += prot_->serializedFieldSize("leader", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<true>(*prot_, this->leader);
+  xfer += prot_->serializedFieldSize("removed_session_ids", apache::thrift::protocol::T_LIST, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::integral>, ::std::vector< ::nebula::cpp2::SessionID>>::serializedSize<false>(*prot_, this->removed_session_ids);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t RemoveSessionResp::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("RemoveSessionResp");
+  xfer += prot_->writeFieldBegin("code", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::write(*prot_, this->code);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("leader", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::write(*prot_, this->leader);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("removed_session_ids", apache::thrift::protocol::T_LIST, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::list<::apache::thrift::type_class::integral>, ::std::vector< ::nebula::cpp2::SessionID>>::write(*prot_, this->removed_session_ids);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void RemoveSessionResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t RemoveSessionResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t RemoveSessionResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t RemoveSessionResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void RemoveSessionResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t RemoveSessionResp::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t RemoveSessionResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t RemoveSessionResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // nebula::meta::cpp2
 namespace nebula { namespace meta { namespace cpp2 {
@@ -27770,6 +27604,21 @@ _readField_code:
           apache::thrift::protocol::T_I32))) {
     goto _loop;
   }
+_readField_space_id:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::readWithContext(*iprot, this->space_id, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.space_id = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          2,
+          3,
+          apache::thrift::protocol::T_I32))) {
+    goto _loop;
+  }
 _readField_job_id:
   {
     ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::readWithContext(*iprot, this->job_id, _readState);
@@ -27780,8 +27629,8 @@ _readField_job_id:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          2,
           3,
+          4,
           apache::thrift::protocol::T_I32))) {
     goto _loop;
   }
@@ -27795,8 +27644,8 @@ _readField_task_id:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          3,
           4,
+          5,
           apache::thrift::protocol::T_STRUCT))) {
     goto _loop;
   }
@@ -27812,7 +27661,7 @@ _readField_stats:
 
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
-          4,
+          5,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -27844,7 +27693,7 @@ _loop:
     case 2:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
-        goto _readField_job_id;
+        goto _readField_space_id;
       } else {
         goto _skip;
       }
@@ -27852,12 +27701,20 @@ _loop:
     case 3:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
-        goto _readField_task_id;
+        goto _readField_job_id;
       } else {
         goto _skip;
       }
     }
     case 4:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
+        goto _readField_task_id;
+      } else {
+        goto _skip;
+      }
+    }
+    case 5:
     {
       if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
         goto _readField_stats;
@@ -27882,12 +27739,14 @@ uint32_t ReportTaskReq::serializedSize(Protocol_ const* prot_) const {
   xfer += prot_->serializedStructSize("ReportTaskReq");
   xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
-  xfer += prot_->serializedFieldSize("job_id", apache::thrift::protocol::T_I32, 2);
+  xfer += prot_->serializedFieldSize("space_id", apache::thrift::protocol::T_I32, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::serializedSize<false>(*prot_, this->space_id);
+  xfer += prot_->serializedFieldSize("job_id", apache::thrift::protocol::T_I32, 3);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->job_id);
-  xfer += prot_->serializedFieldSize("task_id", apache::thrift::protocol::T_I32, 3);
+  xfer += prot_->serializedFieldSize("task_id", apache::thrift::protocol::T_I32, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->task_id);
   if (this->stats_ref().has_value()) {
-    xfer += prot_->serializedFieldSize("stats", apache::thrift::protocol::T_STRUCT, 4);
+    xfer += prot_->serializedFieldSize("stats", apache::thrift::protocol::T_STRUCT, 5);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::StatsItem>::serializedSize<false>(*prot_, this->stats);
   }
   xfer += prot_->serializedSizeStop();
@@ -27900,12 +27759,14 @@ uint32_t ReportTaskReq::serializedSizeZC(Protocol_ const* prot_) const {
   xfer += prot_->serializedStructSize("ReportTaskReq");
   xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
-  xfer += prot_->serializedFieldSize("job_id", apache::thrift::protocol::T_I32, 2);
+  xfer += prot_->serializedFieldSize("space_id", apache::thrift::protocol::T_I32, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::serializedSize<false>(*prot_, this->space_id);
+  xfer += prot_->serializedFieldSize("job_id", apache::thrift::protocol::T_I32, 3);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->job_id);
-  xfer += prot_->serializedFieldSize("task_id", apache::thrift::protocol::T_I32, 3);
+  xfer += prot_->serializedFieldSize("task_id", apache::thrift::protocol::T_I32, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::serializedSize<false>(*prot_, this->task_id);
   if (this->stats_ref().has_value()) {
-    xfer += prot_->serializedFieldSize("stats", apache::thrift::protocol::T_STRUCT, 4);
+    xfer += prot_->serializedFieldSize("stats", apache::thrift::protocol::T_STRUCT, 5);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::StatsItem>::serializedSize<true>(*prot_, this->stats);
   }
   xfer += prot_->serializedSizeStop();
@@ -27919,14 +27780,17 @@ uint32_t ReportTaskReq::write(Protocol_* prot_) const {
   xfer += prot_->writeFieldBegin("code", apache::thrift::protocol::T_I32, 1);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::write(*prot_, this->code);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("job_id", apache::thrift::protocol::T_I32, 2);
+  xfer += prot_->writeFieldBegin("space_id", apache::thrift::protocol::T_I32, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral,  ::nebula::cpp2::GraphSpaceID>::write(*prot_, this->space_id);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("job_id", apache::thrift::protocol::T_I32, 3);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::write(*prot_, this->job_id);
   xfer += prot_->writeFieldEnd();
-  xfer += prot_->writeFieldBegin("task_id", apache::thrift::protocol::T_I32, 3);
+  xfer += prot_->writeFieldBegin("task_id", apache::thrift::protocol::T_I32, 4);
   xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, int32_t>::write(*prot_, this->task_id);
   xfer += prot_->writeFieldEnd();
   if (this->stats_ref().has_value()) {
-    xfer += prot_->writeFieldBegin("stats", apache::thrift::protocol::T_STRUCT, 4);
+    xfer += prot_->writeFieldBegin("stats", apache::thrift::protocol::T_STRUCT, 5);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::StatsItem>::write(*prot_, this->stats);
     xfer += prot_->writeFieldEnd();
   }
@@ -28765,5 +28629,352 @@ extern template void VerifyClientVersionReq::readNoXfer<>(apache::thrift::Compac
 extern template uint32_t VerifyClientVersionReq::write<>(apache::thrift::CompactProtocolWriter*) const;
 extern template uint32_t VerifyClientVersionReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
 extern template uint32_t VerifyClientVersionReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}}} // nebula::meta::cpp2
+namespace nebula { namespace meta { namespace cpp2 {
+
+template <class Protocol_>
+void SaveGraphVersionResp::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_I32))) {
+    goto _loop;
+  }
+_readField_code:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::readWithContext(*iprot, this->code, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.code = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          2,
+          apache::thrift::protocol::T_STRUCT))) {
+    goto _loop;
+  }
+_readField_leader:
+  {
+    _readState.beforeSubobject(iprot);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::readWithContext(*iprot, this->leader, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.leader = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          2,
+          3,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_error_msg:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->error_msg, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.error_msg = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          3,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<SaveGraphVersionResp>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_I32))) {
+        goto _readField_code;
+      } else {
+        goto _skip;
+      }
+    }
+    case 2:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
+        goto _readField_leader;
+      } else {
+        goto _skip;
+      }
+    }
+    case 3:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_error_msg;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t SaveGraphVersionResp::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("SaveGraphVersionResp");
+  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
+  xfer += prot_->serializedFieldSize("leader", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<false>(*prot_, this->leader);
+  if (this->error_msg_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("error_msg", apache::thrift::protocol::T_STRING, 3);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->error_msg);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t SaveGraphVersionResp::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("SaveGraphVersionResp");
+  xfer += prot_->serializedFieldSize("code", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::serializedSize<false>(*prot_, this->code);
+  xfer += prot_->serializedFieldSize("leader", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<true>(*prot_, this->leader);
+  if (this->error_msg_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("error_msg", apache::thrift::protocol::T_STRING, 3);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->error_msg);
+  }
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t SaveGraphVersionResp::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("SaveGraphVersionResp");
+  xfer += prot_->writeFieldBegin("code", apache::thrift::protocol::T_I32, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::enumeration,  ::nebula::cpp2::ErrorCode>::write(*prot_, this->code);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("leader", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::write(*prot_, this->leader);
+  xfer += prot_->writeFieldEnd();
+  if (this->error_msg_ref().has_value()) {
+    xfer += prot_->writeFieldBegin("error_msg", apache::thrift::protocol::T_STRING, 3);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->error_msg);
+    xfer += prot_->writeFieldEnd();
+  }
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void SaveGraphVersionResp::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t SaveGraphVersionResp::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t SaveGraphVersionResp::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t SaveGraphVersionResp::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void SaveGraphVersionResp::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t SaveGraphVersionResp::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t SaveGraphVersionResp::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t SaveGraphVersionResp::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
+
+}}} // nebula::meta::cpp2
+namespace nebula { namespace meta { namespace cpp2 {
+
+template <class Protocol_>
+void SaveGraphVersionReq::readNoXfer(Protocol_* iprot) {
+  apache::thrift::detail::ProtocolReaderStructReadState<Protocol_> _readState;
+
+  _readState.readStructBegin(iprot);
+
+  using apache::thrift::TProtocolException;
+
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          0,
+          1,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_client_version:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->client_version, _readState);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          1,
+          2,
+          apache::thrift::protocol::T_STRUCT))) {
+    goto _loop;
+  }
+_readField_host:
+  {
+    _readState.beforeSubobject(iprot);
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::readWithContext(*iprot, this->host, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.host = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+    _readState.afterSubobject(iprot);
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          2,
+          3,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_build_version:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->build_version, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.build_version = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          3,
+          0,
+          apache::thrift::protocol::T_STOP))) {
+    goto _loop;
+  }
+
+_end:
+  _readState.readStructEnd(iprot);
+
+  return;
+
+_loop:
+  _readState.afterAdvanceFailure(iprot);
+  if (_readState.atStop()) {
+    goto _end;
+  }
+  if (iprot->kUsesFieldNames()) {
+    _readState.template fillFieldTraitsFromName<apache::thrift::detail::TccStructTraits<SaveGraphVersionReq>>();
+  }
+
+  switch (_readState.fieldId) {
+    case 1:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_client_version;
+      } else {
+        goto _skip;
+      }
+    }
+    case 2:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRUCT))) {
+        goto _readField_host;
+      } else {
+        goto _skip;
+      }
+    }
+    case 3:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_build_version;
+      } else {
+        goto _skip;
+      }
+    }
+    default:
+    {
+_skip:
+      _readState.skip(iprot);
+      _readState.readFieldEnd(iprot);
+      _readState.readFieldBeginNoInline(iprot);
+      goto _loop;
+    }
+  }
+}
+
+template <class Protocol_>
+uint32_t SaveGraphVersionReq::serializedSize(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("SaveGraphVersionReq");
+  xfer += prot_->serializedFieldSize("client_version", apache::thrift::protocol::T_STRING, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->client_version);
+  xfer += prot_->serializedFieldSize("host", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<false>(*prot_, this->host);
+  xfer += prot_->serializedFieldSize("build_version", apache::thrift::protocol::T_STRING, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->build_version);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t SaveGraphVersionReq::serializedSizeZC(Protocol_ const* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->serializedStructSize("SaveGraphVersionReq");
+  xfer += prot_->serializedFieldSize("client_version", apache::thrift::protocol::T_STRING, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->client_version);
+  xfer += prot_->serializedFieldSize("host", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::serializedSize<true>(*prot_, this->host);
+  xfer += prot_->serializedFieldSize("build_version", apache::thrift::protocol::T_STRING, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->build_version);
+  xfer += prot_->serializedSizeStop();
+  return xfer;
+}
+
+template <class Protocol_>
+uint32_t SaveGraphVersionReq::write(Protocol_* prot_) const {
+  uint32_t xfer = 0;
+  xfer += prot_->writeStructBegin("SaveGraphVersionReq");
+  xfer += prot_->writeFieldBegin("client_version", apache::thrift::protocol::T_STRING, 1);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->client_version);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("host", apache::thrift::protocol::T_STRUCT, 2);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure, nebula::HostAddr>::write(*prot_, this->host);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldBegin("build_version", apache::thrift::protocol::T_STRING, 3);
+  xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->build_version);
+  xfer += prot_->writeFieldEnd();
+  xfer += prot_->writeFieldStop();
+  xfer += prot_->writeStructEnd();
+  return xfer;
+}
+
+extern template void SaveGraphVersionReq::readNoXfer<>(apache::thrift::BinaryProtocolReader*);
+extern template uint32_t SaveGraphVersionReq::write<>(apache::thrift::BinaryProtocolWriter*) const;
+extern template uint32_t SaveGraphVersionReq::serializedSize<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template uint32_t SaveGraphVersionReq::serializedSizeZC<>(apache::thrift::BinaryProtocolWriter const*) const;
+extern template void SaveGraphVersionReq::readNoXfer<>(apache::thrift::CompactProtocolReader*);
+extern template uint32_t SaveGraphVersionReq::write<>(apache::thrift::CompactProtocolWriter*) const;
+extern template uint32_t SaveGraphVersionReq::serializedSize<>(apache::thrift::CompactProtocolWriter const*) const;
+extern template uint32_t SaveGraphVersionReq::serializedSizeZC<>(apache::thrift::CompactProtocolWriter const*) const;
 
 }}} // nebula::meta::cpp2

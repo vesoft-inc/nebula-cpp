@@ -46,7 +46,7 @@ class Session {
     session.pool_ = nullptr;
     session.offsetSecs_ = 0;
   }
-  void operator=(Session&& session) {
+  void operator=(Session &&session) {
     sessionId_ = session.sessionId_;
     username_ = std::move(session.username_);
     password_ = std::move(session.password_);

@@ -104,6 +104,7 @@ struct ForEachField<::nebula::storage::cpp2::TraverseSpec> {
     f(8, static_cast<T&&>(t).random_ref()...);
     f(9, static_cast<T&&>(t).limit_ref()...);
     f(10, static_cast<T&&>(t).filter_ref()...);
+    f(11, static_cast<T&&>(t).tag_filter_ref()...);
   }
 };
 
@@ -125,6 +126,26 @@ struct ForEachField<::nebula::storage::cpp2::GetNeighborsResponse> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).result_ref()...);
     f(1, static_cast<T&&>(t).vertices_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::storage::cpp2::GetDstBySrcRequest> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).space_id_ref()...);
+    f(1, static_cast<T&&>(t).parts_ref()...);
+    f(2, static_cast<T&&>(t).edge_types_ref()...);
+    f(3, static_cast<T&&>(t).common_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::storage::cpp2::GetDstBySrcResponse> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).result_ref()...);
+    f(1, static_cast<T&&>(t).dsts_ref()...);
   }
 };
 
@@ -340,6 +361,7 @@ struct ForEachField<::nebula::storage::cpp2::LookupIndexResp> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).result_ref()...);
     f(1, static_cast<T&&>(t).data_ref()...);
+    f(2, static_cast<T&&>(t).stat_data_ref()...);
   }
 };
 
@@ -386,6 +408,7 @@ struct ForEachField<::nebula::storage::cpp2::LookupIndexRequest> {
     f(4, static_cast<T&&>(t).common_ref()...);
     f(5, static_cast<T&&>(t).limit_ref()...);
     f(6, static_cast<T&&>(t).order_by_ref()...);
+    f(7, static_cast<T&&>(t).stat_columns_ref()...);
   }
 };
 
@@ -587,11 +610,28 @@ struct ForEachField<::nebula::storage::cpp2::CreateCPRequest> {
 };
 
 template <>
+struct ForEachField<::nebula::storage::cpp2::CreateCPResp> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).code_ref()...);
+    f(1, static_cast<T&&>(t).info_ref()...);
+  }
+};
+
+template <>
 struct ForEachField<::nebula::storage::cpp2::DropCPRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).space_ids_ref()...);
     f(1, static_cast<T&&>(t).name_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::storage::cpp2::DropCPResp> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).code_ref()...);
   }
 };
 
@@ -605,10 +645,18 @@ struct ForEachField<::nebula::storage::cpp2::BlockingSignRequest> {
 };
 
 template <>
+struct ForEachField<::nebula::storage::cpp2::BlockingSignResp> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).code_ref()...);
+  }
+};
+
+template <>
 struct ForEachField<::nebula::storage::cpp2::GetLeaderPartsResp> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).result_ref()...);
+    f(0, static_cast<T&&>(t).code_ref()...);
     f(1, static_cast<T&&>(t).leader_parts_ref()...);
   }
 };
@@ -634,15 +682,6 @@ struct ForEachField<::nebula::storage::cpp2::RebuildIndexRequest> {
 };
 
 template <>
-struct ForEachField<::nebula::storage::cpp2::CreateCPResp> {
-  template <typename F, typename... T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).result_ref()...);
-    f(1, static_cast<T&&>(t).info_ref()...);
-  }
-};
-
-template <>
 struct ForEachField<::nebula::storage::cpp2::ListClusterInfoResp> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
@@ -659,23 +698,54 @@ struct ForEachField<::nebula::storage::cpp2::ListClusterInfoReq> {
 };
 
 template <>
-struct ForEachField<::nebula::storage::cpp2::AddAdminTaskRequest> {
+struct ForEachField<::nebula::storage::cpp2::AddTaskRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
-    f(0, static_cast<T&&>(t).cmd_ref()...);
+    f(0, static_cast<T&&>(t).job_type_ref()...);
     f(1, static_cast<T&&>(t).job_id_ref()...);
     f(2, static_cast<T&&>(t).task_id_ref()...);
     f(3, static_cast<T&&>(t).para_ref()...);
-    f(4, static_cast<T&&>(t).concurrency_ref()...);
   }
 };
 
 template <>
-struct ForEachField<::nebula::storage::cpp2::StopAdminTaskRequest> {
+struct ForEachField<::nebula::storage::cpp2::AddTaskResp> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).code_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::storage::cpp2::StopTaskRequest> {
   template <typename F, typename... T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).job_id_ref()...);
     f(1, static_cast<T&&>(t).task_id_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::storage::cpp2::StopTaskResp> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).code_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::storage::cpp2::ClearSpaceReq> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).space_id_ref()...);
+  }
+};
+
+template <>
+struct ForEachField<::nebula::storage::cpp2::ClearSpaceResp> {
+  template <typename F, typename... T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
+    f(0, static_cast<T&&>(t).code_ref()...);
   }
 };
 

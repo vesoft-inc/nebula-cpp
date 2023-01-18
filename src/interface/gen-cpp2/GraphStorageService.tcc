@@ -13,6 +13,8 @@
 namespace nebula { namespace storage { namespace cpp2 {
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetNeighborsRequest*>> GraphStorageService_getNeighbors_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetNeighborsResponse*>> GraphStorageService_getNeighbors_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetDstBySrcRequest*>> GraphStorageService_getDstBySrc_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetDstBySrcResponse*>> GraphStorageService_getDstBySrc_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetPropRequest*>> GraphStorageService_getProps_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetPropResponse*>> GraphStorageService_getProps_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AddVerticesRequest*>> GraphStorageService_addVertices_pargs;
@@ -104,6 +106,63 @@ void GraphStorageServiceAsyncProcessor::throw_wrapped_getNeighbors(apache::thrif
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
         ew, std::move(req), reqCtx, ctx, "getNeighbors");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void GraphStorageServiceAsyncProcessor::setUpAndProcess_getDstBySrc(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &GraphStorageServiceAsyncProcessor::process_getDstBySrc<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void GraphStorageServiceAsyncProcessor::process_getDstBySrc(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  GraphStorageService_getDstBySrc_pargs args;
+   ::nebula::storage::cpp2::GetDstBySrcRequest uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "GraphStorageService.getDstBySrc", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "getDstBySrc");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::GetDstBySrcResponse>>(std::move(req), std::move(ctxStack), return_getDstBySrc<ProtocolIn_,ProtocolOut_>, throw_wrapped_getDstBySrc<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_getDstBySrc(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue GraphStorageServiceAsyncProcessor::return_getDstBySrc(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::GetDstBySrcResponse const& _return) {
+  ProtocolOut_ prot;
+  GraphStorageService_getDstBySrc_presult result;
+  result.get<0>().value = const_cast< ::nebula::storage::cpp2::GetDstBySrcResponse*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("getDstBySrc", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void GraphStorageServiceAsyncProcessor::throw_wrapped_getDstBySrc(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "getDstBySrc");
     return;
   }
 }

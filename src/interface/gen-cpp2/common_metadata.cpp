@@ -668,6 +668,8 @@ StructMetadata<::nebula::cpp2::LogInfo>::gen(ThriftMetadata& metadata) {
   common_LogInfo_fields[] = {
     std::make_tuple(1, "log_id", false, std::make_unique<Typedef>("common.LogID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE)), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "term_id", false, std::make_unique<Typedef>("common.TermID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE)), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "commit_log_id", false, std::make_unique<Typedef>("common.LogID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I64_TYPE)), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(4, "checkpoint_path", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : common_LogInfo_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -718,7 +720,7 @@ StructMetadata<::nebula::cpp2::CheckpointInfo>::gen(ThriftMetadata& metadata) {
   common_CheckpointInfo_fields[] = {
     std::make_tuple(1, "space_id", false, std::make_unique<Typedef>("common.GraphSpaceID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::vector<ThriftConstStruct>{}),
     std::make_tuple(2, "parts", false, std::make_unique<Map>(std::make_unique<Typedef>("common.PartitionID", std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_I32_TYPE)), std::make_unique<Struct< ::nebula::cpp2::LogInfo>>("common.LogInfo")), std::vector<ThriftConstStruct>{}),
-    std::make_tuple(3, "path", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(3, "data_path", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : common_CheckpointInfo_fields) {
     ::apache::thrift::metadata::ThriftField field;

@@ -36,6 +36,27 @@ void GraphStorageServiceSvIf::async_tm_getNeighbors(std::unique_ptr<apache::thri
   });
 }
 
+void GraphStorageServiceSvIf::getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& /*_return*/, const  ::nebula::storage::cpp2::GetDstBySrcRequest& /*req*/) {
+  apache::thrift::detail::si::throw_app_exn_unimplemented("getDstBySrc");
+}
+
+folly::SemiFuture< ::nebula::storage::cpp2::GetDstBySrcResponse> GraphStorageServiceSvIf::semifuture_getDstBySrc(const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  return apache::thrift::detail::si::semifuture_returning([&]( ::nebula::storage::cpp2::GetDstBySrcResponse& _return) { getDstBySrc(_return, p_req); });
+}
+
+folly::Future< ::nebula::storage::cpp2::GetDstBySrcResponse> GraphStorageServiceSvIf::future_getDstBySrc(const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  using Source = apache::thrift::concurrency::ThreadManager::Source;
+  auto scope = getRequestContext()->getRequestExecutionScope();
+  auto ka = getThreadManager()->getKeepAlive(std::move(scope), Source::INTERNAL);
+  return apache::thrift::detail::si::future(semifuture_getDstBySrc(p_req), std::move(ka));
+}
+
+void GraphStorageServiceSvIf::async_tm_getDstBySrc(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::GetDstBySrcResponse>> callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  apache::thrift::detail::si::async_tm(this, std::move(callback), [&] {
+    return future_getDstBySrc(p_req);
+  });
+}
+
 void GraphStorageServiceSvIf::getProps( ::nebula::storage::cpp2::GetPropResponse& /*_return*/, const  ::nebula::storage::cpp2::GetPropRequest& /*req*/) {
   apache::thrift::detail::si::throw_app_exn_unimplemented("getProps");
 }
@@ -437,6 +458,8 @@ void GraphStorageServiceSvIf::async_tm_remove(std::unique_ptr<apache::thrift::Ha
 
 void GraphStorageServiceSvNull::getNeighbors( ::nebula::storage::cpp2::GetNeighborsResponse& /*_return*/, const  ::nebula::storage::cpp2::GetNeighborsRequest& /*req*/) {}
 
+void GraphStorageServiceSvNull::getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& /*_return*/, const  ::nebula::storage::cpp2::GetDstBySrcRequest& /*req*/) {}
+
 void GraphStorageServiceSvNull::getProps( ::nebula::storage::cpp2::GetPropResponse& /*_return*/, const  ::nebula::storage::cpp2::GetPropRequest& /*req*/) {}
 
 void GraphStorageServiceSvNull::addVertices( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::AddVerticesRequest& /*req*/) {}
@@ -499,6 +522,7 @@ const GraphStorageServiceAsyncProcessor::ProcessMap& GraphStorageServiceAsyncPro
 
 const GraphStorageServiceAsyncProcessor::ProcessMap GraphStorageServiceAsyncProcessor::binaryProcessMap_ {
   {"getNeighbors", &GraphStorageServiceAsyncProcessor::setUpAndProcess_getNeighbors<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
+  {"getDstBySrc", &GraphStorageServiceAsyncProcessor::setUpAndProcess_getDstBySrc<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"getProps", &GraphStorageServiceAsyncProcessor::setUpAndProcess_getProps<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"addVertices", &GraphStorageServiceAsyncProcessor::setUpAndProcess_addVertices<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
   {"addEdges", &GraphStorageServiceAsyncProcessor::setUpAndProcess_addEdges<apache::thrift::BinaryProtocolReader, apache::thrift::BinaryProtocolWriter>},
@@ -526,6 +550,7 @@ const GraphStorageServiceAsyncProcessor::ProcessMap& GraphStorageServiceAsyncPro
 
 const GraphStorageServiceAsyncProcessor::ProcessMap GraphStorageServiceAsyncProcessor::compactProcessMap_ {
   {"getNeighbors", &GraphStorageServiceAsyncProcessor::setUpAndProcess_getNeighbors<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
+  {"getDstBySrc", &GraphStorageServiceAsyncProcessor::setUpAndProcess_getDstBySrc<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"getProps", &GraphStorageServiceAsyncProcessor::setUpAndProcess_getProps<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"addVertices", &GraphStorageServiceAsyncProcessor::setUpAndProcess_addVertices<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},
   {"addEdges", &GraphStorageServiceAsyncProcessor::setUpAndProcess_addEdges<apache::thrift::CompactProtocolReader, apache::thrift::CompactProtocolWriter>},

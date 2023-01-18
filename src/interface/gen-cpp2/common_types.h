@@ -100,11 +100,13 @@ struct microseconds;
 struct months;
 struct log_id;
 struct term_id;
+struct commit_log_id;
+struct checkpoint_path;
 struct root;
 struct data;
 struct space_id;
 struct parts;
-struct path;
+struct data_path;
 struct cluster;
 struct log_str;
 } // namespace tag
@@ -401,6 +403,14 @@ APACHE_THRIFT_DEFINE_ACCESSOR(log_id);
 #define APACHE_THRIFT_ACCESSOR_term_id
 APACHE_THRIFT_DEFINE_ACCESSOR(term_id);
 #endif
+#ifndef APACHE_THRIFT_ACCESSOR_commit_log_id
+#define APACHE_THRIFT_ACCESSOR_commit_log_id
+APACHE_THRIFT_DEFINE_ACCESSOR(commit_log_id);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_checkpoint_path
+#define APACHE_THRIFT_ACCESSOR_checkpoint_path
+APACHE_THRIFT_DEFINE_ACCESSOR(checkpoint_path);
+#endif
 #ifndef APACHE_THRIFT_ACCESSOR_root
 #define APACHE_THRIFT_ACCESSOR_root
 APACHE_THRIFT_DEFINE_ACCESSOR(root);
@@ -417,9 +427,9 @@ APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
 #define APACHE_THRIFT_ACCESSOR_parts
 APACHE_THRIFT_DEFINE_ACCESSOR(parts);
 #endif
-#ifndef APACHE_THRIFT_ACCESSOR_path
-#define APACHE_THRIFT_ACCESSOR_path
-APACHE_THRIFT_DEFINE_ACCESSOR(path);
+#ifndef APACHE_THRIFT_ACCESSOR_data_path
+#define APACHE_THRIFT_ACCESSOR_data_path
+APACHE_THRIFT_DEFINE_ACCESSOR(data_path);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_cluster
 #define APACHE_THRIFT_ACCESSOR_cluster
@@ -495,6 +505,9 @@ enum class ErrorCode {
   E_USER_NOT_FOUND = -18,
   E_STATS_NOT_FOUND = -19,
   E_SERVICE_NOT_FOUND = -20,
+  E_DRAINER_NOT_FOUND = -21,
+  E_DRAINER_CLIENT_NOT_FOUND = -22,
+  E_PART_STOPPED = -23,
   E_BACKUP_FAILED = -24,
   E_BACKUP_EMPTY_TABLE = -25,
   E_BACKUP_TABLE_FAILED = -26,
@@ -502,6 +515,12 @@ enum class ErrorCode {
   E_REBUILD_INDEX_FAILED = -28,
   E_INVALID_PASSWORD = -29,
   E_FAILED_GET_ABS_PATH = -30,
+  E_LISTENER_PROGRESS_FAILED = -31,
+  E_SYNC_LISTENER_NOT_FOUND = -32,
+  E_DRAINER_PROGRESS_FAILED = -33,
+  E_PART_DISABLED = -34,
+  E_PART_ALREADY_STARTED = -35,
+  E_PART_ALREADY_STOPPED = -36,
   E_BAD_USERNAME_PASSWORD = -1001,
   E_SESSION_INVALID = -1002,
   E_SESSION_TIMEOUT = -1003,
@@ -522,6 +541,14 @@ enum class ErrorCode {
   E_CONFLICT = -2008,
   E_INVALID_PARM = -2009,
   E_WRONGCLUSTER = -2010,
+  E_ZONE_NOT_ENOUGH = -2011,
+  E_ZONE_IS_EMPTY = -2012,
+  E_LISTENER_CONFLICT = -2013,
+  E_SCHEMA_NAME_EXISTS = -2014,
+  E_RELATED_INDEX_EXISTS = -2015,
+  E_RELATED_SPACE_EXISTS = -2016,
+  E_RELATED_FULLTEXT_INDEX_EXISTS = -2017,
+  E_HISTORY_CONFLICT = -2018,
   E_STORE_FAILURE = -2021,
   E_STORE_SEGMENT_ILLEGAL = -2022,
   E_BAD_BALANCE_PLAN = -2023,
@@ -530,13 +557,20 @@ enum class ErrorCode {
   E_NO_VALID_HOST = -2026,
   E_CORRUPTED_BALANCE_PLAN = -2027,
   E_NO_INVALID_BALANCE_PLAN = -2028,
+  E_NO_VALID_DRAINER = -2029,
   E_IMPROPER_ROLE = -2030,
   E_INVALID_PARTITION_NUM = -2031,
   E_INVALID_REPLICA_FACTOR = -2032,
   E_INVALID_CHARSET = -2033,
   E_INVALID_COLLATE = -2034,
   E_CHARSET_COLLATE_NOT_MATCH = -2035,
+  E_PRIVILEGE_ALL_TAG_EDGE_SETTLED = -2036,
+  E_PRIVILEGE_NOT_EXIST = -2037,
+  E_PRIVILEGE_NEED_BASIC_ROLE = -2038,
+  E_PRIVILEGE_ACTION_INVALID = -2039,
   E_SNAPSHOT_FAILURE = -2040,
+  E_SNAPSHOT_RUNNING_JOBS = -2056,
+  E_SNAPSHOT_NOT_FOUND = -2057,
   E_BLOCK_WRITE_FAILURE = -2041,
   E_REBUILD_INDEX_FAILURE = -2042,
   E_INDEX_WITH_TTL = -2043,
@@ -547,8 +581,13 @@ enum class ErrorCode {
   E_JOB_NOT_FINISHED = -2048,
   E_TASK_REPORT_OUT_DATE = -2049,
   E_JOB_NOT_IN_SPACE = -2050,
+  E_JOB_NEED_RECOVER = -2051,
+  E_JOB_ALREADY_FINISH = -2052,
+  E_JOB_SUBMITTED = -2053,
+  E_JOB_NOT_STOPPABLE = -2054,
+  E_JOB_HAS_NO_TARGET_STORAGE = -2055,
   E_INVALID_JOB = -2065,
-  E_BACKUP_BUILDING_INDEX = -2066,
+  E_BACKUP_RUNNING_JOBS = -2066,
   E_BACKUP_SPACE_NOT_FOUND = -2067,
   E_RESTORE_FAILURE = -2068,
   E_SESSION_NOT_FOUND = -2069,
@@ -557,6 +596,11 @@ enum class ErrorCode {
   E_LIST_CLUSTER_NO_AGENT_FAILURE = -2072,
   E_QUERY_NOT_FOUND = -2073,
   E_AGENT_HB_FAILUE = -2074,
+  E_INVALID_VARIABLE = -2080,
+  E_VARIABLE_TYPE_VALUE_MISMATCH = -2081,
+  E_HOST_CAN_NOT_BE_ADDED = -2082,
+  E_ACCESS_ES_FAILURE = -2090,
+  E_GRAPH_MEMORY_EXCEEDED = -2600,
   E_CONSENSUS_ERROR = -3001,
   E_KEY_HAS_EXISTS = -3002,
   E_DATA_TYPE_MISMATCH = -3003,
@@ -595,11 +639,12 @@ enum class ErrorCode {
   E_OUTDATED_EDGE = -3072,
   E_WRITE_WRITE_CONFLICT = -3073,
   E_CLIENT_SERVER_INCOMPATIBLE = -3061,
-  E_WORKER_ID_FAILED = -3062,
+  E_ID_FAILED = -3062,
   E_RAFT_UNKNOWN_PART = -3500,
   E_RAFT_LOG_GAP = -3501,
   E_RAFT_LOG_STALE = -3502,
   E_RAFT_TERM_OUT_OF_DATE = -3503,
+  E_RAFT_UNKNOWN_APPEND_LOG = -3504,
   E_RAFT_WAITING_SNAPSHOT = -3511,
   E_RAFT_SENDING_SNAPSHOT = -3512,
   E_RAFT_INVALID_PEER = -3513,
@@ -616,6 +661,24 @@ enum class ErrorCode {
   E_RAFT_WRITE_BLOCKED = -3528,
   E_RAFT_BUFFER_OVERFLOW = -3529,
   E_RAFT_ATOMIC_OP_FAILED = -3530,
+  E_LEADER_LEASE_FAILED = -3531,
+  E_RAFT_CAUGHT_UP = -3532,
+  E_LOG_GAP = -4001,
+  E_LOG_STALE = -4002,
+  E_INVALID_DRAINER_STORE = -4003,
+  E_SPACE_MISMATCH = -4004,
+  E_PART_MISMATCH = -4005,
+  E_DATA_CONFLICT = -4006,
+  E_REQ_CONFLICT = -4007,
+  E_DATA_ILLEGAL = -4008,
+  E_CACHE_CONFIG_ERROR = -5001,
+  E_NOT_ENOUGH_SPACE = -5002,
+  E_CACHE_MISS = -5003,
+  E_POOL_NOT_FOUND = -5004,
+  E_CACHE_WRITE_FAILURE = -5005,
+  E_NODE_NUMBER_EXCEED_LIMIT = -7001,
+  E_PARSING_LICENSE_FAILURE = -7002,
+  E_STORAGE_MEMORY_EXCEEDED = -3600,
   E_UNKNOWN = -8000,
 };
 
@@ -682,7 +745,7 @@ template <> struct TEnumDataStorage<::nebula::cpp2::ErrorCode>;
 template <> struct TEnumTraits<::nebula::cpp2::ErrorCode> {
   using type = ::nebula::cpp2::ErrorCode;
 
-  static constexpr std::size_t const size = 143;
+  static constexpr std::size_t const size = 196;
   static folly::Range<type const*> const values;
   static folly::Range<folly::StringPiece const*> const names;
 
@@ -6210,10 +6273,11 @@ class LogInfo final  {
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   LogInfo() :
       log_id(0),
-      term_id(0) {}
+      term_id(0),
+      commit_log_id(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  LogInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::LogID log_id__arg,  ::nebula::cpp2::TermID term_id__arg);
+  LogInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::LogID log_id__arg,  ::nebula::cpp2::TermID term_id__arg,  ::nebula::cpp2::LogID commit_log_id__arg, ::std::string checkpoint_path__arg);
 
   LogInfo(LogInfo&&) = default;
 
@@ -6229,12 +6293,18 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
    ::nebula::cpp2::LogID log_id;
  private:
    ::nebula::cpp2::TermID term_id;
+ private:
+   ::nebula::cpp2::LogID commit_log_id;
+ private:
+  ::std::string checkpoint_path;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
     bool log_id;
     bool term_id;
+    bool commit_log_id;
+    bool checkpoint_path;
   } __isset = {};
   bool operator==(const LogInfo& rhs) const;
 #ifndef SWIG
@@ -6299,6 +6369,50 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T =  ::nebula::cpp2::LogID>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> commit_log_id_ref() const& {
+    return {this->commit_log_id, __isset.commit_log_id};
+  }
+
+  template <typename..., typename T =  ::nebula::cpp2::LogID>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> commit_log_id_ref() const&& {
+    return {std::move(this->commit_log_id), __isset.commit_log_id};
+  }
+
+  template <typename..., typename T =  ::nebula::cpp2::LogID>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> commit_log_id_ref() & {
+    return {this->commit_log_id, __isset.commit_log_id};
+  }
+
+  template <typename..., typename T =  ::nebula::cpp2::LogID>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> commit_log_id_ref() && {
+    return {std::move(this->commit_log_id), __isset.commit_log_id};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> checkpoint_path_ref() const& {
+    return {this->checkpoint_path, __isset.checkpoint_path};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> checkpoint_path_ref() const&& {
+    return {std::move(this->checkpoint_path), __isset.checkpoint_path};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> checkpoint_path_ref() & {
+    return {this->checkpoint_path, __isset.checkpoint_path};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> checkpoint_path_ref() && {
+    return {std::move(this->checkpoint_path), __isset.checkpoint_path};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
    ::nebula::cpp2::LogID get_log_id() const {
     return log_id;
   }
@@ -6321,6 +6435,35 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     __isset.term_id = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return term_id;
+  }
+
+   ::nebula::cpp2::LogID get_commit_log_id() const {
+    return commit_log_id;
+  }
+
+   ::nebula::cpp2::LogID& set_commit_log_id( ::nebula::cpp2::LogID commit_log_id_) {
+    commit_log_id = commit_log_id_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.commit_log_id = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return commit_log_id;
+  }
+
+  const ::std::string& get_checkpoint_path() const& {
+    return checkpoint_path;
+  }
+
+  ::std::string get_checkpoint_path() && {
+    return std::move(checkpoint_path);
+  }
+
+  template <typename T_LogInfo_checkpoint_path_struct_setter = ::std::string>
+  ::std::string& set_checkpoint_path(T_LogInfo_checkpoint_path_struct_setter&& checkpoint_path_) {
+    checkpoint_path = std::forward<T_LogInfo_checkpoint_path_struct_setter>(checkpoint_path_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.checkpoint_path = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return checkpoint_path;
   }
 
   template <class Protocol_>
@@ -6532,7 +6675,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
       space_id(0) {}
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  CheckpointInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> parts__arg, ::std::string path__arg);
+  CheckpointInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> parts__arg, ::std::string data_path__arg);
 
   CheckpointInfo(CheckpointInfo&&) = default;
 
@@ -6549,14 +6692,14 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
  private:
   std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> parts;
  private:
-  ::std::string path;
+  ::std::string data_path;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
   struct __isset {
     bool space_id;
     bool parts;
-    bool path;
+    bool data_path;
   } __isset = {};
   bool operator==(const CheckpointInfo& rhs) const;
 #ifndef SWIG
@@ -6623,23 +6766,23 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&> path_ref() const& {
-    return {this->path, __isset.path};
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&> data_path_ref() const& {
+    return {this->data_path, __isset.data_path};
   }
 
   template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> path_ref() const&& {
-    return {std::move(this->path), __isset.path};
+  FOLLY_ERASE ::apache::thrift::field_ref<const T&&> data_path_ref() const&& {
+    return {std::move(this->data_path), __isset.data_path};
   }
 
   template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&> path_ref() & {
-    return {this->path, __isset.path};
+  FOLLY_ERASE ::apache::thrift::field_ref<T&> data_path_ref() & {
+    return {this->data_path, __isset.data_path};
   }
 
   template <typename..., typename T = ::std::string>
-  FOLLY_ERASE ::apache::thrift::field_ref<T&&> path_ref() && {
-    return {std::move(this->path), __isset.path};
+  FOLLY_ERASE ::apache::thrift::field_ref<T&&> data_path_ref() && {
+    return {std::move(this->data_path), __isset.data_path};
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
@@ -6666,21 +6809,21 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     return parts;
   }
 
-  const ::std::string& get_path() const& {
-    return path;
+  const ::std::string& get_data_path() const& {
+    return data_path;
   }
 
-  ::std::string get_path() && {
-    return std::move(path);
+  ::std::string get_data_path() && {
+    return std::move(data_path);
   }
 
-  template <typename T_CheckpointInfo_path_struct_setter = ::std::string>
-  ::std::string& set_path(T_CheckpointInfo_path_struct_setter&& path_) {
-    path = std::forward<T_CheckpointInfo_path_struct_setter>(path_);
+  template <typename T_CheckpointInfo_data_path_struct_setter = ::std::string>
+  ::std::string& set_data_path(T_CheckpointInfo_data_path_struct_setter&& data_path_) {
+    data_path = std::forward<T_CheckpointInfo_data_path_struct_setter>(data_path_);
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-    __isset.path = true;
+    __isset.data_path = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
-    return path;
+    return data_path;
   }
 
   template <class Protocol_>

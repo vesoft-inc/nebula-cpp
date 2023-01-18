@@ -168,6 +168,8 @@ struct VisitByThriftId<::nebula::storage::cpp2::TraverseSpec> {
       return f(9, static_cast<T&&>(t).limit_ref());
     case 11:
       return f(10, static_cast<T&&>(t).filter_ref());
+    case 12:
+      return f(11, static_cast<T&&>(t).tag_filter_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::TraverseSpec");
     }
@@ -206,6 +208,40 @@ struct VisitByThriftId<::nebula::storage::cpp2::GetNeighborsResponse> {
       return f(1, static_cast<T&&>(t).vertices_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::GetNeighborsResponse");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::storage::cpp2::GetDstBySrcRequest> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).space_id_ref());
+    case 2:
+      return f(1, static_cast<T&&>(t).parts_ref());
+    case 3:
+      return f(2, static_cast<T&&>(t).edge_types_ref());
+    case 4:
+      return f(3, static_cast<T&&>(t).common_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::GetDstBySrcRequest");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::storage::cpp2::GetDstBySrcResponse> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).result_ref());
+    case 2:
+      return f(1, static_cast<T&&>(t).dsts_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::GetDstBySrcResponse");
     }
   }
 };
@@ -574,6 +610,8 @@ struct VisitByThriftId<::nebula::storage::cpp2::LookupIndexResp> {
       return f(0, static_cast<T&&>(t).result_ref());
     case 2:
       return f(1, static_cast<T&&>(t).data_ref());
+    case 3:
+      return f(2, static_cast<T&&>(t).stat_data_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::LookupIndexResp");
     }
@@ -654,6 +692,8 @@ struct VisitByThriftId<::nebula::storage::cpp2::LookupIndexRequest> {
       return f(5, static_cast<T&&>(t).limit_ref());
     case 7:
       return f(6, static_cast<T&&>(t).order_by_ref());
+    case 8:
+      return f(7, static_cast<T&&>(t).stat_columns_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::LookupIndexRequest");
     }
@@ -998,6 +1038,21 @@ struct VisitByThriftId<::nebula::storage::cpp2::CreateCPRequest> {
 };
 
 template <>
+struct VisitByThriftId<::nebula::storage::cpp2::CreateCPResp> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).code_ref());
+    case 2:
+      return f(1, static_cast<T&&>(t).info_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::CreateCPResp");
+    }
+  }
+};
+
+template <>
 struct VisitByThriftId<::nebula::storage::cpp2::DropCPRequest> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
@@ -1008,6 +1063,19 @@ struct VisitByThriftId<::nebula::storage::cpp2::DropCPRequest> {
       return f(1, static_cast<T&&>(t).name_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::DropCPRequest");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::storage::cpp2::DropCPResp> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).code_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::DropCPResp");
     }
   }
 };
@@ -1028,12 +1096,25 @@ struct VisitByThriftId<::nebula::storage::cpp2::BlockingSignRequest> {
 };
 
 template <>
+struct VisitByThriftId<::nebula::storage::cpp2::BlockingSignResp> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).code_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::BlockingSignResp");
+    }
+  }
+};
+
+template <>
 struct VisitByThriftId<::nebula::storage::cpp2::GetLeaderPartsResp> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
     switch (id) {
     case 1:
-      return f(0, static_cast<T&&>(t).result_ref());
+      return f(0, static_cast<T&&>(t).code_ref());
     case 2:
       return f(1, static_cast<T&&>(t).leader_parts_ref());
     default:
@@ -1077,21 +1158,6 @@ struct VisitByThriftId<::nebula::storage::cpp2::RebuildIndexRequest> {
 };
 
 template <>
-struct VisitByThriftId<::nebula::storage::cpp2::CreateCPResp> {
-  template <typename F, typename T>
-  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
-    switch (id) {
-    case 1:
-      return f(0, static_cast<T&&>(t).result_ref());
-    case 2:
-      return f(1, static_cast<T&&>(t).info_ref());
-    default:
-      throwInvalidThriftId(id, "::nebula::storage::cpp2::CreateCPResp");
-    }
-  }
-};
-
-template <>
 struct VisitByThriftId<::nebula::storage::cpp2::ListClusterInfoResp> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
@@ -1118,28 +1184,39 @@ struct VisitByThriftId<::nebula::storage::cpp2::ListClusterInfoReq> {
 };
 
 template <>
-struct VisitByThriftId<::nebula::storage::cpp2::AddAdminTaskRequest> {
+struct VisitByThriftId<::nebula::storage::cpp2::AddTaskRequest> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
     switch (id) {
     case 1:
-      return f(0, static_cast<T&&>(t).cmd_ref());
+      return f(0, static_cast<T&&>(t).job_type_ref());
     case 2:
       return f(1, static_cast<T&&>(t).job_id_ref());
     case 3:
       return f(2, static_cast<T&&>(t).task_id_ref());
     case 4:
       return f(3, static_cast<T&&>(t).para_ref());
-    case 5:
-      return f(4, static_cast<T&&>(t).concurrency_ref());
     default:
-      throwInvalidThriftId(id, "::nebula::storage::cpp2::AddAdminTaskRequest");
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::AddTaskRequest");
     }
   }
 };
 
 template <>
-struct VisitByThriftId<::nebula::storage::cpp2::StopAdminTaskRequest> {
+struct VisitByThriftId<::nebula::storage::cpp2::AddTaskResp> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).code_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::AddTaskResp");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::storage::cpp2::StopTaskRequest> {
   template <typename F, typename T>
   void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
     switch (id) {
@@ -1148,7 +1225,46 @@ struct VisitByThriftId<::nebula::storage::cpp2::StopAdminTaskRequest> {
     case 2:
       return f(1, static_cast<T&&>(t).task_id_ref());
     default:
-      throwInvalidThriftId(id, "::nebula::storage::cpp2::StopAdminTaskRequest");
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::StopTaskRequest");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::storage::cpp2::StopTaskResp> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).code_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::StopTaskResp");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::storage::cpp2::ClearSpaceReq> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).space_id_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::ClearSpaceReq");
+    }
+  }
+};
+
+template <>
+struct VisitByThriftId<::nebula::storage::cpp2::ClearSpaceResp> {
+  template <typename F, typename T>
+  void operator()(FOLLY_MAYBE_UNUSED F&& f, size_t id, FOLLY_MAYBE_UNUSED T&& t) const {
+    switch (id) {
+    case 1:
+      return f(0, static_cast<T&&>(t).code_ref());
+    default:
+      throwInvalidThriftId(id, "::nebula::storage::cpp2::ClearSpaceResp");
     }
   }
 };
