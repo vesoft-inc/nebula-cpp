@@ -50,30 +50,27 @@ class StorageAdminServiceSvAsyncIf {
   virtual void async_tm_createCheckpoint(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::CreateCPResp>> callback, const  ::nebula::storage::cpp2::CreateCPRequest& p_req) = 0;
   virtual folly::Future< ::nebula::storage::cpp2::CreateCPResp> future_createCheckpoint(const  ::nebula::storage::cpp2::CreateCPRequest& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::storage::cpp2::CreateCPResp> semifuture_createCheckpoint(const  ::nebula::storage::cpp2::CreateCPRequest& p_req) = 0;
-  virtual void async_tm_dropCheckpoint(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::DropCPRequest& p_req) = 0;
-  virtual folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_dropCheckpoint(const  ::nebula::storage::cpp2::DropCPRequest& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_dropCheckpoint(const  ::nebula::storage::cpp2::DropCPRequest& p_req) = 0;
-  virtual void async_tm_blockingWrites(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) = 0;
-  virtual folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_blockingWrites(const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_blockingWrites(const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) = 0;
-  virtual void async_tm_rebuildTagIndex(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) = 0;
-  virtual folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_rebuildTagIndex(const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_rebuildTagIndex(const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) = 0;
-  virtual void async_tm_rebuildEdgeIndex(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) = 0;
-  virtual folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_rebuildEdgeIndex(const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_rebuildEdgeIndex(const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) = 0;
+  virtual void async_tm_dropCheckpoint(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::DropCPResp>> callback, const  ::nebula::storage::cpp2::DropCPRequest& p_req) = 0;
+  virtual folly::Future< ::nebula::storage::cpp2::DropCPResp> future_dropCheckpoint(const  ::nebula::storage::cpp2::DropCPRequest& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::DropCPResp> semifuture_dropCheckpoint(const  ::nebula::storage::cpp2::DropCPRequest& p_req) = 0;
+  virtual void async_tm_blockingWrites(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::BlockingSignResp>> callback, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) = 0;
+  virtual folly::Future< ::nebula::storage::cpp2::BlockingSignResp> future_blockingWrites(const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::BlockingSignResp> semifuture_blockingWrites(const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) = 0;
   virtual void async_tm_getLeaderParts(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::GetLeaderPartsResp>> callback, const  ::nebula::storage::cpp2::GetLeaderReq& p_req) = 0;
   virtual folly::Future< ::nebula::storage::cpp2::GetLeaderPartsResp> future_getLeaderParts(const  ::nebula::storage::cpp2::GetLeaderReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::storage::cpp2::GetLeaderPartsResp> semifuture_getLeaderParts(const  ::nebula::storage::cpp2::GetLeaderReq& p_req) = 0;
   virtual void async_tm_checkPeers(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::CheckPeersReq& p_req) = 0;
   virtual folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_checkPeers(const  ::nebula::storage::cpp2::CheckPeersReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_checkPeers(const  ::nebula::storage::cpp2::CheckPeersReq& p_req) = 0;
-  virtual void async_tm_addAdminTask(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) = 0;
-  virtual folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_addAdminTask(const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_addAdminTask(const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) = 0;
-  virtual void async_tm_stopAdminTask(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) = 0;
-  virtual folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_stopAdminTask(const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_stopAdminTask(const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) = 0;
+  virtual void async_tm_addAdminTask(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AddTaskResp>> callback, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) = 0;
+  virtual folly::Future< ::nebula::storage::cpp2::AddTaskResp> future_addAdminTask(const  ::nebula::storage::cpp2::AddTaskRequest& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::AddTaskResp> semifuture_addAdminTask(const  ::nebula::storage::cpp2::AddTaskRequest& p_req) = 0;
+  virtual void async_tm_stopAdminTask(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::StopTaskResp>> callback, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) = 0;
+  virtual folly::Future< ::nebula::storage::cpp2::StopTaskResp> future_stopAdminTask(const  ::nebula::storage::cpp2::StopTaskRequest& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::StopTaskResp> semifuture_stopAdminTask(const  ::nebula::storage::cpp2::StopTaskRequest& p_req) = 0;
+  virtual void async_tm_clearSpace(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ClearSpaceResp>> callback, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) = 0;
+  virtual folly::Future< ::nebula::storage::cpp2::ClearSpaceResp> future_clearSpace(const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::ClearSpaceResp> semifuture_clearSpace(const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) = 0;
 };
 
 class StorageAdminServiceAsyncProcessor;
@@ -112,22 +109,14 @@ class StorageAdminServiceSvIf : public StorageAdminServiceSvAsyncIf, public apac
   folly::Future< ::nebula::storage::cpp2::CreateCPResp> future_createCheckpoint(const  ::nebula::storage::cpp2::CreateCPRequest& p_req) override;
   folly::SemiFuture< ::nebula::storage::cpp2::CreateCPResp> semifuture_createCheckpoint(const  ::nebula::storage::cpp2::CreateCPRequest& p_req) override;
   void async_tm_createCheckpoint(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::CreateCPResp>> callback, const  ::nebula::storage::cpp2::CreateCPRequest& p_req) override;
-  virtual void dropCheckpoint( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::DropCPRequest& /*req*/);
-  folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_dropCheckpoint(const  ::nebula::storage::cpp2::DropCPRequest& p_req) override;
-  folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_dropCheckpoint(const  ::nebula::storage::cpp2::DropCPRequest& p_req) override;
-  void async_tm_dropCheckpoint(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::DropCPRequest& p_req) override;
-  virtual void blockingWrites( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::BlockingSignRequest& /*req*/);
-  folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_blockingWrites(const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) override;
-  folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_blockingWrites(const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) override;
-  void async_tm_blockingWrites(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) override;
-  virtual void rebuildTagIndex( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::RebuildIndexRequest& /*req*/);
-  folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_rebuildTagIndex(const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) override;
-  folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_rebuildTagIndex(const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) override;
-  void async_tm_rebuildTagIndex(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) override;
-  virtual void rebuildEdgeIndex( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::RebuildIndexRequest& /*req*/);
-  folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_rebuildEdgeIndex(const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) override;
-  folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_rebuildEdgeIndex(const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) override;
-  void async_tm_rebuildEdgeIndex(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) override;
+  virtual void dropCheckpoint( ::nebula::storage::cpp2::DropCPResp& /*_return*/, const  ::nebula::storage::cpp2::DropCPRequest& /*req*/);
+  folly::Future< ::nebula::storage::cpp2::DropCPResp> future_dropCheckpoint(const  ::nebula::storage::cpp2::DropCPRequest& p_req) override;
+  folly::SemiFuture< ::nebula::storage::cpp2::DropCPResp> semifuture_dropCheckpoint(const  ::nebula::storage::cpp2::DropCPRequest& p_req) override;
+  void async_tm_dropCheckpoint(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::DropCPResp>> callback, const  ::nebula::storage::cpp2::DropCPRequest& p_req) override;
+  virtual void blockingWrites( ::nebula::storage::cpp2::BlockingSignResp& /*_return*/, const  ::nebula::storage::cpp2::BlockingSignRequest& /*req*/);
+  folly::Future< ::nebula::storage::cpp2::BlockingSignResp> future_blockingWrites(const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) override;
+  folly::SemiFuture< ::nebula::storage::cpp2::BlockingSignResp> semifuture_blockingWrites(const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) override;
+  void async_tm_blockingWrites(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::BlockingSignResp>> callback, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) override;
   virtual void getLeaderParts( ::nebula::storage::cpp2::GetLeaderPartsResp& /*_return*/, const  ::nebula::storage::cpp2::GetLeaderReq& /*req*/);
   folly::Future< ::nebula::storage::cpp2::GetLeaderPartsResp> future_getLeaderParts(const  ::nebula::storage::cpp2::GetLeaderReq& p_req) override;
   folly::SemiFuture< ::nebula::storage::cpp2::GetLeaderPartsResp> semifuture_getLeaderParts(const  ::nebula::storage::cpp2::GetLeaderReq& p_req) override;
@@ -136,14 +125,18 @@ class StorageAdminServiceSvIf : public StorageAdminServiceSvAsyncIf, public apac
   folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_checkPeers(const  ::nebula::storage::cpp2::CheckPeersReq& p_req) override;
   folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_checkPeers(const  ::nebula::storage::cpp2::CheckPeersReq& p_req) override;
   void async_tm_checkPeers(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::CheckPeersReq& p_req) override;
-  virtual void addAdminTask( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::AddAdminTaskRequest& /*req*/);
-  folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_addAdminTask(const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) override;
-  folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_addAdminTask(const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) override;
-  void async_tm_addAdminTask(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) override;
-  virtual void stopAdminTask( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::StopAdminTaskRequest& /*req*/);
-  folly::Future< ::nebula::storage::cpp2::AdminExecResp> future_stopAdminTask(const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) override;
-  folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> semifuture_stopAdminTask(const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) override;
-  void async_tm_stopAdminTask(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>> callback, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) override;
+  virtual void addAdminTask( ::nebula::storage::cpp2::AddTaskResp& /*_return*/, const  ::nebula::storage::cpp2::AddTaskRequest& /*req*/);
+  folly::Future< ::nebula::storage::cpp2::AddTaskResp> future_addAdminTask(const  ::nebula::storage::cpp2::AddTaskRequest& p_req) override;
+  folly::SemiFuture< ::nebula::storage::cpp2::AddTaskResp> semifuture_addAdminTask(const  ::nebula::storage::cpp2::AddTaskRequest& p_req) override;
+  void async_tm_addAdminTask(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AddTaskResp>> callback, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) override;
+  virtual void stopAdminTask( ::nebula::storage::cpp2::StopTaskResp& /*_return*/, const  ::nebula::storage::cpp2::StopTaskRequest& /*req*/);
+  folly::Future< ::nebula::storage::cpp2::StopTaskResp> future_stopAdminTask(const  ::nebula::storage::cpp2::StopTaskRequest& p_req) override;
+  folly::SemiFuture< ::nebula::storage::cpp2::StopTaskResp> semifuture_stopAdminTask(const  ::nebula::storage::cpp2::StopTaskRequest& p_req) override;
+  void async_tm_stopAdminTask(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::StopTaskResp>> callback, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) override;
+  virtual void clearSpace( ::nebula::storage::cpp2::ClearSpaceResp& /*_return*/, const  ::nebula::storage::cpp2::ClearSpaceReq& /*req*/);
+  folly::Future< ::nebula::storage::cpp2::ClearSpaceResp> future_clearSpace(const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) override;
+  folly::SemiFuture< ::nebula::storage::cpp2::ClearSpaceResp> semifuture_clearSpace(const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) override;
+  void async_tm_clearSpace(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ClearSpaceResp>> callback, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) override;
 };
 
 class StorageAdminServiceSvNull : public StorageAdminServiceSvIf {
@@ -155,14 +148,13 @@ class StorageAdminServiceSvNull : public StorageAdminServiceSvIf {
   void memberChange( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::MemberChangeReq& /*req*/) override;
   void waitingForCatchUpData( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::CatchUpDataReq& /*req*/) override;
   void createCheckpoint( ::nebula::storage::cpp2::CreateCPResp& /*_return*/, const  ::nebula::storage::cpp2::CreateCPRequest& /*req*/) override;
-  void dropCheckpoint( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::DropCPRequest& /*req*/) override;
-  void blockingWrites( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::BlockingSignRequest& /*req*/) override;
-  void rebuildTagIndex( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::RebuildIndexRequest& /*req*/) override;
-  void rebuildEdgeIndex( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::RebuildIndexRequest& /*req*/) override;
+  void dropCheckpoint( ::nebula::storage::cpp2::DropCPResp& /*_return*/, const  ::nebula::storage::cpp2::DropCPRequest& /*req*/) override;
+  void blockingWrites( ::nebula::storage::cpp2::BlockingSignResp& /*_return*/, const  ::nebula::storage::cpp2::BlockingSignRequest& /*req*/) override;
   void getLeaderParts( ::nebula::storage::cpp2::GetLeaderPartsResp& /*_return*/, const  ::nebula::storage::cpp2::GetLeaderReq& /*req*/) override;
   void checkPeers( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::CheckPeersReq& /*req*/) override;
-  void addAdminTask( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::AddAdminTaskRequest& /*req*/) override;
-  void stopAdminTask( ::nebula::storage::cpp2::AdminExecResp& /*_return*/, const  ::nebula::storage::cpp2::StopAdminTaskRequest& /*req*/) override;
+  void addAdminTask( ::nebula::storage::cpp2::AddTaskResp& /*_return*/, const  ::nebula::storage::cpp2::AddTaskRequest& /*req*/) override;
+  void stopAdminTask( ::nebula::storage::cpp2::StopTaskResp& /*_return*/, const  ::nebula::storage::cpp2::StopTaskRequest& /*req*/) override;
+  void clearSpace( ::nebula::storage::cpp2::ClearSpaceResp& /*_return*/, const  ::nebula::storage::cpp2::ClearSpaceReq& /*req*/) override;
 };
 
 class StorageAdminServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcessor {
@@ -246,7 +238,7 @@ class StorageAdminServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyn
   template <typename ProtocolIn_, typename ProtocolOut_>
   void process_dropCheckpoint(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_dropCheckpoint(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return);
+  static folly::IOBufQueue return_dropCheckpoint(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::DropCPResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_dropCheckpoint(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
@@ -254,25 +246,9 @@ class StorageAdminServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyn
   template <typename ProtocolIn_, typename ProtocolOut_>
   void process_blockingWrites(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_blockingWrites(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return);
+  static folly::IOBufQueue return_blockingWrites(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::BlockingSignResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_blockingWrites(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_rebuildTagIndex(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_rebuildTagIndex(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_rebuildTagIndex(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_rebuildTagIndex(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_rebuildEdgeIndex(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_rebuildEdgeIndex(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_rebuildEdgeIndex(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_rebuildEdgeIndex(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
   void setUpAndProcess_getLeaderParts(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>
@@ -294,7 +270,7 @@ class StorageAdminServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyn
   template <typename ProtocolIn_, typename ProtocolOut_>
   void process_addAdminTask(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_addAdminTask(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return);
+  static folly::IOBufQueue return_addAdminTask(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AddTaskResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_addAdminTask(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
@@ -302,9 +278,17 @@ class StorageAdminServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyn
   template <typename ProtocolIn_, typename ProtocolOut_>
   void process_stopAdminTask(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_stopAdminTask(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return);
+  static folly::IOBufQueue return_stopAdminTask(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::StopTaskResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_stopAdminTask(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_clearSpace(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_clearSpace(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_clearSpace(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ClearSpaceResp const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_clearSpace(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
  public:
   StorageAdminServiceAsyncProcessor(StorageAdminServiceSvIf* iface) :
       iface_(iface) {}

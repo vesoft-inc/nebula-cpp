@@ -111,6 +111,88 @@ class GraphStorageServiceAsyncClient : public apache::thrift::GeneratedAsyncClie
   void getNeighborsT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::GetNeighborsRequest& p_req);
   std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> getNeighborsCtx(apache::thrift::RpcOptions* rpcOptions);
  public:
+  virtual void getDstBySrc(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+  virtual void getDstBySrc(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+ protected:
+  void getDstBySrcImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+ public:
+
+  virtual void sync_getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& _return, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+  virtual void sync_getDstBySrc(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::GetDstBySrcResponse& _return, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+
+  virtual folly::Future< ::nebula::storage::cpp2::GetDstBySrcResponse> future_getDstBySrc(const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::GetDstBySrcResponse> semifuture_getDstBySrc(const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+  virtual folly::Future< ::nebula::storage::cpp2::GetDstBySrcResponse> future_getDstBySrc(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::GetDstBySrcResponse> semifuture_getDstBySrc(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+  virtual folly::Future<std::pair< ::nebula::storage::cpp2::GetDstBySrcResponse, std::unique_ptr<apache::thrift::transport::THeader>>> header_future_getDstBySrc(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+  virtual folly::SemiFuture<std::pair< ::nebula::storage::cpp2::GetDstBySrcResponse, std::unique_ptr<apache::thrift::transport::THeader>>> header_semifuture_getDstBySrc(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+
+#if FOLLY_HAS_COROUTINES
+  template <int = 0>
+  folly::coro::Task< ::nebula::storage::cpp2::GetDstBySrcResponse> co_getDstBySrc(const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+    return co_getDstBySrc<false>(nullptr, p_req);
+  }
+  template <int = 0>
+  folly::coro::Task< ::nebula::storage::cpp2::GetDstBySrcResponse> co_getDstBySrc(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+    return co_getDstBySrc<true>(&rpcOptions, p_req);
+  }
+ private:
+  template <bool hasRpcOptions>
+  folly::coro::Task< ::nebula::storage::cpp2::GetDstBySrcResponse> co_getDstBySrc(apache::thrift::RpcOptions* rpcOptions, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+    const folly::CancellationToken& cancelToken =
+        co_await folly::coro::co_current_cancellation_token;
+    const bool cancellable = cancelToken.canBeCancelled();
+    apache::thrift::ClientReceiveState returnState;
+    apache::thrift::ClientSyncCallback<false> callback(&returnState);
+    auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+    auto ctx = getDstBySrcCtx(rpcOptions);
+    using CancellableCallback = apache::thrift::CancellableRequestClientCallback<false>;
+    auto cancellableCallback = cancellable ? CancellableCallback::create(&callback, channel_) : nullptr;
+    static const apache::thrift::RpcOptions defaultRpcOptions;
+    auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(cancellableCallback ? (apache::thrift::RequestClientCallback*)cancellableCallback.get() : &callback);
+    if constexpr (hasRpcOptions) {
+      getDstBySrcImpl(*rpcOptions, ctx, std::move(wrappedCallback), p_req);
+    } else {
+      getDstBySrcImpl(defaultRpcOptions, ctx, std::move(wrappedCallback), p_req);
+    }
+    if (cancellable) {
+      folly::CancellationCallback cb(cancelToken, [&] { CancellableCallback::cancel(std::move(cancellableCallback)); });
+      co_await callback.co_waitUntilDone();
+    } else {
+      co_await callback.co_waitUntilDone();
+    }
+    if (returnState.isException()) {
+      co_yield folly::coro::co_error(std::move(returnState.exception()));
+    }
+    returnState.resetProtocolId(protocolId);
+    returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+    SCOPE_EXIT {
+      if (hasRpcOptions && returnState.header() && !returnState.header()->getHeaders().empty()) {
+        rpcOptions->setReadHeaders(returnState.header()->releaseHeaders());
+      }
+    };
+     ::nebula::storage::cpp2::GetDstBySrcResponse _return;
+    if (auto ew = recv_wrapped_getDstBySrc(_return, returnState)) {
+      co_yield folly::coro::co_error(std::move(ew));
+    }
+    co_return _return;
+  }
+ public:
+#endif // FOLLY_HAS_COROUTINES
+
+  virtual void getDstBySrc(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+
+
+  static folly::exception_wrapper recv_wrapped_getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& _return, ::apache::thrift::ClientReceiveState& state);
+  static void recv_getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& _return, ::apache::thrift::ClientReceiveState& state);
+  // Mock friendly virtual instance method
+  virtual void recv_instance_getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& _return, ::apache::thrift::ClientReceiveState& state);
+  virtual folly::exception_wrapper recv_instance_wrapped_getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& _return, ::apache::thrift::ClientReceiveState& state);
+ private:
+  template <typename Protocol_>
+  void getDstBySrcT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req);
+  std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> getDstBySrcCtx(apache::thrift::RpcOptions* rpcOptions);
+ public:
   virtual void getProps(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::GetPropRequest& p_req);
   virtual void getProps(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::GetPropRequest& p_req);
  protected:

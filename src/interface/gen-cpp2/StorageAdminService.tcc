@@ -26,21 +26,19 @@ typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apach
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::CreateCPRequest*>> StorageAdminService_createCheckpoint_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::CreateCPResp*>> StorageAdminService_createCheckpoint_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::DropCPRequest*>> StorageAdminService_dropCheckpoint_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_dropCheckpoint_presult;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::DropCPResp*>> StorageAdminService_dropCheckpoint_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::BlockingSignRequest*>> StorageAdminService_blockingWrites_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_blockingWrites_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::RebuildIndexRequest*>> StorageAdminService_rebuildTagIndex_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_rebuildTagIndex_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::RebuildIndexRequest*>> StorageAdminService_rebuildEdgeIndex_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_rebuildEdgeIndex_presult;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::BlockingSignResp*>> StorageAdminService_blockingWrites_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetLeaderReq*>> StorageAdminService_getLeaderParts_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetLeaderPartsResp*>> StorageAdminService_getLeaderParts_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::CheckPeersReq*>> StorageAdminService_checkPeers_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_checkPeers_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AddAdminTaskRequest*>> StorageAdminService_addAdminTask_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_addAdminTask_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::StopAdminTaskRequest*>> StorageAdminService_stopAdminTask_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_stopAdminTask_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AddTaskRequest*>> StorageAdminService_addAdminTask_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AddTaskResp*>> StorageAdminService_addAdminTask_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::StopTaskRequest*>> StorageAdminService_stopAdminTask_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::StopTaskResp*>> StorageAdminService_stopAdminTask_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ClearSpaceReq*>> StorageAdminService_clearSpace_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ClearSpaceResp*>> StorageAdminService_clearSpace_presult;
 template <typename ProtocolIn_, typename ProtocolOut_>
 void StorageAdminServiceAsyncProcessor::setUpAndProcess_transLeader(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
   if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
@@ -468,7 +466,7 @@ void StorageAdminServiceAsyncProcessor::process_dropCheckpoint(apache::thrift::R
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(req), std::move(ctxStack), return_dropCheckpoint<ProtocolIn_,ProtocolOut_>, throw_wrapped_dropCheckpoint<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::DropCPResp>>(std::move(req), std::move(ctxStack), return_dropCheckpoint<ProtocolIn_,ProtocolOut_>, throw_wrapped_dropCheckpoint<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
@@ -476,10 +474,10 @@ void StorageAdminServiceAsyncProcessor::process_dropCheckpoint(apache::thrift::R
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue StorageAdminServiceAsyncProcessor::return_dropCheckpoint(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return) {
+folly::IOBufQueue StorageAdminServiceAsyncProcessor::return_dropCheckpoint(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::DropCPResp const& _return) {
   ProtocolOut_ prot;
   StorageAdminService_dropCheckpoint_presult result;
-  result.get<0>().value = const_cast< ::nebula::storage::cpp2::AdminExecResp*>(&_return);
+  result.get<0>().value = const_cast< ::nebula::storage::cpp2::DropCPResp*>(&_return);
   result.setIsSet(0, true);
   return serializeResponse("dropCheckpoint", &prot, protoSeqId, ctx, result);
 }
@@ -525,7 +523,7 @@ void StorageAdminServiceAsyncProcessor::process_blockingWrites(apache::thrift::R
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(req), std::move(ctxStack), return_blockingWrites<ProtocolIn_,ProtocolOut_>, throw_wrapped_blockingWrites<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::BlockingSignResp>>(std::move(req), std::move(ctxStack), return_blockingWrites<ProtocolIn_,ProtocolOut_>, throw_wrapped_blockingWrites<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
@@ -533,10 +531,10 @@ void StorageAdminServiceAsyncProcessor::process_blockingWrites(apache::thrift::R
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue StorageAdminServiceAsyncProcessor::return_blockingWrites(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return) {
+folly::IOBufQueue StorageAdminServiceAsyncProcessor::return_blockingWrites(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::BlockingSignResp const& _return) {
   ProtocolOut_ prot;
   StorageAdminService_blockingWrites_presult result;
-  result.get<0>().value = const_cast< ::nebula::storage::cpp2::AdminExecResp*>(&_return);
+  result.get<0>().value = const_cast< ::nebula::storage::cpp2::BlockingSignResp*>(&_return);
   result.setIsSet(0, true);
   return serializeResponse("blockingWrites", &prot, protoSeqId, ctx, result);
 }
@@ -550,120 +548,6 @@ void StorageAdminServiceAsyncProcessor::throw_wrapped_blockingWrites(apache::thr
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
         ew, std::move(req), reqCtx, ctx, "blockingWrites");
-    return;
-  }
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void StorageAdminServiceAsyncProcessor::setUpAndProcess_rebuildTagIndex(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
-    return;
-  }
-  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
-  ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &StorageAdminServiceAsyncProcessor::process_rebuildTagIndex<ProtocolIn_, ProtocolOut_>, this);
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void StorageAdminServiceAsyncProcessor::process_rebuildTagIndex(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  // make sure getRequestContext is null
-  // so async calls don't accidentally use it
-  iface_->setRequestContext(nullptr);
-  StorageAdminService_rebuildTagIndex_pargs args;
-   ::nebula::storage::cpp2::RebuildIndexRequest uarg_req;
-  args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "StorageAdminService.rebuildTagIndex", ctx));
-  try {
-    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
-  }
-  catch (const std::exception& ex) {
-    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "rebuildTagIndex");
-    return;
-  }
-  req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(req), std::move(ctxStack), return_rebuildTagIndex<ProtocolIn_,ProtocolOut_>, throw_wrapped_rebuildTagIndex<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
-  if (!callback->isRequestActive()) {
-    return;
-  }
-  iface_->async_tm_rebuildTagIndex(std::move(callback), args.get<0>().ref());
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue StorageAdminServiceAsyncProcessor::return_rebuildTagIndex(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return) {
-  ProtocolOut_ prot;
-  StorageAdminService_rebuildTagIndex_presult result;
-  result.get<0>().value = const_cast< ::nebula::storage::cpp2::AdminExecResp*>(&_return);
-  result.setIsSet(0, true);
-  return serializeResponse("rebuildTagIndex", &prot, protoSeqId, ctx, result);
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-void StorageAdminServiceAsyncProcessor::throw_wrapped_rebuildTagIndex(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
-  if (!ew) {
-    return;
-  }
-  {
-    (void)protoSeqId;
-    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "rebuildTagIndex");
-    return;
-  }
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void StorageAdminServiceAsyncProcessor::setUpAndProcess_rebuildEdgeIndex(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
-    return;
-  }
-  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
-  ctx->setRequestExecutionScope(std::move(scope));
-  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &StorageAdminServiceAsyncProcessor::process_rebuildEdgeIndex<ProtocolIn_, ProtocolOut_>, this);
-}
-
-template <typename ProtocolIn_, typename ProtocolOut_>
-void StorageAdminServiceAsyncProcessor::process_rebuildEdgeIndex(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
-  // make sure getRequestContext is null
-  // so async calls don't accidentally use it
-  iface_->setRequestContext(nullptr);
-  StorageAdminService_rebuildEdgeIndex_pargs args;
-   ::nebula::storage::cpp2::RebuildIndexRequest uarg_req;
-  args.get<0>().value = &uarg_req;
-  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "StorageAdminService.rebuildEdgeIndex", ctx));
-  try {
-    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
-  }
-  catch (const std::exception& ex) {
-    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
-        ex, std::move(req), ctx, eb, "rebuildEdgeIndex");
-    return;
-  }
-  req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(req), std::move(ctxStack), return_rebuildEdgeIndex<ProtocolIn_,ProtocolOut_>, throw_wrapped_rebuildEdgeIndex<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
-  if (!callback->isRequestActive()) {
-    return;
-  }
-  iface_->async_tm_rebuildEdgeIndex(std::move(callback), args.get<0>().ref());
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue StorageAdminServiceAsyncProcessor::return_rebuildEdgeIndex(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return) {
-  ProtocolOut_ prot;
-  StorageAdminService_rebuildEdgeIndex_presult result;
-  result.get<0>().value = const_cast< ::nebula::storage::cpp2::AdminExecResp*>(&_return);
-  result.setIsSet(0, true);
-  return serializeResponse("rebuildEdgeIndex", &prot, protoSeqId, ctx, result);
-}
-
-template <class ProtocolIn_, class ProtocolOut_>
-void StorageAdminServiceAsyncProcessor::throw_wrapped_rebuildEdgeIndex(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
-  if (!ew) {
-    return;
-  }
-  {
-    (void)protoSeqId;
-    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
-        ew, std::move(req), reqCtx, ctx, "rebuildEdgeIndex");
     return;
   }
 }
@@ -798,7 +682,7 @@ void StorageAdminServiceAsyncProcessor::process_addAdminTask(apache::thrift::Res
   // so async calls don't accidentally use it
   iface_->setRequestContext(nullptr);
   StorageAdminService_addAdminTask_pargs args;
-   ::nebula::storage::cpp2::AddAdminTaskRequest uarg_req;
+   ::nebula::storage::cpp2::AddTaskRequest uarg_req;
   args.get<0>().value = &uarg_req;
   std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "StorageAdminService.addAdminTask", ctx));
   try {
@@ -810,7 +694,7 @@ void StorageAdminServiceAsyncProcessor::process_addAdminTask(apache::thrift::Res
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(req), std::move(ctxStack), return_addAdminTask<ProtocolIn_,ProtocolOut_>, throw_wrapped_addAdminTask<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AddTaskResp>>(std::move(req), std::move(ctxStack), return_addAdminTask<ProtocolIn_,ProtocolOut_>, throw_wrapped_addAdminTask<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
@@ -818,10 +702,10 @@ void StorageAdminServiceAsyncProcessor::process_addAdminTask(apache::thrift::Res
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue StorageAdminServiceAsyncProcessor::return_addAdminTask(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return) {
+folly::IOBufQueue StorageAdminServiceAsyncProcessor::return_addAdminTask(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AddTaskResp const& _return) {
   ProtocolOut_ prot;
   StorageAdminService_addAdminTask_presult result;
-  result.get<0>().value = const_cast< ::nebula::storage::cpp2::AdminExecResp*>(&_return);
+  result.get<0>().value = const_cast< ::nebula::storage::cpp2::AddTaskResp*>(&_return);
   result.setIsSet(0, true);
   return serializeResponse("addAdminTask", &prot, protoSeqId, ctx, result);
 }
@@ -855,7 +739,7 @@ void StorageAdminServiceAsyncProcessor::process_stopAdminTask(apache::thrift::Re
   // so async calls don't accidentally use it
   iface_->setRequestContext(nullptr);
   StorageAdminService_stopAdminTask_pargs args;
-   ::nebula::storage::cpp2::StopAdminTaskRequest uarg_req;
+   ::nebula::storage::cpp2::StopTaskRequest uarg_req;
   args.get<0>().value = &uarg_req;
   std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "StorageAdminService.stopAdminTask", ctx));
   try {
@@ -867,7 +751,7 @@ void StorageAdminServiceAsyncProcessor::process_stopAdminTask(apache::thrift::Re
     return;
   }
   req->setStartedProcessing();
-  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(req), std::move(ctxStack), return_stopAdminTask<ProtocolIn_,ProtocolOut_>, throw_wrapped_stopAdminTask<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::StopTaskResp>>(std::move(req), std::move(ctxStack), return_stopAdminTask<ProtocolIn_,ProtocolOut_>, throw_wrapped_stopAdminTask<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
   if (!callback->isRequestActive()) {
     return;
   }
@@ -875,10 +759,10 @@ void StorageAdminServiceAsyncProcessor::process_stopAdminTask(apache::thrift::Re
 }
 
 template <class ProtocolIn_, class ProtocolOut_>
-folly::IOBufQueue StorageAdminServiceAsyncProcessor::return_stopAdminTask(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::AdminExecResp const& _return) {
+folly::IOBufQueue StorageAdminServiceAsyncProcessor::return_stopAdminTask(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::StopTaskResp const& _return) {
   ProtocolOut_ prot;
   StorageAdminService_stopAdminTask_presult result;
-  result.get<0>().value = const_cast< ::nebula::storage::cpp2::AdminExecResp*>(&_return);
+  result.get<0>().value = const_cast< ::nebula::storage::cpp2::StopTaskResp*>(&_return);
   result.setIsSet(0, true);
   return serializeResponse("stopAdminTask", &prot, protoSeqId, ctx, result);
 }
@@ -892,6 +776,63 @@ void StorageAdminServiceAsyncProcessor::throw_wrapped_stopAdminTask(apache::thri
     (void)protoSeqId;
     apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
         ew, std::move(req), reqCtx, ctx, "stopAdminTask");
+    return;
+  }
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void StorageAdminServiceAsyncProcessor::setUpAndProcess_clearSpace(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  if (!setUpRequestProcessing(req, ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, iface_)) {
+    return;
+  }
+  auto scope = iface_->getRequestExecutionScope(ctx, apache::thrift::concurrency::NORMAL);
+  ctx->setRequestExecutionScope(std::move(scope));
+  processInThread(std::move(req), std::move(serializedRequest), ctx, eb, tm, apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, &StorageAdminServiceAsyncProcessor::process_clearSpace<ProtocolIn_, ProtocolOut_>, this);
+}
+
+template <typename ProtocolIn_, typename ProtocolOut_>
+void StorageAdminServiceAsyncProcessor::process_clearSpace(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm) {
+  // make sure getRequestContext is null
+  // so async calls don't accidentally use it
+  iface_->setRequestContext(nullptr);
+  StorageAdminService_clearSpace_pargs args;
+   ::nebula::storage::cpp2::ClearSpaceReq uarg_req;
+  args.get<0>().value = &uarg_req;
+  std::unique_ptr<apache::thrift::ContextStack> ctxStack(this->getContextStack(this->getServiceName(), "StorageAdminService.clearSpace", ctx));
+  try {
+    deserializeRequest<ProtocolIn_>(args, ctx->getMethodName(), serializedRequest, ctxStack.get());
+  }
+  catch (const std::exception& ex) {
+    apache::thrift::detail::ap::process_handle_exn_deserialization<ProtocolOut_>(
+        ex, std::move(req), ctx, eb, "clearSpace");
+    return;
+  }
+  req->setStartedProcessing();
+  auto callback = std::make_unique<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::ClearSpaceResp>>(std::move(req), std::move(ctxStack), return_clearSpace<ProtocolIn_,ProtocolOut_>, throw_wrapped_clearSpace<ProtocolIn_, ProtocolOut_>, ctx->getProtoSeqId(), eb, tm, ctx);
+  if (!callback->isRequestActive()) {
+    return;
+  }
+  iface_->async_tm_clearSpace(std::move(callback), args.get<0>().ref());
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+folly::IOBufQueue StorageAdminServiceAsyncProcessor::return_clearSpace(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::ClearSpaceResp const& _return) {
+  ProtocolOut_ prot;
+  StorageAdminService_clearSpace_presult result;
+  result.get<0>().value = const_cast< ::nebula::storage::cpp2::ClearSpaceResp*>(&_return);
+  result.setIsSet(0, true);
+  return serializeResponse("clearSpace", &prot, protoSeqId, ctx, result);
+}
+
+template <class ProtocolIn_, class ProtocolOut_>
+void StorageAdminServiceAsyncProcessor::throw_wrapped_clearSpace(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx) {
+  if (!ew) {
+    return;
+  }
+  {
+    (void)protoSeqId;
+    apache::thrift::detail::ap::process_throw_wrapped_handler_error<ProtocolOut_>(
+        ew, std::move(req), reqCtx, ctx, "clearSpace");
     return;
   }
 }

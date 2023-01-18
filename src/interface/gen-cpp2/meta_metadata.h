@@ -57,12 +57,12 @@ class EnumMetadata<::nebula::meta::cpp2::AlterSpaceOp> {
   static void gen(ThriftMetadata& metadata);
 };
 template <>
-class EnumMetadata<::nebula::meta::cpp2::AdminJobOp> {
+class EnumMetadata<::nebula::meta::cpp2::JobOp> {
  public:
   static void gen(ThriftMetadata& metadata);
 };
 template <>
-class EnumMetadata<::nebula::meta::cpp2::AdminCmd> {
+class EnumMetadata<::nebula::meta::cpp2::JobType> {
  public:
   static void gen(ThriftMetadata& metadata);
 };
@@ -252,6 +252,11 @@ class StructMetadata<::nebula::meta::cpp2::DropSpaceReq> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
+class StructMetadata<::nebula::meta::cpp2::ClearSpaceReq> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
 class StructMetadata<::nebula::meta::cpp2::ListSpacesReq> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
@@ -397,47 +402,12 @@ class StructMetadata<::nebula::meta::cpp2::GetWorkerIdResp> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::meta::cpp2::MultiPutReq> {
+class StructMetadata<::nebula::meta::cpp2::GetSegmentIdReq> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
-class StructMetadata<::nebula::meta::cpp2::GetReq> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::GetResp> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::MultiGetReq> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::MultiGetResp> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::RemoveReq> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::RemoveRangeReq> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::ScanReq> {
- public:
-  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
-};
-template <>
-class StructMetadata<::nebula::meta::cpp2::ScanResp> {
+class StructMetadata<::nebula::meta::cpp2::GetSegmentIdResp> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
@@ -802,6 +772,16 @@ class StructMetadata<::nebula::meta::cpp2::RestoreMetaReq> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
+class StructMetadata<::nebula::meta::cpp2::PartInfo> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
+class StructMetadata<::nebula::meta::cpp2::RestoreMetaResp> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
 class StructMetadata<::nebula::meta::cpp2::ServiceClient> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
@@ -907,6 +887,11 @@ class StructMetadata<::nebula::meta::cpp2::RemoveSessionReq> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
+class StructMetadata<::nebula::meta::cpp2::RemoveSessionResp> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
 class StructMetadata<::nebula::meta::cpp2::KillQueryReq> {
  public:
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
@@ -947,12 +932,23 @@ class StructMetadata<::nebula::meta::cpp2::VerifyClientVersionReq> {
   static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
 };
 template <>
+class StructMetadata<::nebula::meta::cpp2::SaveGraphVersionResp> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
+class StructMetadata<::nebula::meta::cpp2::SaveGraphVersionReq> {
+ public:
+  static const ::apache::thrift::metadata::ThriftStruct& gen(ThriftMetadata& metadata);
+};
+template <>
 class ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf> {
  public:
   static void gen(ThriftMetadata& metadata, ThriftServiceContext& context);
  private:
   static void gen_createSpace(ThriftMetadata& metadata, ThriftService& context);
   static void gen_dropSpace(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_clearSpace(ThriftMetadata& metadata, ThriftService& context);
   static void gen_getSpace(ThriftMetadata& metadata, ThriftService& context);
   static void gen_listSpaces(ThriftMetadata& metadata, ThriftService& context);
   static void gen_alterSpace(ThriftMetadata& metadata, ThriftService& context);
@@ -974,12 +970,6 @@ class ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf> {
   static void gen_getPartsAlloc(ThriftMetadata& metadata, ThriftService& context);
   static void gen_listParts(ThriftMetadata& metadata, ThriftService& context);
   static void gen_getWorkerId(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_multiPut(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_get(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_multiGet(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_remove(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_removeRange(ThriftMetadata& metadata, ThriftService& context);
-  static void gen_scan(ThriftMetadata& metadata, ThriftService& context);
   static void gen_createTagIndex(ThriftMetadata& metadata, ThriftService& context);
   static void gen_dropTagIndex(ThriftMetadata& metadata, ThriftService& context);
   static void gen_getTagIndex(ThriftMetadata& metadata, ThriftService& context);
@@ -1039,6 +1029,8 @@ class ServiceMetadata<::nebula::meta::cpp2::MetaServiceSvIf> {
   static void gen_listCluster(ThriftMetadata& metadata, ThriftService& context);
   static void gen_getMetaDirInfo(ThriftMetadata& metadata, ThriftService& context);
   static void gen_verifyClientVersion(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_saveGraphVersion(ThriftMetadata& metadata, ThriftService& context);
+  static void gen_getSegmentId(ThriftMetadata& metadata, ThriftService& context);
 };
 } // namespace md
 } // namespace detail

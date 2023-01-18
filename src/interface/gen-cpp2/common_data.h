@@ -28,7 +28,7 @@ template <> struct TEnumDataStorage<::nebula::cpp2::PropertyType> {
 
 template <> struct TEnumDataStorage<::nebula::cpp2::ErrorCode> {
   using type = ::nebula::cpp2::ErrorCode;
-  static constexpr const std::size_t size = 143;
+  static constexpr const std::size_t size = 196;
   static const std::array<type, size> values;
   static const std::array<folly::StringPiece, size> names;
 };
@@ -216,7 +216,7 @@ template <> struct TStructDataStorage<::nebula::cpp2::Duration> {
 };
 
 template <> struct TStructDataStorage<::nebula::cpp2::LogInfo> {
-  static constexpr const std::size_t fields_size = 2;
+  static constexpr const std::size_t fields_size = 4;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;

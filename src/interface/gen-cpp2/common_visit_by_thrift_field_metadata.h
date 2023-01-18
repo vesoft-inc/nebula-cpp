@@ -417,6 +417,10 @@ struct VisitByThriftId<::nebula::cpp2::LogInfo> {
       return f(0, static_cast<T&&>(t).log_id_ref());
     case 2:
       return f(1, static_cast<T&&>(t).term_id_ref());
+    case 3:
+      return f(2, static_cast<T&&>(t).commit_log_id_ref());
+    case 4:
+      return f(3, static_cast<T&&>(t).checkpoint_path_ref());
     default:
       throwInvalidThriftId(id, "::nebula::cpp2::LogInfo");
     }
@@ -448,7 +452,7 @@ struct VisitByThriftId<::nebula::cpp2::CheckpointInfo> {
     case 2:
       return f(1, static_cast<T&&>(t).parts_ref());
     case 3:
-      return f(2, static_cast<T&&>(t).path_ref());
+      return f(2, static_cast<T&&>(t).data_path_ref());
     default:
       throwInvalidThriftId(id, "::nebula::cpp2::CheckpointInfo");
     }

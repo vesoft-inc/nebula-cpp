@@ -104,7 +104,7 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::OrderBy> {
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::TraverseSpec> {
-  static constexpr const std::size_t fields_size = 11;
+  static constexpr const std::size_t fields_size = 12;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
@@ -118,6 +118,20 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::GetNeighborsReque
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::GetNeighborsResponse> {
+  static constexpr const std::size_t fields_size = 2;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::storage::cpp2::GetDstBySrcRequest> {
+  static constexpr const std::size_t fields_size = 4;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::storage::cpp2::GetDstBySrcResponse> {
   static constexpr const std::size_t fields_size = 2;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
@@ -258,7 +272,7 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::GetUUIDResp> {
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::LookupIndexResp> {
-  static constexpr const std::size_t fields_size = 2;
+  static constexpr const std::size_t fields_size = 3;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
@@ -286,7 +300,7 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::IndexSpec> {
 };
 
 template <> struct TStructDataStorage<::nebula::storage::cpp2::LookupIndexRequest> {
-  static constexpr const std::size_t fields_size = 7;
+  static constexpr const std::size_t fields_size = 8;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
@@ -425,6 +439,13 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::CreateCPRequest> 
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
+template <> struct TStructDataStorage<::nebula::storage::cpp2::CreateCPResp> {
+  static constexpr const std::size_t fields_size = 2;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
 template <> struct TStructDataStorage<::nebula::storage::cpp2::DropCPRequest> {
   static constexpr const std::size_t fields_size = 2;
   static const std::array<folly::StringPiece, fields_size> fields_names;
@@ -432,8 +453,22 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::DropCPRequest> {
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
+template <> struct TStructDataStorage<::nebula::storage::cpp2::DropCPResp> {
+  static constexpr const std::size_t fields_size = 1;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
 template <> struct TStructDataStorage<::nebula::storage::cpp2::BlockingSignRequest> {
   static constexpr const std::size_t fields_size = 2;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::storage::cpp2::BlockingSignResp> {
+  static constexpr const std::size_t fields_size = 1;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
@@ -460,13 +495,6 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::RebuildIndexReque
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::storage::cpp2::CreateCPResp> {
-  static constexpr const std::size_t fields_size = 2;
-  static const std::array<folly::StringPiece, fields_size> fields_names;
-  static const std::array<int16_t, fields_size> fields_ids;
-  static const std::array<protocol::TType, fields_size> fields_types;
-};
-
 template <> struct TStructDataStorage<::nebula::storage::cpp2::ListClusterInfoResp> {
   static constexpr const std::size_t fields_size = 2;
   static const std::array<folly::StringPiece, fields_size> fields_names;
@@ -481,15 +509,43 @@ template <> struct TStructDataStorage<::nebula::storage::cpp2::ListClusterInfoRe
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::storage::cpp2::AddAdminTaskRequest> {
-  static constexpr const std::size_t fields_size = 5;
+template <> struct TStructDataStorage<::nebula::storage::cpp2::AddTaskRequest> {
+  static constexpr const std::size_t fields_size = 4;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;
 };
 
-template <> struct TStructDataStorage<::nebula::storage::cpp2::StopAdminTaskRequest> {
+template <> struct TStructDataStorage<::nebula::storage::cpp2::AddTaskResp> {
+  static constexpr const std::size_t fields_size = 1;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::storage::cpp2::StopTaskRequest> {
   static constexpr const std::size_t fields_size = 2;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::storage::cpp2::StopTaskResp> {
+  static constexpr const std::size_t fields_size = 1;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::storage::cpp2::ClearSpaceReq> {
+  static constexpr const std::size_t fields_size = 1;
+  static const std::array<folly::StringPiece, fields_size> fields_names;
+  static const std::array<int16_t, fields_size> fields_ids;
+  static const std::array<protocol::TType, fields_size> fields_types;
+};
+
+template <> struct TStructDataStorage<::nebula::storage::cpp2::ClearSpaceResp> {
+  static constexpr const std::size_t fields_size = 1;
   static const std::array<folly::StringPiece, fields_size> fields_names;
   static const std::array<int16_t, fields_size> fields_ids;
   static const std::array<protocol::TType, fields_size> fields_types;

@@ -31,12 +31,15 @@
   X(E_TAG_PROP_NOT_FOUND, -10)                                                \
   X(E_ROLE_NOT_FOUND, -11)                                                    \
   X(E_CONFIG_NOT_FOUND, -12)                                                  \
-  X(E_GROUP_NOT_FOUND, -13)                                                   \
+  X(E_MACHINE_NOT_FOUND, -13)                                                 \
   X(E_ZONE_NOT_FOUND, -14)                                                    \
   X(E_LISTENER_NOT_FOUND, -15)                                                \
   X(E_PART_NOT_FOUND, -16)                                                    \
   X(E_KEY_NOT_FOUND, -17)                                                     \
   X(E_USER_NOT_FOUND, -18)                                                    \
+  X(E_DRAINER_NOT_FOUND, -21)                                                 \
+  X(E_DRAINER_CLIENT_NOT_FOUND, -22)                                          \
+  X(E_PART_STOPPED, -23)                                                      \
                                                                               \
   /* backup failed */                                                         \
   X(E_BACKUP_FAILED, -24)                                                     \
@@ -46,6 +49,12 @@
   X(E_REBUILD_INDEX_FAILED, -28)                                              \
   X(E_INVALID_PASSWORD, -29)                                                  \
   X(E_FAILED_GET_ABS_PATH, -30)                                               \
+  X(E_LISTENER_PROGRESS_FAILED, -31)                                          \
+  X(E_SYNC_LISTENER_NOT_FOUND, -32)                                           \
+  X(E_DRAINER_PROGRESS_FAILED, -33)                                           \
+  X(E_PART_DISABLED, -34)                                                     \
+  X(E_PART_ALREADY_STARTED, -35)                                              \
+  X(E_PART_ALREADY_STOPPED, -36)                                              \
                                                                               \
   /* 1xxx for graphd */                                                       \
   X(E_BAD_USERNAME_PASSWORD, -1001) /* Authentication error */                \
@@ -71,6 +80,14 @@
   X(E_CONFLICT, -2008)                                                        \
   X(E_INVALID_PARM, -2009)                                                    \
   X(E_WRONGCLUSTER, -2010)                                                    \
+  X(E_ZONE_NOT_ENOUGH, -2011)                                                 \
+  X(E_ZONE_IS_EMPTY, -2012)                                                   \
+  X(E_LISTENER_CONFLICT, -2013)                                               \
+  X(E_SCHEMA_NAME_EXISTS, -2014)                                              \
+  X(E_RELATED_INDEX_EXISTS, -2015)                                            \
+  X(E_RELATED_SPACE_EXISTS, -2016)                                            \
+  X(E_RELATED_FULLTEXT_INDEX_EXISTS, -2017)                                   \
+  X(E_HISTORY_CONFLICT, -2018)                                                \
                                                                               \
   X(E_STORE_FAILURE, -2021)                                                   \
   X(E_STORE_SEGMENT_ILLEGAL, -2022)                                           \
@@ -78,8 +95,9 @@
   X(E_BALANCED, -2024)                                                        \
   X(E_NO_RUNNING_BALANCE_PLAN, -2025)                                         \
   X(E_NO_VALID_HOST, -2026)                                                   \
-  X(E_CORRUPTTED_BALANCE_PLAN, -2027)                                         \
+  X(E_CORRUPTED_BALANCE_PLAN, -2027)                                          \
   X(E_NO_INVALID_BALANCE_PLAN, -2028)                                         \
+  X(E_NO_VALID_DRAINER, -2029)                                                \
                                                                               \
   /* Authentication Failure */                                                \
   X(E_IMPROPER_ROLE, -2030)                                                   \
@@ -88,9 +106,15 @@
   X(E_INVALID_CHARSET, -2033)                                                 \
   X(E_INVALID_COLLATE, -2034)                                                 \
   X(E_CHARSET_COLLATE_NOT_MATCH, -2035)                                       \
+  X(E_PRIVILEGE_ALL_TAG_EDGE_SETTLED, -2036)                                  \
+  X(E_PRIVILEGE_NOT_EXIST, -2037)                                             \
+  X(E_PRIVILEGE_NEED_BASIC_ROLE, -2038)                                       \
+  X(E_PRIVILEGE_ACTION_INVALID, -2039)                                        \
                                                                               \
   /* Admin Failure */                                                         \
   X(E_SNAPSHOT_FAILURE, -2040)                                                \
+  X(E_SNAPSHOT_RUNNING_JOBS, -2056)                                           \
+  X(E_SNAPSHOT_NOT_FOUND, -2057)                                              \
   X(E_BLOCK_WRITE_FAILURE, -2041)                                             \
   X(E_REBUILD_INDEX_FAILURE, -2042)                                           \
   X(E_INDEX_WITH_TTL, -2043)                                                  \
@@ -100,10 +124,16 @@
   X(E_BALANCER_FAILURE, -2047)                                                \
   X(E_JOB_NOT_FINISHED, -2048)                                                \
   X(E_TASK_REPORT_OUT_DATE, -2049)                                            \
+  X(E_JOB_NOT_IN_SPACE, -2050)                                                \
+  X(E_JOB_NEED_RECOVER, -2051)                                                \
+  X(E_JOB_ALREADY_FINISH, -2052)                                              \
+  X(E_JOB_SUBMITTED, -2053)                                                   \
+  X(E_JOB_NOT_STOPPABLE, -2054)                                               \
+  X(E_JOB_HAS_NO_TARGET_STORAGE, -2055)                                       \
   X(E_INVALID_JOB, -2065)                                                     \
                                                                               \
   /* Backup Failure */                                                        \
-  X(E_BACKUP_BUILDING_INDEX, -2066)                                           \
+  X(E_BACKUP_RUNNING_JOBS, -2066)                                             \
   X(E_BACKUP_SPACE_NOT_FOUND, -2067)                                          \
                                                                               \
   /* RESTORE Failure */                                                       \
@@ -113,9 +143,15 @@
   /* ListClusterInfo Failure */                                               \
   X(E_LIST_CLUSTER_FAILURE, -2070)                                            \
   X(E_LIST_CLUSTER_GET_ABS_PATH_FAILURE, -2071)                               \
-  X(E_GET_META_DIR_FAILURE, -2072)                                            \
+  X(E_LIST_CLUSTER_NO_AGENT_FAILURE, -2072)                                   \
                                                                               \
   X(E_QUERY_NOT_FOUND, -2073)                                                 \
+  X(E_AGENT_HB_FAILUE, -2074)                                                 \
+  X(E_INVALID_VARIABLE, -2080)                                                \
+  X(E_VARIABLE_TYPE_VALUE_MISMATCH, -2081)                                    \
+  X(E_HOST_CAN_NOT_BE_ADDED, -2082)                                           \
+  X(E_ACCESS_ES_FAILURE, -2090)                                               \
+  X(E_GRAPH_MEMORY_EXCEEDED, -2600)                                           \
   /* 3xxx for storaged */                                                     \
   X(E_CONSENSUS_ERROR, -3001)                                                 \
   X(E_KEY_HAS_EXISTS, -3002)                                                  \
@@ -174,6 +210,62 @@
   X(E_PLAN_IS_KILLED, -3060)                                                  \
   X(E_CLIENT_SERVER_INCOMPATIBLE, -3061)                                      \
                                                                               \
+  X(E_ID_FAILED, -3062)                                                       \
+                                                                              \
+  /* 35xx for storaged raft */                                                \
+  X(E_RAFT_UNKNOWN_PART, -3500)                                               \
+                                                                              \
+  /* Raft consensus errors */                                                 \
+  X(E_RAFT_LOG_GAP, -3501)                                                    \
+  X(E_RAFT_LOG_STALE, -3502)                                                  \
+  X(E_RAFT_TERM_OUT_OF_DATE, -3503)                                           \
+  X(E_RAFT_UNKNOWN_APPEND_LOG, -3504)                                         \
+                                                                              \
+  /* Raft state errors */                                                     \
+  X(E_RAFT_WAITING_SNAPSHOT, -3511)                                           \
+  X(E_RAFT_SENDING_SNAPSHOT, -3512)                                           \
+  X(E_RAFT_INVALID_PEER, -3513)                                               \
+  X(E_RAFT_NOT_READY, -3514)                                                  \
+  X(E_RAFT_STOPPED, -3515)                                                    \
+  X(E_RAFT_BAD_ROLE, -3516)                                                   \
+                                                                              \
+  /* Local errors */                                                          \
+  X(E_RAFT_WAL_FAIL, -3521)                                                   \
+  X(E_RAFT_HOST_STOPPED, -3522)                                               \
+  X(E_RAFT_TOO_MANY_REQUESTS, -3523)                                          \
+  X(E_RAFT_PERSIST_SNAPSHOT_FAILED, -3524)                                    \
+  X(E_RAFT_RPC_EXCEPTION, -3525)                                              \
+  X(E_RAFT_NO_WAL_FOUND, -3526)                                               \
+  X(E_RAFT_HOST_PAUSED, -3527)                                                \
+  X(E_RAFT_WRITE_BLOCKED, -3528)                                              \
+  X(E_RAFT_BUFFER_OVERFLOW, -3529)                                            \
+  X(E_RAFT_ATOMIC_OP_FAILED, -3530)                                           \
+  X(E_LEADER_LEASE_FAILED, -3531)                                             \
+  X(E_RAFT_CAUGHT_UP, -3532)                                                  \
+                                                                              \
+  /* 4xxx for drainer */                                                      \
+  X(E_LOG_GAP, -4001)                                                         \
+  X(E_LOG_STALE, -4002)                                                       \
+  X(E_INVALID_DRAINER_STORE, -4003)                                           \
+  X(E_SPACE_MISMATCH, -4004)                                                  \
+  X(E_PART_MISMATCH, -4005)                                                   \
+  X(E_DATA_CONFLICT, -4006)                                                   \
+  X(E_REQ_CONFLICT, -4007)                                                    \
+  X(E_DATA_ILLEGAL, -4008)                                                    \
+                                                                              \
+  /* 5xxx for cache */                                                        \
+  X(E_CACHE_CONFIG_ERROR, -5001)                                              \
+  X(E_NOT_ENOUGH_SPACE, -5002)                                                \
+  X(E_CACHE_MISS, -5003)                                                      \
+  X(E_POOL_NOT_FOUND, -5004)                                                  \
+  X(E_CACHE_WRITE_FAILURE, -5005)                                             \
+                                                                              \
+  /* 7xxx for nebula enterprise */                                            \
+  /* license related */                                                       \
+  X(E_NODE_NUMBER_EXCEED_LIMIT, -7001)                                        \
+  X(E_PARSING_LICENSE_FAILURE, -7002)                                         \
+                                                                              \
+  X(E_STORAGE_MEMORY_EXCEEDED, -3600)                                         \
   X(E_UNKNOWN, -8000)
 
 namespace nebula {

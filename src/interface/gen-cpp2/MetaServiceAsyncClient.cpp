@@ -14,6 +14,8 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_createSpace_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::DropSpaceReq*>> MetaService_dropSpace_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_dropSpace_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ClearSpaceReq*>> MetaService_clearSpace_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_clearSpace_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetSpaceReq*>> MetaService_getSpace_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetSpaceResp*>> MetaService_getSpace_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListSpacesReq*>> MetaService_listSpaces_pargs;
@@ -56,18 +58,6 @@ typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apac
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListPartsResp*>> MetaService_listParts_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetWorkerIdReq*>> MetaService_getWorkerId_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetWorkerIdResp*>> MetaService_getWorkerId_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::MultiPutReq*>> MetaService_multiPut_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_multiPut_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetReq*>> MetaService_get_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetResp*>> MetaService_get_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::MultiGetReq*>> MetaService_multiGet_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::MultiGetResp*>> MetaService_multiGet_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RemoveReq*>> MetaService_remove_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_remove_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RemoveRangeReq*>> MetaService_removeRange_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_removeRange_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ScanReq*>> MetaService_scan_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ScanResp*>> MetaService_scan_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::CreateTagIndexReq*>> MetaService_createTagIndex_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_createTagIndex_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::DropTagIndexReq*>> MetaService_dropTagIndex_pargs;
@@ -171,7 +161,7 @@ typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apach
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetSessionReq*>> MetaService_getSession_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetSessionResp*>> MetaService_getSession_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RemoveSessionReq*>> MetaService_removeSession_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_removeSession_presult;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RemoveSessionResp*>> MetaService_removeSession_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::KillQueryReq*>> MetaService_killQuery_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_killQuery_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ReportTaskReq*>> MetaService_reportTaskFinish_pargs;
@@ -179,13 +169,17 @@ typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apach
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::CreateBackupReq*>> MetaService_createBackup_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::CreateBackupResp*>> MetaService_createBackup_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RestoreMetaReq*>> MetaService_restoreMeta_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ExecResp*>> MetaService_restoreMeta_presult;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::RestoreMetaResp*>> MetaService_restoreMeta_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListClusterInfoReq*>> MetaService_listCluster_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::ListClusterInfoResp*>> MetaService_listCluster_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetMetaDirInfoReq*>> MetaService_getMetaDirInfo_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetMetaDirInfoResp*>> MetaService_getMetaDirInfo_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::VerifyClientVersionReq*>> MetaService_verifyClientVersion_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::VerifyClientVersionResp*>> MetaService_verifyClientVersion_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::SaveGraphVersionReq*>> MetaService_saveGraphVersion_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::SaveGraphVersionResp*>> MetaService_saveGraphVersion_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetSegmentIdReq*>> MetaService_getSegmentId_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::meta::cpp2::GetSegmentIdResp*>> MetaService_getSegmentId_presult;
 
 template <typename Protocol_>
 void MetaServiceAsyncClient::createSpaceT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::CreateSpaceReq& p_req) {
@@ -209,6 +203,19 @@ void MetaServiceAsyncClient::dropSpaceT(Protocol_* prot, apache::thrift::RpcOpti
   auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
   auto writer = [&](Protocol_* p) { args.write(p); };
   static constexpr const folly::StringPiece methodName = "dropSpace";
+  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
+  ctx->reqContext.setRequestHeader(nullptr);
+}
+
+template <typename Protocol_>
+void MetaServiceAsyncClient::clearSpaceT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+
+  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
+  MetaService_clearSpace_pargs args;
+  args.get<0>().value = const_cast< ::nebula::meta::cpp2::ClearSpaceReq*>(&p_req);
+  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
+  auto writer = [&](Protocol_* p) { args.write(p); };
+  static constexpr const folly::StringPiece methodName = "clearSpace";
   apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
   ctx->reqContext.setRequestHeader(nullptr);
 }
@@ -482,84 +489,6 @@ void MetaServiceAsyncClient::getWorkerIdT(Protocol_* prot, apache::thrift::RpcOp
   auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
   auto writer = [&](Protocol_* p) { args.write(p); };
   static constexpr const folly::StringPiece methodName = "getWorkerId";
-  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
-  ctx->reqContext.setRequestHeader(nullptr);
-}
-
-template <typename Protocol_>
-void MetaServiceAsyncClient::multiPutT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-
-  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
-  MetaService_multiPut_pargs args;
-  args.get<0>().value = const_cast< ::nebula::meta::cpp2::MultiPutReq*>(&p_req);
-  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
-  auto writer = [&](Protocol_* p) { args.write(p); };
-  static constexpr const folly::StringPiece methodName = "multiPut";
-  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
-  ctx->reqContext.setRequestHeader(nullptr);
-}
-
-template <typename Protocol_>
-void MetaServiceAsyncClient::getT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::GetReq& p_req) {
-
-  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
-  MetaService_get_pargs args;
-  args.get<0>().value = const_cast< ::nebula::meta::cpp2::GetReq*>(&p_req);
-  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
-  auto writer = [&](Protocol_* p) { args.write(p); };
-  static constexpr const folly::StringPiece methodName = "get";
-  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
-  ctx->reqContext.setRequestHeader(nullptr);
-}
-
-template <typename Protocol_>
-void MetaServiceAsyncClient::multiGetT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-
-  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
-  MetaService_multiGet_pargs args;
-  args.get<0>().value = const_cast< ::nebula::meta::cpp2::MultiGetReq*>(&p_req);
-  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
-  auto writer = [&](Protocol_* p) { args.write(p); };
-  static constexpr const folly::StringPiece methodName = "multiGet";
-  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
-  ctx->reqContext.setRequestHeader(nullptr);
-}
-
-template <typename Protocol_>
-void MetaServiceAsyncClient::removeT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-
-  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
-  MetaService_remove_pargs args;
-  args.get<0>().value = const_cast< ::nebula::meta::cpp2::RemoveReq*>(&p_req);
-  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
-  auto writer = [&](Protocol_* p) { args.write(p); };
-  static constexpr const folly::StringPiece methodName = "remove";
-  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
-  ctx->reqContext.setRequestHeader(nullptr);
-}
-
-template <typename Protocol_>
-void MetaServiceAsyncClient::removeRangeT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-
-  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
-  MetaService_removeRange_pargs args;
-  args.get<0>().value = const_cast< ::nebula::meta::cpp2::RemoveRangeReq*>(&p_req);
-  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
-  auto writer = [&](Protocol_* p) { args.write(p); };
-  static constexpr const folly::StringPiece methodName = "removeRange";
-  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
-  ctx->reqContext.setRequestHeader(nullptr);
-}
-
-template <typename Protocol_>
-void MetaServiceAsyncClient::scanT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ScanReq& p_req) {
-
-  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
-  MetaService_scan_pargs args;
-  args.get<0>().value = const_cast< ::nebula::meta::cpp2::ScanReq*>(&p_req);
-  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
-  auto writer = [&](Protocol_* p) { args.write(p); };
-  static constexpr const folly::StringPiece methodName = "scan";
   apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
   ctx->reqContext.setRequestHeader(nullptr);
 }
@@ -1331,6 +1260,32 @@ void MetaServiceAsyncClient::verifyClientVersionT(Protocol_* prot, apache::thrif
   ctx->reqContext.setRequestHeader(nullptr);
 }
 
+template <typename Protocol_>
+void MetaServiceAsyncClient::saveGraphVersionT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+
+  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
+  MetaService_saveGraphVersion_pargs args;
+  args.get<0>().value = const_cast< ::nebula::meta::cpp2::SaveGraphVersionReq*>(&p_req);
+  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
+  auto writer = [&](Protocol_* p) { args.write(p); };
+  static constexpr const folly::StringPiece methodName = "saveGraphVersion";
+  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
+  ctx->reqContext.setRequestHeader(nullptr);
+}
+
+template <typename Protocol_>
+void MetaServiceAsyncClient::getSegmentIdT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+
+  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
+  MetaService_getSegmentId_pargs args;
+  args.get<0>().value = const_cast< ::nebula::meta::cpp2::GetSegmentIdReq*>(&p_req);
+  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
+  auto writer = [&](Protocol_* p) { args.write(p); };
+  static constexpr const folly::StringPiece methodName = "getSegmentId";
+  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
+  ctx->reqContext.setRequestHeader(nullptr);
+}
+
 
 
 void MetaServiceAsyncClient::createSpace(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::CreateSpaceReq& p_req) {
@@ -1665,6 +1620,173 @@ void MetaServiceAsyncClient::recv_instance_dropSpace( ::nebula::meta::cpp2::Exec
 
 folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_dropSpace( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_wrapped_dropSpace(_return, state);
+}
+
+void MetaServiceAsyncClient::clearSpace(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  clearSpace(rpcOptions, std::move(callback), p_req);
+}
+
+void MetaServiceAsyncClient::clearSpace(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  auto ctx = clearSpaceCtx(&rpcOptions);
+  apache::thrift::RequestCallback::Context callbackContext;
+  callbackContext.protocolId =
+      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
+  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
+  clearSpaceImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
+}
+
+void MetaServiceAsyncClient::clearSpaceImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolWriter writer;
+      clearSpaceT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
+      break;
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolWriter writer;
+      clearSpaceT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
+      break;
+    }
+    default:
+    {
+      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
+    }
+  }
+}
+
+std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> MetaServiceAsyncClient::clearSpaceCtx(apache::thrift::RpcOptions* rpcOptions) {
+  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
+      channel_->getProtocolId(),
+      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
+      handlers_,
+      getServiceName(),
+      "MetaService.clearSpace");
+}
+
+void MetaServiceAsyncClient::sync_clearSpace( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  sync_clearSpace(rpcOptions, _return, p_req);
+}
+
+void MetaServiceAsyncClient::sync_clearSpace(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  apache::thrift::ClientReceiveState returnState;
+  apache::thrift::ClientSyncCallback<false> callback(&returnState);
+  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
+  auto ctx = clearSpaceCtx(&rpcOptions);
+  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
+  clearSpaceImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
+  callback.waitUntilDone(evb);
+
+  if (returnState.isException()) {
+    returnState.exception().throw_exception();
+  }
+  returnState.resetProtocolId(protocolId);
+  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+  SCOPE_EXIT {
+    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
+      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
+    }
+  };
+  return folly::fibers::runInMainContext([&] {
+      recv_clearSpace(_return, returnState);
+  });
+}
+
+
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::future_clearSpace(const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return future_clearSpace(rpcOptions, p_req);
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::semifuture_clearSpace(const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return semifuture_clearSpace(rpcOptions, p_req);
+}
+
+folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::future_clearSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  folly::Promise< ::nebula::meta::cpp2::ExecResp> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(promise), recv_wrapped_clearSpace, channel_);
+  clearSpace(rpcOptions, std::move(callback), p_req);
+  return future;
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::semifuture_clearSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_clearSpace, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  clearSpace(rpcOptions, std::move(callback), p_req);
+  return std::move(callbackAndFuture.second);
+}
+
+folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_clearSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  folly::Promise<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(promise), recv_wrapped_clearSpace, channel_);
+  clearSpace(rpcOptions, std::move(callback), p_req);
+  return future;
+}
+
+folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_clearSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_clearSpace, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  clearSpace(rpcOptions, std::move(callback), p_req);
+  return std::move(callbackAndFuture.second);
+}
+
+void MetaServiceAsyncClient::clearSpace(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) {
+  clearSpace(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
+}
+
+#if FOLLY_HAS_COROUTINES
+#endif // FOLLY_HAS_COROUTINES
+folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_clearSpace( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  if (state.isException()) {
+    return std::move(state.exception());
+  }
+  if (!state.buf()) {
+    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
+  }
+
+  using result = MetaService_clearSpace_presult;
+  constexpr auto const fname = "clearSpace";
+  switch (state.protocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    default:
+    {
+    }
+  }
+  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
+}
+
+void MetaServiceAsyncClient::recv_clearSpace( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  auto ew = recv_wrapped_clearSpace(_return, state);
+  if (ew) {
+    ew.throw_exception();
+  }
+}
+
+void MetaServiceAsyncClient::recv_instance_clearSpace( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_clearSpace(_return, state);
+}
+
+folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_clearSpace( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_wrapped_clearSpace(_return, state);
 }
 
 void MetaServiceAsyncClient::getSpace(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::GetSpaceReq& p_req) {
@@ -5172,1008 +5294,6 @@ void MetaServiceAsyncClient::recv_instance_getWorkerId( ::nebula::meta::cpp2::Ge
 
 folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_getWorkerId( ::nebula::meta::cpp2::GetWorkerIdResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_wrapped_getWorkerId(_return, state);
-}
-
-void MetaServiceAsyncClient::multiPut(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  multiPut(rpcOptions, std::move(callback), p_req);
-}
-
-void MetaServiceAsyncClient::multiPut(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  auto ctx = multiPutCtx(&rpcOptions);
-  apache::thrift::RequestCallback::Context callbackContext;
-  callbackContext.protocolId =
-      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
-  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
-  multiPutImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
-}
-
-void MetaServiceAsyncClient::multiPutImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolWriter writer;
-      multiPutT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolWriter writer;
-      multiPutT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    default:
-    {
-      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
-    }
-  }
-}
-
-std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> MetaServiceAsyncClient::multiPutCtx(apache::thrift::RpcOptions* rpcOptions) {
-  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
-      channel_->getProtocolId(),
-      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
-      handlers_,
-      getServiceName(),
-      "MetaService.multiPut");
-}
-
-void MetaServiceAsyncClient::sync_multiPut( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  sync_multiPut(rpcOptions, _return, p_req);
-}
-
-void MetaServiceAsyncClient::sync_multiPut(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  apache::thrift::ClientReceiveState returnState;
-  apache::thrift::ClientSyncCallback<false> callback(&returnState);
-  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
-  auto ctx = multiPutCtx(&rpcOptions);
-  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
-  multiPutImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
-  callback.waitUntilDone(evb);
-
-  if (returnState.isException()) {
-    returnState.exception().throw_exception();
-  }
-  returnState.resetProtocolId(protocolId);
-  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
-  SCOPE_EXIT {
-    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
-      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
-    }
-  };
-  return folly::fibers::runInMainContext([&] {
-      recv_multiPut(_return, returnState);
-  });
-}
-
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::future_multiPut(const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return future_multiPut(rpcOptions, p_req);
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::semifuture_multiPut(const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return semifuture_multiPut(rpcOptions, p_req);
-}
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::future_multiPut(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  folly::Promise< ::nebula::meta::cpp2::ExecResp> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(promise), recv_wrapped_multiPut, channel_);
-  multiPut(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::semifuture_multiPut(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_multiPut, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  multiPut(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_multiPut(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  folly::Promise<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(promise), recv_wrapped_multiPut, channel_);
-  multiPut(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_multiPut(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_multiPut, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  multiPut(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-void MetaServiceAsyncClient::multiPut(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::MultiPutReq& p_req) {
-  multiPut(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
-}
-
-#if FOLLY_HAS_COROUTINES
-#endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_multiPut( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  if (state.isException()) {
-    return std::move(state.exception());
-  }
-  if (!state.buf()) {
-    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
-  }
-
-  using result = MetaService_multiPut_presult;
-  constexpr auto const fname = "multiPut";
-  switch (state.protocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    default:
-    {
-    }
-  }
-  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
-}
-
-void MetaServiceAsyncClient::recv_multiPut( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = recv_wrapped_multiPut(_return, state);
-  if (ew) {
-    ew.throw_exception();
-  }
-}
-
-void MetaServiceAsyncClient::recv_instance_multiPut( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_multiPut(_return, state);
-}
-
-folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_multiPut( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_wrapped_multiPut(_return, state);
-}
-
-void MetaServiceAsyncClient::get(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::GetReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  get(rpcOptions, std::move(callback), p_req);
-}
-
-void MetaServiceAsyncClient::get(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::GetReq& p_req) {
-  auto ctx = getCtx(&rpcOptions);
-  apache::thrift::RequestCallback::Context callbackContext;
-  callbackContext.protocolId =
-      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
-  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
-  getImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
-}
-
-void MetaServiceAsyncClient::getImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::GetReq& p_req) {
-  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolWriter writer;
-      getT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolWriter writer;
-      getT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    default:
-    {
-      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
-    }
-  }
-}
-
-std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> MetaServiceAsyncClient::getCtx(apache::thrift::RpcOptions* rpcOptions) {
-  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
-      channel_->getProtocolId(),
-      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
-      handlers_,
-      getServiceName(),
-      "MetaService.get");
-}
-
-void MetaServiceAsyncClient::sync_get( ::nebula::meta::cpp2::GetResp& _return, const  ::nebula::meta::cpp2::GetReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  sync_get(rpcOptions, _return, p_req);
-}
-
-void MetaServiceAsyncClient::sync_get(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::GetResp& _return, const  ::nebula::meta::cpp2::GetReq& p_req) {
-  apache::thrift::ClientReceiveState returnState;
-  apache::thrift::ClientSyncCallback<false> callback(&returnState);
-  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
-  auto ctx = getCtx(&rpcOptions);
-  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
-  getImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
-  callback.waitUntilDone(evb);
-
-  if (returnState.isException()) {
-    returnState.exception().throw_exception();
-  }
-  returnState.resetProtocolId(protocolId);
-  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
-  SCOPE_EXIT {
-    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
-      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
-    }
-  };
-  return folly::fibers::runInMainContext([&] {
-      recv_get(_return, returnState);
-  });
-}
-
-
-folly::Future< ::nebula::meta::cpp2::GetResp> MetaServiceAsyncClient::future_get(const  ::nebula::meta::cpp2::GetReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return future_get(rpcOptions, p_req);
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::GetResp> MetaServiceAsyncClient::semifuture_get(const  ::nebula::meta::cpp2::GetReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return semifuture_get(rpcOptions, p_req);
-}
-
-folly::Future< ::nebula::meta::cpp2::GetResp> MetaServiceAsyncClient::future_get(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetReq& p_req) {
-  folly::Promise< ::nebula::meta::cpp2::GetResp> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::GetResp>>(std::move(promise), recv_wrapped_get, channel_);
-  get(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::GetResp> MetaServiceAsyncClient::semifuture_get(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetReq& p_req) {
-  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_get, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  get(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-folly::Future<std::pair< ::nebula::meta::cpp2::GetResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_get(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetReq& p_req) {
-  folly::Promise<std::pair< ::nebula::meta::cpp2::GetResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::GetResp>>(std::move(promise), recv_wrapped_get, channel_);
-  get(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture<std::pair< ::nebula::meta::cpp2::GetResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_get(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetReq& p_req) {
-  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_get, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  get(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-void MetaServiceAsyncClient::get(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::GetReq& p_req) {
-  get(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
-}
-
-#if FOLLY_HAS_COROUTINES
-#endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_get( ::nebula::meta::cpp2::GetResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  if (state.isException()) {
-    return std::move(state.exception());
-  }
-  if (!state.buf()) {
-    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
-  }
-
-  using result = MetaService_get_presult;
-  constexpr auto const fname = "get";
-  switch (state.protocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    default:
-    {
-    }
-  }
-  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
-}
-
-void MetaServiceAsyncClient::recv_get( ::nebula::meta::cpp2::GetResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = recv_wrapped_get(_return, state);
-  if (ew) {
-    ew.throw_exception();
-  }
-}
-
-void MetaServiceAsyncClient::recv_instance_get( ::nebula::meta::cpp2::GetResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_get(_return, state);
-}
-
-folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_get( ::nebula::meta::cpp2::GetResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_wrapped_get(_return, state);
-}
-
-void MetaServiceAsyncClient::multiGet(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  multiGet(rpcOptions, std::move(callback), p_req);
-}
-
-void MetaServiceAsyncClient::multiGet(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  auto ctx = multiGetCtx(&rpcOptions);
-  apache::thrift::RequestCallback::Context callbackContext;
-  callbackContext.protocolId =
-      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
-  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
-  multiGetImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
-}
-
-void MetaServiceAsyncClient::multiGetImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolWriter writer;
-      multiGetT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolWriter writer;
-      multiGetT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    default:
-    {
-      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
-    }
-  }
-}
-
-std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> MetaServiceAsyncClient::multiGetCtx(apache::thrift::RpcOptions* rpcOptions) {
-  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
-      channel_->getProtocolId(),
-      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
-      handlers_,
-      getServiceName(),
-      "MetaService.multiGet");
-}
-
-void MetaServiceAsyncClient::sync_multiGet( ::nebula::meta::cpp2::MultiGetResp& _return, const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  sync_multiGet(rpcOptions, _return, p_req);
-}
-
-void MetaServiceAsyncClient::sync_multiGet(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::MultiGetResp& _return, const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  apache::thrift::ClientReceiveState returnState;
-  apache::thrift::ClientSyncCallback<false> callback(&returnState);
-  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
-  auto ctx = multiGetCtx(&rpcOptions);
-  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
-  multiGetImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
-  callback.waitUntilDone(evb);
-
-  if (returnState.isException()) {
-    returnState.exception().throw_exception();
-  }
-  returnState.resetProtocolId(protocolId);
-  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
-  SCOPE_EXIT {
-    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
-      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
-    }
-  };
-  return folly::fibers::runInMainContext([&] {
-      recv_multiGet(_return, returnState);
-  });
-}
-
-
-folly::Future< ::nebula::meta::cpp2::MultiGetResp> MetaServiceAsyncClient::future_multiGet(const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return future_multiGet(rpcOptions, p_req);
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::MultiGetResp> MetaServiceAsyncClient::semifuture_multiGet(const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return semifuture_multiGet(rpcOptions, p_req);
-}
-
-folly::Future< ::nebula::meta::cpp2::MultiGetResp> MetaServiceAsyncClient::future_multiGet(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  folly::Promise< ::nebula::meta::cpp2::MultiGetResp> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::MultiGetResp>>(std::move(promise), recv_wrapped_multiGet, channel_);
-  multiGet(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::MultiGetResp> MetaServiceAsyncClient::semifuture_multiGet(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_multiGet, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  multiGet(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-folly::Future<std::pair< ::nebula::meta::cpp2::MultiGetResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_multiGet(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  folly::Promise<std::pair< ::nebula::meta::cpp2::MultiGetResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::MultiGetResp>>(std::move(promise), recv_wrapped_multiGet, channel_);
-  multiGet(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture<std::pair< ::nebula::meta::cpp2::MultiGetResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_multiGet(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_multiGet, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  multiGet(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-void MetaServiceAsyncClient::multiGet(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::MultiGetReq& p_req) {
-  multiGet(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
-}
-
-#if FOLLY_HAS_COROUTINES
-#endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_multiGet( ::nebula::meta::cpp2::MultiGetResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  if (state.isException()) {
-    return std::move(state.exception());
-  }
-  if (!state.buf()) {
-    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
-  }
-
-  using result = MetaService_multiGet_presult;
-  constexpr auto const fname = "multiGet";
-  switch (state.protocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    default:
-    {
-    }
-  }
-  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
-}
-
-void MetaServiceAsyncClient::recv_multiGet( ::nebula::meta::cpp2::MultiGetResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = recv_wrapped_multiGet(_return, state);
-  if (ew) {
-    ew.throw_exception();
-  }
-}
-
-void MetaServiceAsyncClient::recv_instance_multiGet( ::nebula::meta::cpp2::MultiGetResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_multiGet(_return, state);
-}
-
-folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_multiGet( ::nebula::meta::cpp2::MultiGetResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_wrapped_multiGet(_return, state);
-}
-
-void MetaServiceAsyncClient::remove(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  remove(rpcOptions, std::move(callback), p_req);
-}
-
-void MetaServiceAsyncClient::remove(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  auto ctx = removeCtx(&rpcOptions);
-  apache::thrift::RequestCallback::Context callbackContext;
-  callbackContext.protocolId =
-      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
-  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
-  removeImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
-}
-
-void MetaServiceAsyncClient::removeImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolWriter writer;
-      removeT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolWriter writer;
-      removeT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    default:
-    {
-      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
-    }
-  }
-}
-
-std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> MetaServiceAsyncClient::removeCtx(apache::thrift::RpcOptions* rpcOptions) {
-  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
-      channel_->getProtocolId(),
-      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
-      handlers_,
-      getServiceName(),
-      "MetaService.remove");
-}
-
-void MetaServiceAsyncClient::sync_remove( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  sync_remove(rpcOptions, _return, p_req);
-}
-
-void MetaServiceAsyncClient::sync_remove(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  apache::thrift::ClientReceiveState returnState;
-  apache::thrift::ClientSyncCallback<false> callback(&returnState);
-  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
-  auto ctx = removeCtx(&rpcOptions);
-  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
-  removeImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
-  callback.waitUntilDone(evb);
-
-  if (returnState.isException()) {
-    returnState.exception().throw_exception();
-  }
-  returnState.resetProtocolId(protocolId);
-  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
-  SCOPE_EXIT {
-    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
-      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
-    }
-  };
-  return folly::fibers::runInMainContext([&] {
-      recv_remove(_return, returnState);
-  });
-}
-
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::future_remove(const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return future_remove(rpcOptions, p_req);
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::semifuture_remove(const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return semifuture_remove(rpcOptions, p_req);
-}
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::future_remove(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  folly::Promise< ::nebula::meta::cpp2::ExecResp> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(promise), recv_wrapped_remove, channel_);
-  remove(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::semifuture_remove(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_remove, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  remove(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_remove(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  folly::Promise<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(promise), recv_wrapped_remove, channel_);
-  remove(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_remove(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_remove, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  remove(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-void MetaServiceAsyncClient::remove(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::RemoveReq& p_req) {
-  remove(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
-}
-
-#if FOLLY_HAS_COROUTINES
-#endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_remove( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  if (state.isException()) {
-    return std::move(state.exception());
-  }
-  if (!state.buf()) {
-    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
-  }
-
-  using result = MetaService_remove_presult;
-  constexpr auto const fname = "remove";
-  switch (state.protocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    default:
-    {
-    }
-  }
-  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
-}
-
-void MetaServiceAsyncClient::recv_remove( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = recv_wrapped_remove(_return, state);
-  if (ew) {
-    ew.throw_exception();
-  }
-}
-
-void MetaServiceAsyncClient::recv_instance_remove( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_remove(_return, state);
-}
-
-folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_remove( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_wrapped_remove(_return, state);
-}
-
-void MetaServiceAsyncClient::removeRange(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  removeRange(rpcOptions, std::move(callback), p_req);
-}
-
-void MetaServiceAsyncClient::removeRange(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  auto ctx = removeRangeCtx(&rpcOptions);
-  apache::thrift::RequestCallback::Context callbackContext;
-  callbackContext.protocolId =
-      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
-  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
-  removeRangeImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
-}
-
-void MetaServiceAsyncClient::removeRangeImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolWriter writer;
-      removeRangeT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolWriter writer;
-      removeRangeT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    default:
-    {
-      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
-    }
-  }
-}
-
-std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> MetaServiceAsyncClient::removeRangeCtx(apache::thrift::RpcOptions* rpcOptions) {
-  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
-      channel_->getProtocolId(),
-      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
-      handlers_,
-      getServiceName(),
-      "MetaService.removeRange");
-}
-
-void MetaServiceAsyncClient::sync_removeRange( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  sync_removeRange(rpcOptions, _return, p_req);
-}
-
-void MetaServiceAsyncClient::sync_removeRange(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  apache::thrift::ClientReceiveState returnState;
-  apache::thrift::ClientSyncCallback<false> callback(&returnState);
-  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
-  auto ctx = removeRangeCtx(&rpcOptions);
-  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
-  removeRangeImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
-  callback.waitUntilDone(evb);
-
-  if (returnState.isException()) {
-    returnState.exception().throw_exception();
-  }
-  returnState.resetProtocolId(protocolId);
-  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
-  SCOPE_EXIT {
-    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
-      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
-    }
-  };
-  return folly::fibers::runInMainContext([&] {
-      recv_removeRange(_return, returnState);
-  });
-}
-
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::future_removeRange(const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return future_removeRange(rpcOptions, p_req);
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::semifuture_removeRange(const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return semifuture_removeRange(rpcOptions, p_req);
-}
-
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::future_removeRange(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  folly::Promise< ::nebula::meta::cpp2::ExecResp> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(promise), recv_wrapped_removeRange, channel_);
-  removeRange(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::semifuture_removeRange(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_removeRange, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  removeRange(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_removeRange(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  folly::Promise<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(promise), recv_wrapped_removeRange, channel_);
-  removeRange(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_removeRange(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_removeRange, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  removeRange(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-void MetaServiceAsyncClient::removeRange(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) {
-  removeRange(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
-}
-
-#if FOLLY_HAS_COROUTINES
-#endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_removeRange( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  if (state.isException()) {
-    return std::move(state.exception());
-  }
-  if (!state.buf()) {
-    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
-  }
-
-  using result = MetaService_removeRange_presult;
-  constexpr auto const fname = "removeRange";
-  switch (state.protocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    default:
-    {
-    }
-  }
-  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
-}
-
-void MetaServiceAsyncClient::recv_removeRange( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = recv_wrapped_removeRange(_return, state);
-  if (ew) {
-    ew.throw_exception();
-  }
-}
-
-void MetaServiceAsyncClient::recv_instance_removeRange( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_removeRange(_return, state);
-}
-
-folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_removeRange( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_wrapped_removeRange(_return, state);
-}
-
-void MetaServiceAsyncClient::scan(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  scan(rpcOptions, std::move(callback), p_req);
-}
-
-void MetaServiceAsyncClient::scan(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  auto ctx = scanCtx(&rpcOptions);
-  apache::thrift::RequestCallback::Context callbackContext;
-  callbackContext.protocolId =
-      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
-  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
-  scanImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
-}
-
-void MetaServiceAsyncClient::scanImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolWriter writer;
-      scanT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolWriter writer;
-      scanT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    default:
-    {
-      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
-    }
-  }
-}
-
-std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> MetaServiceAsyncClient::scanCtx(apache::thrift::RpcOptions* rpcOptions) {
-  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
-      channel_->getProtocolId(),
-      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
-      handlers_,
-      getServiceName(),
-      "MetaService.scan");
-}
-
-void MetaServiceAsyncClient::sync_scan( ::nebula::meta::cpp2::ScanResp& _return, const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  sync_scan(rpcOptions, _return, p_req);
-}
-
-void MetaServiceAsyncClient::sync_scan(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ScanResp& _return, const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  apache::thrift::ClientReceiveState returnState;
-  apache::thrift::ClientSyncCallback<false> callback(&returnState);
-  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
-  auto ctx = scanCtx(&rpcOptions);
-  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
-  scanImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
-  callback.waitUntilDone(evb);
-
-  if (returnState.isException()) {
-    returnState.exception().throw_exception();
-  }
-  returnState.resetProtocolId(protocolId);
-  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
-  SCOPE_EXIT {
-    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
-      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
-    }
-  };
-  return folly::fibers::runInMainContext([&] {
-      recv_scan(_return, returnState);
-  });
-}
-
-
-folly::Future< ::nebula::meta::cpp2::ScanResp> MetaServiceAsyncClient::future_scan(const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return future_scan(rpcOptions, p_req);
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ScanResp> MetaServiceAsyncClient::semifuture_scan(const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return semifuture_scan(rpcOptions, p_req);
-}
-
-folly::Future< ::nebula::meta::cpp2::ScanResp> MetaServiceAsyncClient::future_scan(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  folly::Promise< ::nebula::meta::cpp2::ScanResp> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::ScanResp>>(std::move(promise), recv_wrapped_scan, channel_);
-  scan(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture< ::nebula::meta::cpp2::ScanResp> MetaServiceAsyncClient::semifuture_scan(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_scan, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  scan(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-folly::Future<std::pair< ::nebula::meta::cpp2::ScanResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_scan(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  folly::Promise<std::pair< ::nebula::meta::cpp2::ScanResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::ScanResp>>(std::move(promise), recv_wrapped_scan, channel_);
-  scan(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ScanResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_scan(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_scan, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  scan(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-void MetaServiceAsyncClient::scan(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::ScanReq& p_req) {
-  scan(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
-}
-
-#if FOLLY_HAS_COROUTINES
-#endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_scan( ::nebula::meta::cpp2::ScanResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  if (state.isException()) {
-    return std::move(state.exception());
-  }
-  if (!state.buf()) {
-    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
-  }
-
-  using result = MetaService_scan_presult;
-  constexpr auto const fname = "scan";
-  switch (state.protocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    default:
-    {
-    }
-  }
-  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
-}
-
-void MetaServiceAsyncClient::recv_scan( ::nebula::meta::cpp2::ScanResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = recv_wrapped_scan(_return, state);
-  if (ew) {
-    ew.throw_exception();
-  }
-}
-
-void MetaServiceAsyncClient::recv_instance_scan( ::nebula::meta::cpp2::ScanResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_scan(_return, state);
-}
-
-folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_scan( ::nebula::meta::cpp2::ScanResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_wrapped_scan(_return, state);
 }
 
 void MetaServiceAsyncClient::createTagIndex(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::CreateTagIndexReq& p_req) {
@@ -14738,12 +13858,12 @@ std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> MetaServiceA
       "MetaService.removeSession");
 }
 
-void MetaServiceAsyncClient::sync_removeSession( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
+void MetaServiceAsyncClient::sync_removeSession( ::nebula::meta::cpp2::RemoveSessionResp& _return, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   sync_removeSession(rpcOptions, _return, p_req);
 }
 
-void MetaServiceAsyncClient::sync_removeSession(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
+void MetaServiceAsyncClient::sync_removeSession(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::RemoveSessionResp& _return, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
   apache::thrift::ClientReceiveState returnState;
   apache::thrift::ClientSyncCallback<false> callback(&returnState);
   auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
@@ -14769,40 +13889,40 @@ void MetaServiceAsyncClient::sync_removeSession(apache::thrift::RpcOptions& rpcO
 }
 
 
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::future_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
+folly::Future< ::nebula::meta::cpp2::RemoveSessionResp> MetaServiceAsyncClient::future_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   return future_removeSession(rpcOptions, p_req);
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::semifuture_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
+folly::SemiFuture< ::nebula::meta::cpp2::RemoveSessionResp> MetaServiceAsyncClient::semifuture_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   return semifuture_removeSession(rpcOptions, p_req);
 }
 
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::future_removeSession(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
-  folly::Promise< ::nebula::meta::cpp2::ExecResp> promise;
+folly::Future< ::nebula::meta::cpp2::RemoveSessionResp> MetaServiceAsyncClient::future_removeSession(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
+  folly::Promise< ::nebula::meta::cpp2::RemoveSessionResp> promise;
   auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(promise), recv_wrapped_removeSession, channel_);
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::RemoveSessionResp>>(std::move(promise), recv_wrapped_removeSession, channel_);
   removeSession(rpcOptions, std::move(callback), p_req);
   return future;
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::semifuture_removeSession(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
+folly::SemiFuture< ::nebula::meta::cpp2::RemoveSessionResp> MetaServiceAsyncClient::semifuture_removeSession(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
   auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_removeSession, channel_);
   auto callback = std::move(callbackAndFuture.first);
   removeSession(rpcOptions, std::move(callback), p_req);
   return std::move(callbackAndFuture.second);
 }
 
-folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_removeSession(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
-  folly::Promise<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+folly::Future<std::pair< ::nebula::meta::cpp2::RemoveSessionResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_removeSession(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
+  folly::Promise<std::pair< ::nebula::meta::cpp2::RemoveSessionResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
   auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(promise), recv_wrapped_removeSession, channel_);
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::RemoveSessionResp>>(std::move(promise), recv_wrapped_removeSession, channel_);
   removeSession(rpcOptions, std::move(callback), p_req);
   return future;
 }
 
-folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_removeSession(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
+folly::SemiFuture<std::pair< ::nebula::meta::cpp2::RemoveSessionResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_removeSession(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) {
   auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_removeSession, channel_);
   auto callback = std::move(callbackAndFuture.first);
   removeSession(rpcOptions, std::move(callback), p_req);
@@ -14815,7 +13935,7 @@ void MetaServiceAsyncClient::removeSession(folly::Function<void (::apache::thrif
 
 #if FOLLY_HAS_COROUTINES
 #endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_removeSession( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_removeSession( ::nebula::meta::cpp2::RemoveSessionResp& _return, ::apache::thrift::ClientReceiveState& state) {
   if (state.isException()) {
     return std::move(state.exception());
   }
@@ -14845,18 +13965,18 @@ folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_removeSession( ::n
   return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
 }
 
-void MetaServiceAsyncClient::recv_removeSession( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+void MetaServiceAsyncClient::recv_removeSession( ::nebula::meta::cpp2::RemoveSessionResp& _return, ::apache::thrift::ClientReceiveState& state) {
   auto ew = recv_wrapped_removeSession(_return, state);
   if (ew) {
     ew.throw_exception();
   }
 }
 
-void MetaServiceAsyncClient::recv_instance_removeSession( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+void MetaServiceAsyncClient::recv_instance_removeSession( ::nebula::meta::cpp2::RemoveSessionResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_removeSession(_return, state);
 }
 
-folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_removeSession( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_removeSession( ::nebula::meta::cpp2::RemoveSessionResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_wrapped_removeSession(_return, state);
 }
 
@@ -15406,12 +14526,12 @@ std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> MetaServiceA
       "MetaService.restoreMeta");
 }
 
-void MetaServiceAsyncClient::sync_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+void MetaServiceAsyncClient::sync_restoreMeta( ::nebula::meta::cpp2::RestoreMetaResp& _return, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   sync_restoreMeta(rpcOptions, _return, p_req);
 }
 
-void MetaServiceAsyncClient::sync_restoreMeta(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::ExecResp& _return, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+void MetaServiceAsyncClient::sync_restoreMeta(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::RestoreMetaResp& _return, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
   apache::thrift::ClientReceiveState returnState;
   apache::thrift::ClientSyncCallback<false> callback(&returnState);
   auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
@@ -15437,40 +14557,40 @@ void MetaServiceAsyncClient::sync_restoreMeta(apache::thrift::RpcOptions& rpcOpt
 }
 
 
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::future_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+folly::Future< ::nebula::meta::cpp2::RestoreMetaResp> MetaServiceAsyncClient::future_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   return future_restoreMeta(rpcOptions, p_req);
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::semifuture_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+folly::SemiFuture< ::nebula::meta::cpp2::RestoreMetaResp> MetaServiceAsyncClient::semifuture_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   return semifuture_restoreMeta(rpcOptions, p_req);
 }
 
-folly::Future< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::future_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
-  folly::Promise< ::nebula::meta::cpp2::ExecResp> promise;
+folly::Future< ::nebula::meta::cpp2::RestoreMetaResp> MetaServiceAsyncClient::future_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+  folly::Promise< ::nebula::meta::cpp2::RestoreMetaResp> promise;
   auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(promise), recv_wrapped_restoreMeta, channel_);
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::RestoreMetaResp>>(std::move(promise), recv_wrapped_restoreMeta, channel_);
   restoreMeta(rpcOptions, std::move(callback), p_req);
   return future;
 }
 
-folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> MetaServiceAsyncClient::semifuture_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+folly::SemiFuture< ::nebula::meta::cpp2::RestoreMetaResp> MetaServiceAsyncClient::semifuture_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
   auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_restoreMeta, channel_);
   auto callback = std::move(callbackAndFuture.first);
   restoreMeta(rpcOptions, std::move(callback), p_req);
   return std::move(callbackAndFuture.second);
 }
 
-folly::Future<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
-  folly::Promise<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+folly::Future<std::pair< ::nebula::meta::cpp2::RestoreMetaResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+  folly::Promise<std::pair< ::nebula::meta::cpp2::RestoreMetaResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
   auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::ExecResp>>(std::move(promise), recv_wrapped_restoreMeta, channel_);
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::RestoreMetaResp>>(std::move(promise), recv_wrapped_restoreMeta, channel_);
   restoreMeta(rpcOptions, std::move(callback), p_req);
   return future;
 }
 
-folly::SemiFuture<std::pair< ::nebula::meta::cpp2::ExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
+folly::SemiFuture<std::pair< ::nebula::meta::cpp2::RestoreMetaResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_restoreMeta(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) {
   auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_restoreMeta, channel_);
   auto callback = std::move(callbackAndFuture.first);
   restoreMeta(rpcOptions, std::move(callback), p_req);
@@ -15483,7 +14603,7 @@ void MetaServiceAsyncClient::restoreMeta(folly::Function<void (::apache::thrift:
 
 #if FOLLY_HAS_COROUTINES
 #endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_restoreMeta( ::nebula::meta::cpp2::RestoreMetaResp& _return, ::apache::thrift::ClientReceiveState& state) {
   if (state.isException()) {
     return std::move(state.exception());
   }
@@ -15513,18 +14633,18 @@ folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_restoreMeta( ::neb
   return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
 }
 
-void MetaServiceAsyncClient::recv_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+void MetaServiceAsyncClient::recv_restoreMeta( ::nebula::meta::cpp2::RestoreMetaResp& _return, ::apache::thrift::ClientReceiveState& state) {
   auto ew = recv_wrapped_restoreMeta(_return, state);
   if (ew) {
     ew.throw_exception();
   }
 }
 
-void MetaServiceAsyncClient::recv_instance_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+void MetaServiceAsyncClient::recv_instance_restoreMeta( ::nebula::meta::cpp2::RestoreMetaResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_restoreMeta(_return, state);
 }
 
-folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_restoreMeta( ::nebula::meta::cpp2::ExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_restoreMeta( ::nebula::meta::cpp2::RestoreMetaResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_wrapped_restoreMeta(_return, state);
 }
 
@@ -16027,6 +15147,340 @@ void MetaServiceAsyncClient::recv_instance_verifyClientVersion( ::nebula::meta::
 
 folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_verifyClientVersion( ::nebula::meta::cpp2::VerifyClientVersionResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_wrapped_verifyClientVersion(_return, state);
+}
+
+void MetaServiceAsyncClient::saveGraphVersion(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  saveGraphVersion(rpcOptions, std::move(callback), p_req);
+}
+
+void MetaServiceAsyncClient::saveGraphVersion(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  auto ctx = saveGraphVersionCtx(&rpcOptions);
+  apache::thrift::RequestCallback::Context callbackContext;
+  callbackContext.protocolId =
+      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
+  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
+  saveGraphVersionImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
+}
+
+void MetaServiceAsyncClient::saveGraphVersionImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolWriter writer;
+      saveGraphVersionT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
+      break;
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolWriter writer;
+      saveGraphVersionT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
+      break;
+    }
+    default:
+    {
+      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
+    }
+  }
+}
+
+std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> MetaServiceAsyncClient::saveGraphVersionCtx(apache::thrift::RpcOptions* rpcOptions) {
+  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
+      channel_->getProtocolId(),
+      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
+      handlers_,
+      getServiceName(),
+      "MetaService.saveGraphVersion");
+}
+
+void MetaServiceAsyncClient::sync_saveGraphVersion( ::nebula::meta::cpp2::SaveGraphVersionResp& _return, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  sync_saveGraphVersion(rpcOptions, _return, p_req);
+}
+
+void MetaServiceAsyncClient::sync_saveGraphVersion(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::SaveGraphVersionResp& _return, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  apache::thrift::ClientReceiveState returnState;
+  apache::thrift::ClientSyncCallback<false> callback(&returnState);
+  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
+  auto ctx = saveGraphVersionCtx(&rpcOptions);
+  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
+  saveGraphVersionImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
+  callback.waitUntilDone(evb);
+
+  if (returnState.isException()) {
+    returnState.exception().throw_exception();
+  }
+  returnState.resetProtocolId(protocolId);
+  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+  SCOPE_EXIT {
+    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
+      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
+    }
+  };
+  return folly::fibers::runInMainContext([&] {
+      recv_saveGraphVersion(_return, returnState);
+  });
+}
+
+
+folly::Future< ::nebula::meta::cpp2::SaveGraphVersionResp> MetaServiceAsyncClient::future_saveGraphVersion(const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return future_saveGraphVersion(rpcOptions, p_req);
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::SaveGraphVersionResp> MetaServiceAsyncClient::semifuture_saveGraphVersion(const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return semifuture_saveGraphVersion(rpcOptions, p_req);
+}
+
+folly::Future< ::nebula::meta::cpp2::SaveGraphVersionResp> MetaServiceAsyncClient::future_saveGraphVersion(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  folly::Promise< ::nebula::meta::cpp2::SaveGraphVersionResp> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::SaveGraphVersionResp>>(std::move(promise), recv_wrapped_saveGraphVersion, channel_);
+  saveGraphVersion(rpcOptions, std::move(callback), p_req);
+  return future;
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::SaveGraphVersionResp> MetaServiceAsyncClient::semifuture_saveGraphVersion(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_saveGraphVersion, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  saveGraphVersion(rpcOptions, std::move(callback), p_req);
+  return std::move(callbackAndFuture.second);
+}
+
+folly::Future<std::pair< ::nebula::meta::cpp2::SaveGraphVersionResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_saveGraphVersion(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  folly::Promise<std::pair< ::nebula::meta::cpp2::SaveGraphVersionResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::SaveGraphVersionResp>>(std::move(promise), recv_wrapped_saveGraphVersion, channel_);
+  saveGraphVersion(rpcOptions, std::move(callback), p_req);
+  return future;
+}
+
+folly::SemiFuture<std::pair< ::nebula::meta::cpp2::SaveGraphVersionResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_saveGraphVersion(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_saveGraphVersion, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  saveGraphVersion(rpcOptions, std::move(callback), p_req);
+  return std::move(callbackAndFuture.second);
+}
+
+void MetaServiceAsyncClient::saveGraphVersion(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) {
+  saveGraphVersion(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
+}
+
+#if FOLLY_HAS_COROUTINES
+#endif // FOLLY_HAS_COROUTINES
+folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_saveGraphVersion( ::nebula::meta::cpp2::SaveGraphVersionResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  if (state.isException()) {
+    return std::move(state.exception());
+  }
+  if (!state.buf()) {
+    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
+  }
+
+  using result = MetaService_saveGraphVersion_presult;
+  constexpr auto const fname = "saveGraphVersion";
+  switch (state.protocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    default:
+    {
+    }
+  }
+  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
+}
+
+void MetaServiceAsyncClient::recv_saveGraphVersion( ::nebula::meta::cpp2::SaveGraphVersionResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  auto ew = recv_wrapped_saveGraphVersion(_return, state);
+  if (ew) {
+    ew.throw_exception();
+  }
+}
+
+void MetaServiceAsyncClient::recv_instance_saveGraphVersion( ::nebula::meta::cpp2::SaveGraphVersionResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_saveGraphVersion(_return, state);
+}
+
+folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_saveGraphVersion( ::nebula::meta::cpp2::SaveGraphVersionResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_wrapped_saveGraphVersion(_return, state);
+}
+
+void MetaServiceAsyncClient::getSegmentId(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  getSegmentId(rpcOptions, std::move(callback), p_req);
+}
+
+void MetaServiceAsyncClient::getSegmentId(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  auto ctx = getSegmentIdCtx(&rpcOptions);
+  apache::thrift::RequestCallback::Context callbackContext;
+  callbackContext.protocolId =
+      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
+  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
+  getSegmentIdImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
+}
+
+void MetaServiceAsyncClient::getSegmentIdImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolWriter writer;
+      getSegmentIdT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
+      break;
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolWriter writer;
+      getSegmentIdT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
+      break;
+    }
+    default:
+    {
+      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
+    }
+  }
+}
+
+std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> MetaServiceAsyncClient::getSegmentIdCtx(apache::thrift::RpcOptions* rpcOptions) {
+  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
+      channel_->getProtocolId(),
+      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
+      handlers_,
+      getServiceName(),
+      "MetaService.getSegmentId");
+}
+
+void MetaServiceAsyncClient::sync_getSegmentId( ::nebula::meta::cpp2::GetSegmentIdResp& _return, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  sync_getSegmentId(rpcOptions, _return, p_req);
+}
+
+void MetaServiceAsyncClient::sync_getSegmentId(apache::thrift::RpcOptions& rpcOptions,  ::nebula::meta::cpp2::GetSegmentIdResp& _return, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  apache::thrift::ClientReceiveState returnState;
+  apache::thrift::ClientSyncCallback<false> callback(&returnState);
+  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
+  auto ctx = getSegmentIdCtx(&rpcOptions);
+  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
+  getSegmentIdImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
+  callback.waitUntilDone(evb);
+
+  if (returnState.isException()) {
+    returnState.exception().throw_exception();
+  }
+  returnState.resetProtocolId(protocolId);
+  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+  SCOPE_EXIT {
+    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
+      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
+    }
+  };
+  return folly::fibers::runInMainContext([&] {
+      recv_getSegmentId(_return, returnState);
+  });
+}
+
+
+folly::Future< ::nebula::meta::cpp2::GetSegmentIdResp> MetaServiceAsyncClient::future_getSegmentId(const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return future_getSegmentId(rpcOptions, p_req);
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::GetSegmentIdResp> MetaServiceAsyncClient::semifuture_getSegmentId(const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return semifuture_getSegmentId(rpcOptions, p_req);
+}
+
+folly::Future< ::nebula::meta::cpp2::GetSegmentIdResp> MetaServiceAsyncClient::future_getSegmentId(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  folly::Promise< ::nebula::meta::cpp2::GetSegmentIdResp> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::meta::cpp2::GetSegmentIdResp>>(std::move(promise), recv_wrapped_getSegmentId, channel_);
+  getSegmentId(rpcOptions, std::move(callback), p_req);
+  return future;
+}
+
+folly::SemiFuture< ::nebula::meta::cpp2::GetSegmentIdResp> MetaServiceAsyncClient::semifuture_getSegmentId(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_getSegmentId, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  getSegmentId(rpcOptions, std::move(callback), p_req);
+  return std::move(callbackAndFuture.second);
+}
+
+folly::Future<std::pair< ::nebula::meta::cpp2::GetSegmentIdResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_future_getSegmentId(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  folly::Promise<std::pair< ::nebula::meta::cpp2::GetSegmentIdResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::meta::cpp2::GetSegmentIdResp>>(std::move(promise), recv_wrapped_getSegmentId, channel_);
+  getSegmentId(rpcOptions, std::move(callback), p_req);
+  return future;
+}
+
+folly::SemiFuture<std::pair< ::nebula::meta::cpp2::GetSegmentIdResp, std::unique_ptr<apache::thrift::transport::THeader>>> MetaServiceAsyncClient::header_semifuture_getSegmentId(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_getSegmentId, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  getSegmentId(rpcOptions, std::move(callback), p_req);
+  return std::move(callbackAndFuture.second);
+}
+
+void MetaServiceAsyncClient::getSegmentId(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) {
+  getSegmentId(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
+}
+
+#if FOLLY_HAS_COROUTINES
+#endif // FOLLY_HAS_COROUTINES
+folly::exception_wrapper MetaServiceAsyncClient::recv_wrapped_getSegmentId( ::nebula::meta::cpp2::GetSegmentIdResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  if (state.isException()) {
+    return std::move(state.exception());
+  }
+  if (!state.buf()) {
+    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
+  }
+
+  using result = MetaService_getSegmentId_presult;
+  constexpr auto const fname = "getSegmentId";
+  switch (state.protocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    default:
+    {
+    }
+  }
+  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
+}
+
+void MetaServiceAsyncClient::recv_getSegmentId( ::nebula::meta::cpp2::GetSegmentIdResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  auto ew = recv_wrapped_getSegmentId(_return, state);
+  if (ew) {
+    ew.throw_exception();
+  }
+}
+
+void MetaServiceAsyncClient::recv_instance_getSegmentId( ::nebula::meta::cpp2::GetSegmentIdResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_getSegmentId(_return, state);
+}
+
+folly::exception_wrapper MetaServiceAsyncClient::recv_instance_wrapped_getSegmentId( ::nebula::meta::cpp2::GetSegmentIdResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_wrapped_getSegmentId(_return, state);
 }
 
 

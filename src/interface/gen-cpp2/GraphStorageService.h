@@ -32,6 +32,9 @@ class GraphStorageServiceSvAsyncIf {
   virtual void async_tm_getNeighbors(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::GetNeighborsResponse>> callback, const  ::nebula::storage::cpp2::GetNeighborsRequest& p_req) = 0;
   virtual folly::Future< ::nebula::storage::cpp2::GetNeighborsResponse> future_getNeighbors(const  ::nebula::storage::cpp2::GetNeighborsRequest& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::storage::cpp2::GetNeighborsResponse> semifuture_getNeighbors(const  ::nebula::storage::cpp2::GetNeighborsRequest& p_req) = 0;
+  virtual void async_tm_getDstBySrc(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::GetDstBySrcResponse>> callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) = 0;
+  virtual folly::Future< ::nebula::storage::cpp2::GetDstBySrcResponse> future_getDstBySrc(const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::storage::cpp2::GetDstBySrcResponse> semifuture_getDstBySrc(const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) = 0;
   virtual void async_tm_getProps(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::GetPropResponse>> callback, const  ::nebula::storage::cpp2::GetPropRequest& p_req) = 0;
   virtual folly::Future< ::nebula::storage::cpp2::GetPropResponse> future_getProps(const  ::nebula::storage::cpp2::GetPropRequest& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::storage::cpp2::GetPropResponse> semifuture_getProps(const  ::nebula::storage::cpp2::GetPropRequest& p_req) = 0;
@@ -103,6 +106,10 @@ class GraphStorageServiceSvIf : public GraphStorageServiceSvAsyncIf, public apac
   folly::Future< ::nebula::storage::cpp2::GetNeighborsResponse> future_getNeighbors(const  ::nebula::storage::cpp2::GetNeighborsRequest& p_req) override;
   folly::SemiFuture< ::nebula::storage::cpp2::GetNeighborsResponse> semifuture_getNeighbors(const  ::nebula::storage::cpp2::GetNeighborsRequest& p_req) override;
   void async_tm_getNeighbors(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::GetNeighborsResponse>> callback, const  ::nebula::storage::cpp2::GetNeighborsRequest& p_req) override;
+  virtual void getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& /*_return*/, const  ::nebula::storage::cpp2::GetDstBySrcRequest& /*req*/);
+  folly::Future< ::nebula::storage::cpp2::GetDstBySrcResponse> future_getDstBySrc(const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) override;
+  folly::SemiFuture< ::nebula::storage::cpp2::GetDstBySrcResponse> semifuture_getDstBySrc(const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) override;
+  void async_tm_getDstBySrc(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::storage::cpp2::GetDstBySrcResponse>> callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) override;
   virtual void getProps( ::nebula::storage::cpp2::GetPropResponse& /*_return*/, const  ::nebula::storage::cpp2::GetPropRequest& /*req*/);
   folly::Future< ::nebula::storage::cpp2::GetPropResponse> future_getProps(const  ::nebula::storage::cpp2::GetPropRequest& p_req) override;
   folly::SemiFuture< ::nebula::storage::cpp2::GetPropResponse> semifuture_getProps(const  ::nebula::storage::cpp2::GetPropRequest& p_req) override;
@@ -184,6 +191,7 @@ class GraphStorageServiceSvIf : public GraphStorageServiceSvAsyncIf, public apac
 class GraphStorageServiceSvNull : public GraphStorageServiceSvIf {
  public:
   void getNeighbors( ::nebula::storage::cpp2::GetNeighborsResponse& /*_return*/, const  ::nebula::storage::cpp2::GetNeighborsRequest& /*req*/) override;
+  void getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& /*_return*/, const  ::nebula::storage::cpp2::GetDstBySrcRequest& /*req*/) override;
   void getProps( ::nebula::storage::cpp2::GetPropResponse& /*_return*/, const  ::nebula::storage::cpp2::GetPropRequest& /*req*/) override;
   void addVertices( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::AddVerticesRequest& /*req*/) override;
   void addEdges( ::nebula::storage::cpp2::ExecResponse& /*_return*/, const  ::nebula::storage::cpp2::AddEdgesRequest& /*req*/) override;
@@ -233,6 +241,14 @@ class GraphStorageServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyn
   static folly::IOBufQueue return_getNeighbors(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::GetNeighborsResponse const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_getNeighbors(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_getDstBySrc(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_getDstBySrc(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_getDstBySrc(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::storage::cpp2::GetDstBySrcResponse const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_getDstBySrc(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
   void setUpAndProcess_getProps(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>

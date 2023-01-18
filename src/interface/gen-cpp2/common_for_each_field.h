@@ -251,6 +251,8 @@ struct ForEachField<::nebula::cpp2::LogInfo> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).log_id_ref()...);
     f(1, static_cast<T&&>(t).term_id_ref()...);
+    f(2, static_cast<T&&>(t).commit_log_id_ref()...);
+    f(3, static_cast<T&&>(t).checkpoint_path_ref()...);
   }
 };
 
@@ -269,7 +271,7 @@ struct ForEachField<::nebula::cpp2::CheckpointInfo> {
   void operator()(FOLLY_MAYBE_UNUSED F&& f, FOLLY_MAYBE_UNUSED T&&... t) const {
     f(0, static_cast<T&&>(t).space_id_ref()...);
     f(1, static_cast<T&&>(t).parts_ref()...);
-    f(2, static_cast<T&&>(t).path_ref()...);
+    f(2, static_cast<T&&>(t).data_path_ref()...);
   }
 };
 

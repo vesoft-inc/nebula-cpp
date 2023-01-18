@@ -2997,17 +2997,23 @@ void TccStructTraits<::nebula::cpp2::LogInfo>::translateFieldName(
 namespace nebula { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-LogInfo::LogInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::LogID log_id__arg,  ::nebula::cpp2::TermID term_id__arg) :
+LogInfo::LogInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::LogID log_id__arg,  ::nebula::cpp2::TermID term_id__arg,  ::nebula::cpp2::LogID commit_log_id__arg, ::std::string checkpoint_path__arg) :
     log_id(std::move(log_id__arg)),
-    term_id(std::move(term_id__arg)) {
+    term_id(std::move(term_id__arg)),
+    commit_log_id(std::move(commit_log_id__arg)),
+    checkpoint_path(std::move(checkpoint_path__arg)) {
   __isset.log_id = true;
   __isset.term_id = true;
+  __isset.commit_log_id = true;
+  __isset.checkpoint_path = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void LogInfo::__clear() {
   // clear all fields
   log_id = 0;
   term_id = 0;
+  commit_log_id = 0;
+  checkpoint_path = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -3023,6 +3029,12 @@ bool LogInfo::operator==(const LogInfo& rhs) const {
   if (!(lhs.term_id == rhs.term_id)) {
     return false;
   }
+  if (!(lhs.commit_log_id == rhs.commit_log_id)) {
+    return false;
+  }
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.checkpoint_path, rhs.checkpoint_path)) {
+    return false;
+  }
   return true;
 }
 
@@ -3036,6 +3048,12 @@ bool LogInfo::operator<(const LogInfo& rhs) const {
   if (!(lhs.term_id == rhs.term_id)) {
     return lhs.term_id < rhs.term_id;
   }
+  if (!(lhs.commit_log_id == rhs.commit_log_id)) {
+    return lhs.commit_log_id < rhs.commit_log_id;
+  }
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.checkpoint_path, rhs.checkpoint_path)) {
+    return apache::thrift::StringTraits<std::string>::isLess(lhs.checkpoint_path, rhs.checkpoint_path);
+  }
   return false;
 }
 
@@ -3044,6 +3062,8 @@ void swap(LogInfo& a, LogInfo& b) {
   using ::std::swap;
   swap(a.log_id_ref().value(), b.log_id_ref().value());
   swap(a.term_id_ref().value(), b.term_id_ref().value());
+  swap(a.commit_log_id_ref().value(), b.commit_log_id_ref().value());
+  swap(a.checkpoint_path_ref().value(), b.checkpoint_path_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -3183,20 +3203,20 @@ void TccStructTraits<::nebula::cpp2::CheckpointInfo>::translateFieldName(
 namespace nebula { namespace cpp2 {
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-CheckpointInfo::CheckpointInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> parts__arg, ::std::string path__arg) :
+CheckpointInfo::CheckpointInfo(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::cpp2::LogInfo> parts__arg, ::std::string data_path__arg) :
     space_id(std::move(space_id__arg)),
     parts(std::move(parts__arg)),
-    path(std::move(path__arg)) {
+    data_path(std::move(data_path__arg)) {
   __isset.space_id = true;
   __isset.parts = true;
-  __isset.path = true;
+  __isset.data_path = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void CheckpointInfo::__clear() {
   // clear all fields
   space_id = 0;
   parts.clear();
-  path = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  data_path = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -3212,7 +3232,7 @@ bool CheckpointInfo::operator==(const CheckpointInfo& rhs) const {
   if (!(lhs.parts == rhs.parts)) {
     return false;
   }
-  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.path, rhs.path)) {
+  if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.data_path, rhs.data_path)) {
     return false;
   }
   return true;
@@ -3231,7 +3251,7 @@ void swap(CheckpointInfo& a, CheckpointInfo& b) {
   using ::std::swap;
   swap(a.space_id_ref().value(), b.space_id_ref().value());
   swap(a.parts_ref().value(), b.parts_ref().value());
-  swap(a.path_ref().value(), b.path_ref().value());
+  swap(a.data_path_ref().value(), b.data_path_ref().value());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END

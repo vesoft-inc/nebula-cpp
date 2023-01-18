@@ -25,21 +25,19 @@ typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apach
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::CreateCPRequest*>> StorageAdminService_createCheckpoint_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::CreateCPResp*>> StorageAdminService_createCheckpoint_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::DropCPRequest*>> StorageAdminService_dropCheckpoint_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_dropCheckpoint_presult;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::DropCPResp*>> StorageAdminService_dropCheckpoint_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::BlockingSignRequest*>> StorageAdminService_blockingWrites_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_blockingWrites_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::RebuildIndexRequest*>> StorageAdminService_rebuildTagIndex_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_rebuildTagIndex_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::RebuildIndexRequest*>> StorageAdminService_rebuildEdgeIndex_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_rebuildEdgeIndex_presult;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::BlockingSignResp*>> StorageAdminService_blockingWrites_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetLeaderReq*>> StorageAdminService_getLeaderParts_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetLeaderPartsResp*>> StorageAdminService_getLeaderParts_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::CheckPeersReq*>> StorageAdminService_checkPeers_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_checkPeers_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AddAdminTaskRequest*>> StorageAdminService_addAdminTask_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_addAdminTask_presult;
-typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::StopAdminTaskRequest*>> StorageAdminService_stopAdminTask_pargs;
-typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AdminExecResp*>> StorageAdminService_stopAdminTask_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AddTaskRequest*>> StorageAdminService_addAdminTask_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AddTaskResp*>> StorageAdminService_addAdminTask_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::StopTaskRequest*>> StorageAdminService_stopAdminTask_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::StopTaskResp*>> StorageAdminService_stopAdminTask_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ClearSpaceReq*>> StorageAdminService_clearSpace_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::ClearSpaceResp*>> StorageAdminService_clearSpace_presult;
 
 template <typename Protocol_>
 void StorageAdminServiceAsyncClient::transLeaderT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::TransLeaderReq& p_req) {
@@ -159,32 +157,6 @@ void StorageAdminServiceAsyncClient::blockingWritesT(Protocol_* prot, apache::th
 }
 
 template <typename Protocol_>
-void StorageAdminServiceAsyncClient::rebuildTagIndexT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-
-  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
-  StorageAdminService_rebuildTagIndex_pargs args;
-  args.get<0>().value = const_cast< ::nebula::storage::cpp2::RebuildIndexRequest*>(&p_req);
-  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
-  auto writer = [&](Protocol_* p) { args.write(p); };
-  static constexpr const folly::StringPiece methodName = "rebuildTagIndex";
-  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
-  ctx->reqContext.setRequestHeader(nullptr);
-}
-
-template <typename Protocol_>
-void StorageAdminServiceAsyncClient::rebuildEdgeIndexT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-
-  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
-  StorageAdminService_rebuildEdgeIndex_pargs args;
-  args.get<0>().value = const_cast< ::nebula::storage::cpp2::RebuildIndexRequest*>(&p_req);
-  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
-  auto writer = [&](Protocol_* p) { args.write(p); };
-  static constexpr const folly::StringPiece methodName = "rebuildEdgeIndex";
-  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
-  ctx->reqContext.setRequestHeader(nullptr);
-}
-
-template <typename Protocol_>
 void StorageAdminServiceAsyncClient::getLeaderPartsT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::GetLeaderReq& p_req) {
 
   std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
@@ -211,11 +183,11 @@ void StorageAdminServiceAsyncClient::checkPeersT(Protocol_* prot, apache::thrift
 }
 
 template <typename Protocol_>
-void StorageAdminServiceAsyncClient::addAdminTaskT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::addAdminTaskT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
 
   std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
   StorageAdminService_addAdminTask_pargs args;
-  args.get<0>().value = const_cast< ::nebula::storage::cpp2::AddAdminTaskRequest*>(&p_req);
+  args.get<0>().value = const_cast< ::nebula::storage::cpp2::AddTaskRequest*>(&p_req);
   auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
   auto writer = [&](Protocol_* p) { args.write(p); };
   static constexpr const folly::StringPiece methodName = "addAdminTask";
@@ -224,14 +196,27 @@ void StorageAdminServiceAsyncClient::addAdminTaskT(Protocol_* prot, apache::thri
 }
 
 template <typename Protocol_>
-void StorageAdminServiceAsyncClient::stopAdminTaskT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::stopAdminTaskT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
 
   std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
   StorageAdminService_stopAdminTask_pargs args;
-  args.get<0>().value = const_cast< ::nebula::storage::cpp2::StopAdminTaskRequest*>(&p_req);
+  args.get<0>().value = const_cast< ::nebula::storage::cpp2::StopTaskRequest*>(&p_req);
   auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
   auto writer = [&](Protocol_* p) { args.write(p); };
   static constexpr const folly::StringPiece methodName = "stopAdminTask";
+  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
+  ctx->reqContext.setRequestHeader(nullptr);
+}
+
+template <typename Protocol_>
+void StorageAdminServiceAsyncClient::clearSpaceT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+
+  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
+  StorageAdminService_clearSpace_pargs args;
+  args.get<0>().value = const_cast< ::nebula::storage::cpp2::ClearSpaceReq*>(&p_req);
+  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
+  auto writer = [&](Protocol_* p) { args.write(p); };
+  static constexpr const folly::StringPiece methodName = "clearSpace";
   apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
   ctx->reqContext.setRequestHeader(nullptr);
 }
@@ -1452,12 +1437,12 @@ std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> StorageAdmin
       "StorageAdminService.dropCheckpoint");
 }
 
-void StorageAdminServiceAsyncClient::sync_dropCheckpoint( ::nebula::storage::cpp2::AdminExecResp& _return, const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
+void StorageAdminServiceAsyncClient::sync_dropCheckpoint( ::nebula::storage::cpp2::DropCPResp& _return, const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   sync_dropCheckpoint(rpcOptions, _return, p_req);
 }
 
-void StorageAdminServiceAsyncClient::sync_dropCheckpoint(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::AdminExecResp& _return, const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
+void StorageAdminServiceAsyncClient::sync_dropCheckpoint(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::DropCPResp& _return, const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
   apache::thrift::ClientReceiveState returnState;
   apache::thrift::ClientSyncCallback<false> callback(&returnState);
   auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
@@ -1483,40 +1468,40 @@ void StorageAdminServiceAsyncClient::sync_dropCheckpoint(apache::thrift::RpcOpti
 }
 
 
-folly::Future< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::future_dropCheckpoint(const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
+folly::Future< ::nebula::storage::cpp2::DropCPResp> StorageAdminServiceAsyncClient::future_dropCheckpoint(const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   return future_dropCheckpoint(rpcOptions, p_req);
 }
 
-folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::semifuture_dropCheckpoint(const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
+folly::SemiFuture< ::nebula::storage::cpp2::DropCPResp> StorageAdminServiceAsyncClient::semifuture_dropCheckpoint(const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   return semifuture_dropCheckpoint(rpcOptions, p_req);
 }
 
-folly::Future< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::future_dropCheckpoint(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
-  folly::Promise< ::nebula::storage::cpp2::AdminExecResp> promise;
+folly::Future< ::nebula::storage::cpp2::DropCPResp> StorageAdminServiceAsyncClient::future_dropCheckpoint(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
+  folly::Promise< ::nebula::storage::cpp2::DropCPResp> promise;
   auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(promise), recv_wrapped_dropCheckpoint, channel_);
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::DropCPResp>>(std::move(promise), recv_wrapped_dropCheckpoint, channel_);
   dropCheckpoint(rpcOptions, std::move(callback), p_req);
   return future;
 }
 
-folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::semifuture_dropCheckpoint(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
+folly::SemiFuture< ::nebula::storage::cpp2::DropCPResp> StorageAdminServiceAsyncClient::semifuture_dropCheckpoint(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
   auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_dropCheckpoint, channel_);
   auto callback = std::move(callbackAndFuture.first);
   dropCheckpoint(rpcOptions, std::move(callback), p_req);
   return std::move(callbackAndFuture.second);
 }
 
-folly::Future<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_future_dropCheckpoint(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
-  folly::Promise<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+folly::Future<std::pair< ::nebula::storage::cpp2::DropCPResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_future_dropCheckpoint(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
+  folly::Promise<std::pair< ::nebula::storage::cpp2::DropCPResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
   auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(promise), recv_wrapped_dropCheckpoint, channel_);
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::DropCPResp>>(std::move(promise), recv_wrapped_dropCheckpoint, channel_);
   dropCheckpoint(rpcOptions, std::move(callback), p_req);
   return future;
 }
 
-folly::SemiFuture<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_semifuture_dropCheckpoint(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
+folly::SemiFuture<std::pair< ::nebula::storage::cpp2::DropCPResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_semifuture_dropCheckpoint(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::DropCPRequest& p_req) {
   auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_dropCheckpoint, channel_);
   auto callback = std::move(callbackAndFuture.first);
   dropCheckpoint(rpcOptions, std::move(callback), p_req);
@@ -1529,7 +1514,7 @@ void StorageAdminServiceAsyncClient::dropCheckpoint(folly::Function<void (::apac
 
 #if FOLLY_HAS_COROUTINES
 #endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_dropCheckpoint( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_dropCheckpoint( ::nebula::storage::cpp2::DropCPResp& _return, ::apache::thrift::ClientReceiveState& state) {
   if (state.isException()) {
     return std::move(state.exception());
   }
@@ -1559,18 +1544,18 @@ folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_dropCheckp
   return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
 }
 
-void StorageAdminServiceAsyncClient::recv_dropCheckpoint( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+void StorageAdminServiceAsyncClient::recv_dropCheckpoint( ::nebula::storage::cpp2::DropCPResp& _return, ::apache::thrift::ClientReceiveState& state) {
   auto ew = recv_wrapped_dropCheckpoint(_return, state);
   if (ew) {
     ew.throw_exception();
   }
 }
 
-void StorageAdminServiceAsyncClient::recv_instance_dropCheckpoint( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+void StorageAdminServiceAsyncClient::recv_instance_dropCheckpoint( ::nebula::storage::cpp2::DropCPResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_dropCheckpoint(_return, state);
 }
 
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_dropCheckpoint( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_dropCheckpoint( ::nebula::storage::cpp2::DropCPResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_wrapped_dropCheckpoint(_return, state);
 }
 
@@ -1619,12 +1604,12 @@ std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> StorageAdmin
       "StorageAdminService.blockingWrites");
 }
 
-void StorageAdminServiceAsyncClient::sync_blockingWrites( ::nebula::storage::cpp2::AdminExecResp& _return, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
+void StorageAdminServiceAsyncClient::sync_blockingWrites( ::nebula::storage::cpp2::BlockingSignResp& _return, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   sync_blockingWrites(rpcOptions, _return, p_req);
 }
 
-void StorageAdminServiceAsyncClient::sync_blockingWrites(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::AdminExecResp& _return, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
+void StorageAdminServiceAsyncClient::sync_blockingWrites(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::BlockingSignResp& _return, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
   apache::thrift::ClientReceiveState returnState;
   apache::thrift::ClientSyncCallback<false> callback(&returnState);
   auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
@@ -1650,40 +1635,40 @@ void StorageAdminServiceAsyncClient::sync_blockingWrites(apache::thrift::RpcOpti
 }
 
 
-folly::Future< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::future_blockingWrites(const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
+folly::Future< ::nebula::storage::cpp2::BlockingSignResp> StorageAdminServiceAsyncClient::future_blockingWrites(const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   return future_blockingWrites(rpcOptions, p_req);
 }
 
-folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::semifuture_blockingWrites(const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
+folly::SemiFuture< ::nebula::storage::cpp2::BlockingSignResp> StorageAdminServiceAsyncClient::semifuture_blockingWrites(const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   return semifuture_blockingWrites(rpcOptions, p_req);
 }
 
-folly::Future< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::future_blockingWrites(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
-  folly::Promise< ::nebula::storage::cpp2::AdminExecResp> promise;
+folly::Future< ::nebula::storage::cpp2::BlockingSignResp> StorageAdminServiceAsyncClient::future_blockingWrites(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
+  folly::Promise< ::nebula::storage::cpp2::BlockingSignResp> promise;
   auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(promise), recv_wrapped_blockingWrites, channel_);
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::BlockingSignResp>>(std::move(promise), recv_wrapped_blockingWrites, channel_);
   blockingWrites(rpcOptions, std::move(callback), p_req);
   return future;
 }
 
-folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::semifuture_blockingWrites(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
+folly::SemiFuture< ::nebula::storage::cpp2::BlockingSignResp> StorageAdminServiceAsyncClient::semifuture_blockingWrites(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
   auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_blockingWrites, channel_);
   auto callback = std::move(callbackAndFuture.first);
   blockingWrites(rpcOptions, std::move(callback), p_req);
   return std::move(callbackAndFuture.second);
 }
 
-folly::Future<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_future_blockingWrites(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
-  folly::Promise<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+folly::Future<std::pair< ::nebula::storage::cpp2::BlockingSignResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_future_blockingWrites(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
+  folly::Promise<std::pair< ::nebula::storage::cpp2::BlockingSignResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
   auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(promise), recv_wrapped_blockingWrites, channel_);
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::BlockingSignResp>>(std::move(promise), recv_wrapped_blockingWrites, channel_);
   blockingWrites(rpcOptions, std::move(callback), p_req);
   return future;
 }
 
-folly::SemiFuture<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_semifuture_blockingWrites(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
+folly::SemiFuture<std::pair< ::nebula::storage::cpp2::BlockingSignResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_semifuture_blockingWrites(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::BlockingSignRequest& p_req) {
   auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_blockingWrites, channel_);
   auto callback = std::move(callbackAndFuture.first);
   blockingWrites(rpcOptions, std::move(callback), p_req);
@@ -1696,7 +1681,7 @@ void StorageAdminServiceAsyncClient::blockingWrites(folly::Function<void (::apac
 
 #if FOLLY_HAS_COROUTINES
 #endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_blockingWrites( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_blockingWrites( ::nebula::storage::cpp2::BlockingSignResp& _return, ::apache::thrift::ClientReceiveState& state) {
   if (state.isException()) {
     return std::move(state.exception());
   }
@@ -1726,353 +1711,19 @@ folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_blockingWr
   return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
 }
 
-void StorageAdminServiceAsyncClient::recv_blockingWrites( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+void StorageAdminServiceAsyncClient::recv_blockingWrites( ::nebula::storage::cpp2::BlockingSignResp& _return, ::apache::thrift::ClientReceiveState& state) {
   auto ew = recv_wrapped_blockingWrites(_return, state);
   if (ew) {
     ew.throw_exception();
   }
 }
 
-void StorageAdminServiceAsyncClient::recv_instance_blockingWrites( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+void StorageAdminServiceAsyncClient::recv_instance_blockingWrites( ::nebula::storage::cpp2::BlockingSignResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_blockingWrites(_return, state);
 }
 
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_blockingWrites( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_blockingWrites( ::nebula::storage::cpp2::BlockingSignResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_wrapped_blockingWrites(_return, state);
-}
-
-void StorageAdminServiceAsyncClient::rebuildTagIndex(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  rebuildTagIndex(rpcOptions, std::move(callback), p_req);
-}
-
-void StorageAdminServiceAsyncClient::rebuildTagIndex(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  auto ctx = rebuildTagIndexCtx(&rpcOptions);
-  apache::thrift::RequestCallback::Context callbackContext;
-  callbackContext.protocolId =
-      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
-  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
-  rebuildTagIndexImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
-}
-
-void StorageAdminServiceAsyncClient::rebuildTagIndexImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolWriter writer;
-      rebuildTagIndexT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolWriter writer;
-      rebuildTagIndexT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    default:
-    {
-      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
-    }
-  }
-}
-
-std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> StorageAdminServiceAsyncClient::rebuildTagIndexCtx(apache::thrift::RpcOptions* rpcOptions) {
-  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
-      channel_->getProtocolId(),
-      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
-      handlers_,
-      getServiceName(),
-      "StorageAdminService.rebuildTagIndex");
-}
-
-void StorageAdminServiceAsyncClient::sync_rebuildTagIndex( ::nebula::storage::cpp2::AdminExecResp& _return, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  sync_rebuildTagIndex(rpcOptions, _return, p_req);
-}
-
-void StorageAdminServiceAsyncClient::sync_rebuildTagIndex(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::AdminExecResp& _return, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  apache::thrift::ClientReceiveState returnState;
-  apache::thrift::ClientSyncCallback<false> callback(&returnState);
-  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
-  auto ctx = rebuildTagIndexCtx(&rpcOptions);
-  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
-  rebuildTagIndexImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
-  callback.waitUntilDone(evb);
-
-  if (returnState.isException()) {
-    returnState.exception().throw_exception();
-  }
-  returnState.resetProtocolId(protocolId);
-  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
-  SCOPE_EXIT {
-    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
-      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
-    }
-  };
-  return folly::fibers::runInMainContext([&] {
-      recv_rebuildTagIndex(_return, returnState);
-  });
-}
-
-
-folly::Future< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::future_rebuildTagIndex(const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return future_rebuildTagIndex(rpcOptions, p_req);
-}
-
-folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::semifuture_rebuildTagIndex(const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return semifuture_rebuildTagIndex(rpcOptions, p_req);
-}
-
-folly::Future< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::future_rebuildTagIndex(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  folly::Promise< ::nebula::storage::cpp2::AdminExecResp> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(promise), recv_wrapped_rebuildTagIndex, channel_);
-  rebuildTagIndex(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::semifuture_rebuildTagIndex(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_rebuildTagIndex, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  rebuildTagIndex(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-folly::Future<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_future_rebuildTagIndex(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  folly::Promise<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(promise), recv_wrapped_rebuildTagIndex, channel_);
-  rebuildTagIndex(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_semifuture_rebuildTagIndex(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_rebuildTagIndex, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  rebuildTagIndex(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-void StorageAdminServiceAsyncClient::rebuildTagIndex(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  rebuildTagIndex(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
-}
-
-#if FOLLY_HAS_COROUTINES
-#endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_rebuildTagIndex( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  if (state.isException()) {
-    return std::move(state.exception());
-  }
-  if (!state.buf()) {
-    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
-  }
-
-  using result = StorageAdminService_rebuildTagIndex_presult;
-  constexpr auto const fname = "rebuildTagIndex";
-  switch (state.protocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    default:
-    {
-    }
-  }
-  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
-}
-
-void StorageAdminServiceAsyncClient::recv_rebuildTagIndex( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = recv_wrapped_rebuildTagIndex(_return, state);
-  if (ew) {
-    ew.throw_exception();
-  }
-}
-
-void StorageAdminServiceAsyncClient::recv_instance_rebuildTagIndex( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_rebuildTagIndex(_return, state);
-}
-
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_rebuildTagIndex( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_wrapped_rebuildTagIndex(_return, state);
-}
-
-void StorageAdminServiceAsyncClient::rebuildEdgeIndex(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  rebuildEdgeIndex(rpcOptions, std::move(callback), p_req);
-}
-
-void StorageAdminServiceAsyncClient::rebuildEdgeIndex(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  auto ctx = rebuildEdgeIndexCtx(&rpcOptions);
-  apache::thrift::RequestCallback::Context callbackContext;
-  callbackContext.protocolId =
-      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
-  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
-  rebuildEdgeIndexImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
-}
-
-void StorageAdminServiceAsyncClient::rebuildEdgeIndexImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolWriter writer;
-      rebuildEdgeIndexT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolWriter writer;
-      rebuildEdgeIndexT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
-      break;
-    }
-    default:
-    {
-      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
-    }
-  }
-}
-
-std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> StorageAdminServiceAsyncClient::rebuildEdgeIndexCtx(apache::thrift::RpcOptions* rpcOptions) {
-  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
-      channel_->getProtocolId(),
-      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
-      handlers_,
-      getServiceName(),
-      "StorageAdminService.rebuildEdgeIndex");
-}
-
-void StorageAdminServiceAsyncClient::sync_rebuildEdgeIndex( ::nebula::storage::cpp2::AdminExecResp& _return, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  sync_rebuildEdgeIndex(rpcOptions, _return, p_req);
-}
-
-void StorageAdminServiceAsyncClient::sync_rebuildEdgeIndex(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::AdminExecResp& _return, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  apache::thrift::ClientReceiveState returnState;
-  apache::thrift::ClientSyncCallback<false> callback(&returnState);
-  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
-  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
-  auto ctx = rebuildEdgeIndexCtx(&rpcOptions);
-  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
-  rebuildEdgeIndexImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
-  callback.waitUntilDone(evb);
-
-  if (returnState.isException()) {
-    returnState.exception().throw_exception();
-  }
-  returnState.resetProtocolId(protocolId);
-  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
-  SCOPE_EXIT {
-    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
-      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
-    }
-  };
-  return folly::fibers::runInMainContext([&] {
-      recv_rebuildEdgeIndex(_return, returnState);
-  });
-}
-
-
-folly::Future< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::future_rebuildEdgeIndex(const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return future_rebuildEdgeIndex(rpcOptions, p_req);
-}
-
-folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::semifuture_rebuildEdgeIndex(const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  ::apache::thrift::RpcOptions rpcOptions;
-  return semifuture_rebuildEdgeIndex(rpcOptions, p_req);
-}
-
-folly::Future< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::future_rebuildEdgeIndex(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  folly::Promise< ::nebula::storage::cpp2::AdminExecResp> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(promise), recv_wrapped_rebuildEdgeIndex, channel_);
-  rebuildEdgeIndex(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::semifuture_rebuildEdgeIndex(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_rebuildEdgeIndex, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  rebuildEdgeIndex(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-folly::Future<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_future_rebuildEdgeIndex(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  folly::Promise<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
-  auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(promise), recv_wrapped_rebuildEdgeIndex, channel_);
-  rebuildEdgeIndex(rpcOptions, std::move(callback), p_req);
-  return future;
-}
-
-folly::SemiFuture<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_semifuture_rebuildEdgeIndex(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_rebuildEdgeIndex, channel_);
-  auto callback = std::move(callbackAndFuture.first);
-  rebuildEdgeIndex(rpcOptions, std::move(callback), p_req);
-  return std::move(callbackAndFuture.second);
-}
-
-void StorageAdminServiceAsyncClient::rebuildEdgeIndex(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::storage::cpp2::RebuildIndexRequest& p_req) {
-  rebuildEdgeIndex(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
-}
-
-#if FOLLY_HAS_COROUTINES
-#endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_rebuildEdgeIndex( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  if (state.isException()) {
-    return std::move(state.exception());
-  }
-  if (!state.buf()) {
-    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
-  }
-
-  using result = StorageAdminService_rebuildEdgeIndex_presult;
-  constexpr auto const fname = "rebuildEdgeIndex";
-  switch (state.protocolId()) {
-    case apache::thrift::protocol::T_BINARY_PROTOCOL:
-    {
-      apache::thrift::BinaryProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
-    {
-      apache::thrift::CompactProtocolReader reader;
-      return apache::thrift::detail::ac::recv_wrapped<result>(
-          fname, &reader, state, _return);
-    }
-    default:
-    {
-    }
-  }
-  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
-}
-
-void StorageAdminServiceAsyncClient::recv_rebuildEdgeIndex( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  auto ew = recv_wrapped_rebuildEdgeIndex(_return, state);
-  if (ew) {
-    ew.throw_exception();
-  }
-}
-
-void StorageAdminServiceAsyncClient::recv_instance_rebuildEdgeIndex( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_rebuildEdgeIndex(_return, state);
-}
-
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_rebuildEdgeIndex( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
-  return recv_wrapped_rebuildEdgeIndex(_return, state);
 }
 
 void StorageAdminServiceAsyncClient::getLeaderParts(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::GetLeaderReq& p_req) {
@@ -2409,12 +2060,12 @@ folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_c
   return recv_wrapped_checkPeers(_return, state);
 }
 
-void StorageAdminServiceAsyncClient::addAdminTask(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::addAdminTask(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   addAdminTask(rpcOptions, std::move(callback), p_req);
 }
 
-void StorageAdminServiceAsyncClient::addAdminTask(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::addAdminTask(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
   auto ctx = addAdminTaskCtx(&rpcOptions);
   apache::thrift::RequestCallback::Context callbackContext;
   callbackContext.protocolId =
@@ -2424,7 +2075,7 @@ void StorageAdminServiceAsyncClient::addAdminTask(apache::thrift::RpcOptions& rp
   addAdminTaskImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
 }
 
-void StorageAdminServiceAsyncClient::addAdminTaskImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::addAdminTaskImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
   switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
     case apache::thrift::protocol::T_BINARY_PROTOCOL:
     {
@@ -2454,12 +2105,12 @@ std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> StorageAdmin
       "StorageAdminService.addAdminTask");
 }
 
-void StorageAdminServiceAsyncClient::sync_addAdminTask( ::nebula::storage::cpp2::AdminExecResp& _return, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::sync_addAdminTask( ::nebula::storage::cpp2::AddTaskResp& _return, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   sync_addAdminTask(rpcOptions, _return, p_req);
 }
 
-void StorageAdminServiceAsyncClient::sync_addAdminTask(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::AdminExecResp& _return, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::sync_addAdminTask(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::AddTaskResp& _return, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
   apache::thrift::ClientReceiveState returnState;
   apache::thrift::ClientSyncCallback<false> callback(&returnState);
   auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
@@ -2485,53 +2136,53 @@ void StorageAdminServiceAsyncClient::sync_addAdminTask(apache::thrift::RpcOption
 }
 
 
-folly::Future< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::future_addAdminTask(const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
+folly::Future< ::nebula::storage::cpp2::AddTaskResp> StorageAdminServiceAsyncClient::future_addAdminTask(const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   return future_addAdminTask(rpcOptions, p_req);
 }
 
-folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::semifuture_addAdminTask(const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
+folly::SemiFuture< ::nebula::storage::cpp2::AddTaskResp> StorageAdminServiceAsyncClient::semifuture_addAdminTask(const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   return semifuture_addAdminTask(rpcOptions, p_req);
 }
 
-folly::Future< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::future_addAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
-  folly::Promise< ::nebula::storage::cpp2::AdminExecResp> promise;
+folly::Future< ::nebula::storage::cpp2::AddTaskResp> StorageAdminServiceAsyncClient::future_addAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
+  folly::Promise< ::nebula::storage::cpp2::AddTaskResp> promise;
   auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(promise), recv_wrapped_addAdminTask, channel_);
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::AddTaskResp>>(std::move(promise), recv_wrapped_addAdminTask, channel_);
   addAdminTask(rpcOptions, std::move(callback), p_req);
   return future;
 }
 
-folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::semifuture_addAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
+folly::SemiFuture< ::nebula::storage::cpp2::AddTaskResp> StorageAdminServiceAsyncClient::semifuture_addAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
   auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_addAdminTask, channel_);
   auto callback = std::move(callbackAndFuture.first);
   addAdminTask(rpcOptions, std::move(callback), p_req);
   return std::move(callbackAndFuture.second);
 }
 
-folly::Future<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_future_addAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
-  folly::Promise<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+folly::Future<std::pair< ::nebula::storage::cpp2::AddTaskResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_future_addAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
+  folly::Promise<std::pair< ::nebula::storage::cpp2::AddTaskResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
   auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(promise), recv_wrapped_addAdminTask, channel_);
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::AddTaskResp>>(std::move(promise), recv_wrapped_addAdminTask, channel_);
   addAdminTask(rpcOptions, std::move(callback), p_req);
   return future;
 }
 
-folly::SemiFuture<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_semifuture_addAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
+folly::SemiFuture<std::pair< ::nebula::storage::cpp2::AddTaskResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_semifuture_addAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
   auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_addAdminTask, channel_);
   auto callback = std::move(callbackAndFuture.first);
   addAdminTask(rpcOptions, std::move(callback), p_req);
   return std::move(callbackAndFuture.second);
 }
 
-void StorageAdminServiceAsyncClient::addAdminTask(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::storage::cpp2::AddAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::addAdminTask(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::storage::cpp2::AddTaskRequest& p_req) {
   addAdminTask(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
 }
 
 #if FOLLY_HAS_COROUTINES
 #endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_addAdminTask( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_addAdminTask( ::nebula::storage::cpp2::AddTaskResp& _return, ::apache::thrift::ClientReceiveState& state) {
   if (state.isException()) {
     return std::move(state.exception());
   }
@@ -2561,27 +2212,27 @@ folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_addAdminTa
   return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
 }
 
-void StorageAdminServiceAsyncClient::recv_addAdminTask( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+void StorageAdminServiceAsyncClient::recv_addAdminTask( ::nebula::storage::cpp2::AddTaskResp& _return, ::apache::thrift::ClientReceiveState& state) {
   auto ew = recv_wrapped_addAdminTask(_return, state);
   if (ew) {
     ew.throw_exception();
   }
 }
 
-void StorageAdminServiceAsyncClient::recv_instance_addAdminTask( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+void StorageAdminServiceAsyncClient::recv_instance_addAdminTask( ::nebula::storage::cpp2::AddTaskResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_addAdminTask(_return, state);
 }
 
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_addAdminTask( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_addAdminTask( ::nebula::storage::cpp2::AddTaskResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_wrapped_addAdminTask(_return, state);
 }
 
-void StorageAdminServiceAsyncClient::stopAdminTask(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::stopAdminTask(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   stopAdminTask(rpcOptions, std::move(callback), p_req);
 }
 
-void StorageAdminServiceAsyncClient::stopAdminTask(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::stopAdminTask(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
   auto ctx = stopAdminTaskCtx(&rpcOptions);
   apache::thrift::RequestCallback::Context callbackContext;
   callbackContext.protocolId =
@@ -2591,7 +2242,7 @@ void StorageAdminServiceAsyncClient::stopAdminTask(apache::thrift::RpcOptions& r
   stopAdminTaskImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
 }
 
-void StorageAdminServiceAsyncClient::stopAdminTaskImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::stopAdminTaskImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
   switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
     case apache::thrift::protocol::T_BINARY_PROTOCOL:
     {
@@ -2621,12 +2272,12 @@ std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> StorageAdmin
       "StorageAdminService.stopAdminTask");
 }
 
-void StorageAdminServiceAsyncClient::sync_stopAdminTask( ::nebula::storage::cpp2::AdminExecResp& _return, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::sync_stopAdminTask( ::nebula::storage::cpp2::StopTaskResp& _return, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   sync_stopAdminTask(rpcOptions, _return, p_req);
 }
 
-void StorageAdminServiceAsyncClient::sync_stopAdminTask(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::AdminExecResp& _return, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::sync_stopAdminTask(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::StopTaskResp& _return, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
   apache::thrift::ClientReceiveState returnState;
   apache::thrift::ClientSyncCallback<false> callback(&returnState);
   auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
@@ -2652,53 +2303,53 @@ void StorageAdminServiceAsyncClient::sync_stopAdminTask(apache::thrift::RpcOptio
 }
 
 
-folly::Future< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::future_stopAdminTask(const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
+folly::Future< ::nebula::storage::cpp2::StopTaskResp> StorageAdminServiceAsyncClient::future_stopAdminTask(const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   return future_stopAdminTask(rpcOptions, p_req);
 }
 
-folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::semifuture_stopAdminTask(const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
+folly::SemiFuture< ::nebula::storage::cpp2::StopTaskResp> StorageAdminServiceAsyncClient::semifuture_stopAdminTask(const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
   ::apache::thrift::RpcOptions rpcOptions;
   return semifuture_stopAdminTask(rpcOptions, p_req);
 }
 
-folly::Future< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::future_stopAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
-  folly::Promise< ::nebula::storage::cpp2::AdminExecResp> promise;
+folly::Future< ::nebula::storage::cpp2::StopTaskResp> StorageAdminServiceAsyncClient::future_stopAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
+  folly::Promise< ::nebula::storage::cpp2::StopTaskResp> promise;
   auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(promise), recv_wrapped_stopAdminTask, channel_);
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::StopTaskResp>>(std::move(promise), recv_wrapped_stopAdminTask, channel_);
   stopAdminTask(rpcOptions, std::move(callback), p_req);
   return future;
 }
 
-folly::SemiFuture< ::nebula::storage::cpp2::AdminExecResp> StorageAdminServiceAsyncClient::semifuture_stopAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
+folly::SemiFuture< ::nebula::storage::cpp2::StopTaskResp> StorageAdminServiceAsyncClient::semifuture_stopAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
   auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_stopAdminTask, channel_);
   auto callback = std::move(callbackAndFuture.first);
   stopAdminTask(rpcOptions, std::move(callback), p_req);
   return std::move(callbackAndFuture.second);
 }
 
-folly::Future<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_future_stopAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
-  folly::Promise<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+folly::Future<std::pair< ::nebula::storage::cpp2::StopTaskResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_future_stopAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
+  folly::Promise<std::pair< ::nebula::storage::cpp2::StopTaskResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
   auto future = promise.getFuture();
-  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::AdminExecResp>>(std::move(promise), recv_wrapped_stopAdminTask, channel_);
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::StopTaskResp>>(std::move(promise), recv_wrapped_stopAdminTask, channel_);
   stopAdminTask(rpcOptions, std::move(callback), p_req);
   return future;
 }
 
-folly::SemiFuture<std::pair< ::nebula::storage::cpp2::AdminExecResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_semifuture_stopAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
+folly::SemiFuture<std::pair< ::nebula::storage::cpp2::StopTaskResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_semifuture_stopAdminTask(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
   auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_stopAdminTask, channel_);
   auto callback = std::move(callbackAndFuture.first);
   stopAdminTask(rpcOptions, std::move(callback), p_req);
   return std::move(callbackAndFuture.second);
 }
 
-void StorageAdminServiceAsyncClient::stopAdminTask(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::storage::cpp2::StopAdminTaskRequest& p_req) {
+void StorageAdminServiceAsyncClient::stopAdminTask(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::storage::cpp2::StopTaskRequest& p_req) {
   stopAdminTask(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
 }
 
 #if FOLLY_HAS_COROUTINES
 #endif // FOLLY_HAS_COROUTINES
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_stopAdminTask( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_stopAdminTask( ::nebula::storage::cpp2::StopTaskResp& _return, ::apache::thrift::ClientReceiveState& state) {
   if (state.isException()) {
     return std::move(state.exception());
   }
@@ -2728,19 +2379,186 @@ folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_stopAdminT
   return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
 }
 
-void StorageAdminServiceAsyncClient::recv_stopAdminTask( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+void StorageAdminServiceAsyncClient::recv_stopAdminTask( ::nebula::storage::cpp2::StopTaskResp& _return, ::apache::thrift::ClientReceiveState& state) {
   auto ew = recv_wrapped_stopAdminTask(_return, state);
   if (ew) {
     ew.throw_exception();
   }
 }
 
-void StorageAdminServiceAsyncClient::recv_instance_stopAdminTask( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+void StorageAdminServiceAsyncClient::recv_instance_stopAdminTask( ::nebula::storage::cpp2::StopTaskResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_stopAdminTask(_return, state);
 }
 
-folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_stopAdminTask( ::nebula::storage::cpp2::AdminExecResp& _return, ::apache::thrift::ClientReceiveState& state) {
+folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_stopAdminTask( ::nebula::storage::cpp2::StopTaskResp& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_wrapped_stopAdminTask(_return, state);
+}
+
+void StorageAdminServiceAsyncClient::clearSpace(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  clearSpace(rpcOptions, std::move(callback), p_req);
+}
+
+void StorageAdminServiceAsyncClient::clearSpace(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+  auto ctx = clearSpaceCtx(&rpcOptions);
+  apache::thrift::RequestCallback::Context callbackContext;
+  callbackContext.protocolId =
+      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
+  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
+  clearSpaceImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
+}
+
+void StorageAdminServiceAsyncClient::clearSpaceImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolWriter writer;
+      clearSpaceT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
+      break;
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolWriter writer;
+      clearSpaceT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
+      break;
+    }
+    default:
+    {
+      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
+    }
+  }
+}
+
+std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> StorageAdminServiceAsyncClient::clearSpaceCtx(apache::thrift::RpcOptions* rpcOptions) {
+  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
+      channel_->getProtocolId(),
+      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
+      handlers_,
+      getServiceName(),
+      "StorageAdminService.clearSpace");
+}
+
+void StorageAdminServiceAsyncClient::sync_clearSpace( ::nebula::storage::cpp2::ClearSpaceResp& _return, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  sync_clearSpace(rpcOptions, _return, p_req);
+}
+
+void StorageAdminServiceAsyncClient::sync_clearSpace(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::ClearSpaceResp& _return, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+  apache::thrift::ClientReceiveState returnState;
+  apache::thrift::ClientSyncCallback<false> callback(&returnState);
+  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
+  auto ctx = clearSpaceCtx(&rpcOptions);
+  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
+  clearSpaceImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
+  callback.waitUntilDone(evb);
+
+  if (returnState.isException()) {
+    returnState.exception().throw_exception();
+  }
+  returnState.resetProtocolId(protocolId);
+  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+  SCOPE_EXIT {
+    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
+      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
+    }
+  };
+  return folly::fibers::runInMainContext([&] {
+      recv_clearSpace(_return, returnState);
+  });
+}
+
+
+folly::Future< ::nebula::storage::cpp2::ClearSpaceResp> StorageAdminServiceAsyncClient::future_clearSpace(const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return future_clearSpace(rpcOptions, p_req);
+}
+
+folly::SemiFuture< ::nebula::storage::cpp2::ClearSpaceResp> StorageAdminServiceAsyncClient::semifuture_clearSpace(const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return semifuture_clearSpace(rpcOptions, p_req);
+}
+
+folly::Future< ::nebula::storage::cpp2::ClearSpaceResp> StorageAdminServiceAsyncClient::future_clearSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+  folly::Promise< ::nebula::storage::cpp2::ClearSpaceResp> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::ClearSpaceResp>>(std::move(promise), recv_wrapped_clearSpace, channel_);
+  clearSpace(rpcOptions, std::move(callback), p_req);
+  return future;
+}
+
+folly::SemiFuture< ::nebula::storage::cpp2::ClearSpaceResp> StorageAdminServiceAsyncClient::semifuture_clearSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_clearSpace, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  clearSpace(rpcOptions, std::move(callback), p_req);
+  return std::move(callbackAndFuture.second);
+}
+
+folly::Future<std::pair< ::nebula::storage::cpp2::ClearSpaceResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_future_clearSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+  folly::Promise<std::pair< ::nebula::storage::cpp2::ClearSpaceResp, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::ClearSpaceResp>>(std::move(promise), recv_wrapped_clearSpace, channel_);
+  clearSpace(rpcOptions, std::move(callback), p_req);
+  return future;
+}
+
+folly::SemiFuture<std::pair< ::nebula::storage::cpp2::ClearSpaceResp, std::unique_ptr<apache::thrift::transport::THeader>>> StorageAdminServiceAsyncClient::header_semifuture_clearSpace(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_clearSpace, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  clearSpace(rpcOptions, std::move(callback), p_req);
+  return std::move(callbackAndFuture.second);
+}
+
+void StorageAdminServiceAsyncClient::clearSpace(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::storage::cpp2::ClearSpaceReq& p_req) {
+  clearSpace(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
+}
+
+#if FOLLY_HAS_COROUTINES
+#endif // FOLLY_HAS_COROUTINES
+folly::exception_wrapper StorageAdminServiceAsyncClient::recv_wrapped_clearSpace( ::nebula::storage::cpp2::ClearSpaceResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  if (state.isException()) {
+    return std::move(state.exception());
+  }
+  if (!state.buf()) {
+    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
+  }
+
+  using result = StorageAdminService_clearSpace_presult;
+  constexpr auto const fname = "clearSpace";
+  switch (state.protocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    default:
+    {
+    }
+  }
+  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
+}
+
+void StorageAdminServiceAsyncClient::recv_clearSpace( ::nebula::storage::cpp2::ClearSpaceResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  auto ew = recv_wrapped_clearSpace(_return, state);
+  if (ew) {
+    ew.throw_exception();
+  }
+}
+
+void StorageAdminServiceAsyncClient::recv_instance_clearSpace( ::nebula::storage::cpp2::ClearSpaceResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_clearSpace(_return, state);
+}
+
+folly::exception_wrapper StorageAdminServiceAsyncClient::recv_instance_wrapped_clearSpace( ::nebula::storage::cpp2::ClearSpaceResp& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_wrapped_clearSpace(_return, state);
 }
 
 

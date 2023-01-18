@@ -34,6 +34,9 @@ class MetaServiceSvAsyncIf {
   virtual void async_tm_dropSpace(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropSpaceReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropSpace(const  ::nebula::meta::cpp2::DropSpaceReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropSpace(const  ::nebula::meta::cpp2::DropSpaceReq& p_req) = 0;
+  virtual void async_tm_clearSpace(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) = 0;
+  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_clearSpace(const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_clearSpace(const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) = 0;
   virtual void async_tm_getSpace(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetSpaceResp>> callback, const  ::nebula::meta::cpp2::GetSpaceReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::GetSpaceResp> future_getSpace(const  ::nebula::meta::cpp2::GetSpaceReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::GetSpaceResp> semifuture_getSpace(const  ::nebula::meta::cpp2::GetSpaceReq& p_req) = 0;
@@ -97,24 +100,6 @@ class MetaServiceSvAsyncIf {
   virtual void async_tm_getWorkerId(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetWorkerIdResp>> callback, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::GetWorkerIdResp> future_getWorkerId(const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::GetWorkerIdResp> semifuture_getWorkerId(const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) = 0;
-  virtual void async_tm_multiPut(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::MultiPutReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_multiPut(const  ::nebula::meta::cpp2::MultiPutReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_multiPut(const  ::nebula::meta::cpp2::MultiPutReq& p_req) = 0;
-  virtual void async_tm_get(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetResp>> callback, const  ::nebula::meta::cpp2::GetReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::GetResp> future_get(const  ::nebula::meta::cpp2::GetReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::GetResp> semifuture_get(const  ::nebula::meta::cpp2::GetReq& p_req) = 0;
-  virtual void async_tm_multiGet(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::MultiGetResp>> callback, const  ::nebula::meta::cpp2::MultiGetReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::MultiGetResp> future_multiGet(const  ::nebula::meta::cpp2::MultiGetReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::MultiGetResp> semifuture_multiGet(const  ::nebula::meta::cpp2::MultiGetReq& p_req) = 0;
-  virtual void async_tm_remove(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RemoveReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_remove(const  ::nebula::meta::cpp2::RemoveReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_remove(const  ::nebula::meta::cpp2::RemoveReq& p_req) = 0;
-  virtual void async_tm_removeRange(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_removeRange(const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_removeRange(const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) = 0;
-  virtual void async_tm_scan(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ScanResp>> callback, const  ::nebula::meta::cpp2::ScanReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ScanResp> future_scan(const  ::nebula::meta::cpp2::ScanReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ScanResp> semifuture_scan(const  ::nebula::meta::cpp2::ScanReq& p_req) = 0;
   virtual void async_tm_createTagIndex(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::CreateTagIndexReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_createTagIndex(const  ::nebula::meta::cpp2::CreateTagIndexReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_createTagIndex(const  ::nebula::meta::cpp2::CreateTagIndexReq& p_req) = 0;
@@ -268,9 +253,9 @@ class MetaServiceSvAsyncIf {
   virtual void async_tm_getSession(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetSessionResp>> callback, const  ::nebula::meta::cpp2::GetSessionReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::GetSessionResp> future_getSession(const  ::nebula::meta::cpp2::GetSessionReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::GetSessionResp> semifuture_getSession(const  ::nebula::meta::cpp2::GetSessionReq& p_req) = 0;
-  virtual void async_tm_removeSession(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) = 0;
+  virtual void async_tm_removeSession(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::RemoveSessionResp>> callback, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) = 0;
+  virtual folly::Future< ::nebula::meta::cpp2::RemoveSessionResp> future_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::RemoveSessionResp> semifuture_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) = 0;
   virtual void async_tm_killQuery(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::KillQueryReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_killQuery(const  ::nebula::meta::cpp2::KillQueryReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_killQuery(const  ::nebula::meta::cpp2::KillQueryReq& p_req) = 0;
@@ -280,9 +265,9 @@ class MetaServiceSvAsyncIf {
   virtual void async_tm_createBackup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::CreateBackupResp>> callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::CreateBackupResp> future_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::CreateBackupResp> semifuture_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) = 0;
-  virtual void async_tm_restoreMeta(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) = 0;
-  virtual folly::Future< ::nebula::meta::cpp2::ExecResp> future_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) = 0;
-  virtual folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) = 0;
+  virtual void async_tm_restoreMeta(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::RestoreMetaResp>> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) = 0;
+  virtual folly::Future< ::nebula::meta::cpp2::RestoreMetaResp> future_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::RestoreMetaResp> semifuture_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) = 0;
   virtual void async_tm_listCluster(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ListClusterInfoResp>> callback, const  ::nebula::meta::cpp2::ListClusterInfoReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::ListClusterInfoResp> future_listCluster(const  ::nebula::meta::cpp2::ListClusterInfoReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::ListClusterInfoResp> semifuture_listCluster(const  ::nebula::meta::cpp2::ListClusterInfoReq& p_req) = 0;
@@ -292,6 +277,12 @@ class MetaServiceSvAsyncIf {
   virtual void async_tm_verifyClientVersion(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::VerifyClientVersionResp>> callback, const  ::nebula::meta::cpp2::VerifyClientVersionReq& p_req) = 0;
   virtual folly::Future< ::nebula::meta::cpp2::VerifyClientVersionResp> future_verifyClientVersion(const  ::nebula::meta::cpp2::VerifyClientVersionReq& p_req) = 0;
   virtual folly::SemiFuture< ::nebula::meta::cpp2::VerifyClientVersionResp> semifuture_verifyClientVersion(const  ::nebula::meta::cpp2::VerifyClientVersionReq& p_req) = 0;
+  virtual void async_tm_saveGraphVersion(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::SaveGraphVersionResp>> callback, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) = 0;
+  virtual folly::Future< ::nebula::meta::cpp2::SaveGraphVersionResp> future_saveGraphVersion(const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::SaveGraphVersionResp> semifuture_saveGraphVersion(const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) = 0;
+  virtual void async_tm_getSegmentId(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetSegmentIdResp>> callback, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) = 0;
+  virtual folly::Future< ::nebula::meta::cpp2::GetSegmentIdResp> future_getSegmentId(const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) = 0;
+  virtual folly::SemiFuture< ::nebula::meta::cpp2::GetSegmentIdResp> semifuture_getSegmentId(const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) = 0;
 };
 
 class MetaServiceAsyncProcessor;
@@ -310,6 +301,10 @@ class MetaServiceSvIf : public MetaServiceSvAsyncIf, public apache::thrift::Serv
   folly::Future< ::nebula::meta::cpp2::ExecResp> future_dropSpace(const  ::nebula::meta::cpp2::DropSpaceReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_dropSpace(const  ::nebula::meta::cpp2::DropSpaceReq& p_req) override;
   void async_tm_dropSpace(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::DropSpaceReq& p_req) override;
+  virtual void clearSpace( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::ClearSpaceReq& /*req*/);
+  folly::Future< ::nebula::meta::cpp2::ExecResp> future_clearSpace(const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) override;
+  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_clearSpace(const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) override;
+  void async_tm_clearSpace(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::ClearSpaceReq& p_req) override;
   virtual void getSpace( ::nebula::meta::cpp2::GetSpaceResp& /*_return*/, const  ::nebula::meta::cpp2::GetSpaceReq& /*req*/);
   folly::Future< ::nebula::meta::cpp2::GetSpaceResp> future_getSpace(const  ::nebula::meta::cpp2::GetSpaceReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::GetSpaceResp> semifuture_getSpace(const  ::nebula::meta::cpp2::GetSpaceReq& p_req) override;
@@ -394,30 +389,6 @@ class MetaServiceSvIf : public MetaServiceSvAsyncIf, public apache::thrift::Serv
   folly::Future< ::nebula::meta::cpp2::GetWorkerIdResp> future_getWorkerId(const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::GetWorkerIdResp> semifuture_getWorkerId(const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) override;
   void async_tm_getWorkerId(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetWorkerIdResp>> callback, const  ::nebula::meta::cpp2::GetWorkerIdReq& p_req) override;
-  virtual void multiPut( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::MultiPutReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_multiPut(const  ::nebula::meta::cpp2::MultiPutReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_multiPut(const  ::nebula::meta::cpp2::MultiPutReq& p_req) override;
-  void async_tm_multiPut(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::MultiPutReq& p_req) override;
-  virtual void get( ::nebula::meta::cpp2::GetResp& /*_return*/, const  ::nebula::meta::cpp2::GetReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::GetResp> future_get(const  ::nebula::meta::cpp2::GetReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::GetResp> semifuture_get(const  ::nebula::meta::cpp2::GetReq& p_req) override;
-  void async_tm_get(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetResp>> callback, const  ::nebula::meta::cpp2::GetReq& p_req) override;
-  virtual void multiGet( ::nebula::meta::cpp2::MultiGetResp& /*_return*/, const  ::nebula::meta::cpp2::MultiGetReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::MultiGetResp> future_multiGet(const  ::nebula::meta::cpp2::MultiGetReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::MultiGetResp> semifuture_multiGet(const  ::nebula::meta::cpp2::MultiGetReq& p_req) override;
-  void async_tm_multiGet(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::MultiGetResp>> callback, const  ::nebula::meta::cpp2::MultiGetReq& p_req) override;
-  virtual void remove( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_remove(const  ::nebula::meta::cpp2::RemoveReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_remove(const  ::nebula::meta::cpp2::RemoveReq& p_req) override;
-  void async_tm_remove(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RemoveReq& p_req) override;
-  virtual void removeRange( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveRangeReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_removeRange(const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_removeRange(const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) override;
-  void async_tm_removeRange(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RemoveRangeReq& p_req) override;
-  virtual void scan( ::nebula::meta::cpp2::ScanResp& /*_return*/, const  ::nebula::meta::cpp2::ScanReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ScanResp> future_scan(const  ::nebula::meta::cpp2::ScanReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ScanResp> semifuture_scan(const  ::nebula::meta::cpp2::ScanReq& p_req) override;
-  void async_tm_scan(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ScanResp>> callback, const  ::nebula::meta::cpp2::ScanReq& p_req) override;
   virtual void createTagIndex( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::CreateTagIndexReq& /*req*/);
   folly::Future< ::nebula::meta::cpp2::ExecResp> future_createTagIndex(const  ::nebula::meta::cpp2::CreateTagIndexReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_createTagIndex(const  ::nebula::meta::cpp2::CreateTagIndexReq& p_req) override;
@@ -622,10 +593,10 @@ class MetaServiceSvIf : public MetaServiceSvAsyncIf, public apache::thrift::Serv
   folly::Future< ::nebula::meta::cpp2::GetSessionResp> future_getSession(const  ::nebula::meta::cpp2::GetSessionReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::GetSessionResp> semifuture_getSession(const  ::nebula::meta::cpp2::GetSessionReq& p_req) override;
   void async_tm_getSession(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetSessionResp>> callback, const  ::nebula::meta::cpp2::GetSessionReq& p_req) override;
-  virtual void removeSession( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveSessionReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) override;
-  void async_tm_removeSession(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) override;
+  virtual void removeSession( ::nebula::meta::cpp2::RemoveSessionResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveSessionReq& /*req*/);
+  folly::Future< ::nebula::meta::cpp2::RemoveSessionResp> future_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) override;
+  folly::SemiFuture< ::nebula::meta::cpp2::RemoveSessionResp> semifuture_removeSession(const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) override;
+  void async_tm_removeSession(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::RemoveSessionResp>> callback, const  ::nebula::meta::cpp2::RemoveSessionReq& p_req) override;
   virtual void killQuery( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::KillQueryReq& /*req*/);
   folly::Future< ::nebula::meta::cpp2::ExecResp> future_killQuery(const  ::nebula::meta::cpp2::KillQueryReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_killQuery(const  ::nebula::meta::cpp2::KillQueryReq& p_req) override;
@@ -638,10 +609,10 @@ class MetaServiceSvIf : public MetaServiceSvAsyncIf, public apache::thrift::Serv
   folly::Future< ::nebula::meta::cpp2::CreateBackupResp> future_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::CreateBackupResp> semifuture_createBackup(const  ::nebula::meta::cpp2::CreateBackupReq& p_req) override;
   void async_tm_createBackup(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::CreateBackupResp>> callback, const  ::nebula::meta::cpp2::CreateBackupReq& p_req) override;
-  virtual void restoreMeta( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/);
-  folly::Future< ::nebula::meta::cpp2::ExecResp> future_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) override;
-  folly::SemiFuture< ::nebula::meta::cpp2::ExecResp> semifuture_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) override;
-  void async_tm_restoreMeta(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::ExecResp>> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) override;
+  virtual void restoreMeta( ::nebula::meta::cpp2::RestoreMetaResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/);
+  folly::Future< ::nebula::meta::cpp2::RestoreMetaResp> future_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) override;
+  folly::SemiFuture< ::nebula::meta::cpp2::RestoreMetaResp> semifuture_restoreMeta(const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) override;
+  void async_tm_restoreMeta(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::RestoreMetaResp>> callback, const  ::nebula::meta::cpp2::RestoreMetaReq& p_req) override;
   virtual void listCluster( ::nebula::meta::cpp2::ListClusterInfoResp& /*_return*/, const  ::nebula::meta::cpp2::ListClusterInfoReq& /*req*/);
   folly::Future< ::nebula::meta::cpp2::ListClusterInfoResp> future_listCluster(const  ::nebula::meta::cpp2::ListClusterInfoReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::ListClusterInfoResp> semifuture_listCluster(const  ::nebula::meta::cpp2::ListClusterInfoReq& p_req) override;
@@ -654,12 +625,21 @@ class MetaServiceSvIf : public MetaServiceSvAsyncIf, public apache::thrift::Serv
   folly::Future< ::nebula::meta::cpp2::VerifyClientVersionResp> future_verifyClientVersion(const  ::nebula::meta::cpp2::VerifyClientVersionReq& p_req) override;
   folly::SemiFuture< ::nebula::meta::cpp2::VerifyClientVersionResp> semifuture_verifyClientVersion(const  ::nebula::meta::cpp2::VerifyClientVersionReq& p_req) override;
   void async_tm_verifyClientVersion(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::VerifyClientVersionResp>> callback, const  ::nebula::meta::cpp2::VerifyClientVersionReq& p_req) override;
+  virtual void saveGraphVersion( ::nebula::meta::cpp2::SaveGraphVersionResp& /*_return*/, const  ::nebula::meta::cpp2::SaveGraphVersionReq& /*req*/);
+  folly::Future< ::nebula::meta::cpp2::SaveGraphVersionResp> future_saveGraphVersion(const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) override;
+  folly::SemiFuture< ::nebula::meta::cpp2::SaveGraphVersionResp> semifuture_saveGraphVersion(const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) override;
+  void async_tm_saveGraphVersion(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::SaveGraphVersionResp>> callback, const  ::nebula::meta::cpp2::SaveGraphVersionReq& p_req) override;
+  virtual void getSegmentId( ::nebula::meta::cpp2::GetSegmentIdResp& /*_return*/, const  ::nebula::meta::cpp2::GetSegmentIdReq& /*req*/);
+  folly::Future< ::nebula::meta::cpp2::GetSegmentIdResp> future_getSegmentId(const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) override;
+  folly::SemiFuture< ::nebula::meta::cpp2::GetSegmentIdResp> semifuture_getSegmentId(const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) override;
+  void async_tm_getSegmentId(std::unique_ptr<apache::thrift::HandlerCallback< ::nebula::meta::cpp2::GetSegmentIdResp>> callback, const  ::nebula::meta::cpp2::GetSegmentIdReq& p_req) override;
 };
 
 class MetaServiceSvNull : public MetaServiceSvIf {
  public:
   void createSpace( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::CreateSpaceReq& /*req*/) override;
   void dropSpace( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropSpaceReq& /*req*/) override;
+  void clearSpace( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::ClearSpaceReq& /*req*/) override;
   void getSpace( ::nebula::meta::cpp2::GetSpaceResp& /*_return*/, const  ::nebula::meta::cpp2::GetSpaceReq& /*req*/) override;
   void listSpaces( ::nebula::meta::cpp2::ListSpacesResp& /*_return*/, const  ::nebula::meta::cpp2::ListSpacesReq& /*req*/) override;
   void alterSpace( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::AlterSpaceReq& /*req*/) override;
@@ -681,12 +661,6 @@ class MetaServiceSvNull : public MetaServiceSvIf {
   void getPartsAlloc( ::nebula::meta::cpp2::GetPartsAllocResp& /*_return*/, const  ::nebula::meta::cpp2::GetPartsAllocReq& /*req*/) override;
   void listParts( ::nebula::meta::cpp2::ListPartsResp& /*_return*/, const  ::nebula::meta::cpp2::ListPartsReq& /*req*/) override;
   void getWorkerId( ::nebula::meta::cpp2::GetWorkerIdResp& /*_return*/, const  ::nebula::meta::cpp2::GetWorkerIdReq& /*req*/) override;
-  void multiPut( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::MultiPutReq& /*req*/) override;
-  void get( ::nebula::meta::cpp2::GetResp& /*_return*/, const  ::nebula::meta::cpp2::GetReq& /*req*/) override;
-  void multiGet( ::nebula::meta::cpp2::MultiGetResp& /*_return*/, const  ::nebula::meta::cpp2::MultiGetReq& /*req*/) override;
-  void remove( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveReq& /*req*/) override;
-  void removeRange( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveRangeReq& /*req*/) override;
-  void scan( ::nebula::meta::cpp2::ScanResp& /*_return*/, const  ::nebula::meta::cpp2::ScanReq& /*req*/) override;
   void createTagIndex( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::CreateTagIndexReq& /*req*/) override;
   void dropTagIndex( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::DropTagIndexReq& /*req*/) override;
   void getTagIndex( ::nebula::meta::cpp2::GetTagIndexResp& /*_return*/, const  ::nebula::meta::cpp2::GetTagIndexReq& /*req*/) override;
@@ -738,14 +712,16 @@ class MetaServiceSvNull : public MetaServiceSvIf {
   void updateSessions( ::nebula::meta::cpp2::UpdateSessionsResp& /*_return*/, const  ::nebula::meta::cpp2::UpdateSessionsReq& /*req*/) override;
   void listSessions( ::nebula::meta::cpp2::ListSessionsResp& /*_return*/, const  ::nebula::meta::cpp2::ListSessionsReq& /*req*/) override;
   void getSession( ::nebula::meta::cpp2::GetSessionResp& /*_return*/, const  ::nebula::meta::cpp2::GetSessionReq& /*req*/) override;
-  void removeSession( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveSessionReq& /*req*/) override;
+  void removeSession( ::nebula::meta::cpp2::RemoveSessionResp& /*_return*/, const  ::nebula::meta::cpp2::RemoveSessionReq& /*req*/) override;
   void killQuery( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::KillQueryReq& /*req*/) override;
   void reportTaskFinish( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::ReportTaskReq& /*req*/) override;
   void createBackup( ::nebula::meta::cpp2::CreateBackupResp& /*_return*/, const  ::nebula::meta::cpp2::CreateBackupReq& /*req*/) override;
-  void restoreMeta( ::nebula::meta::cpp2::ExecResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/) override;
+  void restoreMeta( ::nebula::meta::cpp2::RestoreMetaResp& /*_return*/, const  ::nebula::meta::cpp2::RestoreMetaReq& /*req*/) override;
   void listCluster( ::nebula::meta::cpp2::ListClusterInfoResp& /*_return*/, const  ::nebula::meta::cpp2::ListClusterInfoReq& /*req*/) override;
   void getMetaDirInfo( ::nebula::meta::cpp2::GetMetaDirInfoResp& /*_return*/, const  ::nebula::meta::cpp2::GetMetaDirInfoReq& /*req*/) override;
   void verifyClientVersion( ::nebula::meta::cpp2::VerifyClientVersionResp& /*_return*/, const  ::nebula::meta::cpp2::VerifyClientVersionReq& /*req*/) override;
+  void saveGraphVersion( ::nebula::meta::cpp2::SaveGraphVersionResp& /*_return*/, const  ::nebula::meta::cpp2::SaveGraphVersionReq& /*req*/) override;
+  void getSegmentId( ::nebula::meta::cpp2::GetSegmentIdResp& /*_return*/, const  ::nebula::meta::cpp2::GetSegmentIdReq& /*req*/) override;
 };
 
 class MetaServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcessor {
@@ -784,6 +760,14 @@ class MetaServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcess
   static folly::IOBufQueue return_dropSpace(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_dropSpace(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_clearSpace(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_clearSpace(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_clearSpace(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_clearSpace(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
   void setUpAndProcess_getSpace(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>
@@ -952,54 +936,6 @@ class MetaServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcess
   static folly::IOBufQueue return_getWorkerId(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::GetWorkerIdResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_getWorkerId(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_multiPut(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_multiPut(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_multiPut(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_multiPut(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_get(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_get(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_get(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::GetResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_get(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_multiGet(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_multiGet(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_multiGet(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::MultiGetResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_multiGet(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_remove(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_remove(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_remove(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_remove(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_removeRange(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_removeRange(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_removeRange(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_removeRange(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void setUpAndProcess_scan(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <typename ProtocolIn_, typename ProtocolOut_>
-  void process_scan(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_scan(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ScanResp const& _return);
-  template <class ProtocolIn_, class ProtocolOut_>
-  static void throw_wrapped_scan(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
   void setUpAndProcess_createTagIndex(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <typename ProtocolIn_, typename ProtocolOut_>
@@ -1413,7 +1349,7 @@ class MetaServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcess
   template <typename ProtocolIn_, typename ProtocolOut_>
   void process_removeSession(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_removeSession(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
+  static folly::IOBufQueue return_removeSession(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::RemoveSessionResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_removeSession(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
@@ -1445,7 +1381,7 @@ class MetaServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcess
   template <typename ProtocolIn_, typename ProtocolOut_>
   void process_restoreMeta(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
   template <class ProtocolIn_, class ProtocolOut_>
-  static folly::IOBufQueue return_restoreMeta(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::ExecResp const& _return);
+  static folly::IOBufQueue return_restoreMeta(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::RestoreMetaResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_restoreMeta(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
   template <typename ProtocolIn_, typename ProtocolOut_>
@@ -1472,6 +1408,22 @@ class MetaServiceAsyncProcessor : public ::apache::thrift::GeneratedAsyncProcess
   static folly::IOBufQueue return_verifyClientVersion(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::VerifyClientVersionResp const& _return);
   template <class ProtocolIn_, class ProtocolOut_>
   static void throw_wrapped_verifyClientVersion(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_saveGraphVersion(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_saveGraphVersion(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_saveGraphVersion(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::SaveGraphVersionResp const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_saveGraphVersion(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void setUpAndProcess_getSegmentId(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx, folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <typename ProtocolIn_, typename ProtocolOut_>
+  void process_getSegmentId(apache::thrift::ResponseChannelRequest::UniquePtr req, apache::thrift::SerializedRequest&& serializedRequest, apache::thrift::Cpp2RequestContext* ctx,folly::EventBase* eb, apache::thrift::concurrency::ThreadManager* tm);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static folly::IOBufQueue return_getSegmentId(int32_t protoSeqId, apache::thrift::ContextStack* ctx,  ::nebula::meta::cpp2::GetSegmentIdResp const& _return);
+  template <class ProtocolIn_, class ProtocolOut_>
+  static void throw_wrapped_getSegmentId(apache::thrift::ResponseChannelRequest::UniquePtr req,int32_t protoSeqId,apache::thrift::ContextStack* ctx,folly::exception_wrapper ew,apache::thrift::Cpp2RequestContext* reqCtx);
  public:
   MetaServiceAsyncProcessor(MetaServiceSvIf* iface) :
       iface_(iface) {}

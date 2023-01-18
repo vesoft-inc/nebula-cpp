@@ -12,6 +12,8 @@
 namespace nebula { namespace storage { namespace cpp2 {
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetNeighborsRequest*>> GraphStorageService_getNeighbors_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetNeighborsResponse*>> GraphStorageService_getNeighbors_presult;
+typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetDstBySrcRequest*>> GraphStorageService_getDstBySrc_pargs;
+typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetDstBySrcResponse*>> GraphStorageService_getDstBySrc_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetPropRequest*>> GraphStorageService_getProps_pargs;
 typedef apache::thrift::ThriftPresult<true, apache::thrift::FieldData<0, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::GetPropResponse*>> GraphStorageService_getProps_presult;
 typedef apache::thrift::ThriftPresult<false, apache::thrift::FieldData<1, ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::AddVerticesRequest*>> GraphStorageService_addVertices_pargs;
@@ -60,6 +62,19 @@ void GraphStorageServiceAsyncClient::getNeighborsT(Protocol_* prot, apache::thri
   auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
   auto writer = [&](Protocol_* p) { args.write(p); };
   static constexpr const folly::StringPiece methodName = "getNeighbors";
+  apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
+  ctx->reqContext.setRequestHeader(nullptr);
+}
+
+template <typename Protocol_>
+void GraphStorageServiceAsyncClient::getDstBySrcT(Protocol_* prot, apache::thrift::RpcOptions rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+
+  std::shared_ptr<apache::thrift::transport::THeader> header(ctx, &ctx->header);
+  GraphStorageService_getDstBySrc_pargs args;
+  args.get<0>().value = const_cast< ::nebula::storage::cpp2::GetDstBySrcRequest*>(&p_req);
+  auto sizer = [&](Protocol_* p) { return args.serializedSizeZC(p); };
+  auto writer = [&](Protocol_* p) { args.write(p); };
+  static constexpr const folly::StringPiece methodName = "getDstBySrc";
   apache::thrift::clientSendT<apache::thrift::RpcKind::SINGLE_REQUEST_SINGLE_RESPONSE, Protocol_>(prot, std::move(rpcOptions), std::move(callback), ctx->ctx, std::move(header), channel_.get(), apache::thrift::ManagedStringView(methodName, false), writer, sizer);
   ctx->reqContext.setRequestHeader(nullptr);
 }
@@ -478,6 +493,173 @@ void GraphStorageServiceAsyncClient::recv_instance_getNeighbors( ::nebula::stora
 
 folly::exception_wrapper GraphStorageServiceAsyncClient::recv_instance_wrapped_getNeighbors( ::nebula::storage::cpp2::GetNeighborsResponse& _return, ::apache::thrift::ClientReceiveState& state) {
   return recv_wrapped_getNeighbors(_return, state);
+}
+
+void GraphStorageServiceAsyncClient::getDstBySrc(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  getDstBySrc(rpcOptions, std::move(callback), p_req);
+}
+
+void GraphStorageServiceAsyncClient::getDstBySrc(apache::thrift::RpcOptions& rpcOptions, std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  auto ctx = getDstBySrcCtx(&rpcOptions);
+  apache::thrift::RequestCallback::Context callbackContext;
+  callbackContext.protocolId =
+      apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  callbackContext.ctx = std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx);
+  auto wrappedCallback = apache::thrift::toRequestClientCallbackPtr(std::move(callback), std::move(callbackContext));
+  getDstBySrcImpl(rpcOptions, std::move(ctx), std::move(wrappedCallback), p_req);
+}
+
+void GraphStorageServiceAsyncClient::getDstBySrcImpl(const apache::thrift::RpcOptions& rpcOptions, std::shared_ptr<apache::thrift::detail::ac::ClientRequestContext> ctx, apache::thrift::RequestClientCallback::Ptr callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  switch (apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolWriter writer;
+      getDstBySrcT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
+      break;
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolWriter writer;
+      getDstBySrcT(&writer, rpcOptions, std::move(ctx), std::move(callback), p_req);
+      break;
+    }
+    default:
+    {
+      apache::thrift::detail::ac::throw_app_exn("Could not find Protocol");
+    }
+  }
+}
+
+std::shared_ptr<::apache::thrift::detail::ac::ClientRequestContext> GraphStorageServiceAsyncClient::getDstBySrcCtx(apache::thrift::RpcOptions* rpcOptions) {
+  return std::make_shared<apache::thrift::detail::ac::ClientRequestContext>(
+      channel_->getProtocolId(),
+      rpcOptions ? rpcOptions->releaseWriteHeaders() : std::map<std::string, std::string>{},
+      handlers_,
+      getServiceName(),
+      "GraphStorageService.getDstBySrc");
+}
+
+void GraphStorageServiceAsyncClient::sync_getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& _return, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  sync_getDstBySrc(rpcOptions, _return, p_req);
+}
+
+void GraphStorageServiceAsyncClient::sync_getDstBySrc(apache::thrift::RpcOptions& rpcOptions,  ::nebula::storage::cpp2::GetDstBySrcResponse& _return, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  apache::thrift::ClientReceiveState returnState;
+  apache::thrift::ClientSyncCallback<false> callback(&returnState);
+  auto protocolId = apache::thrift::GeneratedAsyncClient::getChannel()->getProtocolId();
+  auto evb = apache::thrift::GeneratedAsyncClient::getChannel()->getEventBase();
+  auto ctx = getDstBySrcCtx(&rpcOptions);
+  auto wrappedCallback = apache::thrift::RequestClientCallback::Ptr(&callback);
+  getDstBySrcImpl(rpcOptions, ctx, std::move(wrappedCallback), p_req);
+  callback.waitUntilDone(evb);
+
+  if (returnState.isException()) {
+    returnState.exception().throw_exception();
+  }
+  returnState.resetProtocolId(protocolId);
+  returnState.resetCtx(std::shared_ptr<apache::thrift::ContextStack>(ctx, &ctx->ctx));
+  SCOPE_EXIT {
+    if (returnState.header() && !returnState.header()->getHeaders().empty()) {
+      rpcOptions.setReadHeaders(returnState.header()->releaseHeaders());
+    }
+  };
+  return folly::fibers::runInMainContext([&] {
+      recv_getDstBySrc(_return, returnState);
+  });
+}
+
+
+folly::Future< ::nebula::storage::cpp2::GetDstBySrcResponse> GraphStorageServiceAsyncClient::future_getDstBySrc(const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return future_getDstBySrc(rpcOptions, p_req);
+}
+
+folly::SemiFuture< ::nebula::storage::cpp2::GetDstBySrcResponse> GraphStorageServiceAsyncClient::semifuture_getDstBySrc(const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  ::apache::thrift::RpcOptions rpcOptions;
+  return semifuture_getDstBySrc(rpcOptions, p_req);
+}
+
+folly::Future< ::nebula::storage::cpp2::GetDstBySrcResponse> GraphStorageServiceAsyncClient::future_getDstBySrc(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  folly::Promise< ::nebula::storage::cpp2::GetDstBySrcResponse> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::FutureCallback< ::nebula::storage::cpp2::GetDstBySrcResponse>>(std::move(promise), recv_wrapped_getDstBySrc, channel_);
+  getDstBySrc(rpcOptions, std::move(callback), p_req);
+  return future;
+}
+
+folly::SemiFuture< ::nebula::storage::cpp2::GetDstBySrcResponse> GraphStorageServiceAsyncClient::semifuture_getDstBySrc(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  auto callbackAndFuture = makeSemiFutureCallback(recv_wrapped_getDstBySrc, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  getDstBySrc(rpcOptions, std::move(callback), p_req);
+  return std::move(callbackAndFuture.second);
+}
+
+folly::Future<std::pair< ::nebula::storage::cpp2::GetDstBySrcResponse, std::unique_ptr<apache::thrift::transport::THeader>>> GraphStorageServiceAsyncClient::header_future_getDstBySrc(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  folly::Promise<std::pair< ::nebula::storage::cpp2::GetDstBySrcResponse, std::unique_ptr<apache::thrift::transport::THeader>>> promise;
+  auto future = promise.getFuture();
+  auto callback = std::make_unique<apache::thrift::HeaderFutureCallback< ::nebula::storage::cpp2::GetDstBySrcResponse>>(std::move(promise), recv_wrapped_getDstBySrc, channel_);
+  getDstBySrc(rpcOptions, std::move(callback), p_req);
+  return future;
+}
+
+folly::SemiFuture<std::pair< ::nebula::storage::cpp2::GetDstBySrcResponse, std::unique_ptr<apache::thrift::transport::THeader>>> GraphStorageServiceAsyncClient::header_semifuture_getDstBySrc(apache::thrift::RpcOptions& rpcOptions, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  auto callbackAndFuture = makeHeaderSemiFutureCallback(recv_wrapped_getDstBySrc, channel_);
+  auto callback = std::move(callbackAndFuture.first);
+  getDstBySrc(rpcOptions, std::move(callback), p_req);
+  return std::move(callbackAndFuture.second);
+}
+
+void GraphStorageServiceAsyncClient::getDstBySrc(folly::Function<void (::apache::thrift::ClientReceiveState&&)> callback, const  ::nebula::storage::cpp2::GetDstBySrcRequest& p_req) {
+  getDstBySrc(std::make_unique<apache::thrift::FunctionReplyCallback>(std::move(callback)), p_req);
+}
+
+#if FOLLY_HAS_COROUTINES
+#endif // FOLLY_HAS_COROUTINES
+folly::exception_wrapper GraphStorageServiceAsyncClient::recv_wrapped_getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& _return, ::apache::thrift::ClientReceiveState& state) {
+  if (state.isException()) {
+    return std::move(state.exception());
+  }
+  if (!state.buf()) {
+    return folly::make_exception_wrapper<apache::thrift::TApplicationException>("recv_ called without result");
+  }
+
+  using result = GraphStorageService_getDstBySrc_presult;
+  constexpr auto const fname = "getDstBySrc";
+  switch (state.protocolId()) {
+    case apache::thrift::protocol::T_BINARY_PROTOCOL:
+    {
+      apache::thrift::BinaryProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    case apache::thrift::protocol::T_COMPACT_PROTOCOL:
+    {
+      apache::thrift::CompactProtocolReader reader;
+      return apache::thrift::detail::ac::recv_wrapped<result>(
+          fname, &reader, state, _return);
+    }
+    default:
+    {
+    }
+  }
+  return folly::make_exception_wrapper<apache::thrift::TApplicationException>("Could not find Protocol");
+}
+
+void GraphStorageServiceAsyncClient::recv_getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& _return, ::apache::thrift::ClientReceiveState& state) {
+  auto ew = recv_wrapped_getDstBySrc(_return, state);
+  if (ew) {
+    ew.throw_exception();
+  }
+}
+
+void GraphStorageServiceAsyncClient::recv_instance_getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_getDstBySrc(_return, state);
+}
+
+folly::exception_wrapper GraphStorageServiceAsyncClient::recv_instance_wrapped_getDstBySrc( ::nebula::storage::cpp2::GetDstBySrcResponse& _return, ::apache::thrift::ClientReceiveState& state) {
+  return recv_wrapped_getDstBySrc(_return, state);
 }
 
 void GraphStorageServiceAsyncClient::getProps(std::unique_ptr<apache::thrift::RequestCallback> callback, const  ::nebula::storage::cpp2::GetPropRequest& p_req) {
