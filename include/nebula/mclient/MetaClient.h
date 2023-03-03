@@ -50,6 +50,7 @@ class ListSpacesReq;
 class ListSpacesResp;
 class IdName;
 class EdgeItem;
+class TagItem;
 class ListEdgesReq;
 class ListEdgesResp;
 
@@ -60,6 +61,9 @@ using SpaceIdName = std::pair<GraphSpaceID, std::string>;
 using SpaceNameIdMap = std::unordered_map<std::string, GraphSpaceID>;
 using SpaceEdgeNameTypeMap =
     std::unordered_map<std::pair<GraphSpaceID, std::string>, EdgeType, pair_hash>;
+
+using SpaceTagNameTypeMap =
+    std::unordered_map<std::pair<GraphSpaceID, std::string>, TagID, pair_hash>;
 
 class MetaClient {
  public:
@@ -73,6 +77,8 @@ class MetaClient {
   std::pair<bool, EdgeType> getEdgeTypeByNameFromCache(GraphSpaceID spaceId,
                                                        const std::string &name);
 
+  std::pair<bool, EdgeType> getTagIdByNameFromCache(GraphSpaceID spaceId, const std::string &name);
+
   std::pair<bool, std::vector<PartitionID>> getPartsFromCache(GraphSpaceID spaceId);
 
   std::pair<bool, HostAddr> getPartLeaderFromCache(GraphSpaceID spaceId, PartitionID partId);
@@ -85,6 +91,8 @@ class MetaClient {
   std::pair<bool, std::vector<meta::cpp2::HostItem>> listHosts(meta::cpp2::ListHostType tp);
 
   std::pair<bool, std::vector<meta::cpp2::EdgeItem>> listEdgeSchemas(GraphSpaceID spaceId);
+
+  std::pair<bool, std::vector<meta::cpp2::TagItem>> listTagSchemas(GraphSpaceID spaceId);
 
   void loadLeader(const std::vector<nebula::meta::cpp2::HostItem> &hostItems,
                   const SpaceNameIdMap &spaceIndexByName);
@@ -107,6 +115,7 @@ class MetaClient {
   MConfig mConfig_;
   SpaceNameIdMap spaceIndexByName_;
   SpaceEdgeNameTypeMap spaceEdgeIndexByName_;
+  SpaceTagNameTypeMap spaceTagIndexByName_;
   std::unordered_map<std::pair<GraphSpaceID, PartitionID>, HostAddr, pair_hash> spacePartLeaderMap_;
   std::unordered_map<GraphSpaceID, std::vector<PartitionID>> spacePartsMap_;
   std::shared_ptr<folly::IOThreadPoolExecutor> ioExecutor_;

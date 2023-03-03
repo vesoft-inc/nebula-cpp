@@ -55,6 +55,16 @@ std::pair<bool, EdgeType> MetaClient::getEdgeTypeByNameFromCache(GraphSpaceID sp
   return {true, it->second};
 }
 
+std::pair<bool, EdgeType> MetaClient::getTagIdByNameFromCache(GraphSpaceID spaceId,
+                                                              const std::string& name) {
+  auto it = spaceTagIndexByName_.find(std::make_pair(spaceId, name));
+  if (it == spaceTagIndexByName_.end()) {
+    LOG(ERROR) << "getTagIdByNameFromCache(" << spaceId << ", " << name << ") failed";
+    return {false, -1};
+  }
+  return {true, it->second};
+}
+
 std::pair<bool, std::vector<PartitionID>> MetaClient::getPartsFromCache(GraphSpaceID spaceId) {
   auto iter = spacePartsMap_.find(spaceId);
   if (iter == spacePartsMap_.end()) {
@@ -93,6 +103,17 @@ bool MetaClient::loadData() {
     auto& edgeItems = edgesRet.second;
     for (auto& edgeItem : edgeItems) {
       spaceEdgeIndexByName_[{spaceId, edgeItem.get_edge_name()}] = edgeItem.get_edge_type();
+    }
+
+    // tags
+    auto tagRet = listTagSchemas(spaceId);
+    if (!tagRet.first) {
+      LOG(ERROR) << "Get tag schemas failed for spaceId " << spaceId;
+      return false;
+    }
+    auto& tagItems = tagRet.second;
+    for (auto& tagItem : tagItems) {
+      spaceTagIndexByName_[{spaceId, tagItem.get_tag_name()}] = tagItem.get_tag_id();
     }
   }
   auto hostsRet = listHosts(meta::cpp2::ListHostType::ALLOC);
@@ -148,6 +169,21 @@ std::pair<bool, std::vector<meta::cpp2::EdgeItem>> MetaClient::listEdgeSchemas(
       [](auto client, auto request) { return client->future_listEdges(request); },
       [](meta::cpp2::ListEdgesResp&& resp) -> decltype(auto) {
         return std::make_pair(true, resp.get_edges());
+      },
+      std::move(promise));
+  return std::move(future).get();
+}
+
+std::pair<bool, std::vector<meta::cpp2::TagItem>> MetaClient::listTagSchemas(GraphSpaceID spaceId) {
+  meta::cpp2::ListTagsReq req;
+  req.space_id_ref() = spaceId;
+  folly::Promise<std::pair<bool, std::vector<meta::cpp2::TagItem>>> promise;
+  auto future = promise.getFuture();
+  getResponse(
+      std::move(req),
+      [](auto client, auto request) { return client->future_listTags(request); },
+      [](meta::cpp2::ListTagsResp&& resp) -> decltype(auto) {
+        return std::make_pair(true, std::move(resp).get_tags());
       },
       std::move(promise));
   return std::move(future).get();

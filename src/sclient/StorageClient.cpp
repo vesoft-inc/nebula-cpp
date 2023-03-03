@@ -108,6 +108,80 @@ std::pair<bool, storage::cpp2::ScanResponse> StorageClient::doScanEdge(
   return std::move(future).get();
 }
 
+ScanVertexIter StorageClient::scanVertexWithPart(
+    std::string spaceName,
+    int32_t partId,
+    // tag name -> prop names
+    std::unordered_map<std::string, std::vector<std::string>> tagProps,
+    int64_t limit,
+    int64_t startTime,
+    int64_t endTime,
+    std::string filter,
+    bool onlyLatestVersion,
+    bool enableReadFromFollower) {
+  auto spaceIdResult = mClient_->getSpaceIdByNameFromCache(spaceName);
+  if (!spaceIdResult.first) {
+    return {nullptr, nullptr, false};
+  }
+  int32_t spaceId = spaceIdResult.second;
+
+  std::vector<storage::cpp2::VertexProp> returnCols;
+
+  for (const auto& tagProp : tagProps) {
+    auto tagTypeResult = mClient_->getTagIdByNameFromCache(spaceId, tagProp.first);
+    if (!tagTypeResult.first) {
+      return {nullptr, nullptr, false};
+    }
+    int32_t tagType = tagTypeResult.second;
+
+    storage::cpp2::VertexProp returnCol;
+    returnCol.set_tag(tagType);
+    returnCol.set_props(tagProp.second);
+    returnCols.emplace_back(returnCol);
+  }
+
+  auto* req = new storage::cpp2::ScanVertexRequest;
+  req->set_space_id(spaceId);
+  // old interface
+  // req->set_part_id(partId);
+  // req->set_cursor("");
+  // new interface
+  storage::cpp2::ScanCursor scanCursor;
+  req->set_parts(std::unordered_map<PartitionID, storage::cpp2::ScanCursor>{{partId, scanCursor}});
+  req->set_return_columns(std::move(returnCols));
+  req->set_limit(limit);
+  req->set_start_time(startTime);
+  req->set_end_time(endTime);
+  req->set_filter(filter);
+  req->set_only_latest_version(onlyLatestVersion);
+  req->set_enable_read_from_follower(enableReadFromFollower);
+
+  return {this, req};
+}
+
+std::pair<bool, storage::cpp2::ScanResponse> StorageClient::doScanVertex(
+    const storage::cpp2::ScanVertexRequest& req) {
+  std::pair<HostAddr, storage::cpp2::ScanVertexRequest> request;
+  auto partCursorMap = req.get_parts();
+  DCHECK_EQ(partCursorMap.size(), 1);
+  PartitionID partId = partCursorMap.begin()->first;
+  auto host = mClient_->getPartLeaderFromCache(req.get_space_id(), partId);
+  if (!host.first) {
+    return {false, storage::cpp2::ScanResponse()};
+  }
+  request.first = host.second;
+  request.second = req;
+
+  folly::Promise<std::pair<bool, storage::cpp2::ScanResponse>> promise;
+  auto future = promise.getFuture();
+  getResponse(
+      std::move(request),
+      [](storage::cpp2::GraphStorageServiceAsyncClient* client,
+         const storage::cpp2::ScanVertexRequest& r) { return client->future_scanVertex(r); },
+      std::move(promise));
+  return std::move(future).get();
+}
+
 template <typename Request, typename RemoteFunc, typename Response>
 void StorageClient::getResponse(std::pair<HostAddr, Request>&& request,
                                 RemoteFunc&& remoteFunc,
