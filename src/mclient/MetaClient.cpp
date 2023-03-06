@@ -55,7 +55,7 @@ std::pair<bool, EdgeType> MetaClient::getEdgeTypeByNameFromCache(GraphSpaceID sp
   return {true, it->second};
 }
 
-std::pair<bool, EdgeType> MetaClient::getTagIdByNameFromCache(GraphSpaceID spaceId,
+std::pair<bool, TagID> MetaClient::getTagIdByNameFromCache(GraphSpaceID spaceId,
                                                               const std::string& name) {
   auto it = spaceTagIndexByName_.find(std::make_pair(spaceId, name));
   if (it == spaceTagIndexByName_.end()) {

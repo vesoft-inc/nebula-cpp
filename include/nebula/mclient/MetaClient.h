@@ -77,7 +77,7 @@ class MetaClient {
   std::pair<bool, EdgeType> getEdgeTypeByNameFromCache(GraphSpaceID spaceId,
                                                        const std::string &name);
 
-  std::pair<bool, EdgeType> getTagIdByNameFromCache(GraphSpaceID spaceId, const std::string &name);
+  std::pair<bool, TagID> getTagIdByNameFromCache(GraphSpaceID spaceId, const std::string &name);
 
   std::pair<bool, std::vector<PartitionID>> getPartsFromCache(GraphSpaceID spaceId);
 
