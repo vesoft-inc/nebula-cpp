@@ -46,14 +46,17 @@ add_executable(storage_client_example
 target_link_libraries(session_example
     PRIVATE
         nebula_graph_client
+        -pthread
 )
 
 target_link_libraries(session_pool_example
     PRIVATE
         nebula_graph_client
+        -pthread
 )
 
 target_link_libraries(storage_client_example
     PRIVATE
         nebula_storage_client
+        -pthread
 )
