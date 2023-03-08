@@ -34,6 +34,7 @@ global:
         nebula::ExecutionResponse::*;
         nebula::StorageClient::*;
         nebula::ScanEdgeIter::*;
+        nebula::ScanVertexIter::*;
         *::_S_empty_rep_storage;
     };
 local:

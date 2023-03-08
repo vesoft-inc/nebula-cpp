@@ -35,5 +35,22 @@ int main(int argc, char* argv[]) {
         std::cout << "+++++++++++++++++++++++++" << std::endl;
     }
 
+    nebula::ScanVertexIter scanVertexIter = c.scanVertexWithPart("nba",
+                                           1,
+                                           {{"player", std::vector<std::string>{"name"}}},
+                                           10,
+                                           0,
+                                           std::numeric_limits<int64_t>::max(),
+                                           "",
+                                           true,
+                                           true);
+    std::cout << "scan vertex..." << std::endl;
+    while (scanVertexIter.hasNext()) {
+        std::cout << "-------------------------" << std::endl;
+        nebula::DataSet ds = scanVertexIter.next();
+        std::cout << ds << std::endl;
+        std::cout << "+++++++++++++++++++++++++" << std::endl;
+    }
+
     return 0;
 }
