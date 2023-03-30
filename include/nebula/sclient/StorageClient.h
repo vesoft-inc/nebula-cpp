@@ -81,6 +81,16 @@ class StorageClient {
                                 bool onlyLatestVersion = false,
                                 bool enableReadFromFollower = true);  // plato needed
 
+  ScanEdgeIter scanEdgeWithPart(std::string spaceName,
+                                int32_t partId,
+                                std::unordered_map<std::string, std::vector<std::string>> edgeProps,
+                                int64_t limit = DEFAULT_LIMIT,
+                                int64_t startTime = DEFAULT_START_TIME,
+                                int64_t endTime = DEFAULT_END_TIME,
+                                std::string filter = "",
+                                bool onlyLatestVersion = false,
+                                bool enableReadFromFollower = true);  // plato needed
+
   ScanVertexIter scanVertexWithPart(
       std::string spaceName,
       int32_t partID,

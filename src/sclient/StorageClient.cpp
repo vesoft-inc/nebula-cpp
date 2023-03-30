@@ -51,20 +51,48 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
                                              std::string filter,
                                              bool onlyLatestVersion,
                                              bool enableReadFromFollower) {
+  return scanEdgeWithPart(spaceName,
+                          partId,
+                          {{edgeName, propNames}},
+                          limit,
+                          startTime,
+                          endTime,
+                          filter,
+                          onlyLatestVersion,
+                          enableReadFromFollower);
+}
+
+ScanEdgeIter StorageClient::scanEdgeWithPart(
+    std::string spaceName,
+    int32_t partId,
+    std::unordered_map<std::string, std::vector<std::string>> edgeProps,
+    int64_t limit,
+    int64_t startTime,
+    int64_t endTime,
+    std::string filter,
+    bool onlyLatestVersion,
+    bool enableReadFromFollower) {
   auto spaceIdResult = mClient_->getSpaceIdByNameFromCache(spaceName);
   if (!spaceIdResult.first) {
     return {nullptr, nullptr, false};
   }
   int32_t spaceId = spaceIdResult.second;
-  auto edgeTypeResult = mClient_->getEdgeTypeByNameFromCache(spaceId, edgeName);
-  if (!edgeTypeResult.first) {
-    return {nullptr, nullptr, false};
-  }
-  int32_t edgeType = edgeTypeResult.second;
 
-  storage::cpp2::EdgeProp returnCols;
-  returnCols.set_type(edgeType);
-  returnCols.set_props(propNames);
+  std::vector<storage::cpp2::EdgeProp> returnCols;
+  for (auto& pair : edgeProps) {
+    auto edgeName = pair.first;
+    auto propNames = pair.second;
+    auto edgeTypeResult = mClient_->getEdgeTypeByNameFromCache(spaceId, edgeName);
+    if (!edgeTypeResult.first) {
+      return {nullptr, nullptr, false};
+    }
+    int32_t edgeType = edgeTypeResult.second;
+
+    storage::cpp2::EdgeProp returnCol;
+    returnCol.set_type(edgeType);
+    returnCol.set_props(propNames);
+    returnCols.push_back(returnCol);
+  }
 
   auto* req = new storage::cpp2::ScanEdgeRequest;
   req->set_space_id(spaceId);
@@ -74,7 +102,7 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
   // new interface
   storage::cpp2::ScanCursor scanCursor;
   req->set_parts(std::unordered_map<PartitionID, storage::cpp2::ScanCursor>{{partId, scanCursor}});
-  req->set_return_columns({returnCols});
+  req->set_return_columns(returnCols);
   req->set_limit(limit);
   req->set_start_time(startTime);
   req->set_end_time(endTime);
