@@ -36,6 +36,7 @@ class StorageClientTest : public SClientTest {
 
     auto result2 = session.execute(
         "CREATE EDGE IF NOT EXISTS like(likeness int);"
+        "CREATE EDGE IF NOT EXISTS follow(rank1 int, rank2 int);"
         "CREATE TAG IF NOT EXISTS player(name string);");
     ASSERT_EQ(result2.errorCode, nebula::ErrorCode::SUCCEEDED);
 
@@ -49,11 +50,19 @@ class StorageClientTest : public SClientTest {
         << (result3.errorMsg ? *result3.errorMsg : "");
 
     auto result4 = session.execute(
+        "INSERT EDGE follow(rank1, rank2) VALUES '101'->'102':(1, 100), '102'->'103':(2, 200), "
+        "'103'->'201':(3, 300), '201'->'202':(4, 400), '202'->'203':(5, 500), '203'->'301':(6, "
+        "600), "
+        "'301'->'302':(7, 700)");
+    ASSERT_EQ(result4.errorCode, nebula::ErrorCode::SUCCEEDED)
+        << (result4.errorMsg ? *result4.errorMsg : "");
+
+    auto resul5 = session.execute(
         "INSERT VERTEX player(name) VALUES 'Tim':('Tim'), 'Bob':('Bob'), "
         "'Alice':('Alice'), 'Tifa':('Tifa'), 'Mario':('Mario'), 'Jack':('Jack'), "
         "'Tom':('Tom')");
-    ASSERT_EQ(result4.errorCode, nebula::ErrorCode::SUCCEEDED)
-        << (result4.errorMsg ? *result4.errorMsg : "");
+    ASSERT_EQ(resul5.errorCode, nebula::ErrorCode::SUCCEEDED)
+        << (resul5.errorMsg ? *resul5.errorMsg : "");
   }
 
   static void runOnce(nebula::MetaClient &c) {
@@ -116,6 +125,48 @@ class StorageClientTest : public SClientTest {
       EXPECT_EQ(scanNum, 3);
       EXPECT_TRUE(verifyResultWithoutOrder(got, expected));
     }
+
+    LOG(INFO) << "run with goodScanIter";
+    {
+      auto goodScanIter = c.scanEdgeWithPart(
+          "storage_client_test",
+          1,
+          {{"like", std::vector<std::string>{"_src", "_dst", "likeness"}},
+           {"follow", std::vector<std::string>{"_src", "_dst", "rank1", "rank2"}}},
+          3,
+          0,
+          std::numeric_limits<int64_t>::max(),
+          "",
+          true,
+          true);
+      nebula::DataSet got;
+      while (goodScanIter.hasNext()) {
+        nebula::DataSet ds = goodScanIter.next();
+        got.append(std::move(ds));
+      }
+
+      EXPECT_EQ(got.rows[0], nebula::List({"101", "102", 78}));
+      EXPECT_EQ(got.rows[1], nebula::List({"101", "102", 1, 100}));
+
+      EXPECT_EQ(got.rows[2], nebula::List({"102", "103", 99}));
+      EXPECT_EQ(got.rows[3], nebula::List({"102", "103", 2, 200}));
+
+      EXPECT_EQ(got.rows[4], nebula::List({"103", "201", 43}));
+      EXPECT_EQ(got.rows[5], nebula::List({"103", "201", 3, 300}));
+
+      EXPECT_EQ(got.rows[6], nebula::List({"201", "202", 56}));
+      EXPECT_EQ(got.rows[7], nebula::List({"201", "202", 4, 400}));
+
+      EXPECT_EQ(got.rows[8], nebula::List({"202", "203", -13}));
+      EXPECT_EQ(got.rows[9], nebula::List({"202", "203", 5, 500}));
+
+      EXPECT_EQ(got.rows[10], nebula::List({"203", "301", 431}));
+      EXPECT_EQ(got.rows[11], nebula::List({"203", "301", 6, 600}));
+
+      EXPECT_EQ(got.rows[12], nebula::List({"301", "302", 457}));
+      EXPECT_EQ(got.rows[13], nebula::List({"301", "302", 7, 700}));
+    }
+
     LOG(INFO) << "run with badScanIter";
     {
       auto badScanIter = c.scanEdgeWithPart("storage_client_test",
