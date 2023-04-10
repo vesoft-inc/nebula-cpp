@@ -11,6 +11,7 @@
 #include <nebula/sclient/ScanEdgeIter.h>
 #include <common/Init.h>
 #include <nebula/sclient/StorageClient.h>
+#include "common/graph/Response.h"
 
 int main(int argc, char* argv[]) {
     nebula::init(&argc, &argv);
@@ -30,8 +31,9 @@ int main(int argc, char* argv[]) {
     std::cout << "scan edge..." << std::endl;
     while (scanEdgeIter.hasNext()) {
         std::cout << "-------------------------" << std::endl;
-        nebula::DataSet ds = scanEdgeIter.next();
-        std::cout << ds << std::endl;
+        std::pair<nebula::ErrorCode, nebula::DataSet> res = scanEdgeIter.next();
+        std::cout << res.first << std::endl;
+        std::cout << res.second << std::endl;
         std::cout << "+++++++++++++++++++++++++" << std::endl;
     }
 
@@ -47,8 +49,9 @@ int main(int argc, char* argv[]) {
     std::cout << "scan vertex..." << std::endl;
     while (scanVertexIter.hasNext()) {
         std::cout << "-------------------------" << std::endl;
-        nebula::DataSet ds = scanVertexIter.next();
-        std::cout << ds << std::endl;
+        std::pair<nebula::ErrorCode, nebula::DataSet> res = scanVertexIter.next();
+        std::cout << res.first << std::endl;
+        std::cout << res.second << std::endl;
         std::cout << "+++++++++++++++++++++++++" << std::endl;
     }
 

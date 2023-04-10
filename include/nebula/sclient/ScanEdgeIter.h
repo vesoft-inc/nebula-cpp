@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "common/datatypes/DataSet.h"
+#include "common/graph/Response.h"
 
 namespace nebula {
 class StorageClient;
@@ -26,7 +27,7 @@ struct ScanEdgeIter {
 
   bool hasNext();
 
-  DataSet next();
+  std::pair<::nebula::ErrorCode, DataSet> next();
 
   StorageClient* client_;
   storage::cpp2::ScanEdgeRequest* req_;

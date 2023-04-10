@@ -23,29 +23,22 @@ ScanVertexIter::~ScanVertexIter() {
   delete req_;
 }
 
-DataSet ScanVertexIter::next() {
-  if (!hasNext()) {
-    LOG(ERROR) << "hasNext() == false !";
-    return DataSet();
-  }
+std::pair<::nebula::ErrorCode, DataSet> ScanVertexIter::next() {
+  DCHECK(hasNext()) << "hasNext() == false !";
   DCHECK(!!req_);
   auto partCursorMapReq = req_->get_parts();
   DCHECK_EQ(partCursorMapReq.size(), 1);
   partCursorMapReq.begin()->second.set_next_cursor(nextCursor_);
   req_->set_parts(partCursorMapReq);
   auto r = client_->doScanVertex(*req_);
-  if (!r.first) {
-    LOG(ERROR) << "Scan vertex failed";
+  auto code = r.first;
+  if (code != ::nebula::ErrorCode::SUCCEEDED) {
+    LOG(ERROR) << "Scan vertex failed, error code: " << static_cast<int32_t>(code);
     this->hasNext_ = false;
-    return DataSet();
+    return {code, DataSet()};
   }
   auto scanResponse = r.second;
-  if (!scanResponse.get_result().get_failed_parts().empty()) {
-    auto errorCode = scanResponse.get_result().get_failed_parts()[0].code;
-    LOG(ERROR) << "Scan vertex failed, errorcode: " << static_cast<int32_t>(errorCode);
-    this->hasNext_ = false;
-    return DataSet();
-  }
+  DCHECK(scanResponse.get_result().get_failed_parts().empty());
   auto partCursorMapResp = scanResponse.get_cursors();
   DCHECK_EQ(partCursorMapResp.size(), 1);
   auto scanCursor = partCursorMapResp.begin()->second;
@@ -54,7 +47,7 @@ DataSet ScanVertexIter::next() {
     nextCursor_ = scanCursor.next_cursor_ref().value();
   }
 
-  return *scanResponse.get_props();
+  return {::nebula::ErrorCode::SUCCEEDED, *scanResponse.get_props()};
 }
 
 }  //  namespace nebula
