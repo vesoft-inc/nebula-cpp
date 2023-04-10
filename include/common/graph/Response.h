@@ -276,12 +276,21 @@ enum class ErrorCode { ErrorCodeEnums };
 
 #undef X
 
-const char *getErrorCode(ErrorCode code);
+#define X(EnumName, EnumNumber) \
+  case ErrorCode::EnumName:     \
+    return #EnumName;
+
+static inline const char* getErrorCode(ErrorCode code) {
+  switch (code) { ErrorCodeEnums }
+  return "Unknown error";
+}
 
 static inline std::ostream &operator<<(std::ostream &os, ErrorCode code) {
   os << getErrorCode(code);
   return os;
 }
+
+#undef X
 
 template <typename T>
 bool inline checkPointer(const T *lhs, const T *rhs) {
@@ -419,7 +428,24 @@ struct PlanNodeDescription {
     __clear();
   }
 
-  bool operator==(const PlanNodeDescription &rhs) const;
+  bool operator==(const PlanNodeDescription &rhs) const {
+    if (name != rhs.name) {
+      return false;
+    }
+    if (id != rhs.id) {
+      return false;
+    }
+    if (!checkPointer(description.get(), rhs.description.get())) {
+      return false;
+    }
+    if (!checkPointer(profiles.get(), rhs.profiles.get())) {
+      return false;
+    }
+    if (!checkPointer(branchInfo.get(), rhs.branchInfo.get())) {
+      return false;
+    }
+    return checkPointer(dependencies.get(), rhs.dependencies.get());
+  }
 
   std::string name;
   int64_t id{-1};

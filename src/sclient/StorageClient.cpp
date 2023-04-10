@@ -85,7 +85,7 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
   return {this, req};
 }
 
-std::pair<bool, storage::cpp2::ScanResponse> StorageClient::doScanEdge(
+std::pair<::nebula::ErrorCode, storage::cpp2::ScanResponse> StorageClient::doScanEdge(
     const storage::cpp2::ScanEdgeRequest& req) {
   std::pair<HostAddr, storage::cpp2::ScanEdgeRequest> request;
   auto partCursorMap = req.get_parts();
@@ -93,12 +93,12 @@ std::pair<bool, storage::cpp2::ScanResponse> StorageClient::doScanEdge(
   PartitionID partId = partCursorMap.begin()->first;
   auto host = mClient_->getPartLeaderFromCache(req.get_space_id(), partId);
   if (!host.first) {
-    return {false, storage::cpp2::ScanResponse()};
+    return {::nebula::ErrorCode::E_UNKNOWN, storage::cpp2::ScanResponse()};
   }
   request.first = host.second;
   request.second = req;
 
-  folly::Promise<std::pair<bool, storage::cpp2::ScanResponse>> promise;
+  folly::Promise<std::pair<::nebula::ErrorCode, storage::cpp2::ScanResponse>> promise;
   auto future = promise.getFuture();
   getResponse(
       std::move(request),
@@ -159,7 +159,7 @@ ScanVertexIter StorageClient::scanVertexWithPart(
   return {this, req};
 }
 
-std::pair<bool, storage::cpp2::ScanResponse> StorageClient::doScanVertex(
+std::pair<::nebula::ErrorCode, storage::cpp2::ScanResponse> StorageClient::doScanVertex(
     const storage::cpp2::ScanVertexRequest& req) {
   std::pair<HostAddr, storage::cpp2::ScanVertexRequest> request;
   auto partCursorMap = req.get_parts();
@@ -167,12 +167,12 @@ std::pair<bool, storage::cpp2::ScanResponse> StorageClient::doScanVertex(
   PartitionID partId = partCursorMap.begin()->first;
   auto host = mClient_->getPartLeaderFromCache(req.get_space_id(), partId);
   if (!host.first) {
-    return {false, storage::cpp2::ScanResponse()};
+    return {::nebula::ErrorCode::E_UNKNOWN, storage::cpp2::ScanResponse()};
   }
   request.first = host.second;
   request.second = req;
 
-  folly::Promise<std::pair<bool, storage::cpp2::ScanResponse>> promise;
+  folly::Promise<std::pair<::nebula::ErrorCode, storage::cpp2::ScanResponse>> promise;
   auto future = promise.getFuture();
   getResponse(
       std::move(request),
@@ -185,7 +185,7 @@ std::pair<bool, storage::cpp2::ScanResponse> StorageClient::doScanVertex(
 template <typename Request, typename RemoteFunc, typename Response>
 void StorageClient::getResponse(std::pair<HostAddr, Request>&& request,
                                 RemoteFunc&& remoteFunc,
-                                folly::Promise<std::pair<bool, Response>> pro) {
+                                folly::Promise<std::pair<::nebula::ErrorCode, Response>> pro) {
   auto* evb = DCHECK_NOTNULL(ioExecutor_)->getEventBase();
   folly::via(evb,
              [evb,
@@ -198,16 +198,36 @@ void StorageClient::getResponse(std::pair<HostAddr, Request>&& request,
                LOG(INFO) << "Send request to storage " << host;
                remoteFunc(client.get(), request.second)
                    .via(evb)
-                   .then([pro = std::move(pro), host](folly::Try<Response>&& t) mutable {
-                     // exception occurred during RPC
-                     if (t.hasException()) {
-                       LOG(ERROR) << "Send request to " << host << " failed";
-                       LOG(ERROR) << "RpcResponse exception: " << t.exception().what().c_str();
-                       pro.setValue(std::make_pair(false, Response()));
+                   .thenValue([pro = std::move(pro), this](Response&& resp) mutable {
+                     auto& result = resp.get_result();
+                     for (auto& part : result.get_failed_parts()) {
+                       auto partId = part.get_part_id();
+                       auto code = part.get_code();
+
+                       LOG(ERROR) << "Failure! Failed part: " << partId
+                                  << ", error code: " << static_cast<int32_t>(code);
+                       pro.setValue(std::make_pair(::nebula::ErrorCode(static_cast<int32_t>(code)),
+                                                   Response()));
                        return;
                      }
-                     auto&& resp = t.value();
-                     pro.setValue(std::make_pair(true, std::move(resp)));
+                     pro.setValue(std::make_pair(::nebula::ErrorCode::SUCCEEDED, std::move(resp)));
+                     return;
+                   })
+                   .thenError([pro = std::move(pro), host, this](
+                                  folly::exception_wrapper&& exWrapper) mutable {
+                     using TransportException = apache::thrift::transport::TTransportException;
+                     auto ex = exWrapper.get_exception<TransportException>();
+                     if (ex) {
+                       if (ex->getType() == TransportException::TIMED_OUT) {
+                         LOG(ERROR) << "Request to " << host << " time out: " << ex->what();
+                       } else {
+                         LOG(ERROR) << "Request to " << host << " failed: " << ex->what();
+                       }
+                     } else {
+                       LOG(ERROR) << "Request to " << host << " failed.";
+                     }
+                     pro.setValue(std::make_pair(::nebula::ErrorCode::E_RPC_FAILURE, Response()));
+                     return;
                    });
              });  // via
 }

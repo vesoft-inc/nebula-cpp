@@ -18,6 +18,7 @@
 #include "nebula/sclient/SConfig.h"
 #include "nebula/sclient/ScanEdgeIter.h"
 #include "nebula/sclient/ScanVertexIter.h"
+#include "common/graph/Response.h"
 
 namespace folly {
 class IOThreadPoolExecutor;
@@ -98,16 +99,16 @@ class StorageClient {
   }
 
  private:
-  std::pair<bool, storage::cpp2::ScanResponse> doScanEdge(
+  std::pair<::nebula::ErrorCode, storage::cpp2::ScanResponse> doScanEdge(
       const storage::cpp2::ScanEdgeRequest& req);
 
-  std::pair<bool, storage::cpp2::ScanResponse> doScanVertex(
+  std::pair<::nebula::ErrorCode, storage::cpp2::ScanResponse> doScanVertex(
       const storage::cpp2::ScanVertexRequest& req);
 
   template <typename Request, typename RemoteFunc, typename Response>
-  void getResponse(std::pair<HostAddr, Request>&& request,
+    void getResponse(std::pair<HostAddr, Request>&& request,
                    RemoteFunc&& remoteFunc,
-                   folly::Promise<std::pair<bool, Response>> pro);
+                   folly::Promise<std::pair<::nebula::ErrorCode, Response>> pro);
 
   std::unique_ptr<MetaClient> mClient_;
   SConfig sConfig_;

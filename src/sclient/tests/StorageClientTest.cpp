@@ -109,8 +109,9 @@ class StorageClientTest : public SClientTest {
       nebula::DataSet got;
       int scanNum = 0;
       while (goodScanIter.hasNext()) {
-        nebula::DataSet ds = goodScanIter.next();
-        got.append(std::move(ds));
+        std::pair<nebula::ErrorCode, nebula::DataSet> res = goodScanIter.next();
+        EXPECT_EQ(res.first, nebula::ErrorCode::SUCCEEDED);
+        got.append(std::move(res.second));
         ++scanNum;
       }
       EXPECT_EQ(scanNum, 3);
@@ -130,8 +131,9 @@ class StorageClientTest : public SClientTest {
                                             true);
       {
         EXPECT_EQ(badScanIter.hasNext(), true);
-        nebula::DataSet ds = badScanIter.next();
-        EXPECT_EQ(ds, nebula::DataSet());
+        std::pair<nebula::ErrorCode, nebula::DataSet> res = badScanIter.next();
+        EXPECT_NE(res.first, nebula::ErrorCode::SUCCEEDED);
+        EXPECT_EQ(res.second, nebula::DataSet());
         EXPECT_EQ(badScanIter.hasNext_, false);
         EXPECT_EQ(badScanIter.nextCursor_, "");
       }
@@ -162,8 +164,9 @@ class StorageClientTest : public SClientTest {
       nebula::DataSet got;
       int scanNum = 0;
       while (goodScanIter.hasNext()) {
-        nebula::DataSet ds = goodScanIter.next();
-        got.append(std::move(ds));
+        std::pair<nebula::ErrorCode, nebula::DataSet> res = goodScanIter.next();
+        EXPECT_EQ(res.first, nebula::ErrorCode::SUCCEEDED);
+        got.append(std::move(res.second));
         ++scanNum;
       }
       EXPECT_EQ(scanNum, 3);
@@ -183,8 +186,9 @@ class StorageClientTest : public SClientTest {
                                               true);
       {
         EXPECT_EQ(badScanIter.hasNext(), true);
-        nebula::DataSet ds = badScanIter.next();
-        EXPECT_EQ(ds, nebula::DataSet());
+        std::pair<nebula::ErrorCode, nebula::DataSet> res = badScanIter.next();
+        EXPECT_NE(res.first, nebula::ErrorCode::SUCCEEDED);
+        EXPECT_EQ(res.second, nebula::DataSet());
         EXPECT_EQ(badScanIter.hasNext_, false);
         EXPECT_EQ(badScanIter.nextCursor_, "");
       }
