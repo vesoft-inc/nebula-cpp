@@ -42,7 +42,7 @@ ExecutionResponse SessionPool::execute(const std::string &stmt) {
   auto result = getIdleSession();
   if (result.second) {
     auto resp = result.first.execute(stmt);
-    if (*resp.spaceName != config_.spaceName_) {
+    if (resp.spaceName != nullptr && *resp.spaceName != config_.spaceName_) {
       // switch to origin space
       result.first.execute("USE " + config_.spaceName_);
     }
@@ -62,7 +62,7 @@ ExecutionResponse SessionPool::executeWithParameter(
   auto result = getIdleSession();
   if (result.second) {
     auto resp = result.first.executeWithParameter(stmt, parameters);
-    if (*resp.spaceName != config_.spaceName_) {
+    if (resp.spaceName != nullptr && *resp.spaceName != config_.spaceName_) {
       // switch to origin space
       result.first.execute("USE " + config_.spaceName_);
     }
