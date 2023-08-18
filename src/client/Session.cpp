@@ -5,13 +5,14 @@
 
 #include "nebula/client/Session.h"
 
+#include "common/graph/Response.h"
 #include "common/time/TimeConversion.h"
 #include "nebula/client/ConnectionPool.h"
 
 namespace nebula {
 
 ExecutionResponse Session::execute(const std::string &stmt) {
-  return ExecutionResponse(conn_.execute(sessionId_, stmt));
+  return executeWithParameter(stmt, {});
 }
 
 void Session::asyncExecute(const std::string &stmt, ExecuteCallback cb) {
@@ -22,7 +23,37 @@ void Session::asyncExecute(const std::string &stmt, ExecuteCallback cb) {
 
 ExecutionResponse Session::executeWithParameter(
     const std::string &stmt, const std::unordered_map<std::string, Value> &parameters) {
-  return ExecutionResponse(conn_.executeWithParameter(sessionId_, stmt, parameters));
+  if (connectionIsBroken_ && retryConnect_) {
+    if (retryConnect() == nebula::ErrorCode::SUCCEEDED) {
+      return ExecutionResponse(conn_.executeWithParameter(sessionId_, stmt, parameters));
+    } else {
+      return ExecutionResponse{ErrorCode::E_RPC_FAILURE,
+                               0,
+                               nullptr,
+                               nullptr,
+                               std::make_unique<std::string>("All servers are broken.")};
+    }
+  }
+  auto resp = conn_.executeWithParameter(sessionId_, stmt, parameters);
+  if (resp.errorCode == nebula::ErrorCode::SUCCEEDED) {
+    return resp;
+  } else if (resp.errorCode == nebula::ErrorCode::E_FAIL_TO_CONNECT) {
+    connectionIsBroken_ = true;
+    if (retryConnect_) {
+      if (retryConnect() == nebula::ErrorCode::SUCCEEDED) {
+        connectionIsBroken_ = false;
+        return ExecutionResponse(conn_.executeWithParameter(sessionId_, stmt, parameters));
+      } else {
+        connectionIsBroken_ = true;
+        return ExecutionResponse{ErrorCode::E_RPC_FAILURE,
+                                 0,
+                                 nullptr,
+                                 nullptr,
+                                 std::make_unique<std::string>("All servers are broken.")};
+      }
+    }
+  }
+  return resp;
 }
 
 void Session::asyncExecuteWithParameter(const std::string &stmt,

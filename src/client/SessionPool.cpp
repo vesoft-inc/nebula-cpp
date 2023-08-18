@@ -39,22 +39,7 @@ bool SessionPool::init() {
 }
 
 ExecutionResponse SessionPool::execute(const std::string &stmt) {
-  auto result = getIdleSession();
-  if (result.second) {
-    auto resp = result.first.execute(stmt);
-    if (resp.spaceName != nullptr && *resp.spaceName != config_.spaceName_) {
-      // switch to origin space
-      result.first.execute("USE " + config_.spaceName_);
-    }
-    giveBack(std::move(result.first));
-    return resp;
-  } else {
-    return ExecutionResponse{ErrorCode::E_DISCONNECTED,
-                             0,
-                             nullptr,
-                             nullptr,
-                             std::make_unique<std::string>("No idle session.")};
-  }
+  return executeWithParameter(stmt, {});
 }
 
 ExecutionResponse SessionPool::executeWithParameter(
