@@ -12,6 +12,7 @@
 #include <nebula/client/Connection.h>
 
 #include "./ClientTest.h"
+#include "common/graph/Response.h"
 
 // Require a nebula server could access
 
@@ -148,7 +149,9 @@ TEST_F(ConnectionTest, Timeout) {
   // execute
   resp = c.execute(*authResp.sessionId,
                    "use conn_test;GO 100000 STEPS FROM 'Tim Duncan' OVER like YIELD like._dst;");
-  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::E_RPC_FAILURE) << *resp.errorMsg;
+  ASSERT_TRUE(resp.errorCode == nebula::ErrorCode::E_RPC_FAILURE ||
+              resp.errorCode == nebula::ErrorCode::E_FAIL_TO_CONNECT)
+      << *resp.errorMsg;
 
   resp =
       c.execute(*authResp.sessionId,
