@@ -40,7 +40,7 @@ git clone https://github.com/vesoft-inc/nebula-cpp.git
 ### build
 
 ```bash
-bash> cd nebula-clients/cpp && mkdir build && cd build
+bash> cd nebula-cpp && mkdir build && cd build
 bash> cmake ..
 bash> make && sudo make install
 ```

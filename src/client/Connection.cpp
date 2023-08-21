@@ -191,6 +191,12 @@ ExecutionResponse Connection::executeWithParameter(
   ExecutionResponse resp;
   try {
     resp = client_->future_executeWithParameter(sessionId, stmt, parameters).get();
+  } catch (const apache::thrift::transport::TTransportException &ex) {
+    resp = ExecutionResponse{ErrorCode::E_FAIL_TO_CONNECT,
+                             0,
+                             nullptr,
+                             nullptr,
+                             std::make_unique<std::string>(ex.what())};
   } catch (const std::exception &ex) {
     resp = ExecutionResponse{
         ErrorCode::E_RPC_FAILURE, 0, nullptr, nullptr, std::make_unique<std::string>(ex.what())};
@@ -290,7 +296,9 @@ void Connection::close() {
 
 bool Connection::ping() {
   auto resp = execute(0 /*Only check connection*/, "YIELD 1");
-  if (resp.errorCode == ErrorCode::E_RPC_FAILURE || resp.errorCode == ErrorCode::E_DISCONNECTED) {
+  if (resp.errorCode == ErrorCode::E_RPC_FAILURE ||
+      resp.errorCode == ErrorCode::E_FAIL_TO_CONNECT ||
+      resp.errorCode == ErrorCode::E_DISCONNECTED) {
     DLOG(ERROR) << "Ping failed: " << *resp.errorMsg;
     return false;
   }

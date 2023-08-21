@@ -187,49 +187,49 @@ void StorageClient::getResponse(std::pair<HostAddr, Request>&& request,
                                 RemoteFunc&& remoteFunc,
                                 folly::Promise<std::pair<::nebula::ErrorCode, Response>> pro) {
   auto* evb = DCHECK_NOTNULL(ioExecutor_)->getEventBase();
-  folly::via(evb,
-             [evb,
-              request = std::move(request),
-              remoteFunc = std::move(remoteFunc),
-              pro = std::move(pro),
-              this]() mutable {
-               auto host = request.first;
-               auto client = clientsMan_->client(host, evb, false, sConfig_.clientTimeoutInMs_);
-               LOG(INFO) << "Send request to storage " << host;
-               remoteFunc(client.get(), request.second)
-                   .via(evb)
-                   .thenValue([pro = std::move(pro), this](Response&& resp) mutable {
-                     auto& result = resp.get_result();
-                     for (auto& part : result.get_failed_parts()) {
-                       auto partId = part.get_part_id();
-                       auto code = part.get_code();
+  folly::via(
+      evb,
+      [evb,
+       request = std::move(request),
+       remoteFunc = std::move(remoteFunc),
+       pro = std::move(pro),
+       this]() mutable {
+        auto host = request.first;
+        auto client = clientsMan_->client(host, evb, false, sConfig_.clientTimeoutInMs_);
+        LOG(INFO) << "Send request to storage " << host;
+        remoteFunc(client.get(), request.second)
+            .via(evb)
+            .thenValue([pro = std::move(pro)](Response&& resp) mutable {
+              auto& result = resp.get_result();
+              for (auto& part : result.get_failed_parts()) {
+                auto partId = part.get_part_id();
+                auto code = part.get_code();
 
-                       LOG(ERROR) << "Failure! Failed part: " << partId
-                                  << ", error code: " << static_cast<int32_t>(code);
-                       pro.setValue(std::make_pair(::nebula::ErrorCode(static_cast<int32_t>(code)),
-                                                   Response()));
-                       return;
-                     }
-                     pro.setValue(std::make_pair(::nebula::ErrorCode::SUCCEEDED, std::move(resp)));
-                     return;
-                   })
-                   .thenError([pro = std::move(pro), host, this](
-                                  folly::exception_wrapper&& exWrapper) mutable {
-                     using TransportException = apache::thrift::transport::TTransportException;
-                     auto ex = exWrapper.get_exception<TransportException>();
-                     if (ex) {
-                       if (ex->getType() == TransportException::TIMED_OUT) {
-                         LOG(ERROR) << "Request to " << host << " time out: " << ex->what();
-                       } else {
-                         LOG(ERROR) << "Request to " << host << " failed: " << ex->what();
-                       }
-                     } else {
-                       LOG(ERROR) << "Request to " << host << " failed.";
-                     }
-                     pro.setValue(std::make_pair(::nebula::ErrorCode::E_RPC_FAILURE, Response()));
-                     return;
-                   });
-             });  // via
+                LOG(ERROR) << "Failure! Failed part: " << partId
+                           << ", error code: " << static_cast<int32_t>(code);
+                pro.setValue(
+                    std::make_pair(::nebula::ErrorCode(static_cast<int32_t>(code)), Response()));
+                return;
+              }
+              pro.setValue(std::make_pair(::nebula::ErrorCode::SUCCEEDED, std::move(resp)));
+              return;
+            })
+            .thenError([pro = std::move(pro), host](folly::exception_wrapper&& exWrapper) mutable {
+              using TransportException = apache::thrift::transport::TTransportException;
+              auto ex = exWrapper.get_exception<TransportException>();
+              if (ex) {
+                if (ex->getType() == TransportException::TIMED_OUT) {
+                  LOG(ERROR) << "Request to " << host << " time out: " << ex->what();
+                } else {
+                  LOG(ERROR) << "Request to " << host << " failed: " << ex->what();
+                }
+              } else {
+                LOG(ERROR) << "Request to " << host << " failed.";
+              }
+              pro.setValue(std::make_pair(::nebula::ErrorCode::E_RPC_FAILURE, Response()));
+              return;
+            });
+      });  // via
 }
 
 }  // namespace nebula
