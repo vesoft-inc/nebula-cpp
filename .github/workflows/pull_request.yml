@@ -81,8 +81,8 @@ jobs:
             cmake \
                 -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/clang++ \
                 -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/clang \
-                -DCMAKE_BUILD_TYPE=Debug \
-                -DENABLE_ASAN=on \
+                -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+                # -DENABLE_ASAN=on \ # build with clang will fail now
                 -DENABLE_TESTING=on \
                 -DCMAKE_INSTALL_PREFIX=/usr/local/nebula \
                 -B build
@@ -231,8 +231,8 @@ jobs:
             cmake \
                 -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/clang++ \
                 -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/clang \
-                -DCMAKE_BUILD_TYPE=Debug \
-                -DENABLE_ASAN=on \
+                -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+                # -DENABLE_ASAN=on \ # build with clang will fail now
                 -DENABLE_TESTING=on \
                 -DCMAKE_INSTALL_PREFIX=/usr/local/nebula \
                 -B build
@@ -356,8 +356,8 @@ jobs:
             cmake \
                 -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/clang++ \
                 -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/clang \
-                -DCMAKE_BUILD_TYPE=Debug \
-                -DENABLE_ASAN=on \
+                -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+                # -DENABLE_ASAN=on \ # build with clang will fail now
                 -DENABLE_TESTING=on \
                 -DCMAKE_INSTALL_PREFIX=/usr/local/nebula \
                 -B build

@@ -37,6 +37,7 @@ modules
 
 # IDE
 .vscode/
+.ycm_extra_conf.py
 
 # Coredump
 core.*
