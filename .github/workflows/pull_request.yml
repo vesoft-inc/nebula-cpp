@@ -77,12 +77,12 @@ jobs:
             esac
             ;;
           clang-*)
-            # build with Sanitizer
+            # build with Sanitizer, note, clang build with ASAN will fail now
             cmake \
                 -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/clang++ \
                 -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/clang \
                 -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-                # -DENABLE_ASAN=on \ # build with clang will fail now
+                -DENABLE_ASAN=off \
                 -DENABLE_TESTING=on \
                 -DCMAKE_INSTALL_PREFIX=/usr/local/nebula \
                 -B build
@@ -232,7 +232,7 @@ jobs:
                 -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/clang++ \
                 -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/clang \
                 -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-                # -DENABLE_ASAN=on \ # build with clang will fail now
+                -DENABLE_ASAN=off \
                 -DENABLE_TESTING=on \
                 -DCMAKE_INSTALL_PREFIX=/usr/local/nebula \
                 -B build
@@ -357,7 +357,7 @@ jobs:
                 -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/clang++ \
                 -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/clang \
                 -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-                # -DENABLE_ASAN=on \ # build with clang will fail now
+                 -DENABLE_ASAN=off \
                 -DENABLE_TESTING=on \
                 -DCMAKE_INSTALL_PREFIX=/usr/local/nebula \
                 -B build
