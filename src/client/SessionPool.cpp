@@ -6,6 +6,7 @@
 
 #include <folly/json.h>
 
+#include "common/graph/Response.h"
 #include "common/time/TimeConversion.h"
 #include "nebula/client/ConnectionPool.h"
 
@@ -48,8 +49,14 @@ ExecutionResponse SessionPool::executeWithParameter(
   if (result.second) {
     auto resp = result.first.executeWithParameter(stmt, parameters);
     if (resp.spaceName != nullptr && *resp.spaceName != config_.spaceName_) {
-      // switch to origin space
-      result.first.execute("USE " + config_.spaceName_);
+      if (*resp.spaceName == "") {
+        // This can be caused by reconnect, switch to origin space and try to query again
+        resp =
+            result.first.executeWithParameter("USE " + config_.spaceName_ + ";" + stmt, parameters);
+      } else {
+        // switch to origin space only
+        result.first.execute("USE " + config_.spaceName_);
+      }
     }
     giveBack(std::move(result.first));
     return resp;
@@ -63,20 +70,7 @@ ExecutionResponse SessionPool::executeWithParameter(
 }
 
 std::string SessionPool::executeJson(const std::string &stmt) {
-  auto result = getIdleSession();
-  if (result.second) {
-    auto resp = result.first.executeJson(stmt);
-    auto obj = folly::parseJson(resp);
-    if (obj["results"][0]["spaceName"].asString() != config_.spaceName_) {
-      // switch to origin space
-      result.first.execute("USE " + config_.spaceName_);
-    }
-    giveBack(std::move(result.first));
-    return resp;
-  } else {
-    // TODO handle error
-    return "";
-  }
+  return executeJsonWithParameter(stmt, {});
 }
 
 std::string SessionPool::executeJsonWithParameter(
@@ -85,9 +79,16 @@ std::string SessionPool::executeJsonWithParameter(
   if (result.second) {
     auto resp = result.first.executeJsonWithParameter(stmt, parameters);
     auto obj = folly::parseJson(resp);
-    if (obj["results"][0]["spaceName"].asString() != config_.spaceName_) {
-      // switch to origin space
-      result.first.execute("USE " + config_.spaceName_);
+    auto respSpaceName = obj["results"][0]["spaceName"].asString();
+    if (respSpaceName != config_.spaceName_) {
+      if (respSpaceName == "") {
+        // This can be caused by reconnect, switch to origin space and try to query again
+        resp = result.first.executeJsonWithParameter("USE " + config_.spaceName_ + ";" + stmt,
+                                                     parameters);
+      } else {
+        // switch to origin space only
+        result.first.execute("USE " + config_.spaceName_);
+      }
     }
     giveBack(std::move(result.first));
     return resp;
