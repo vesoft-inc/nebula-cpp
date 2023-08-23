@@ -143,23 +143,7 @@ AuthResponse Connection::authenticate(const std::string &user, const std::string
 }
 
 ExecutionResponse Connection::execute(int64_t sessionId, const std::string &stmt) {
-  if (client_ == nullptr) {
-    return ExecutionResponse{ErrorCode::E_DISCONNECTED,
-                             0,
-                             nullptr,
-                             nullptr,
-                             std::make_unique<std::string>("Not open connection.")};
-  }
-
-  ExecutionResponse resp;
-  try {
-    resp = client_->future_execute(sessionId, stmt).get();
-  } catch (const std::exception &ex) {
-    resp = ExecutionResponse{
-        ErrorCode::E_RPC_FAILURE, 0, nullptr, nullptr, std::make_unique<std::string>(ex.what())};
-  }
-
-  return resp;
+  return executeWithParameter(sessionId, stmt, {});
 }
 
 void Connection::asyncExecute(int64_t sessionId, const std::string &stmt, ExecuteCallback cb) {
@@ -188,15 +172,26 @@ ExecutionResponse Connection::executeWithParameter(
                              std::make_unique<std::string>("Not open connection.")};
   }
 
+  using TTransportException = apache::thrift::transport::TTransportException;
   ExecutionResponse resp;
   try {
     resp = client_->future_executeWithParameter(sessionId, stmt, parameters).get();
-  } catch (const apache::thrift::transport::TTransportException &ex) {
-    resp = ExecutionResponse{ErrorCode::E_FAIL_TO_CONNECT,
-                             0,
-                             nullptr,
-                             nullptr,
-                             std::make_unique<std::string>(ex.what())};
+  } catch (const TTransportException &ex) {
+    auto errType = ex.getType();
+    std::string errMsg = ex.what();
+    if (errType == TTransportException::END_OF_FILE ||
+        (errType == TTransportException::INTERNAL_ERROR &&
+         errMsg.find("Connection reset by peer") != std::string::npos)) {
+      resp = ExecutionResponse{
+          ErrorCode::E_FAIL_TO_CONNECT, 0, nullptr, nullptr, std::make_unique<std::string>(errMsg)};
+    } else if (errType == TTransportException::TIMED_OUT) {
+      resp = ExecutionResponse{
+          ErrorCode::E_SESSION_TIMEOUT, 0, nullptr, nullptr, std::make_unique<std::string>(errMsg)};
+
+    } else {
+      resp = ExecutionResponse{
+          ErrorCode::E_RPC_FAILURE, 0, nullptr, nullptr, std::make_unique<std::string>(errMsg)};
+    }
   } catch (const std::exception &ex) {
     resp = ExecutionResponse{
         ErrorCode::E_RPC_FAILURE, 0, nullptr, nullptr, std::make_unique<std::string>(ex.what())};
@@ -296,8 +291,7 @@ void Connection::close() {
 
 bool Connection::ping() {
   auto resp = execute(0 /*Only check connection*/, "YIELD 1");
-  if (resp.errorCode == ErrorCode::E_RPC_FAILURE ||
-      resp.errorCode == ErrorCode::E_FAIL_TO_CONNECT ||
+  if (resp.errorCode == ErrorCode::E_FAIL_TO_CONNECT ||
       resp.errorCode == ErrorCode::E_DISCONNECTED) {
     DLOG(ERROR) << "Ping failed: " << *resp.errorMsg;
     return false;

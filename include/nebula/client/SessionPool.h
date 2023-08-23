@@ -21,9 +21,9 @@ struct SessionPoolConfig {
   std::string password_;
   std::vector<std::string> addrs_;  // the list of graph addresses
   std::string spaceName_;
-  // Socket timeout and Socket connection timeout, unit: seconds
+  // Socket timeout and Socket connection timeout, unit: milliseconds
   std::uint32_t timeout_{0};
-  // The idleTime of the connection, unit: seconds
+  // The idleTime of the connection, unit: milliseconds
   // If connection's idle time is longer than idleTime, it will be delete
   // 0 value means the connection will not expire
   std::uint32_t idleTime_{0};
