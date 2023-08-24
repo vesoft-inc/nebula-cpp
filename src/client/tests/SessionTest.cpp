@@ -212,9 +212,7 @@ TEST_F(SessionTest, Timeout) {
   // execute
   resp = session.execute(
       "use session_test;GO 100000 STEPS FROM 'Tim Duncan' OVER like YIELD like._dst;");
-  ASSERT_TRUE(resp.errorCode == nebula::ErrorCode::E_FAIL_TO_CONNECT ||
-              resp.errorCode == nebula::ErrorCode::E_RPC_FAILURE)
-      << *resp.errorMsg;
+  ASSERT_TRUE(resp.errorCode == nebula::ErrorCode::E_SESSION_TIMEOUT) << *resp.errorMsg;
 
   resp = session.execute(
       "SHOW QUERIES "
