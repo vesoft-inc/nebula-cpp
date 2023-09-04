@@ -37,7 +37,7 @@ ExecutionResponse Session::executeWithParameter(
   auto resp = conn_.executeWithParameter(sessionId_, stmt, parameters);
   if (resp.errorCode == nebula::ErrorCode::SUCCEEDED) {
     return resp;
-  } else if (resp.errorCode == nebula::ErrorCode::E_FAIL_TO_CONNECT) {
+  } else if (resp.errorCode == nebula::ErrorCode::E_FAIL_TO_CONNECT || isSessionError(resp)) {
     connectionIsBroken_ = true;
     if (retryConnect_) {
       if (retryConnect() == nebula::ErrorCode::SUCCEEDED) {

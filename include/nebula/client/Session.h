@@ -110,6 +110,12 @@ class Session {
     return toLocal(data, offsetSecs_);
   }
 
+  bool isSessionError(const ExecutionResponse &resp) {
+    return resp.errorCode == ErrorCode::E_SESSION_INVALID ||
+           resp.errorCode == ErrorCode::E_SESSION_NOT_FOUND ||
+           resp.errorCode == ErrorCode::E_SESSION_TIMEOUT;
+  }
+
   // convert the time to specific time zone
   static void toLocal(DataSet &data, int32_t offsetSecs);
 
