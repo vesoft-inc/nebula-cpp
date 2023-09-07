@@ -112,8 +112,7 @@ class Session {
 
   static bool isSessionError(const ExecutionResponse &resp) {
     return resp.errorCode == ErrorCode::E_SESSION_INVALID ||
-           resp.errorCode == ErrorCode::E_SESSION_NOT_FOUND ||
-           resp.errorCode == ErrorCode::E_SESSION_TIMEOUT;
+           resp.errorCode == ErrorCode::E_SESSION_NOT_FOUND;
   }
 
   // convert the time to specific time zone
