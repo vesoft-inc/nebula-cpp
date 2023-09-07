@@ -181,7 +181,9 @@ ExecutionResponse Connection::executeWithParameter(
     std::string errMsg = ex.what();
     if (errType == TTransportException::END_OF_FILE ||
         (errType == TTransportException::INTERNAL_ERROR &&
-         errMsg.find("Connection reset by peer") != std::string::npos)) {
+         errMsg.find("Connection reset by peer") != std::string::npos) ||
+        (errType == TTransportException::UNKNOWN &&
+         errMsg.find("Channel is !good()") != std::string::npos)) {
       resp = ExecutionResponse{
           ErrorCode::E_FAIL_TO_CONNECT, 0, nullptr, nullptr, std::make_unique<std::string>(errMsg)};
     } else if (errType == TTransportException::TIMED_OUT) {
