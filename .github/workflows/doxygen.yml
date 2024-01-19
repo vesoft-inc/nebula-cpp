@@ -24,7 +24,7 @@ jobs:
     - name: Install Doxygen
       run: |
         sudo apt-get update
-        sudo apt-get install -y doxygen=1.10.0 graphviz
+        sudo apt-get install -y doxygen graphviz
 
     # Generate HTML files   
     - name: Generate Documentation
