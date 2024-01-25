@@ -15,7 +15,7 @@ jobs:
     name: lint
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 2
       - name: Check License Header
@@ -28,7 +28,9 @@ jobs:
   build:
     name: build
     needs: lint
-    runs-on: ubuntu-20.04
+    runs-on: 
+      - self-hosted
+      - nebula-fast
     strategy:
       fail-fast: false
       matrix:
@@ -49,7 +51,7 @@ jobs:
         - /tmp/nebula-graph-client/${{ matrix.os }}-${{ matrix.compiler }}:/tmp/nebula-graph-client/nebula-graph/${{ matrix.os }}-${{ matrix.compiler }}
       options: --mount type=tmpfs,destination=/tmp/ccache/nebula-graph,tmpfs-size=1073741824 --cap-add=SYS_PTRACE
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: CMake
         run: |
           case ${{ matrix.compiler }} in
@@ -418,7 +420,7 @@ jobs:
           popd
         timeout-minutes: 10
       - name: Upload logs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
           name: ${{ matrix.os }}-${{ matrix.compiler }}-ssl-test-logs
