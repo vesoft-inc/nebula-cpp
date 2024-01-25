@@ -17,6 +17,8 @@
 #include "nebula/mclient/MetaClient.h"
 #include "nebula/sclient/SConfig.h"
 #include "nebula/sclient/ScanEdgeIter.h"
+#include "nebula/sclient/ScanVertexIter.h"
+#include "common/graph/Response.h"
 
 namespace folly {
 class IOThreadPoolExecutor;
@@ -58,6 +60,7 @@ class ScanResponse;
 
 class StorageClient {
   friend struct ScanEdgeIter;
+  friend struct ScanVertexIter;
 
  public:
   explicit StorageClient(const std::vector<std::string>& metaAddrs,
@@ -79,18 +82,33 @@ class StorageClient {
                                 bool onlyLatestVersion = false,
                                 bool enableReadFromFollower = true);  // plato needed
 
+  ScanVertexIter scanVertexWithPart(
+      std::string spaceName,
+      int32_t partID,
+      // tag name -> prop names
+      std::unordered_map<std::string, std::vector<std::string>> tagProps,
+      int64_t limit = DEFAULT_LIMIT,
+      int64_t startTime = DEFAULT_START_TIME,
+      int64_t endTime = DEFAULT_END_TIME,
+      std::string filter = "",
+      bool onlyLatestVersion = false,
+      bool enableReadFromFollower = true);  // plato needed
+
   MetaClient* getMetaClient() {
     return mClient_.get();
   }
 
  private:
-  std::pair<bool, storage::cpp2::ScanResponse> doScanEdge(
+  std::pair<::nebula::ErrorCode, storage::cpp2::ScanResponse> doScanEdge(
       const storage::cpp2::ScanEdgeRequest& req);
 
+  std::pair<::nebula::ErrorCode, storage::cpp2::ScanResponse> doScanVertex(
+      const storage::cpp2::ScanVertexRequest& req);
+
   template <typename Request, typename RemoteFunc, typename Response>
-  void getResponse(std::pair<HostAddr, Request>&& request,
+    void getResponse(std::pair<HostAddr, Request>&& request,
                    RemoteFunc&& remoteFunc,
-                   folly::Promise<std::pair<bool, Response>> pro);
+                   folly::Promise<std::pair<::nebula::ErrorCode, Response>> pro);
 
   std::unique_ptr<MetaClient> mClient_;
   SConfig sConfig_;

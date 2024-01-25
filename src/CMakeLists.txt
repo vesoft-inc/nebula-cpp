@@ -30,7 +30,6 @@ set(NEBULA_COMMON_SOURCES
     datatypes/Value.cpp
     datatypes/Vertex.cpp
     datatypes/Duration.cpp
-    graph/Response.cpp
     time/TimeConversion.cpp
     geo/io/wkt/WKTWriter.cpp
     geo/io/wkb/WKBWriter.cpp
@@ -54,6 +53,7 @@ set(NEBULA_SCLIENT_SOURCES
     ${NEBULA_MCLIENT_SOURCES}
     sclient/StorageClient.cpp
     sclient/ScanEdgeIter.cpp
+    sclient/ScanVertexIter.cpp
 )
 
 set(NEBULA_THIRD_PARTY_LIBRARIES

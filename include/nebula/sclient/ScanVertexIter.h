@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 vesoft inc. All rights reserved.
+/* Copyright (c) 2023 vesoft inc. All rights reserved.
  *
  * This source code is licensed under Apache 2.0 License.
  */
@@ -16,21 +16,21 @@ class StorageClient;
 
 namespace storage {
 namespace cpp2 {
-class ScanEdgeRequest;
+class ScanVertexRequest;
 }  // namespace cpp2
 }  // namespace storage
 
-struct ScanEdgeIter {
-  ScanEdgeIter(StorageClient* client, storage::cpp2::ScanEdgeRequest* req, bool hasNext = true);
+struct ScanVertexIter {
+  ScanVertexIter(StorageClient* client, storage::cpp2::ScanVertexRequest* req, bool hasNext = true);
 
-  ~ScanEdgeIter();
+  ~ScanVertexIter();
 
   bool hasNext();
 
   std::pair<::nebula::ErrorCode, DataSet> next();
 
   StorageClient* client_;
-  storage::cpp2::ScanEdgeRequest* req_;
+  storage::cpp2::ScanVertexRequest* req_;
   bool hasNext_;
   std::string nextCursor_;
 };

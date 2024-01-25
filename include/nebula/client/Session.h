@@ -7,6 +7,8 @@
 
 #include <common/datatypes/DataSet.h>
 
+#include <atomic>
+
 #include "nebula/client/Connection.h"
 
 namespace nebula {
@@ -25,14 +27,16 @@ class Session {
           const std::string &username,
           const std::string &password,
           const std::string &timezoneName,
-          int32_t offsetSecs)
+          int32_t offsetSecs,
+          bool retryConnect)
       : sessionId_(sessionId),
         conn_(std::move(conn)),
         pool_(pool),
         username_(username),
         password_(password),
         timezoneName_(timezoneName),
-        offsetSecs_(offsetSecs) {}
+        offsetSecs_(offsetSecs),
+        retryConnect_(retryConnect) {}
   Session(const Session &) = delete;  // no copy
   Session(Session &&session)
       : sessionId_(session.sessionId_),
@@ -41,7 +45,8 @@ class Session {
         username_(std::move(session.username_)),
         password_(std::move(session.password_)),
         timezoneName_(std::move(session.timezoneName_)),
-        offsetSecs_(session.offsetSecs_) {
+        offsetSecs_(session.offsetSecs_),
+        retryConnect_(session.retryConnect_) {
     session.sessionId_ = -1;
     session.pool_ = nullptr;
     session.offsetSecs_ = 0;
@@ -105,6 +110,11 @@ class Session {
     return toLocal(data, offsetSecs_);
   }
 
+  static bool isSessionError(const ExecutionResponse &resp) {
+    return resp.errorCode == ErrorCode::E_SESSION_INVALID ||
+           resp.errorCode == ErrorCode::E_SESSION_NOT_FOUND;
+  }
+
   // convert the time to specific time zone
   static void toLocal(DataSet &data, int32_t offsetSecs);
 
@@ -117,6 +127,8 @@ class Session {
   // empty means not a named timezone
   std::string timezoneName_;
   int32_t offsetSecs_;
+  bool retryConnect_{true};
+  std::atomic<bool> connectionIsBroken_{false};
 };
 
 }  // namespace nebula

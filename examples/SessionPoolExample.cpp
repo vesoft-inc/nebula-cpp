@@ -8,6 +8,7 @@
 #include <atomic>
 #include <chrono>
 #include <thread>
+
 #include "nebula/client/Config.h"
 
 int main(int argc, char* argv[]) {
@@ -33,12 +34,13 @@ int main(int argc, char* argv[]) {
   config.spaceName_ = "session_pool_test";
   config.maxSize_ = 10;
   nebula::SessionPool pool(config);
-  pool.init();
+  assert(pool.init());
 
   std::vector<std::thread> threads;
   for (std::size_t i = 0; i < config.maxSize_; ++i) {
     threads.emplace_back([&pool]() {
       auto resp = pool.execute("YIELD 1");
+      std::cout << "resp's error code: " << resp.errorCode << std::endl;
       assert(resp.errorCode == nebula::ErrorCode::SUCCEEDED);
       std::cout << "Result: " << *resp.data << std::endl;
     });

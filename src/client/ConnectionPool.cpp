@@ -43,7 +43,6 @@ void ConnectionPool::close() {
 Session ConnectionPool::getSession(const std::string &username,
                                    const std::string &password,
                                    bool retryConnect) {
-  (void)retryConnect;
   Connection conn = getConnection();
   auto resp = conn.authenticate(username, password);
   if (resp.errorCode != ErrorCode::SUCCEEDED || resp.sessionId == nullptr) {
@@ -55,7 +54,8 @@ Session ConnectionPool::getSession(const std::string &username,
                  username,
                  password,
                  *resp.timeZoneName,
-                 *resp.timeZoneOffsetSeconds);
+                 *resp.timeZoneOffsetSeconds,
+                 retryConnect);
 }
 
 Connection ConnectionPool::getConnection() {
