@@ -51,6 +51,9 @@ jobs:
         - /tmp/nebula-graph-client/${{ matrix.os }}-${{ matrix.compiler }}:/tmp/nebula-graph-client/nebula-graph/${{ matrix.os }}-${{ matrix.compiler }}
       options: --mount type=tmpfs,destination=/tmp/ccache/nebula-graph,tmpfs-size=1073741824 --cap-add=SYS_PTRACE
     steps:
+      - uses: webiny/action-post-run@3.0.0
+        with:
+          run: sh -c "find . -mindepth 1 -delete"
       - uses: actions/checkout@v3
       - name: CMake
         run: |
