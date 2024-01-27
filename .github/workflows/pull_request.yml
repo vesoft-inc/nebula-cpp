@@ -15,7 +15,7 @@ jobs:
     name: lint
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 2
       - name: Check License Header
@@ -28,7 +28,9 @@ jobs:
   build:
     name: build
     needs: lint
-    runs-on: ubuntu-20.04
+    runs-on: 
+      - self-hosted
+      - nebula-fast
     strategy:
       fail-fast: false
       matrix:
@@ -41,13 +43,18 @@ jobs:
         exclude:
           - os: centos7
             compiler: clang-9
+    env:
+      NIGHTLY_URL: "https://minio.vesoft-inc.com/nightly-build/nebula-graph"
     container:
       image: vesoft/nebula-dev:${{ matrix.os }}
       volumes:
         - /tmp/nebula-graph-client/${{ matrix.os }}-${{ matrix.compiler }}:/tmp/nebula-graph-client/nebula-graph/${{ matrix.os }}-${{ matrix.compiler }}
       options: --mount type=tmpfs,destination=/tmp/ccache/nebula-graph,tmpfs-size=1073741824 --cap-add=SYS_PTRACE
     steps:
-      - uses: actions/checkout@v2
+      - uses: webiny/action-post-run@3.0.0
+        with:
+          run: sh -c "find . -mindepth 1 -delete"
+      - uses: actions/checkout@v3
       - name: CMake
         run: |
           case ${{ matrix.compiler }} in
@@ -96,7 +103,7 @@ jobs:
           centos7)
             set +e
             for i in {0..10}; do
-              wget https://oss-cdn.nebula-graph.com.cn/package/nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
+              wget ${{ env.NIGHTLY_URL }}/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
               rpm -ivh nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
               if [ $? -eq 0 ]; then
                 break;
@@ -107,7 +114,7 @@ jobs:
           ubuntu2004)
             set +e
             for i in {0..10}; do
-              wget https://oss-cdn.nebula-graph.com.cn/package/nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
+              wget ${{ env.NIGHTLY_URL }}/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
               dpkg -i nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
               if [ $? -eq 0 ]; then
                 break;
@@ -246,7 +253,7 @@ jobs:
           centos7)
             set +e
             for i in {0..10}; do
-              wget https://oss-cdn.nebula-graph.com.cn/package/nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
+              wget ${{ env.NIGHTLY_URL }}/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
               rpm -ivh nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
               if [ $? -eq 0 ]; then
                 break;
@@ -257,7 +264,7 @@ jobs:
           ubuntu2004)
             set +e
             for i in {0..10}; do
-              wget https://oss-cdn.nebula-graph.com.cn/package/nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
+              wget ${{ env.NIGHTLY_URL }}/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
               dpkg -i nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
               if [ $? -eq 0 ]; then
                 break;
@@ -371,7 +378,7 @@ jobs:
           centos7)
             set +e
             for i in {0..10}; do
-              wget https://oss-cdn.nebula-graph.com.cn/package/nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
+              wget ${{ env.NIGHTLY_URL }}/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
               rpm -ivh nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
               if [ $? -eq 0 ]; then
                 break;
@@ -382,7 +389,7 @@ jobs:
           ubuntu2004)
             set +e
             for i in {0..10}; do
-              wget https://oss-cdn.nebula-graph.com.cn/package/nightly/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
+              wget ${{ env.NIGHTLY_URL }}/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
               dpkg -i nebula-graph-$(./date.py --day_diff=$i)-nightly.ubuntu2004.amd64.deb
               if [ $? -eq 0 ]; then
                 break;
@@ -416,7 +423,7 @@ jobs:
           popd
         timeout-minutes: 10
       - name: Upload logs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
           name: ${{ matrix.os }}-${{ matrix.compiler }}-ssl-test-logs
