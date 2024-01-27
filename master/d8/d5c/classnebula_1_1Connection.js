@@ -1,0 +1,26 @@
+var classnebula_1_1Connection =
+[
+    [ "ExecuteCallback", "d8/d5c/classnebula_1_1Connection.html#ad6a591e2c5acc569b577f7b221cee653", null ],
+    [ "ExecuteJsonCallback", "d8/d5c/classnebula_1_1Connection.html#a1f20fc1652e52372214aa629d3ccbb46", null ],
+    [ "Connection", "d8/d5c/classnebula_1_1Connection.html#a346f4774f29e17e14e9b39fa9e2165e3", null ],
+    [ "Connection", "d8/d5c/classnebula_1_1Connection.html#ad24593c6a30b483f574c6f4151138626", null ],
+    [ "Connection", "d8/d5c/classnebula_1_1Connection.html#a979cc0ad9964bbf08e1b526dc7cdbebe", null ],
+    [ "~Connection", "d8/d5c/classnebula_1_1Connection.html#a7a3e1a734e64796b393be72275bcb246", null ],
+    [ "asyncExecute", "d8/d5c/classnebula_1_1Connection.html#ae603c2c2d1557e8f90d9b795251fe0f0", null ],
+    [ "asyncExecuteJson", "d8/d5c/classnebula_1_1Connection.html#a59d0a46d1b910dc53aef2d5f29dc5a63", null ],
+    [ "asyncExecuteJsonWithParameter", "d8/d5c/classnebula_1_1Connection.html#a92851a7a397bf0239219fa3feddeff26", null ],
+    [ "asyncExecuteWithParameter", "d8/d5c/classnebula_1_1Connection.html#aab86cc7eef1600c445a1445484095209", null ],
+    [ "authenticate", "d8/d5c/classnebula_1_1Connection.html#a106bc7f5b2a8a186b8a8bc15a2c7ae74", null ],
+    [ "close", "d8/d5c/classnebula_1_1Connection.html#a5ae591df94fc66ccb85cbb6565368bca", null ],
+    [ "execute", "d8/d5c/classnebula_1_1Connection.html#a48e51a1c383fd6fc748cdfc7b1dee402", null ],
+    [ "executeJson", "d8/d5c/classnebula_1_1Connection.html#a4c78358ff02f3b4cfb637bea732f63d4", null ],
+    [ "executeJsonWithParameter", "d8/d5c/classnebula_1_1Connection.html#a98d00400afc5bf633ac562e1c22b259f", null ],
+    [ "executeWithParameter", "d8/d5c/classnebula_1_1Connection.html#aa4bb5ec013a94ba85bb53bf663426ce5", null ],
+    [ "isOpen", "d8/d5c/classnebula_1_1Connection.html#a3a9ba7594ee74425dd345ecc263a5564", null ],
+    [ "open", "d8/d5c/classnebula_1_1Connection.html#a29141316c761750a312c43c907879ed1", null ],
+    [ "operator=", "d8/d5c/classnebula_1_1Connection.html#a5d6c2979ab7e7a94b63ab0de4305a57e", null ],
+    [ "operator=", "d8/d5c/classnebula_1_1Connection.html#af6be1c9544d38e08f4db4084aefdd12c", null ],
+    [ "ping", "d8/d5c/classnebula_1_1Connection.html#a1fb3d770d8493cdf1ccbaccf49b7fd31", null ],
+    [ "signout", "d8/d5c/classnebula_1_1Connection.html#a00fb791a92320ead39cc297841446853", null ],
+    [ "verifyClientVersion", "d8/d5c/classnebula_1_1Connection.html#af24cc7fe9ea230876c816b06f79eafe2", null ]
+];
