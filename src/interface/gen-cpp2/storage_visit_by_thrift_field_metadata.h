@@ -759,6 +759,12 @@ struct VisitByThriftId<::nebula::storage::cpp2::ScanVertexRequest> {
       return f(8, static_cast<T&&>(t).enable_read_from_follower_ref());
     case 10:
       return f(9, static_cast<T&&>(t).common_ref());
+    case 11:
+      return f(10, static_cast<T&&>(t).username_ref());
+    case 12:
+      return f(11, static_cast<T&&>(t).password_ref());
+    case 13:
+      return f(12, static_cast<T&&>(t).need_authenticate_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::ScanVertexRequest");
     }
@@ -790,6 +796,12 @@ struct VisitByThriftId<::nebula::storage::cpp2::ScanEdgeRequest> {
       return f(8, static_cast<T&&>(t).enable_read_from_follower_ref());
     case 10:
       return f(9, static_cast<T&&>(t).common_ref());
+    case 11:
+      return f(10, static_cast<T&&>(t).username_ref());
+    case 12:
+      return f(11, static_cast<T&&>(t).password_ref());
+    case 13:
+      return f(12, static_cast<T&&>(t).need_authenticate_ref());
     default:
       throwInvalidThriftId(id, "::nebula::storage::cpp2::ScanEdgeRequest");
     }

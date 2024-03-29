@@ -400,6 +400,7 @@ enum ErrorCode {
     E_PRIVILEGE_NOT_EXIST             = -2037,  // remove un-exist privilege[only ent]
     E_PRIVILEGE_NEED_BASIC_ROLE       = -2038,  // only basic role support tag/edge privilege[only ent]
     E_PRIVILEGE_ACTION_INVALID        = -2039,  // only add and drop now.[only ent]
+    E_STORAGE_ENABLE_AUTH             = -2058,  // Storage has enable auth, but the request disable auth.[only ent]
 
     // Admin Failure
     E_SNAPSHOT_FAILURE                = -2040,  // Failed to generate a snapshot

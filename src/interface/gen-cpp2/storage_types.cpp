@@ -5460,14 +5460,15 @@ ScanVertexRequest::ScanVertexRequest() :
       start_time(0),
       end_time(0),
       only_latest_version(false),
-      enable_read_from_follower(true) {}
+      enable_read_from_follower(true),
+      need_authenticate(0) {}
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 
 ScanVertexRequest::~ScanVertexRequest() {}
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-ScanVertexRequest::ScanVertexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> parts__arg, ::std::vector< ::nebula::storage::cpp2::VertexProp> return_columns__arg, int64_t limit__arg, int64_t start_time__arg, int64_t end_time__arg, ::std::string filter__arg, bool only_latest_version__arg, bool enable_read_from_follower__arg,  ::nebula::storage::cpp2::RequestCommon common__arg) :
+ScanVertexRequest::ScanVertexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> parts__arg, ::std::vector< ::nebula::storage::cpp2::VertexProp> return_columns__arg, int64_t limit__arg, int64_t start_time__arg, int64_t end_time__arg, ::std::string filter__arg, bool only_latest_version__arg, bool enable_read_from_follower__arg,  ::nebula::storage::cpp2::RequestCommon common__arg, ::std::string username__arg, ::std::string password__arg, bool need_authenticate__arg) :
     space_id(std::move(space_id__arg)),
     parts(std::move(parts__arg)),
     return_columns(std::move(return_columns__arg)),
@@ -5477,7 +5478,10 @@ ScanVertexRequest::ScanVertexRequest(apache::thrift::FragileConstructor,  ::nebu
     filter(std::move(filter__arg)),
     only_latest_version(std::move(only_latest_version__arg)),
     enable_read_from_follower(std::move(enable_read_from_follower__arg)),
-    common(std::move(common__arg)) {
+    common(std::move(common__arg)),
+    username(std::move(username__arg)),
+    password(std::move(password__arg)),
+    need_authenticate(std::move(need_authenticate__arg)) {
   __isset.space_id = true;
   __isset.parts = true;
   __isset.return_columns = true;
@@ -5488,6 +5492,9 @@ ScanVertexRequest::ScanVertexRequest(apache::thrift::FragileConstructor,  ::nebu
   __isset.only_latest_version = true;
   __isset.enable_read_from_follower = true;
   __isset.common = true;
+  __isset.username = true;
+  __isset.password = true;
+  __isset.need_authenticate = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void ScanVertexRequest::__clear() {
@@ -5502,6 +5509,9 @@ void ScanVertexRequest::__clear() {
   only_latest_version = false;
   enable_read_from_follower = true;
   common.__clear();
+  username = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  password = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  need_authenticate = 0;
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -5546,6 +5556,25 @@ bool ScanVertexRequest::operator==(const ScanVertexRequest& rhs) const {
   if (lhs.common_ref() != rhs.common_ref()) {
     return false;
   }
+  if (lhs.username_ref().has_value() != rhs.username_ref().has_value()) {
+    return false;
+  }
+  if (lhs.username_ref().has_value()) {
+    if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.username, rhs.username)) {
+      return false;
+    }
+  }
+  if (lhs.password_ref().has_value() != rhs.password_ref().has_value()) {
+    return false;
+  }
+  if (lhs.password_ref().has_value()) {
+    if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.password, rhs.password)) {
+      return false;
+    }
+  }
+  if (lhs.need_authenticate_ref() != rhs.need_authenticate_ref()) {
+    return false;
+  }
   return true;
 }
 
@@ -5586,6 +5615,9 @@ void swap(ScanVertexRequest& a, ScanVertexRequest& b) {
   swap(a.only_latest_version_ref().value(), b.only_latest_version_ref().value());
   swap(a.enable_read_from_follower_ref().value(), b.enable_read_from_follower_ref().value());
   swap(a.common_ref().value_unchecked(), b.common_ref().value_unchecked());
+  swap(a.username_ref().value_unchecked(), b.username_ref().value_unchecked());
+  swap(a.password_ref().value_unchecked(), b.password_ref().value_unchecked());
+  swap(a.need_authenticate_ref().value_unchecked(), b.need_authenticate_ref().value_unchecked());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -5670,14 +5702,15 @@ ScanEdgeRequest::ScanEdgeRequest() :
       start_time(0),
       end_time(0),
       only_latest_version(false),
-      enable_read_from_follower(true) {}
+      enable_read_from_follower(true),
+      need_authenticate(0) {}
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
 
 ScanEdgeRequest::~ScanEdgeRequest() {}
 
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
-ScanEdgeRequest::ScanEdgeRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> parts__arg, ::std::vector< ::nebula::storage::cpp2::EdgeProp> return_columns__arg, int64_t limit__arg, int64_t start_time__arg, int64_t end_time__arg, ::std::string filter__arg, bool only_latest_version__arg, bool enable_read_from_follower__arg,  ::nebula::storage::cpp2::RequestCommon common__arg) :
+ScanEdgeRequest::ScanEdgeRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> parts__arg, ::std::vector< ::nebula::storage::cpp2::EdgeProp> return_columns__arg, int64_t limit__arg, int64_t start_time__arg, int64_t end_time__arg, ::std::string filter__arg, bool only_latest_version__arg, bool enable_read_from_follower__arg,  ::nebula::storage::cpp2::RequestCommon common__arg, ::std::string username__arg, ::std::string password__arg, bool need_authenticate__arg) :
     space_id(std::move(space_id__arg)),
     parts(std::move(parts__arg)),
     return_columns(std::move(return_columns__arg)),
@@ -5687,7 +5720,10 @@ ScanEdgeRequest::ScanEdgeRequest(apache::thrift::FragileConstructor,  ::nebula::
     filter(std::move(filter__arg)),
     only_latest_version(std::move(only_latest_version__arg)),
     enable_read_from_follower(std::move(enable_read_from_follower__arg)),
-    common(std::move(common__arg)) {
+    common(std::move(common__arg)),
+    username(std::move(username__arg)),
+    password(std::move(password__arg)),
+    need_authenticate(std::move(need_authenticate__arg)) {
   __isset.space_id = true;
   __isset.parts = true;
   __isset.return_columns = true;
@@ -5698,6 +5734,9 @@ ScanEdgeRequest::ScanEdgeRequest(apache::thrift::FragileConstructor,  ::nebula::
   __isset.only_latest_version = true;
   __isset.enable_read_from_follower = true;
   __isset.common = true;
+  __isset.username = true;
+  __isset.password = true;
+  __isset.need_authenticate = true;
 }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 void ScanEdgeRequest::__clear() {
@@ -5712,6 +5751,9 @@ void ScanEdgeRequest::__clear() {
   only_latest_version = false;
   enable_read_from_follower = true;
   common.__clear();
+  username = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  password = apache::thrift::StringTraits< std::string>::fromStringLiteral("");
+  need_authenticate = 0;
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   __isset = {};
 THRIFT_IGNORE_ISSET_USE_WARNING_END
@@ -5756,6 +5798,25 @@ bool ScanEdgeRequest::operator==(const ScanEdgeRequest& rhs) const {
   if (lhs.common_ref() != rhs.common_ref()) {
     return false;
   }
+  if (lhs.username_ref().has_value() != rhs.username_ref().has_value()) {
+    return false;
+  }
+  if (lhs.username_ref().has_value()) {
+    if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.username, rhs.username)) {
+      return false;
+    }
+  }
+  if (lhs.password_ref().has_value() != rhs.password_ref().has_value()) {
+    return false;
+  }
+  if (lhs.password_ref().has_value()) {
+    if (!apache::thrift::StringTraits<std::string>::isEqual(lhs.password, rhs.password)) {
+      return false;
+    }
+  }
+  if (lhs.need_authenticate_ref() != rhs.need_authenticate_ref()) {
+    return false;
+  }
   return true;
 }
 
@@ -5796,6 +5857,9 @@ void swap(ScanEdgeRequest& a, ScanEdgeRequest& b) {
   swap(a.only_latest_version_ref().value(), b.only_latest_version_ref().value());
   swap(a.enable_read_from_follower_ref().value(), b.enable_read_from_follower_ref().value());
   swap(a.common_ref().value_unchecked(), b.common_ref().value_unchecked());
+  swap(a.username_ref().value_unchecked(), b.username_ref().value_unchecked());
+  swap(a.password_ref().value_unchecked(), b.password_ref().value_unchecked());
+  swap(a.need_authenticate_ref().value_unchecked(), b.need_authenticate_ref().value_unchecked());
 THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   swap(a.__isset, b.__isset);
 THRIFT_IGNORE_ISSET_USE_WARNING_END
