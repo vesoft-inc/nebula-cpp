@@ -8705,6 +8705,51 @@ _readField_common:
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
           10,
+          11,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_username:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->username, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.username = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          11,
+          12,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_password:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->password, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.password = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          12,
+          13,
+          apache::thrift::protocol::T_BOOL))) {
+    goto _loop;
+  }
+_readField_need_authenticate:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::readWithContext(*iprot, this->need_authenticate, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.need_authenticate = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          13,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -8805,6 +8850,30 @@ _loop:
         goto _skip;
       }
     }
+    case 11:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_username;
+      } else {
+        goto _skip;
+      }
+    }
+    case 12:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_password;
+      } else {
+        goto _skip;
+      }
+    }
+    case 13:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_BOOL))) {
+        goto _readField_need_authenticate;
+      } else {
+        goto _skip;
+      }
+    }
     default:
     {
 _skip:
@@ -8848,6 +8917,18 @@ uint32_t ScanVertexRequest::serializedSize(Protocol_ const* prot_) const {
     xfer += prot_->serializedFieldSize("common", apache::thrift::protocol::T_STRUCT, 10);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::RequestCommon>::serializedSize<false>(*prot_, this->common);
   }
+  if (this->username_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("username", apache::thrift::protocol::T_STRING, 11);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->username);
+  }
+  if (this->password_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("password", apache::thrift::protocol::T_STRING, 12);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->password);
+  }
+  if (this->need_authenticate_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("need_authenticate", apache::thrift::protocol::T_BOOL, 13);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->need_authenticate);
+  }
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -8883,6 +8964,18 @@ uint32_t ScanVertexRequest::serializedSizeZC(Protocol_ const* prot_) const {
   if (this->common_ref().has_value()) {
     xfer += prot_->serializedFieldSize("common", apache::thrift::protocol::T_STRUCT, 10);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::RequestCommon>::serializedSize<true>(*prot_, this->common);
+  }
+  if (this->username_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("username", apache::thrift::protocol::T_STRING, 11);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->username);
+  }
+  if (this->password_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("password", apache::thrift::protocol::T_STRING, 12);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->password);
+  }
+  if (this->need_authenticate_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("need_authenticate", apache::thrift::protocol::T_BOOL, 13);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->need_authenticate);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -8928,6 +9021,21 @@ uint32_t ScanVertexRequest::write(Protocol_* prot_) const {
   if (this->common_ref().has_value()) {
     xfer += prot_->writeFieldBegin("common", apache::thrift::protocol::T_STRUCT, 10);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::RequestCommon>::write(*prot_, this->common);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->username_ref().has_value()) {
+    xfer += prot_->writeFieldBegin("username", apache::thrift::protocol::T_STRING, 11);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->username);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->password_ref().has_value()) {
+    xfer += prot_->writeFieldBegin("password", apache::thrift::protocol::T_STRING, 12);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->password);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->need_authenticate_ref().has_value()) {
+    xfer += prot_->writeFieldBegin("need_authenticate", apache::thrift::protocol::T_BOOL, 13);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::write(*prot_, this->need_authenticate);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();
@@ -9117,6 +9225,51 @@ _readField_common:
   if (UNLIKELY(!_readState.advanceToNextField(
           iprot,
           10,
+          11,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_username:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->username, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.username = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          11,
+          12,
+          apache::thrift::protocol::T_STRING))) {
+    goto _loop;
+  }
+_readField_password:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::readWithContext(*iprot, this->password, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.password = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          12,
+          13,
+          apache::thrift::protocol::T_BOOL))) {
+    goto _loop;
+  }
+_readField_need_authenticate:
+  {
+    ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::readWithContext(*iprot, this->need_authenticate, _readState);
+    THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    this->__isset.need_authenticate = true;
+    THRIFT_IGNORE_ISSET_USE_WARNING_END
+  }
+
+  if (UNLIKELY(!_readState.advanceToNextField(
+          iprot,
+          13,
           0,
           apache::thrift::protocol::T_STOP))) {
     goto _loop;
@@ -9217,6 +9370,30 @@ _loop:
         goto _skip;
       }
     }
+    case 11:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_username;
+      } else {
+        goto _skip;
+      }
+    }
+    case 12:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_STRING))) {
+        goto _readField_password;
+      } else {
+        goto _skip;
+      }
+    }
+    case 13:
+    {
+      if (LIKELY(_readState.isCompatibleWithType(iprot, apache::thrift::protocol::T_BOOL))) {
+        goto _readField_need_authenticate;
+      } else {
+        goto _skip;
+      }
+    }
     default:
     {
 _skip:
@@ -9260,6 +9437,18 @@ uint32_t ScanEdgeRequest::serializedSize(Protocol_ const* prot_) const {
     xfer += prot_->serializedFieldSize("common", apache::thrift::protocol::T_STRUCT, 10);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::RequestCommon>::serializedSize<false>(*prot_, this->common);
   }
+  if (this->username_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("username", apache::thrift::protocol::T_STRING, 11);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->username);
+  }
+  if (this->password_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("password", apache::thrift::protocol::T_STRING, 12);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<false>(*prot_, this->password);
+  }
+  if (this->need_authenticate_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("need_authenticate", apache::thrift::protocol::T_BOOL, 13);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->need_authenticate);
+  }
   xfer += prot_->serializedSizeStop();
   return xfer;
 }
@@ -9295,6 +9484,18 @@ uint32_t ScanEdgeRequest::serializedSizeZC(Protocol_ const* prot_) const {
   if (this->common_ref().has_value()) {
     xfer += prot_->serializedFieldSize("common", apache::thrift::protocol::T_STRUCT, 10);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::RequestCommon>::serializedSize<true>(*prot_, this->common);
+  }
+  if (this->username_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("username", apache::thrift::protocol::T_STRING, 11);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->username);
+  }
+  if (this->password_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("password", apache::thrift::protocol::T_STRING, 12);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::serializedSize<true>(*prot_, this->password);
+  }
+  if (this->need_authenticate_ref().has_value()) {
+    xfer += prot_->serializedFieldSize("need_authenticate", apache::thrift::protocol::T_BOOL, 13);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::serializedSize<false>(*prot_, this->need_authenticate);
   }
   xfer += prot_->serializedSizeStop();
   return xfer;
@@ -9340,6 +9541,21 @@ uint32_t ScanEdgeRequest::write(Protocol_* prot_) const {
   if (this->common_ref().has_value()) {
     xfer += prot_->writeFieldBegin("common", apache::thrift::protocol::T_STRUCT, 10);
     xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::structure,  ::nebula::storage::cpp2::RequestCommon>::write(*prot_, this->common);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->username_ref().has_value()) {
+    xfer += prot_->writeFieldBegin("username", apache::thrift::protocol::T_STRING, 11);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->username);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->password_ref().has_value()) {
+    xfer += prot_->writeFieldBegin("password", apache::thrift::protocol::T_STRING, 12);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::binary, ::std::string>::write(*prot_, this->password);
+    xfer += prot_->writeFieldEnd();
+  }
+  if (this->need_authenticate_ref().has_value()) {
+    xfer += prot_->writeFieldBegin("need_authenticate", apache::thrift::protocol::T_BOOL, 13);
+    xfer += ::apache::thrift::detail::pm::protocol_methods< ::apache::thrift::type_class::integral, bool>::write(*prot_, this->need_authenticate);
     xfer += prot_->writeFieldEnd();
   }
   xfer += prot_->writeFieldStop();

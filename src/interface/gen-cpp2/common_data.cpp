@@ -72,7 +72,7 @@ const std::array<folly::StringPiece, 17> TEnumDataStorage<::nebula::cpp2::Proper
   "GEOGRAPHY",
 }};
 
-const std::array<::nebula::cpp2::ErrorCode, 196> TEnumDataStorage<::nebula::cpp2::ErrorCode>::values = {{
+const std::array<::nebula::cpp2::ErrorCode, 197> TEnumDataStorage<::nebula::cpp2::ErrorCode>::values = {{
   type::SUCCEEDED,
   type::E_DISCONNECTED,
   type::E_FAIL_TO_CONNECT,
@@ -157,6 +157,7 @@ const std::array<::nebula::cpp2::ErrorCode, 196> TEnumDataStorage<::nebula::cpp2
   type::E_PRIVILEGE_NOT_EXIST,
   type::E_PRIVILEGE_NEED_BASIC_ROLE,
   type::E_PRIVILEGE_ACTION_INVALID,
+  type::E_STORAGE_ENABLE_AUTH,
   type::E_SNAPSHOT_FAILURE,
   type::E_SNAPSHOT_RUNNING_JOBS,
   type::E_SNAPSHOT_NOT_FOUND,
@@ -270,7 +271,7 @@ const std::array<::nebula::cpp2::ErrorCode, 196> TEnumDataStorage<::nebula::cpp2
   type::E_STORAGE_MEMORY_EXCEEDED,
   type::E_UNKNOWN,
 }};
-const std::array<folly::StringPiece, 196> TEnumDataStorage<::nebula::cpp2::ErrorCode>::names = {{
+const std::array<folly::StringPiece, 197> TEnumDataStorage<::nebula::cpp2::ErrorCode>::names = {{
   "SUCCEEDED",
   "E_DISCONNECTED",
   "E_FAIL_TO_CONNECT",
@@ -355,6 +356,7 @@ const std::array<folly::StringPiece, 196> TEnumDataStorage<::nebula::cpp2::Error
   "E_PRIVILEGE_NOT_EXIST",
   "E_PRIVILEGE_NEED_BASIC_ROLE",
   "E_PRIVILEGE_ACTION_INVALID",
+  "E_STORAGE_ENABLE_AUTH",
   "E_SNAPSHOT_FAILURE",
   "E_SNAPSHOT_RUNNING_JOBS",
   "E_SNAPSHOT_NOT_FOUND",
