@@ -44,7 +44,7 @@ jobs:
           - os: centos7
             compiler: clang-9
     env:
-      NIGHTLY_URL: "{{ vars.MINIO_ENDPOINT }}/nightly-build/nebula-graph"
+      NIGHTLY_URL: ${{ vars.MINIO_ENDPOINT }}/nightly-build/nebula-graph
     container:
       image: vesoft/nebula-dev:${{ matrix.os }}
       volumes:
