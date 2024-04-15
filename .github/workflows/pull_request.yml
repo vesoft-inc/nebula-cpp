@@ -9,7 +9,10 @@ on:
 defaults:
   run:
     shell: bash
-
+    
+env:
+  NIGHTLY_URL: ${{ vars.MINIO_ENDPOINT }}/nightly-build/nebula-graph
+  
 jobs:
   lint:
     name: lint
@@ -43,8 +46,6 @@ jobs:
         exclude:
           - os: centos7
             compiler: clang-9
-    env:
-      NIGHTLY_URL: ${{ vars.MINIO_ENDPOINT }}/nightly-build/nebula-graph
     container:
       image: vesoft/nebula-dev:${{ matrix.os }}
       volumes:
