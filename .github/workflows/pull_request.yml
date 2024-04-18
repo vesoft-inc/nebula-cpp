@@ -2,7 +2,14 @@ name: cpp_test
 
 on:
   pull_request_target:
-
+    branches:
+      - master
+      - 'v[0-9]+.*'
+      
+permissions:
+  pull-requests: write
+  contents: write
+      
 defaults:
   run:
     shell: bash
@@ -101,7 +108,7 @@ jobs:
           centos7)
             set +e
             for i in {0..10}; do
-              wget ${{ vars.MINIO_ENDPOINT }}/nightly-build/nebula-graph/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
+              wget ${{ env.NIGHTLY_URL }}/$(./date.py --day_diff=$i)/nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
               rpm -ivh nebula-graph-$(./date.py --day_diff=$i)-nightly.el7.x86_64.rpm
               if [ $? -eq 0 ]; then
                 break;
