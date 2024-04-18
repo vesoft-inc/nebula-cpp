@@ -17,4 +17,3 @@ day_diff = datetime.timedelta(days=args.day_diff)
 current = current - day_diff
 
 print(current.strftime('%Y.%m.%d'))
-
