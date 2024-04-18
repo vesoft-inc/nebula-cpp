@@ -1,21 +1,18 @@
 name: cpp_test
 
 on:
-  pull_request_target:
+  pull_request:
     branches:
       - master
       - 'v[0-9]+.*'
-      
-permissions:
-  pull-requests: write
-  contents: write
+
       
 defaults:
   run:
     shell: bash
     
 env:
-  NIGHTLY_URL: ${{ vars.MINIO_ENDPOINT }}/nightly-build/nebula-graph
+  NIGHTLY_URL: http://minio.vesoft-inc.com:9000/nightly-build/nebula-graph
   
 jobs:
   lint:
