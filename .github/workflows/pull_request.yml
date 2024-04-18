@@ -6,12 +6,13 @@ on:
       - master
       - 'v[0-9]+.*'
 
+      
 defaults:
   run:
     shell: bash
     
 env:
-  NIGHTLY_URL: ${{ vars.MINIO_ENDPOINT }}/nightly-build/nebula-graph
+  NIGHTLY_URL: http://minio.vesoft-inc.com:9000/nightly-build/nebula-graph
   
 jobs:
   lint:
