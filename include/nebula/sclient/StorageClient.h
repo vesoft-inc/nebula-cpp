@@ -82,8 +82,8 @@ class StorageClient {
                                 bool onlyLatestVersion = false,
                                 bool enableReadFromFollower = true,
                                 bool needAuth = false,
-                                std::string username = "",
-                                std::string password = "");
+                                const std::string& username = "",
+                                const std::string& password = "");
 
   ScanVertexIter scanVertexWithPart(
       std::string spaceName,
@@ -97,8 +97,8 @@ class StorageClient {
       bool onlyLatestVersion = false,
       bool enableReadFromFollower = true,
       bool needAuth = false,
-      std::string username = "",
-      std::string password = "");
+      const std::string& username = "",
+      const std::string& password = "");
 
   MetaClient* getMetaClient() {
     return mClient_.get();

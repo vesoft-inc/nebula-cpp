@@ -52,8 +52,8 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
                                              bool onlyLatestVersion,
                                              bool enableReadFromFollower,
                                              bool needAuth,
-                                             std::string username,
-                                             std::string password) {
+                                             const std::string& username,
+                                             const std::string& password) {
   auto spaceIdResult = mClient_->getSpaceIdByNameFromCache(spaceName);
   if (!spaceIdResult.first) {
     return {nullptr, nullptr, false};
@@ -126,8 +126,8 @@ ScanVertexIter StorageClient::scanVertexWithPart(
     bool onlyLatestVersion,
     bool enableReadFromFollower,
     bool needAuth,
-    std::string username,
-    std::string password) {
+    const std::string& username,
+    const std::string& password) {
   auto spaceIdResult = mClient_->getSpaceIdByNameFromCache(spaceName);
   if (!spaceIdResult.first) {
     return {nullptr, nullptr, false};
