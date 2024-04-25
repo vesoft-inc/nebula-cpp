@@ -568,6 +568,7 @@ enum class ErrorCode {
   E_PRIVILEGE_NOT_EXIST = -2037,
   E_PRIVILEGE_NEED_BASIC_ROLE = -2038,
   E_PRIVILEGE_ACTION_INVALID = -2039,
+  E_STORAGE_ENABLE_AUTH = -2058,
   E_SNAPSHOT_FAILURE = -2040,
   E_SNAPSHOT_RUNNING_JOBS = -2056,
   E_SNAPSHOT_NOT_FOUND = -2057,
@@ -745,7 +746,7 @@ template <> struct TEnumDataStorage<::nebula::cpp2::ErrorCode>;
 template <> struct TEnumTraits<::nebula::cpp2::ErrorCode> {
   using type = ::nebula::cpp2::ErrorCode;
 
-  static constexpr std::size_t const size = 196;
+  static constexpr std::size_t const size = 197;
   static folly::Range<type const*> const values;
   static folly::Range<folly::StringPiece const*> const names;
 

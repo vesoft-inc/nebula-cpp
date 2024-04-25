@@ -609,6 +609,9 @@ struct ScanVertexRequest {
     // if set to false, forbid follower read
     9: bool                                enable_read_from_follower = true,
     10: optional RequestCommon              common,
+    11: optional binary                     username,
+    12: optional binary                     password,
+    13: optional bool                       need_authenticate,
 }
 
 struct ScanEdgeRequest {
@@ -628,6 +631,9 @@ struct ScanEdgeRequest {
     // if set to false, forbid follower read
     9: bool                                enable_read_from_follower = true,
     10: optional RequestCommon              common,
+    11: optional binary                     username,
+    12: optional binary                     password,
+    13: optional bool                       need_authenticate,
 }
 
 struct ScanResponse {

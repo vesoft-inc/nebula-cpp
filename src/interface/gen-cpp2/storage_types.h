@@ -171,6 +171,9 @@ struct filter;
 struct only_latest_version;
 struct enable_read_from_follower;
 struct common;
+struct username;
+struct password;
+struct need_authenticate;
 struct space_id;
 struct parts;
 struct return_columns;
@@ -181,6 +184,9 @@ struct filter;
 struct only_latest_version;
 struct enable_read_from_follower;
 struct common;
+struct username;
+struct password;
+struct need_authenticate;
 struct result;
 struct props;
 struct cursors;
@@ -888,6 +894,18 @@ APACHE_THRIFT_DEFINE_ACCESSOR(enable_read_from_follower);
 #define APACHE_THRIFT_ACCESSOR_common
 APACHE_THRIFT_DEFINE_ACCESSOR(common);
 #endif
+#ifndef APACHE_THRIFT_ACCESSOR_username
+#define APACHE_THRIFT_ACCESSOR_username
+APACHE_THRIFT_DEFINE_ACCESSOR(username);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_password
+#define APACHE_THRIFT_ACCESSOR_password
+APACHE_THRIFT_DEFINE_ACCESSOR(password);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_need_authenticate
+#define APACHE_THRIFT_ACCESSOR_need_authenticate
+APACHE_THRIFT_DEFINE_ACCESSOR(need_authenticate);
+#endif
 #ifndef APACHE_THRIFT_ACCESSOR_space_id
 #define APACHE_THRIFT_ACCESSOR_space_id
 APACHE_THRIFT_DEFINE_ACCESSOR(space_id);
@@ -927,6 +945,18 @@ APACHE_THRIFT_DEFINE_ACCESSOR(enable_read_from_follower);
 #ifndef APACHE_THRIFT_ACCESSOR_common
 #define APACHE_THRIFT_ACCESSOR_common
 APACHE_THRIFT_DEFINE_ACCESSOR(common);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_username
+#define APACHE_THRIFT_ACCESSOR_username
+APACHE_THRIFT_DEFINE_ACCESSOR(username);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_password
+#define APACHE_THRIFT_ACCESSOR_password
+APACHE_THRIFT_DEFINE_ACCESSOR(password);
+#endif
+#ifndef APACHE_THRIFT_ACCESSOR_need_authenticate
+#define APACHE_THRIFT_ACCESSOR_need_authenticate
+APACHE_THRIFT_DEFINE_ACCESSOR(need_authenticate);
 #endif
 #ifndef APACHE_THRIFT_ACCESSOR_result
 #define APACHE_THRIFT_ACCESSOR_result
@@ -10211,7 +10241,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  ScanVertexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> parts__arg, ::std::vector< ::nebula::storage::cpp2::VertexProp> return_columns__arg, int64_t limit__arg, int64_t start_time__arg, int64_t end_time__arg, ::std::string filter__arg, bool only_latest_version__arg, bool enable_read_from_follower__arg,  ::nebula::storage::cpp2::RequestCommon common__arg);
+  ScanVertexRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> parts__arg, ::std::vector< ::nebula::storage::cpp2::VertexProp> return_columns__arg, int64_t limit__arg, int64_t start_time__arg, int64_t end_time__arg, ::std::string filter__arg, bool only_latest_version__arg, bool enable_read_from_follower__arg,  ::nebula::storage::cpp2::RequestCommon common__arg, ::std::string username__arg, ::std::string password__arg, bool need_authenticate__arg);
 
   ScanVertexRequest(ScanVertexRequest&&) = default;
 
@@ -10246,6 +10276,12 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
   bool enable_read_from_follower;
  private:
    ::nebula::storage::cpp2::RequestCommon common;
+ private:
+  ::std::string username;
+ private:
+  ::std::string password;
+ private:
+  bool need_authenticate;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
@@ -10260,6 +10296,9 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     bool only_latest_version;
     bool enable_read_from_follower;
     bool common;
+    bool username;
+    bool password;
+    bool need_authenticate;
   } __isset = {};
   bool operator==(const ScanVertexRequest& rhs) const;
 #ifndef SWIG
@@ -10500,6 +10539,72 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> username_ref() const& {
+    return {this->username, __isset.username};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> username_ref() const&& {
+    return {std::move(this->username), __isset.username};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> username_ref() & {
+    return {this->username, __isset.username};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> username_ref() && {
+    return {std::move(this->username), __isset.username};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> password_ref() const& {
+    return {this->password, __isset.password};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> password_ref() const&& {
+    return {std::move(this->password), __isset.password};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> password_ref() & {
+    return {this->password, __isset.password};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> password_ref() && {
+    return {std::move(this->password), __isset.password};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> need_authenticate_ref() const& {
+    return {this->need_authenticate, __isset.need_authenticate};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> need_authenticate_ref() const&& {
+    return {std::move(this->need_authenticate), __isset.need_authenticate};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> need_authenticate_ref() & {
+    return {this->need_authenticate, __isset.need_authenticate};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> need_authenticate_ref() && {
+    return {std::move(this->need_authenticate), __isset.need_authenticate};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
    ::nebula::cpp2::GraphSpaceID get_space_id() const {
     return space_id;
   }
@@ -10634,6 +10739,59 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     return common;
   }
 
+  const ::std::string* get_username() const& {
+    return username_ref() ? std::addressof(username) : nullptr;
+  }
+
+  ::std::string* get_username() & {
+    return username_ref() ? std::addressof(username) : nullptr;
+  }
+  ::std::string* get_username() && = delete;
+
+  template <typename T_ScanVertexRequest_username_struct_setter = ::std::string>
+  ::std::string& set_username(T_ScanVertexRequest_username_struct_setter&& username_) {
+    username = std::forward<T_ScanVertexRequest_username_struct_setter>(username_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.username = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return username;
+  }
+
+  const ::std::string* get_password() const& {
+    return password_ref() ? std::addressof(password) : nullptr;
+  }
+
+  ::std::string* get_password() & {
+    return password_ref() ? std::addressof(password) : nullptr;
+  }
+  ::std::string* get_password() && = delete;
+
+  template <typename T_ScanVertexRequest_password_struct_setter = ::std::string>
+  ::std::string& set_password(T_ScanVertexRequest_password_struct_setter&& password_) {
+    password = std::forward<T_ScanVertexRequest_password_struct_setter>(password_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.password = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return password;
+  }
+
+  const bool* get_need_authenticate() const& {
+    return need_authenticate_ref() ? std::addressof(need_authenticate) : nullptr;
+  }
+
+  bool* get_need_authenticate() & {
+    return need_authenticate_ref() ? std::addressof(need_authenticate) : nullptr;
+  }
+  bool* get_need_authenticate() && = delete;
+
+  bool& set_need_authenticate(bool need_authenticate_) {
+    need_authenticate = need_authenticate_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.need_authenticate = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return need_authenticate;
+  }
+
   template <class Protocol_>
   uint32_t read(Protocol_* iprot);
   template <class Protocol_>
@@ -10682,7 +10840,7 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
 
   // FragileConstructor for use in initialization lists only.
   [[deprecated("This constructor is deprecated")]]
-  ScanEdgeRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> parts__arg, ::std::vector< ::nebula::storage::cpp2::EdgeProp> return_columns__arg, int64_t limit__arg, int64_t start_time__arg, int64_t end_time__arg, ::std::string filter__arg, bool only_latest_version__arg, bool enable_read_from_follower__arg,  ::nebula::storage::cpp2::RequestCommon common__arg);
+  ScanEdgeRequest(apache::thrift::FragileConstructor,  ::nebula::cpp2::GraphSpaceID space_id__arg, std::unordered_map< ::nebula::cpp2::PartitionID,  ::nebula::storage::cpp2::ScanCursor> parts__arg, ::std::vector< ::nebula::storage::cpp2::EdgeProp> return_columns__arg, int64_t limit__arg, int64_t start_time__arg, int64_t end_time__arg, ::std::string filter__arg, bool only_latest_version__arg, bool enable_read_from_follower__arg,  ::nebula::storage::cpp2::RequestCommon common__arg, ::std::string username__arg, ::std::string password__arg, bool need_authenticate__arg);
 
   ScanEdgeRequest(ScanEdgeRequest&&) = default;
 
@@ -10717,6 +10875,12 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
   bool enable_read_from_follower;
  private:
    ::nebula::storage::cpp2::RequestCommon common;
+ private:
+  ::std::string username;
+ private:
+  ::std::string password;
+ private:
+  bool need_authenticate;
 
  public:
   [[deprecated("__isset field is deprecated in Thrift struct. Use _ref() accessors instead.")]]
@@ -10731,6 +10895,9 @@ THRIFT_IGNORE_ISSET_USE_WARNING_END
     bool only_latest_version;
     bool enable_read_from_follower;
     bool common;
+    bool username;
+    bool password;
+    bool need_authenticate;
   } __isset = {};
   bool operator==(const ScanEdgeRequest& rhs) const;
 #ifndef SWIG
@@ -10971,6 +11138,72 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
   }
 THRIFT_IGNORE_ISSET_USE_WARNING_END
 
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> username_ref() const& {
+    return {this->username, __isset.username};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> username_ref() const&& {
+    return {std::move(this->username), __isset.username};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> username_ref() & {
+    return {this->username, __isset.username};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> username_ref() && {
+    return {std::move(this->username), __isset.username};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> password_ref() const& {
+    return {this->password, __isset.password};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> password_ref() const&& {
+    return {std::move(this->password), __isset.password};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> password_ref() & {
+    return {this->password, __isset.password};
+  }
+
+  template <typename..., typename T = ::std::string>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> password_ref() && {
+    return {std::move(this->password), __isset.password};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&> need_authenticate_ref() const& {
+    return {this->need_authenticate, __isset.need_authenticate};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<const T&&> need_authenticate_ref() const&& {
+    return {std::move(this->need_authenticate), __isset.need_authenticate};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&> need_authenticate_ref() & {
+    return {this->need_authenticate, __isset.need_authenticate};
+  }
+
+  template <typename..., typename T = bool>
+  FOLLY_ERASE ::apache::thrift::optional_field_ref<T&&> need_authenticate_ref() && {
+    return {std::move(this->need_authenticate), __isset.need_authenticate};
+  }
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+
    ::nebula::cpp2::GraphSpaceID get_space_id() const {
     return space_id;
   }
@@ -11103,6 +11336,59 @@ THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
     __isset.common = true;
 THRIFT_IGNORE_ISSET_USE_WARNING_END
     return common;
+  }
+
+  const ::std::string* get_username() const& {
+    return username_ref() ? std::addressof(username) : nullptr;
+  }
+
+  ::std::string* get_username() & {
+    return username_ref() ? std::addressof(username) : nullptr;
+  }
+  ::std::string* get_username() && = delete;
+
+  template <typename T_ScanEdgeRequest_username_struct_setter = ::std::string>
+  ::std::string& set_username(T_ScanEdgeRequest_username_struct_setter&& username_) {
+    username = std::forward<T_ScanEdgeRequest_username_struct_setter>(username_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.username = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return username;
+  }
+
+  const ::std::string* get_password() const& {
+    return password_ref() ? std::addressof(password) : nullptr;
+  }
+
+  ::std::string* get_password() & {
+    return password_ref() ? std::addressof(password) : nullptr;
+  }
+  ::std::string* get_password() && = delete;
+
+  template <typename T_ScanEdgeRequest_password_struct_setter = ::std::string>
+  ::std::string& set_password(T_ScanEdgeRequest_password_struct_setter&& password_) {
+    password = std::forward<T_ScanEdgeRequest_password_struct_setter>(password_);
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.password = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return password;
+  }
+
+  const bool* get_need_authenticate() const& {
+    return need_authenticate_ref() ? std::addressof(need_authenticate) : nullptr;
+  }
+
+  bool* get_need_authenticate() & {
+    return need_authenticate_ref() ? std::addressof(need_authenticate) : nullptr;
+  }
+  bool* get_need_authenticate() && = delete;
+
+  bool& set_need_authenticate(bool need_authenticate_) {
+    need_authenticate = need_authenticate_;
+THRIFT_IGNORE_ISSET_USE_WARNING_BEGIN
+    __isset.need_authenticate = true;
+THRIFT_IGNORE_ISSET_USE_WARNING_END
+    return need_authenticate;
   }
 
   template <class Protocol_>

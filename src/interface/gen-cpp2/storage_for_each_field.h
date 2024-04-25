@@ -446,6 +446,9 @@ struct ForEachField<::nebula::storage::cpp2::ScanVertexRequest> {
     f(7, static_cast<T&&>(t).only_latest_version_ref()...);
     f(8, static_cast<T&&>(t).enable_read_from_follower_ref()...);
     f(9, static_cast<T&&>(t).common_ref()...);
+    f(10, static_cast<T&&>(t).username_ref()...);
+    f(11, static_cast<T&&>(t).password_ref()...);
+    f(12, static_cast<T&&>(t).need_authenticate_ref()...);
   }
 };
 
@@ -463,6 +466,9 @@ struct ForEachField<::nebula::storage::cpp2::ScanEdgeRequest> {
     f(7, static_cast<T&&>(t).only_latest_version_ref()...);
     f(8, static_cast<T&&>(t).enable_read_from_follower_ref()...);
     f(9, static_cast<T&&>(t).common_ref()...);
+    f(10, static_cast<T&&>(t).username_ref()...);
+    f(11, static_cast<T&&>(t).password_ref()...);
+    f(12, static_cast<T&&>(t).need_authenticate_ref()...);
   }
 };
 

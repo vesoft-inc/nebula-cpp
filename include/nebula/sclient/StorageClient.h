@@ -13,12 +13,12 @@
 
 #include "ScanEdgeIter.h"
 #include "common/datatypes/HostAddr.h"
+#include "common/graph/Response.h"
 #include "common/thrift/ThriftTypes.h"
 #include "nebula/mclient/MetaClient.h"
 #include "nebula/sclient/SConfig.h"
 #include "nebula/sclient/ScanEdgeIter.h"
 #include "nebula/sclient/ScanVertexIter.h"
-#include "common/graph/Response.h"
 
 namespace folly {
 class IOThreadPoolExecutor;
@@ -69,7 +69,7 @@ class StorageClient {
 
   ~StorageClient();
 
-  std::vector<PartitionID> getParts(const std::string& spaceName);  // plato needed
+  std::vector<PartitionID> getParts(const std::string& spaceName);
 
   ScanEdgeIter scanEdgeWithPart(std::string spaceName,
                                 int32_t partID,
@@ -80,7 +80,10 @@ class StorageClient {
                                 int64_t endTime = DEFAULT_END_TIME,
                                 std::string filter = "",
                                 bool onlyLatestVersion = false,
-                                bool enableReadFromFollower = true);  // plato needed
+                                bool enableReadFromFollower = true,
+                                bool needAuth = false,
+                                const std::string& username = "",
+                                const std::string& password = "");
 
   ScanVertexIter scanVertexWithPart(
       std::string spaceName,
@@ -92,7 +95,10 @@ class StorageClient {
       int64_t endTime = DEFAULT_END_TIME,
       std::string filter = "",
       bool onlyLatestVersion = false,
-      bool enableReadFromFollower = true);  // plato needed
+      bool enableReadFromFollower = true,
+      bool needAuth = false,
+      const std::string& username = "",
+      const std::string& password = "");
 
   MetaClient* getMetaClient() {
     return mClient_.get();
@@ -106,7 +112,7 @@ class StorageClient {
       const storage::cpp2::ScanVertexRequest& req);
 
   template <typename Request, typename RemoteFunc, typename Response>
-    void getResponse(std::pair<HostAddr, Request>&& request,
+  void getResponse(std::pair<HostAddr, Request>&& request,
                    RemoteFunc&& remoteFunc,
                    folly::Promise<std::pair<::nebula::ErrorCode, Response>> pro);
 

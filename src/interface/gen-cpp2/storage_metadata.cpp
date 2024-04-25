@@ -1143,6 +1143,9 @@ StructMetadata<::nebula::storage::cpp2::ScanVertexRequest>::gen(ThriftMetadata& 
     std::make_tuple(8, "only_latest_version", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(9, "enable_read_from_follower", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(10, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(11, "username", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(12, "password", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(13, "need_authenticate", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_ScanVertexRequest_fields) {
     ::apache::thrift::metadata::ThriftField field;
@@ -1176,6 +1179,9 @@ StructMetadata<::nebula::storage::cpp2::ScanEdgeRequest>::gen(ThriftMetadata& me
     std::make_tuple(8, "only_latest_version", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(9, "enable_read_from_follower", false, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
     std::make_tuple(10, "common", true, std::make_unique<Struct< ::nebula::storage::cpp2::RequestCommon>>("storage.RequestCommon"), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(11, "username", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(12, "password", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BINARY_TYPE), std::vector<ThriftConstStruct>{}),
+    std::make_tuple(13, "need_authenticate", true, std::make_unique<Primitive>(ThriftPrimitiveType::THRIFT_BOOL_TYPE), std::vector<ThriftConstStruct>{}),
   };
   for (const auto& f : storage_ScanEdgeRequest_fields) {
     ::apache::thrift::metadata::ThriftField field;

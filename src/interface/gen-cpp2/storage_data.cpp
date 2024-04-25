@@ -776,7 +776,7 @@ const std::array<protocol::TType, 1> TStructDataStorage<::nebula::storage::cpp2:
   TType::T_STRING,
 }};
 
-const std::array<folly::StringPiece, 10> TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest>::fields_names = {{
+const std::array<folly::StringPiece, 13> TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest>::fields_names = {{
   "space_id",
   "parts",
   "return_columns",
@@ -787,8 +787,11 @@ const std::array<folly::StringPiece, 10> TStructDataStorage<::nebula::storage::c
   "only_latest_version",
   "enable_read_from_follower",
   "common",
+  "username",
+  "password",
+  "need_authenticate",
 }};
-const std::array<int16_t, 10> TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest>::fields_ids = {{
+const std::array<int16_t, 13> TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest>::fields_ids = {{
   1,
   2,
   3,
@@ -799,8 +802,11 @@ const std::array<int16_t, 10> TStructDataStorage<::nebula::storage::cpp2::ScanVe
   8,
   9,
   10,
+  11,
+  12,
+  13,
 }};
-const std::array<protocol::TType, 10> TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest>::fields_types = {{
+const std::array<protocol::TType, 13> TStructDataStorage<::nebula::storage::cpp2::ScanVertexRequest>::fields_types = {{
   TType::T_I32,
   TType::T_MAP,
   TType::T_LIST,
@@ -811,9 +817,12 @@ const std::array<protocol::TType, 10> TStructDataStorage<::nebula::storage::cpp2
   TType::T_BOOL,
   TType::T_BOOL,
   TType::T_STRUCT,
+  TType::T_STRING,
+  TType::T_STRING,
+  TType::T_BOOL,
 }};
 
-const std::array<folly::StringPiece, 10> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_names = {{
+const std::array<folly::StringPiece, 13> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_names = {{
   "space_id",
   "parts",
   "return_columns",
@@ -824,8 +833,11 @@ const std::array<folly::StringPiece, 10> TStructDataStorage<::nebula::storage::c
   "only_latest_version",
   "enable_read_from_follower",
   "common",
+  "username",
+  "password",
+  "need_authenticate",
 }};
-const std::array<int16_t, 10> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_ids = {{
+const std::array<int16_t, 13> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_ids = {{
   1,
   2,
   3,
@@ -836,8 +848,11 @@ const std::array<int16_t, 10> TStructDataStorage<::nebula::storage::cpp2::ScanEd
   8,
   9,
   10,
+  11,
+  12,
+  13,
 }};
-const std::array<protocol::TType, 10> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_types = {{
+const std::array<protocol::TType, 13> TStructDataStorage<::nebula::storage::cpp2::ScanEdgeRequest>::fields_types = {{
   TType::T_I32,
   TType::T_MAP,
   TType::T_LIST,
@@ -848,6 +863,9 @@ const std::array<protocol::TType, 10> TStructDataStorage<::nebula::storage::cpp2
   TType::T_BOOL,
   TType::T_BOOL,
   TType::T_STRUCT,
+  TType::T_STRING,
+  TType::T_STRING,
+  TType::T_BOOL,
 }};
 
 const std::array<folly::StringPiece, 3> TStructDataStorage<::nebula::storage::cpp2::ScanResponse>::fields_names = {{
