@@ -64,8 +64,8 @@ class StorageClient {
 
  public:
   explicit StorageClient(const std::vector<std::string>& metaAddrs,
-                         const std::string& user,
-                         const std::string& password,
+                         const std::string& user = "",
+                         const std::string& password = "",
                          const MConfig& mConfig = MConfig{},
                          const SConfig& sConfig = SConfig{});
 
