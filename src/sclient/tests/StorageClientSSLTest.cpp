@@ -200,7 +200,7 @@ TEST_F(StorageClientTest, SSL) {
   prepare();
   nebula::MConfig mConfig{1000, 60 * 1000, true, ""};
   nebula::SConfig sConfig{1000, 60 * 1000, true, ""};
-  nebula::StorageClient c({kServerHost ":9559"}, mConfig, sConfig);
+  nebula::StorageClient c({kServerHost ":9559"}, "root", "nebula", mConfig, sConfig);
   auto *m = c.getMetaClient();
   LOG(INFO) << "Testing run once of meta client";
   runOnce(*m);

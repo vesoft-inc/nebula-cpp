@@ -64,6 +64,8 @@ class StorageClient {
 
  public:
   explicit StorageClient(const std::vector<std::string>& metaAddrs,
+                         const std::string& user = "",
+                         const std::string& password = "",
                          const MConfig& mConfig = MConfig{},
                          const SConfig& sConfig = SConfig{});
 
@@ -80,10 +82,7 @@ class StorageClient {
                                 int64_t endTime = DEFAULT_END_TIME,
                                 std::string filter = "",
                                 bool onlyLatestVersion = false,
-                                bool enableReadFromFollower = true,
-                                bool needAuth = false,
-                                const std::string& username = "",
-                                const std::string& password = "");
+                                bool enableReadFromFollower = true);
 
   ScanVertexIter scanVertexWithPart(
       std::string spaceName,
@@ -95,10 +94,7 @@ class StorageClient {
       int64_t endTime = DEFAULT_END_TIME,
       std::string filter = "",
       bool onlyLatestVersion = false,
-      bool enableReadFromFollower = true,
-      bool needAuth = false,
-      const std::string& username = "",
-      const std::string& password = "");
+      bool enableReadFromFollower = true);
 
   MetaClient* getMetaClient() {
     return mClient_.get();
@@ -116,6 +112,8 @@ class StorageClient {
                    RemoteFunc&& remoteFunc,
                    folly::Promise<std::pair<::nebula::ErrorCode, Response>> pro);
 
+  std::string user_;
+  std::string password_;
   std::unique_ptr<MetaClient> mClient_;
   SConfig sConfig_;
   std::shared_ptr<folly::IOThreadPoolExecutor> ioExecutor_;

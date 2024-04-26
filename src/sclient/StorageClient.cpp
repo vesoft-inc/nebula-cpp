@@ -14,8 +14,11 @@
 namespace nebula {
 
 StorageClient::StorageClient(const std::vector<std::string>& metaAddrs,
+                             const std::string& user,
+                             const std::string& password,
                              const MConfig& mConfig,
-                             const SConfig& sConfig) {
+                             const SConfig& sConfig)
+    : user_(user), password_(password) {
   mClient_ = std::make_unique<MetaClient>(metaAddrs, mConfig);
   sConfig_ = sConfig;
   ioExecutor_ = std::make_shared<folly::IOThreadPoolExecutor>(std::thread::hardware_concurrency());
@@ -50,10 +53,7 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
                                              int64_t endTime,
                                              std::string filter,
                                              bool onlyLatestVersion,
-                                             bool enableReadFromFollower,
-                                             bool needAuth,
-                                             const std::string& username,
-                                             const std::string& password) {
+                                             bool enableReadFromFollower) {
   auto spaceIdResult = mClient_->getSpaceIdByNameFromCache(spaceName);
   if (!spaceIdResult.first) {
     return {nullptr, nullptr, false};
@@ -84,9 +84,9 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
   req->set_filter(filter);
   req->set_only_latest_version(onlyLatestVersion);
   req->set_enable_read_from_follower(enableReadFromFollower);
-  req->set_need_authenticate(needAuth);
-  req->set_username(username);
-  req->set_password(password);
+  req->set_need_authenticate(true);
+  req->set_username(user_);
+  req->set_password(password_);
 
   return {this, req};
 }
@@ -124,10 +124,7 @@ ScanVertexIter StorageClient::scanVertexWithPart(
     int64_t endTime,
     std::string filter,
     bool onlyLatestVersion,
-    bool enableReadFromFollower,
-    bool needAuth,
-    const std::string& username,
-    const std::string& password) {
+    bool enableReadFromFollower) {
   auto spaceIdResult = mClient_->getSpaceIdByNameFromCache(spaceName);
   if (!spaceIdResult.first) {
     return {nullptr, nullptr, false};
@@ -164,9 +161,9 @@ ScanVertexIter StorageClient::scanVertexWithPart(
   req->set_filter(filter);
   req->set_only_latest_version(onlyLatestVersion);
   req->set_enable_read_from_follower(enableReadFromFollower);
-  req->set_need_authenticate(needAuth);
-  req->set_username(username);
-  req->set_password(password);
+  req->set_need_authenticate(true);
+  req->set_username(user_);
+  req->set_password(password_);
 
   return {this, req};
 }

@@ -199,7 +199,7 @@ class StorageClientTest : public SClientTest {
 TEST_F(StorageClientTest, Basic) {
   LOG(INFO) << "Prepare data.";
   prepare();
-  nebula::StorageClient c({kServerHost ":9559"});
+  nebula::StorageClient c({kServerHost ":9559"}, "root", "nebula");
   auto *m = c.getMetaClient();
   LOG(INFO) << "Testing run once of meta client";
   runOnce(*m);

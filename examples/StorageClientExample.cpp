@@ -14,23 +14,21 @@
 
 #include "common/graph/Response.h"
 
-void scanEdge(nebula::StorageClient& c,
-              bool auth = false,
-              const std::string& username = "",
-              const std::string& password = "") {
-  auto scanEdgeIter = c.scanEdgeWithPart("nba",
-                                         1,
-                                         "like",
-                                         std::vector<std::string>{"likeness"},
-                                         10,
-                                         0,
-                                         std::numeric_limits<int64_t>::max(),
-                                         "",
-                                         true,
-                                         true,
-                                         auth,
-                                         username,
-                                         password);
+int main(int argc, char* argv[]) {
+  nebula::init(&argc, &argv);
+
+  nebula::StorageClient c({"127.0.0.1:9559"});
+
+  nebula::ScanEdgeIter scanEdgeIter = c.scanEdgeWithPart("nba",
+                                                         1,
+                                                         "like",
+                                                         std::vector<std::string>{"likeness"},
+                                                         10,
+                                                         0,
+                                                         std::numeric_limits<int64_t>::max(),
+                                                         "",
+                                                         true,
+                                                         true);
   std::cout << "scan edge..." << std::endl;
   while (scanEdgeIter.hasNext()) {
     std::cout << "-------------------------" << std::endl;
@@ -39,12 +37,7 @@ void scanEdge(nebula::StorageClient& c,
     std::cout << res.second << std::endl;
     std::cout << "+++++++++++++++++++++++++" << std::endl;
   }
-}
 
-void scanVertex(nebula::StorageClient& c,
-                bool auth = false,
-                const std::string& username = "",
-                const std::string& password = "") {
   nebula::ScanVertexIter scanVertexIter =
       c.scanVertexWithPart("nba",
                            1,
@@ -54,10 +47,7 @@ void scanVertex(nebula::StorageClient& c,
                            std::numeric_limits<int64_t>::max(),
                            "",
                            true,
-                           true,
-                           auth,
-                           username,
-                           password);
+                           true);
   std::cout << "scan vertex..." << std::endl;
   while (scanVertexIter.hasNext()) {
     std::cout << "-------------------------" << std::endl;
@@ -66,17 +56,6 @@ void scanVertex(nebula::StorageClient& c,
     std::cout << res.second << std::endl;
     std::cout << "+++++++++++++++++++++++++" << std::endl;
   }
-}
-
-int main(int argc, char* argv[]) {
-  nebula::init(&argc, &argv);
-  nebula::StorageClient c({"127.0.0.1:9559"});
-
-  scanVertex(c);
-  scanEdge(c);
-
-  scanVertex(c, true, "root", "nebula");
-  scanEdge(c, true, "root", "nebula");
 
   return 0;
 }
