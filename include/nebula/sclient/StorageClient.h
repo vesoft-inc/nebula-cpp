@@ -81,7 +81,6 @@ class StorageClient {
                                 std::string filter = "",
                                 bool onlyLatestVersion = false,
                                 bool enableReadFromFollower = true,
-                                bool needAuth = false,
                                 const std::string& username = "",
                                 const std::string& password = "");
 
@@ -96,7 +95,6 @@ class StorageClient {
       std::string filter = "",
       bool onlyLatestVersion = false,
       bool enableReadFromFollower = true,
-      bool needAuth = false,
       const std::string& username = "",
       const std::string& password = "");
 

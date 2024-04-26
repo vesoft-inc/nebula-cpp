@@ -51,7 +51,6 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
                                              std::string filter,
                                              bool onlyLatestVersion,
                                              bool enableReadFromFollower,
-                                             bool needAuth,
                                              const std::string& username,
                                              const std::string& password) {
   auto spaceIdResult = mClient_->getSpaceIdByNameFromCache(spaceName);
@@ -84,7 +83,7 @@ ScanEdgeIter StorageClient::scanEdgeWithPart(std::string spaceName,
   req->set_filter(filter);
   req->set_only_latest_version(onlyLatestVersion);
   req->set_enable_read_from_follower(enableReadFromFollower);
-  req->set_need_authenticate(needAuth);
+  req->set_need_authenticate(true);
   req->set_username(username);
   req->set_password(password);
 
@@ -125,7 +124,6 @@ ScanVertexIter StorageClient::scanVertexWithPart(
     std::string filter,
     bool onlyLatestVersion,
     bool enableReadFromFollower,
-    bool needAuth,
     const std::string& username,
     const std::string& password) {
   auto spaceIdResult = mClient_->getSpaceIdByNameFromCache(spaceName);
@@ -164,7 +162,7 @@ ScanVertexIter StorageClient::scanVertexWithPart(
   req->set_filter(filter);
   req->set_only_latest_version(onlyLatestVersion);
   req->set_enable_read_from_follower(enableReadFromFollower);
-  req->set_need_authenticate(needAuth);
+  req->set_need_authenticate(true);
   req->set_username(username);
   req->set_password(password);
 
