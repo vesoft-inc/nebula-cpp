@@ -17,7 +17,7 @@ var classnebula_1_1Connection =
     [ "executeJsonWithParameter", "d8/d5c/classnebula_1_1Connection.html#a98d00400afc5bf633ac562e1c22b259f", null ],
     [ "executeWithParameter", "d8/d5c/classnebula_1_1Connection.html#aa4bb5ec013a94ba85bb53bf663426ce5", null ],
     [ "isOpen", "d8/d5c/classnebula_1_1Connection.html#a3a9ba7594ee74425dd345ecc263a5564", null ],
-    [ "open", "d8/d5c/classnebula_1_1Connection.html#a29141316c761750a312c43c907879ed1", null ],
+    [ "open", "d8/d5c/classnebula_1_1Connection.html#a90b79a2b89e476640afcc470e00ab5e3", null ],
     [ "operator=", "d8/d5c/classnebula_1_1Connection.html#a5d6c2979ab7e7a94b63ab0de4305a57e", null ],
     [ "operator=", "d8/d5c/classnebula_1_1Connection.html#af6be1c9544d38e08f4db4084aefdd12c", null ],
     [ "ping", "d8/d5c/classnebula_1_1Connection.html#a1fb3d770d8493cdf1ccbaccf49b7fd31", null ],

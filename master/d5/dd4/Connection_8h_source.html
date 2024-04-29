@@ -99,47 +99,47 @@ $(document).ready(function(){initNavTree('d5/dd4/Connection_8h_source.html','../
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;common/datatypes/Value.h&quot;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &quot;common/graph/Response.h&quot;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>folly {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">class </span>ScopedEventBaseThread;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>nebula {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment">// Wrap the thrift client.</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>graph {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>cpp2 {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">class </span>GraphServiceAsyncClient;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}  <span class="comment">// namespace graph</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="../../d8/d5c/classnebula_1_1Connection.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; <span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keyword">using</span> ExecuteCallback = std::function&lt;void(<a class="code" href="../../d7/dfd/structnebula_1_1ExecutionResponse.html">ExecutionResponse</a> &amp;&amp;)&gt;;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">using</span> ExecuteJsonCallback = std::function&lt;void(std::string &amp;&amp;)&gt;;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a>();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="comment">// disable copy</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a>(<span class="keyword">const</span> <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> &amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> &amp;operator=(<span class="keyword">const</span> <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> &amp;c) = <span class="keyword">delete</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a>(<a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> &amp;&amp;c) noexcept {</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    client_ = c.client_;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    c.client_ = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    clientLoopThread_ = c.clientLoopThread_;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    c.clientLoopThread_ = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> &amp;operator=(<a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> &amp;&amp;c);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  ~<a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a>();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordtype">bool</span> open(<span class="keyword">const</span> std::string &amp;address,</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            int32_t port,</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            uint32_t timeout,</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            <span class="keywordtype">bool</span> enableSSL,</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keyword">const</span> std::string &amp;CAPath);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &quot;nebula/client/Config.h&quot;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>folly {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>ScopedEventBaseThread;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>nebula {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// Wrap the thrift client.</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">namespace </span>graph {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">namespace </span>cpp2 {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">class </span>GraphServiceAsyncClient;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}  <span class="comment">// namespace graph</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="../../d8/d5c/classnebula_1_1Connection.html">   29</a></span>&#160;<span class="keyword">class </span><a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keyword">using</span> ExecuteCallback = std::function&lt;void(<a class="code" href="../../d7/dfd/structnebula_1_1ExecutionResponse.html">ExecutionResponse</a> &amp;&amp;)&gt;;</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="keyword">using</span> ExecuteJsonCallback = std::function&lt;void(std::string &amp;&amp;)&gt;;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a>();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="comment">// disable copy</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a>(<span class="keyword">const</span> <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> &amp;) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> &amp;operator=(<span class="keyword">const</span> <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> &amp;c) = <span class="keyword">delete</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a>(<a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> &amp;&amp;c) noexcept {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    client_ = c.client_;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    c.client_ = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    clientLoopThread_ = c.clientLoopThread_;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    c.clientLoopThread_ = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> &amp;operator=(<a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a> &amp;&amp;c);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  ~<a class="code" href="../../d8/d5c/classnebula_1_1Connection.html">Connection</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">bool</span> open(<span class="keyword">const</span> std::string &amp;address,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            int32_t port,</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            uint32_t timeout,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            <span class="keyword">const</span> <a class="code" href="../../d7/d03/structnebula_1_1Config.html">Config</a> &amp;cfg = <a class="code" href="../../d7/d03/structnebula_1_1Config.html">Config</a>{});</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="../../da/d5f/structnebula_1_1AuthResponse.html">AuthResponse</a> authenticate(<span class="keyword">const</span> std::string &amp;user, <span class="keyword">const</span> std::string &amp;password);</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
@@ -185,8 +185,9 @@ $(document).ready(function(){initNavTree('d5/dd4/Connection_8h_source.html','../
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;};</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
 <div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}  <span class="comment">// namespace nebula</span></div>
-<div class="ttc" id="aclassnebula_1_1Connection_html"><div class="ttname"><a href="../../d8/d5c/classnebula_1_1Connection.html">nebula::Connection</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dd4/Connection_8h_source.html#l00028">Connection.h:28</a></div></div>
+<div class="ttc" id="aclassnebula_1_1Connection_html"><div class="ttname"><a href="../../d8/d5c/classnebula_1_1Connection.html">nebula::Connection</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d5/dd4/Connection_8h_source.html#l00029">Connection.h:29</a></div></div>
 <div class="ttc" id="astructnebula_1_1AuthResponse_html"><div class="ttname"><a href="../../da/d5f/structnebula_1_1AuthResponse.html">nebula::AuthResponse</a></div><div class="ttdef"><b>Definition:</b> <a href="../../df/d3f/Response_8h_source.html#l00308">Response.h:308</a></div></div>
+<div class="ttc" id="astructnebula_1_1Config_html"><div class="ttname"><a href="../../d7/d03/structnebula_1_1Config.html">nebula::Config</a></div><div class="ttdef"><b>Definition:</b> <a href="../../d5/de3/Config_8h_source.html#l00013">Config.h:13</a></div></div>
 <div class="ttc" id="astructnebula_1_1ExecutionResponse_html"><div class="ttname"><a href="../../d7/dfd/structnebula_1_1ExecutionResponse.html">nebula::ExecutionResponse</a></div><div class="ttdef"><b>Definition:</b> <a href="../../df/d3f/Response_8h_source.html#l00488">Response.h:488</a></div></div>
 <div class="ttc" id="astructnebula_1_1VerifyClientVersionReq_html"><div class="ttname"><a href="../../d8/d90/structnebula_1_1VerifyClientVersionReq.html">nebula::VerifyClientVersionReq</a></div><div class="ttdef"><b>Definition:</b> <a href="../../df/d3f/Response_8h_source.html#l00542">Response.h:542</a></div></div>
 <div class="ttc" id="astructnebula_1_1VerifyClientVersionResp_html"><div class="ttname"><a href="../../db/dbf/structnebula_1_1VerifyClientVersionResp.html">nebula::VerifyClientVersionResp</a></div><div class="ttdef"><b>Definition:</b> <a href="../../df/d3f/Response_8h_source.html#l00537">Response.h:537</a></div></div>

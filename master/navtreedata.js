@@ -39,8 +39,8 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "d2/daa/structnebula_1_1Value.html#aaaf5cb174ccdf06ef8f1b3d913b63abc",
-"d8/d5c/classnebula_1_1Connection.html",
-"de/dc4/structnebula_1_1KeyValue.html#a593a8a9e1f7bced13c3e29463bd09c3b"
+"d7/dfd/structnebula_1_1ExecutionResponse.html#a11ae8589be4e160e1d271e9c1a3400cc",
+"de/db8/classnebula_1_1Session.html#a8898dc1c5579e2b1e57b0b719cb42fd6"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
