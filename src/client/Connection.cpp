@@ -76,8 +76,7 @@ Connection &Connection::operator=(Connection &&c) {
 bool Connection::open(const std::string &address,
                       int32_t port,
                       uint32_t timeout,
-                      bool enableSSL,
-                      const std::string &CAPath) {
+                      const Config &cfg) {
   if (address.empty()) {
     return false;
   }
@@ -91,10 +90,17 @@ bool Connection::open(const std::string &address,
     return false;
   }
   clientLoopThread_->getEventBase()->runImmediatelyOrRunInEventBaseThreadAndWait(
-      [this, &complete, &socket, timeout, &socketAddr, enableSSL, &CAPath]() {
+      [this, &complete, &socket, timeout, &socketAddr, &cfg]() {
         try {
-          if (enableSSL) {
-            socket = folly::AsyncSSLSocket::newSocket(nebula::createSSLContext(CAPath),
+          if (cfg.enableSSL_) {
+            SSLConfig sslcfg;
+            sslcfg.enable_mtls = cfg.enableMTLS_;
+            sslcfg.check_peer_name = cfg.checkPeerName_;
+            sslcfg.peer_name = cfg.peerName_;
+            sslcfg.ca_path = cfg.CAPath_;
+            sslcfg.cert_path = cfg.certPath_;
+            sslcfg.key_path = cfg.keyPath_;
+            socket = folly::AsyncSSLSocket::newSocket(nebula::createSSLContext(sslcfg),
                                                       clientLoopThread_->getEventBase());
             socket->connect(nullptr, std::move(socketAddr), timeout);
           } else {

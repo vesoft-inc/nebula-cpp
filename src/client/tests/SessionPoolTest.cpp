@@ -25,7 +25,8 @@ class SessionPoolTest : public ClientTest {
  protected:
   void SetUp() {
     nebula::ConnectionPool pool;
-    pool.init({kServerHost ":9669"}, nebula::Config{0, 0, 1, 0, "", false});
+    nebula::Config cfg{0, 0, 1, 0, false, false, false, "", "", "", ""};
+    pool.init({kServerHost ":9669"}, cfg);
     auto session = pool.getSession("root", "nebula");
     ASSERT_TRUE(session.valid());
 
@@ -41,7 +42,8 @@ class SessionPoolTest : public ClientTest {
 
   void TearDown() {
     nebula::ConnectionPool pool;
-    pool.init({kServerHost ":9669"}, nebula::Config{0, 0, 1, 0, "", false});
+    nebula::Config cfg{0, 0, 1, 0, false, false, false, "", "", "", ""};
+    pool.init({kServerHost ":9669"}, cfg);
     auto session = pool.getSession("root", "nebula");
     ASSERT_TRUE(session.valid());
 

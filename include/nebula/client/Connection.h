@@ -11,6 +11,7 @@
 
 #include "common/datatypes/Value.h"
 #include "common/graph/Response.h"
+#include "nebula/client/Config.h"
 
 namespace folly {
 class ScopedEventBaseThread;
@@ -50,8 +51,7 @@ class Connection {
   bool open(const std::string &address,
             int32_t port,
             uint32_t timeout,
-            bool enableSSL,
-            const std::string &CAPath);
+            const Config &cfg = Config{});
 
   AuthResponse authenticate(const std::string &user, const std::string &password);
 

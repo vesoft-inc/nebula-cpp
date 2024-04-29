@@ -21,10 +21,17 @@ StorageClient::StorageClient(const std::vector<std::string>& metaAddrs,
     : user_(user), password_(password) {
   mClient_ = std::make_unique<MetaClient>(metaAddrs, mConfig);
   sConfig_ = sConfig;
+  SSLConfig sslcfg;
+  sslcfg.enable_mtls = sConfig_.enableMTLS_;
+  sslcfg.check_peer_name = sConfig_.checkPeerName_;
+  sslcfg.peer_name = sConfig_.peerName_;
+  sslcfg.ca_path = sConfig_.CAPath_;
+  sslcfg.cert_path = sConfig_.certPath_;
+  sslcfg.key_path = sConfig_.keyPath_;
   ioExecutor_ = std::make_shared<folly::IOThreadPoolExecutor>(std::thread::hardware_concurrency());
   clientsMan_ =
       std::make_shared<thrift::ThriftClientManager<storage::cpp2::GraphStorageServiceAsyncClient>>(
-          sConfig.connTimeoutInMs_, sConfig.enableSSL_, sConfig.CAPath_);
+          sConfig.connTimeoutInMs_, sConfig.enableSSL_, sslcfg);
 }
 
 StorageClient::~StorageClient() = default;

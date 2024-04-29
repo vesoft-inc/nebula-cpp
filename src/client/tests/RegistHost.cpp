@@ -25,7 +25,7 @@ int main(int argc, char** argv) {
   google::SetStderrLogging(google::INFO);
 
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 300, 0, "", FLAGS_enable_ssl};
+  nebula::Config c{10, 0, 300, 0, FLAGS_enable_ssl, false, false, "", "", "", ""};
   pool.init({FLAGS_server}, c);
   auto session = pool.getSession("root", "nebula");
   CHECK(session.valid());

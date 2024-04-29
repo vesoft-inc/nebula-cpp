@@ -71,7 +71,7 @@ std::shared_ptr<ClientType> ThriftClientManager<ClientType>::client(const HostAd
   std::shared_ptr<folly::AsyncSocket> socket;
   evb->runImmediatelyOrRunInEventBaseThreadAndWait([this, &socket, evb, resolved]() {
     if (enableSSL_) {
-      socket = folly::AsyncSSLSocket::newSocket(nebula::createSSLContext(CAPath_), evb);
+      socket = folly::AsyncSSLSocket::newSocket(nebula::createSSLContext(sslcfg_), evb);
       socket->connect(nullptr, resolved.host, resolved.port, connTimeoutInMs_);
     } else {
       socket = folly::AsyncSocket::newSocket(evb, resolved.host, resolved.port, connTimeoutInMs_);

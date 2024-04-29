@@ -28,7 +28,7 @@ class SessionTest : public ClientTest {};
 
 TEST_F(SessionTest, SSL) {
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 10, 0, "", true};
+  nebula::Config c{10, 0, 10, 0, true, false, false, "", "", "", ""};
   pool.init({kServerHost ":9669"}, c);
   auto session = pool.getSession("root", "nebula");
   ASSERT_TRUE(session.valid());

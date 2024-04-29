@@ -144,7 +144,7 @@ TEST_F(SessionTest, InvalidAddress) {
 
 TEST_F(SessionTest, Data) {
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 300, 0, "", false};
+  nebula::Config c{10, 0, 300, 0, false, false, false, "", "", "", ""};
   pool.init({kServerHost ":9669"}, c);
   auto session = pool.getSession("root", "nebula");
   ASSERT_TRUE(session.valid());
@@ -192,7 +192,7 @@ TEST_F(SessionTest, Data) {
 
 TEST_F(SessionTest, Timeout) {
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 100, 0, "", false};
+  nebula::Config c{10, 0, 100, 0, false, false, false, "", "", "", ""};
   pool.init({kServerHost ":9669"}, c);
   auto session = pool.getSession("root", "nebula");
   ASSERT_TRUE(session.valid());
@@ -228,7 +228,7 @@ TEST_F(SessionTest, Timeout) {
 
 TEST_F(SessionTest, JsonResult) {
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 10, 0, "", false};
+  nebula::Config c{10, 0, 10, 0, false, false, false, "", "", "", ""};
   pool.init({kServerHost ":9669"}, c);
   auto session = pool.getSession("root", "nebula");
   ASSERT_TRUE(session.valid());
@@ -246,7 +246,7 @@ TEST_F(SessionTest, JsonResult) {
 
 TEST_F(SessionTest, DurationResult) {
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 10, 0, "", false};
+  nebula::Config c{10, 0, 10, 0, false, false, false, "", "", "", ""};
   pool.init({kServerHost ":9669"}, c);
   auto session = pool.getSession("root", "nebula");
   ASSERT_TRUE(session.valid());
@@ -261,7 +261,7 @@ TEST_F(SessionTest, DurationResult) {
 
 TEST_F(SessionTest, ExecuteParameter) {
   nebula::ConnectionPool pool;
-  nebula::Config c{10, 0, 10, 0, "", false};
+  nebula::Config c{10, 0, 10, 0, false, false, false, "", "", "", ""};
   pool.init({kServerHost ":9669"}, c);
   auto session = pool.getSession("root", "nebula");
   ASSERT_TRUE(session.valid());
