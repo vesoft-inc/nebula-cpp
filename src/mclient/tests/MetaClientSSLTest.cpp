@@ -24,7 +24,9 @@ class MetaClientTest : public MClientTest {
  protected:
   static void prepare() {
     nebula::ConnectionPool pool;
-    pool.init({kServerHost ":9669"}, nebula::Config{0, 0, 10, 0, "", true});
+    nebula::Config cfg;
+    cfg.enableSSL_ = true;
+    pool.init({kServerHost ":9669"}, cfg);
     auto session = pool.getSession("root", "nebula");
     ASSERT_TRUE(session.valid());
     EXPECT_TRUE(session.ping());
@@ -74,7 +76,7 @@ TEST_F(MetaClientTest, SSL) {
   prepare();
 
   LOG(INFO) << "Run once.";
-  nebula::MConfig mConfig{1000, 60 * 1000, true, ""};
+  nebula::MConfig mConfig{1000, 60 * 1000, true, false, false, "", "", "", ""};
   nebula::MetaClient c({kServerHost ":9559"}, mConfig);
   runOnce(c);
 }

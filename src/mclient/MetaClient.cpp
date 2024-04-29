@@ -24,10 +24,17 @@ MetaClient::MetaClient(const std::vector<std::string>& metaAddrs, const MConfig&
   }
   CHECK(!metaAddrs_.empty()) << "metaAddrs_ is empty";
   mConfig_ = mConfig;
+  SSLConfig sslcfg;
+  sslcfg.enable_mtls = mConfig_.enableMTLS_;
+  sslcfg.check_peer_name = mConfig_.checkPeerName_;
+  sslcfg.peer_name = mConfig_.peerName_;
+  sslcfg.ca_path = mConfig_.CAPath_;
+  sslcfg.cert_path = mConfig_.certPath_;
+  sslcfg.key_path = mConfig_.keyPath_;
 
   ioExecutor_ = std::make_shared<folly::IOThreadPoolExecutor>(std::thread::hardware_concurrency());
   clientsMan_ = std::make_shared<thrift::ThriftClientManager<meta::cpp2::MetaServiceAsyncClient>>(
-      mConfig_.connTimeoutInMs_, mConfig_.enableSSL_, mConfig_.CAPath_);
+      mConfig_.connTimeoutInMs_, mConfig_.enableSSL_, sslcfg);
   bool b = loadData();  // load data into cache
   if (!b) {
     LOG(ERROR) << "load data failed";

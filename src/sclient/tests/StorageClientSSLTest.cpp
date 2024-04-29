@@ -25,7 +25,9 @@ class StorageClientTest : public SClientTest {
  protected:
   static void prepare() {
     nebula::ConnectionPool pool;
-    pool.init({kServerHost ":9669"}, nebula::Config{0, 0, 10, 0, "", true});
+    nebula::Config c;
+    c.enableSSL_ = true;
+    pool.init({kServerHost ":9669"}, c);
     auto session = pool.getSession("root", "nebula");
     ASSERT_TRUE(session.valid());
     EXPECT_TRUE(session.ping());
@@ -198,8 +200,8 @@ class StorageClientTest : public SClientTest {
 TEST_F(StorageClientTest, SSL) {
   LOG(INFO) << "Prepare data.";
   prepare();
-  nebula::MConfig mConfig{1000, 60 * 1000, true, ""};
-  nebula::SConfig sConfig{1000, 60 * 1000, true, ""};
+  nebula::MConfig mConfig{1000, 60 * 1000, true, false, false, "", "", "", ""};
+  nebula::SConfig sConfig{1000, 60 * 1000, true, false, false, "", "", "", ""};
   nebula::StorageClient c({kServerHost ":9559"}, "root", "nebula", mConfig, sConfig);
   auto *m = c.getMetaClient();
   LOG(INFO) << "Testing run once of meta client";

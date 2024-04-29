@@ -38,7 +38,7 @@ class ConnectionTest : public ClientTest {
     });
 
     // open
-    ASSERT_TRUE(c.open(kServerHost, 9669, 0, false, ""));
+    ASSERT_TRUE(c.open(kServerHost, 9669, 0));
 
     // ping
     EXPECT_TRUE(c.ping());
@@ -128,7 +128,7 @@ TEST_F(ConnectionTest, Basic) {
 TEST_F(ConnectionTest, Timeout) {
   nebula::Connection c;
 
-  ASSERT_TRUE(c.open(kServerHost, 9669, 100, false, ""));
+  ASSERT_TRUE(c.open(kServerHost, 9669, 100));
 
   // auth
   auto authResp = c.authenticate("root", "nebula");
@@ -167,7 +167,7 @@ TEST_F(ConnectionTest, Timeout) {
 TEST_F(ConnectionTest, JsonResult) {
   nebula::Connection c;
 
-  ASSERT_TRUE(c.open(kServerHost, 9669, 10, false, ""));
+  ASSERT_TRUE(c.open(kServerHost, 9669, 10));
 
   // auth
   auto authResp = c.authenticate("root", "nebula");
@@ -187,7 +187,7 @@ TEST_F(ConnectionTest, JsonResult) {
 TEST_F(ConnectionTest, DurationResult) {
   nebula::Connection c;
 
-  ASSERT_TRUE(c.open(kServerHost, 9669, 10, false, ""));
+  ASSERT_TRUE(c.open(kServerHost, 9669, 10));
 
   // auth
   auto authResp = c.authenticate("root", "nebula");
@@ -204,7 +204,7 @@ TEST_F(ConnectionTest, DurationResult) {
 TEST_F(ConnectionTest, ExecuteParameter) {
   nebula::Connection c;
 
-  ASSERT_TRUE(c.open(kServerHost, 9669, 10, false, ""));
+  ASSERT_TRUE(c.open(kServerHost, 9669, 10));
 
   // auth
   auto authResp = c.authenticate("root", "nebula");
@@ -232,13 +232,13 @@ TEST_F(ConnectionTest, ExecuteParameter) {
 TEST_F(ConnectionTest, InvalidPort) {
   nebula::Connection c;
 
-  ASSERT_FALSE(c.open(kServerHost, 2333, 10, false, ""));
+  ASSERT_FALSE(c.open(kServerHost, 2333, 10));
 }
 
 TEST_F(ConnectionTest, InvalidHost) {
   nebula::Connection c;
 
-  ASSERT_FALSE(c.open("Invalid Host", 9669, 10, false, ""));
+  ASSERT_FALSE(c.open("Invalid Host", 9669, 10));
 }
 
 int main(int argc, char **argv) {

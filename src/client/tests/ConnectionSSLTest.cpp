@@ -20,8 +20,10 @@ class ConnectionTest : public ClientTest {};
 
 TEST_F(ConnectionTest, SSL) {
   nebula::Connection c;
+  nebula::Config cfg;
+  cfg.enableSSL_ = true;
 
-  ASSERT_TRUE(c.open(kServerHost, 9669, 10, true, ""));
+  ASSERT_TRUE(c.open(kServerHost, 9669, 10, cfg));
 
   // auth
   auto authResp = c.authenticate("root", "nebula");
@@ -38,7 +40,10 @@ TEST_F(ConnectionTest, SSL) {
 TEST_F(ConnectionTest, SSCA) {
   {
     nebula::Connection c;
-    ASSERT_TRUE(c.open(kServerHost, 9669, 10, true, "./test.ca.pem"));
+    nebula::Config cfg;
+    cfg.enableSSL_ = true;
+    cfg.CAPath_ = "./test.ca.pem";
+    ASSERT_TRUE(c.open(kServerHost, 9669, 10, cfg));
 
     // auth
     auto authResp = c.authenticate("root", "nebula");
@@ -55,7 +60,10 @@ TEST_F(ConnectionTest, SSCA) {
   {
     // mismatch
     nebula::Connection c;
-    ASSERT_FALSE(c.open(kServerHost, 9669, 10, true, "./test.2.crt"));
+    nebula::Config cfg;
+    cfg.enableSSL_ = true;
+    cfg.CAPath_ = "./test.2.crt";
+    ASSERT_FALSE(c.open(kServerHost, 9669, 10, cfg));
   }
 }
 

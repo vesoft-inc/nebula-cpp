@@ -9,6 +9,7 @@
 #include <folly/io/async/EventBaseManager.h>
 
 #include "common/datatypes/HostAddr.h"
+#include "../SSLConfig.h"
 
 namespace nebula {
 namespace thrift {
@@ -25,8 +26,8 @@ class ThriftClientManager final {
     VLOG(3) << "~ThriftClientManager";
   }
 
-  explicit ThriftClientManager(int32_t connTimeoutInMs, bool enableSSL, const std::string& CAPath)
-      : connTimeoutInMs_(connTimeoutInMs), enableSSL_(enableSSL), CAPath_(CAPath) {
+  explicit ThriftClientManager(int32_t connTimeoutInMs, bool enableSSL, SSLConfig cfg = SSLConfig())
+      : connTimeoutInMs_(connTimeoutInMs), enableSSL_(enableSSL), sslcfg_(std::move(cfg)) {
     VLOG(3) << "ThriftClientManager";
   }
 
@@ -38,7 +39,7 @@ class ThriftClientManager final {
   int32_t connTimeoutInMs_;
   // whether enable ssl
   bool enableSSL_;
-  std::string CAPath_;
+  SSLConfig sslcfg_;
 };
 
 }  // namespace thrift
