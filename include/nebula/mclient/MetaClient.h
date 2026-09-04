@@ -111,8 +111,10 @@ class MetaClient {
                    RespGenerator respGen,
                    folly::Promise<std::pair<bool, Response>> pro,
                    int32_t retry = 0,
-                   int32_t retry_limit = 3);
+                   int32_t retryLimit = 3);
   void updateLeader(HostAddr leader = HostAddr());
+
+  static constexpr int64_t kRetryDelayMs = 1000;
 
  private:
   std::vector<HostAddr> metaAddrs_;

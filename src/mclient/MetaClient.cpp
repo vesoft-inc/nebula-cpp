@@ -282,7 +282,7 @@ void MetaClient::getResponse(Request req,
                                               retry + 1,
                                               retryLimit);
                                 },
-                                1000);
+                                kRetryDelayMs);
                             return;
                           } else {
                             LOG(ERROR) << "Send request to " << host << ", exceed retry limit";
@@ -316,7 +316,7 @@ void MetaClient::getResponse(Request req,
                                               retry + 1,
                                               retryLimit);
                                 },
-                                1000);
+                                kRetryDelayMs);
                             return;
                           }
                         } else if (code == nebula::cpp2::ErrorCode::E_CLIENT_SERVER_INCOMPATIBLE) {
