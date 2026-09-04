@@ -23,6 +23,7 @@ MetaClient::MetaClient(const std::vector<std::string>& metaAddrs, const MConfig&
     metaAddrs_.emplace_back(ip_port[0], folly::to<int32_t>(ip_port[1]));
   }
   CHECK(!metaAddrs_.empty()) << "metaAddrs_ is empty";
+  leader_ = metaAddrs_.back();
   mConfig_ = mConfig;
   SSLConfig sslcfg;
   sslcfg.enable_mtls = mConfig_.enableMTLS_;
