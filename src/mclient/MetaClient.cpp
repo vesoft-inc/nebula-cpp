@@ -333,7 +333,7 @@ void MetaClient::updateLeader(HostAddr leader) {
   if (leader != HostAddr("", 0)) {
     leader_ = leader;
   } else {
-    leader_ = addrs_[folly::Random::rand64(addrs_.size())];
+    leader_ = metaAddrs_[static_cast<size_t>(folly::Random::rand64(metaAddrs_.size()))];
   }
 }
 
