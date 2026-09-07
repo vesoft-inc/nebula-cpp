@@ -5,6 +5,7 @@
 #include "nebula/mclient/MetaClient.h"
 
 #include <folly/executors/IOThreadPoolExecutor.h>
+#include <folly/Random.h>
 
 #include <functional>
 
@@ -23,6 +24,7 @@ MetaClient::MetaClient(const std::vector<std::string>& metaAddrs, const MConfig&
     metaAddrs_.emplace_back(ip_port[0], folly::to<int32_t>(ip_port[1]));
   }
   CHECK(!metaAddrs_.empty()) << "metaAddrs_ is empty";
+  leader_ = metaAddrs_.back();
   mConfig_ = mConfig;
   SSLConfig sslcfg;
   sslcfg.enable_mtls = mConfig_.enableMTLS_;
@@ -232,9 +234,16 @@ template <typename Request,
 void MetaClient::getResponse(Request req,
                              RemoteFunc remoteFunc,
                              RespGenerator respGen,
-                             folly::Promise<std::pair<bool, Response>> pro) {
+                             folly::Promise<std::pair<bool, Response>> pro,
+                             int32_t retry,
+                             int32_t retryLimit) {
   auto* evb = DCHECK_NOTNULL(ioExecutor_)->getEventBase();
-  HostAddr host = metaAddrs_.back();
+  
+  HostAddr host;
+  {
+    std::lock_guard<std::mutex> holder(hostLock_);
+    host = leader_;
+  }
   folly::via(evb,
              [host,
               evb,
@@ -242,28 +251,94 @@ void MetaClient::getResponse(Request req,
               remoteFunc = std::move(remoteFunc),
               respGen = std::move(respGen),
               pro = std::move(pro),
+              retry,
+              retryLimit,
               this]() mutable {
-               auto client = clientsMan_->client(host, evb, false, mConfig_.clientTimeoutInMs_);
-               LOG(INFO) << "Send request to meta " << host;
-               remoteFunc(client, req)
-                   .via(evb)
-                   .then([host, respGen = std::move(respGen), pro = std::move(pro)](
-                             folly::Try<RpcResponse>&& t) mutable {
-                     // exception occurred during RPC
-                     if (t.hasException()) {
-                       LOG(ERROR) << "Send request to meta" << host << " failed";
-                       pro.setValue(std::make_pair(false, Response()));
-                       return;
-                     }
-                     auto&& resp = t.value();
-                     if (resp.get_code() == nebula::cpp2::ErrorCode::SUCCEEDED) {
-                       // succeeded
-                       pro.setValue(respGen(std::move(resp)));
-                       return;
-                     }
-                     pro.setValue(std::make_pair(false, Response()));
-                   });  // then
-             });        // via
+                auto client = clientsMan_->client(host, evb, false, mConfig_.clientTimeoutInMs_);
+                LOG(INFO) << "Send request to meta " << host;
+                remoteFunc(client, req)
+                    .via(evb)
+                    .then([host,
+                          req = std::move(req),
+                          remoteFunc = std::move(remoteFunc),
+                          respGen = std::move(respGen),
+                          pro = std::move(pro),
+                          retry,
+                          retryLimit,
+                          evb,
+                          this](folly::Try<RpcResponse>&& t) mutable {
+                      // exception occurred during RPC
+                        if (t.hasException()) {
+                          updateLeader();
+                          if (retry < retryLimit) {
+                            evb->runAfterDelay(
+                                [req = std::move(req),
+                                remoteFunc = std::move(remoteFunc),
+                                respGen = std::move(respGen),
+                                pro = std::move(pro),
+                                retry,
+                                retryLimit,
+                                this]() mutable {
+                                  getResponse(std::move(req),
+                                              std::move(remoteFunc),
+                                              std::move(respGen),
+                                              std::move(pro),
+                                              retry + 1,
+                                              retryLimit);
+                                },
+                                kRetryDelayMs);
+                            return;
+                          } else {
+                            LOG(ERROR) << "Send request to " << host << ", exceed retry limit";
+                            pro.setValue(std::make_pair(false, Response()));
+                          }
+                          return;
+                        }
+
+                        auto&& resp = t.value();
+                        auto code = resp.get_code();
+                        if (code == nebula::cpp2::ErrorCode::SUCCEEDED) {
+                          // succeeded
+                          pro.setValue(respGen(std::move(resp)));
+                          return;
+                        } else if (code == nebula::cpp2::ErrorCode::E_LEADER_CHANGED ||
+                                  code == nebula::cpp2::ErrorCode::E_MACHINE_NOT_FOUND) {
+                          updateLeader(resp.get_leader());
+                          if (retry < retryLimit) {
+                            evb->runAfterDelay(
+                                [req = std::move(req),
+                                remoteFunc = std::move(remoteFunc),
+                                respGen = std::move(respGen),
+                                pro = std::move(pro),
+                                retry,
+                                retryLimit,
+                                this]() mutable {
+                                  getResponse(std::move(req),
+                                              std::move(remoteFunc),
+                                              std::move(respGen),
+                                              std::move(pro),
+                                              retry + 1,
+                                              retryLimit);
+                                },
+                                kRetryDelayMs);
+                            return;
+                          }
+                        } else if (code == nebula::cpp2::ErrorCode::E_CLIENT_SERVER_INCOMPATIBLE) {
+                          pro.setValue(respGen(std::move(resp)));
+                          return;
+                        }
+                        pro.setValue(std::make_pair(false, Response()));
+                    });  // then
+              });        // via
+}
+
+void MetaClient::updateLeader(HostAddr leader) {
+  std::lock_guard<std::mutex> holder(hostLock_);
+  if (leader != HostAddr("", 0)) {
+    leader_ = leader;
+  } else {
+    leader_ = metaAddrs_[static_cast<size_t>(folly::Random::rand64(metaAddrs_.size()))];
+  }
 }
 
 }  // namespace nebula
