@@ -6,20 +6,19 @@ on:
       - master
       - 'v[0-9]+.*'
 
-      
 defaults:
   run:
     shell: bash
-    
+
 env:
   NIGHTLY_URL: http://minio.vesoft-inc.com:9000/nightly-build/nebula-graph
-  
+
 jobs:
   lint:
     name: lint
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 2
       - name: Check License Header
@@ -56,14 +55,13 @@ jobs:
       - uses: webiny/action-post-run@3.0.0
         with:
           run: sh -c "find . -mindepth 1 -delete"
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: CMake
         run: |
           case ${{ matrix.compiler }} in
           gcc-*)
             case ${{ matrix.os }} in
             centos7)
-              # build with Release type
               cmake \
                   -DCMAKE_CXX_COMPILER=$TOOLSET_GCC_DIR/bin/g++ \
                   -DCMAKE_C_COMPILER=$TOOLSET_GCC_DIR/bin/gcc \
@@ -74,7 +72,6 @@ jobs:
                   -B build
               ;;
             ubuntu2004)
-              # build with Debug type
               cmake \
                   -DCMAKE_CXX_COMPILER=$TOOLSET_GCC_DIR/bin/g++ \
                   -DCMAKE_C_COMPILER=$TOOLSET_GCC_DIR/bin/gcc \
@@ -86,7 +83,6 @@ jobs:
             esac
             ;;
           clang-*)
-            # build with Sanitizer
             cmake \
                 -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/clang++ \
                 -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/clang \
@@ -125,20 +121,19 @@ jobs:
             set -e
             ;;
           esac
+          ulimit -n 65535
           sed -i 's/--enable_authorize=false/--enable_authorize=true/g' /usr/local/nebula/etc/nebula-graphd.conf
           /usr/local/nebula/scripts/nebula.service start all
           /usr/local/nebula/scripts/nebula.service status all
           echo '127.0.0.1 graphd' >> /etc/hosts
           echo '127.0.0.1 graphd1' >> /etc/hosts
           echo '127.0.0.1 graphd2' >> /etc/hosts
-          # The connection maybe unstable, so we wait a while
           sleep 10
       - name: CTest
         env:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
         run: |
           pushd build
-          # register storage to meta and wait heartbeat
           ./bin/regist_host --host=127.0.0.1:9779 && sleep 20
           ctest -j $(nproc) -E '\w*_ssl_test' --timeout 10000 --output-on-failure
           make install
@@ -148,7 +143,6 @@ jobs:
         run: |
           case ${{ matrix.os }} in
           centos7)
-            # install GCC4.8 by yum to build example
             yum -y update && yum -y install gcc gcc-c++ libstdc++-static
             pushd examples
             mkdir build
@@ -166,7 +160,6 @@ jobs:
             mkdir build
             cmake -B build
             cmake --build build/ -j $(nproc)
-            # if the example use the g++ under /opt/vesoft/toolset, need to replace the low version libstdc++.so
             rm /usr/lib/x86_64-linux-gnu/libstdc++.so.6
             ln -s /opt/vesoft/toolset/clang/10.0.0/lib64/libstdc++.so /usr/lib/x86_64-linux-gnu/libstdc++.so.6
             LD_LIBRARY_PATH=/usr/local/nebula/lib64:/usr/local/nebula/lib:$LD_LIBRARY_PATH ./build/session_example graphd:9669
@@ -175,11 +168,11 @@ jobs:
             ;;
           esac
       - name: Upload logs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
           name: ${{ matrix.os }}-${{ matrix.compiler }}-test-logs
-          path:  /usr/local/nebula/logs/
+          path: /usr/local/nebula/logs/
       - name: Cleanup
         if: ${{ always() }}
         run: rm -rf build modules
@@ -208,14 +201,13 @@ jobs:
         - /tmp/nebula-graph-client/${{ matrix.os }}-${{ matrix.compiler }}:/tmp/nebula-graph-client/nebula-graph/${{ matrix.os }}-${{ matrix.compiler }}
       options: --mount type=tmpfs,destination=/tmp/ccache/nebula-graph,tmpfs-size=1073741824 --cap-add=SYS_PTRACE
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: CMake
         run: |
           case ${{ matrix.compiler }} in
           gcc-*)
             case ${{ matrix.os }} in
             centos7)
-              # build with Release type
               cmake \
                   -DCMAKE_CXX_COMPILER=$TOOLSET_GCC_DIR/bin/g++ \
                   -DCMAKE_C_COMPILER=$TOOLSET_GCC_DIR/bin/gcc \
@@ -226,7 +218,6 @@ jobs:
                   -B build
               ;;
             ubuntu2004)
-              # build with Debug type
               cmake \
                   -DCMAKE_CXX_COMPILER=$TOOLSET_GCC_DIR/bin/g++ \
                   -DCMAKE_C_COMPILER=$TOOLSET_GCC_DIR/bin/gcc \
@@ -238,7 +229,6 @@ jobs:
             esac
             ;;
           clang-*)
-            # build with Sanitizer
             cmake \
                 -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/clang++ \
                 -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/clang \
@@ -288,25 +278,23 @@ jobs:
           echo '127.0.0.1 graphd' >> /etc/hosts
           echo '127.0.0.1 graphd1' >> /etc/hosts
           echo '127.0.0.1 graphd2' >> /etc/hosts
-          # The connection maybe unstable, so we wait a while
           sleep 10
       - name: CTest SSL
         env:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
         run: |
           pushd build
-          # register storage to meta and wait heartbeat
           ./bin/regist_host --enable_ssl=true --host=127.0.0.1:9779 && sleep 20
           ctest -j $(nproc) -R '\w*_ssl_test' --timeout 10000 --output-on-failure
           make install
           popd
         timeout-minutes: 10
       - name: Upload logs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: ${{ failure() }}
         with:
           name: ${{ matrix.os }}-${{ matrix.compiler }}-ssl-test-logs
-          path:  /usr/local/nebula/logs/
+          path: /usr/local/nebula/logs/
       - name: Cleanup
         if: ${{ always() }}
         run: rm -rf build modules
@@ -335,14 +323,13 @@ jobs:
         - /tmp/nebula-graph-client/${{ matrix.os }}-${{ matrix.compiler }}:/tmp/nebula-graph-client/nebula-graph/${{ matrix.os }}-${{ matrix.compiler }}
       options: --mount type=tmpfs,destination=/tmp/ccache/nebula-graph,tmpfs-size=1073741824 --cap-add=SYS_PTRACE
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: CMake
         run: |
           case ${{ matrix.compiler }} in
           gcc-*)
             case ${{ matrix.os }} in
             centos7)
-              # build with Release type
               cmake \
                   -DCMAKE_CXX_COMPILER=$TOOLSET_GCC_DIR/bin/g++ \
                   -DCMAKE_C_COMPILER=$TOOLSET_GCC_DIR/bin/gcc \
@@ -353,7 +340,6 @@ jobs:
                   -B build
               ;;
             ubuntu2004)
-              # build with Debug type
               cmake \
                   -DCMAKE_CXX_COMPILER=$TOOLSET_GCC_DIR/bin/g++ \
                   -DCMAKE_C_COMPILER=$TOOLSET_GCC_DIR/bin/gcc \
@@ -365,7 +351,6 @@ jobs:
             esac
             ;;
           clang-*)
-            # build with Sanitizer
             cmake \
                 -DCMAKE_CXX_COMPILER=$TOOLSET_CLANG_DIR/bin/clang++ \
                 -DCMAKE_C_COMPILER=$TOOLSET_CLANG_DIR/bin/clang \
@@ -415,14 +400,12 @@ jobs:
           echo '127.0.0.1 graphd' >> /etc/hosts
           echo '127.0.0.1 graphd1' >> /etc/hosts
           echo '127.0.0.1 graphd2' >> /etc/hosts
-          # The connection maybe unstable, so we wait a while
           sleep 10
       - name: CTest self-signed SSL
         env:
           ASAN_OPTIONS: fast_unwind_on_malloc=1
         run: |
           pushd build
-          # register storage to meta and wait heartbeat
           ./bin/regist_host --enable_ssl=true --host=127.0.0.1:9779 && sleep 20
           ctest -j $(nproc) -R '\w*_ssl_test' --timeout 10000 --output-on-failure
           make install
@@ -433,7 +416,7 @@ jobs:
         if: ${{ failure() }}
         with:
           name: ${{ matrix.os }}-${{ matrix.compiler }}-ssl-test-logs
-          path:  /usr/local/nebula/logs/
+          path: /usr/local/nebula/logs/
       - name: Cleanup
         if: ${{ always() }}
         run: rm -rf build modules
