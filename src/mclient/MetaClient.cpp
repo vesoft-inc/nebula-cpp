@@ -5,6 +5,7 @@
 #include "nebula/mclient/MetaClient.h"
 
 #include <folly/executors/IOThreadPoolExecutor.h>
+#include <folly/Random.h>
 
 #include <functional>
 
@@ -233,7 +234,9 @@ template <typename Request,
 void MetaClient::getResponse(Request req,
                              RemoteFunc remoteFunc,
                              RespGenerator respGen,
-                             folly::Promise<std::pair<bool, Response>> pro) {
+                             folly::Promise<std::pair<bool, Response>> pro,
+                             int32_t retry,
+                             int32_t retryLimit) {
   auto* evb = DCHECK_NOTNULL(ioExecutor_)->getEventBase();
   
   HostAddr host;
