@@ -14,6 +14,7 @@
 #include <atomic>
 #include <chrono>
 #include <thread>
+#include <utility>
 
 #include "./ClientTest.h"
 
@@ -80,6 +81,26 @@ TEST_F(SessionPoolTest, Basic) {
   }
   for (auto& t : threads) {
     t.join();
+  }
+}
+
+TEST_F(SessionPoolTest, MoveConstructorTransfersIdleSessions) {
+  nebula::SessionPoolConfig config;
+  config.username_ = "root";
+  config.password_ = "nebula";
+  config.addrs_ = {kServerHost ":9669"};
+  config.spaceName_ = "session_pool_test";
+  config.maxSize_ = 1;
+
+  nebula::SessionPool source(config);
+  ASSERT_TRUE(source.init());
+  {
+    // Destroy the moved-to pool first. The moved-from object must no longer
+    // retain sessions that refer to the transferred ConnectionPool.
+    nebula::SessionPool moved(std::move(source));
+    auto resp = moved.execute("YIELD 1");
+    ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED)
+        << (resp.errorMsg ? *resp.errorMsg : "");
   }
 }
 

@@ -39,7 +39,9 @@ class SessionPool {
       : config_(std::move(config)), pool_(new ConnectionPool()) {}
   SessionPool(const SessionPool &) = delete;  // no copy
   SessionPool(SessionPool &&pool)
-      : config_(std::move(pool.config_)), pool_(std::move(pool.pool_)) {}
+      : config_(std::move(pool.config_)),
+        pool_(std::move(pool.pool_)),
+        idleSessions_(std::move(pool.idleSessions_)) {}
 
   // initialize session and context
   // return false when failed, otherwise return true
