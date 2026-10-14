@@ -19,15 +19,15 @@ then
     exit $?
 fi
 
-[[ -z $version ]] && version=5.1
+[[ -z $version ]] && version=3.3
 url_base=https://github.com/vesoft-inc/nebula-third-party/releases/download/v$version
 this_dir=$(dirname $(readlink -f $0))
 cxx_cmd=${CXX:-g++}
 
 # We consider two derivatives: Red Hat and Debian
 # Place preset libc versions of each from newer to older
-libc_preset_versions=( 2.39 2.35 2.34 2.31 2.28 2.17 )
-gcc_preset_versions=( 13.3.0 13.2.0 11.5.0 11.4.0 9.5.0 9.4.0 )
+libc_preset_versions=( 2.39 2.35 2.34 2.31 2.28 2.27 2.23 2.17 )
+gcc_preset_versions=( 12.3.0 11.4.0 11.2.0 10.5.0 9.4.0 9.3.0 8.5.0 8.3.0 7.5.0 7.3.0 )
 
 selected_libc_version=
 selected_gcc_version=
