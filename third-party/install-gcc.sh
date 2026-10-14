@@ -20,7 +20,7 @@ fi
 }
 
 version=7.5.0
-url_base=https://oss-cdn.nebula-graph.com.cn/toolset
+url_base=https://github.com/vesoft-inc/nebula-gears/releases/download/gcc-archive
 this_dir=$(dirname $(readlink -f $0))
 
 # We consider two derivatives: Red Hat and Debian
