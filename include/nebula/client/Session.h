@@ -51,15 +51,27 @@ class Session {
     session.pool_ = nullptr;
     session.offsetSecs_ = 0;
   }
-  void operator=(Session &&session) {
+  Session &operator=(Session &&session) {
+    if (this == &session) {
+      return *this;
+    }
+
+    release();
     sessionId_ = session.sessionId_;
+    conn_ = std::move(session.conn_);
+    pool_ = session.pool_;
     username_ = std::move(session.username_);
     password_ = std::move(session.password_);
     timezoneName_ = std::move(session.timezoneName_);
     offsetSecs_ = session.offsetSecs_;
+    retryConnect_ = session.retryConnect_;
+    connectionIsBroken_.store(session.connectionIsBroken_.load());
+
     session.sessionId_ = -1;
     session.pool_ = nullptr;
     session.offsetSecs_ = 0;
+    session.connectionIsBroken_.store(false);
+    return *this;
   }
   ~Session() {
     release();
