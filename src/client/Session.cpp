@@ -25,6 +25,7 @@ ExecutionResponse Session::executeWithParameter(
     const std::string &stmt, const std::unordered_map<std::string, Value> &parameters) {
   if (connectionIsBroken_ && retryConnect_) {
     if (retryConnect() == nebula::ErrorCode::SUCCEEDED) {
+      connectionIsBroken_ = false;
       return ExecutionResponse(conn_.executeWithParameter(sessionId_, stmt, parameters));
     } else {
       return ExecutionResponse{ErrorCode::E_RPC_FAILURE,

@@ -4,6 +4,7 @@
  */
 
 #include <common/Init.h>
+#include <common/datatypes/DataSet.h>
 #include <common/datatypes/Geography.h>
 #include <folly/json.h>
 #include <folly/synchronization/Baton.h>
@@ -11,12 +12,17 @@
 #include <gtest/gtest.h>
 #include <gtest/gtest_prod.h>
 #include <nebula/client/Config.h>
-#include <nebula/client/ConnectionPool.h>
-#include <nebula/client/Session.h>
+#include <nebula/client/Connection.h>
 
 #include <atomic>
 #include <chrono>
 #include <thread>
+
+#define private public
+#include <nebula/client/Session.h>
+#undef private
+
+#include <nebula/client/ConnectionPool.h>
 
 #include "./ClientTest.h"
 #include "common/graph/Response.h"
@@ -99,6 +105,27 @@ TEST_F(SessionTest, Basic) {
 
   LOG(INFO) << "Testing reopen.";
   runOnce(pool);
+}
+
+TEST_F(SessionTest, PreflightReconnectClearsBrokenFlag) {
+  nebula::Config config;
+  config.maxConnectionPoolSize_ = 1;
+
+  nebula::ConnectionPool pool;
+  pool.init({kServerHost ":9669"}, config);
+  auto session = pool.getSession("root", "nebula");
+  ASSERT_TRUE(session.valid());
+
+  session.connectionIsBroken_.store(true);
+  auto resp = session.execute("YIELD 1");
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+  EXPECT_FALSE(session.connectionIsBroken_.load());
+
+  const auto stableSessionId = session.sessionId_;
+  resp = session.execute("YIELD 1");
+  ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
+  EXPECT_EQ(session.sessionId_, stableSessionId);
+  EXPECT_FALSE(session.connectionIsBroken_.load());
 }
 
 TEST_F(SessionTest, OverUse) {
