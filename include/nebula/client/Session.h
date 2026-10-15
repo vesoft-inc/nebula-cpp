@@ -94,7 +94,7 @@ class Session {
   void release();
 
   bool valid() const {
-    return sessionId_ > 0;
+    return sessionId_ != -1;
   }
 
   const std::string &timeZoneName() const {

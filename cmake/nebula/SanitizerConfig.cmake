@@ -16,6 +16,10 @@ if(ENABLE_ASAN)
     add_compile_options(-g)
     add_compile_options(-fno-omit-frame-pointer)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fsanitize=address")
+    if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+        set(CMAKE_SHARED_LINKER_FLAGS
+            "${CMAKE_SHARED_LINKER_FLAGS} -fsanitize=address -shared-libasan")
+    endif()
 endif()
 
 if(ENABLE_TSAN)

@@ -202,6 +202,23 @@ jobs:
       options: --mount type=tmpfs,destination=/tmp/ccache/nebula-graph,tmpfs-size=1073741824 --cap-add=SYS_PTRACE
     steps:
       - uses: actions/checkout@v4
+      - name: Generate SSL test certificates
+        run: |
+          printf 'vesoft' > certs/test.ca.password
+          openssl genrsa -aes256 -passout file:certs/test.ca.password -out certs/test.ca.key 2048
+          openssl req -x509 -new -sha256 -days 3650 \
+            -key certs/test.ca.key -passin file:certs/test.ca.password \
+            -subj '/CN=Nebula Test CA' -out certs/test.ca.pem
+          openssl genrsa -out certs/test.derive.key 2048
+          openssl req -new -key certs/test.derive.key \
+            -subj '/CN=Nebula Test Server' -out certs/test.derive.csr
+          openssl x509 -req -sha256 -days 3650 -in certs/test.derive.csr \
+            -CA certs/test.ca.pem -CAkey certs/test.ca.key \
+            -passin file:certs/test.ca.password -CAcreateserial \
+            -out certs/test.derive.crt
+          openssl req -x509 -newkey rsa:2048 -nodes -sha256 -days 3650 \
+            -keyout certs/test.2.key -subj '/CN=Nebula Untrusted Test CA' \
+            -out certs/test.2.crt
       - name: CMake
         run: |
           case ${{ matrix.compiler }} in
@@ -324,6 +341,23 @@ jobs:
       options: --mount type=tmpfs,destination=/tmp/ccache/nebula-graph,tmpfs-size=1073741824 --cap-add=SYS_PTRACE
     steps:
       - uses: actions/checkout@v4
+      - name: Generate SSL test certificates
+        run: |
+          printf 'vesoft' > certs/test.ca.password
+          openssl genrsa -aes256 -passout file:certs/test.ca.password -out certs/test.ca.key 2048
+          openssl req -x509 -new -sha256 -days 3650 \
+            -key certs/test.ca.key -passin file:certs/test.ca.password \
+            -subj '/CN=Nebula Test CA' -out certs/test.ca.pem
+          openssl genrsa -out certs/test.derive.key 2048
+          openssl req -new -key certs/test.derive.key \
+            -subj '/CN=Nebula Test Server' -out certs/test.derive.csr
+          openssl x509 -req -sha256 -days 3650 -in certs/test.derive.csr \
+            -CA certs/test.ca.pem -CAkey certs/test.ca.key \
+            -passin file:certs/test.ca.password -CAcreateserial \
+            -out certs/test.derive.crt
+          openssl req -x509 -newkey rsa:2048 -nodes -sha256 -days 3650 \
+            -keyout certs/test.2.key -subj '/CN=Nebula Untrusted Test CA' \
+            -out certs/test.2.crt
       - name: CMake
         run: |
           case ${{ matrix.compiler }} in
