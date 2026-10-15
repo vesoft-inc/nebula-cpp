@@ -25,6 +25,19 @@ int main(int argc, char* argv[]) {
     auto resp = session.execute(
         "CREATE SPACE IF NOT EXISTS session_pool_test(vid_type = FIXED_STRING(16));");
     assert(resp.errorCode == nebula::ErrorCode::SUCCEEDED);
+
+    // Wait for the new space to reach graphd before initializing the session pool.
+    for (int attempt = 0; attempt < 60; ++attempt) {
+      resp = session.execute("USE session_pool_test");
+      if (resp.errorCode == nebula::ErrorCode::SUCCEEDED) {
+        break;
+      }
+      std::this_thread::sleep_for(std::chrono::seconds(1));
+    }
+    if (resp.errorCode != nebula::ErrorCode::SUCCEEDED) {
+      std::cerr << "Space session_pool_test is not ready: " << *resp.errorMsg << std::endl;
+      return 1;
+    }
   }
 
   nebula::SessionPoolConfig config;
