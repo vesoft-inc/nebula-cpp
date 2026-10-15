@@ -143,7 +143,8 @@ jobs:
         run: |
           case ${{ matrix.os }} in
           centos7)
-            yum -y update && yum -y install gcc gcc-c++ libstdc++-static
+            sed -i 's|http://vault.centos.org/centos/$releasever/|https://vault.centos.org/7.9.2009/|g' /etc/yum.repos.d/CentOS-Base.repo
+            yum --disablerepo='*' --enablerepo=base,updates,extras -y install gcc gcc-c++ libstdc++-static
             pushd examples
             mkdir build
             cmake \
@@ -156,14 +157,27 @@ jobs:
             popd
             ;;
           *)
+            export LD_LIBRARY_PATH=/usr/local/nebula/lib64:/usr/local/nebula/lib:$LD_LIBRARY_PATH
+            example_env=(env)
+            example_link_flags=()
+            case ${{ matrix.compiler }} in
+            clang-*)
+              asan_dir=$("$TOOLSET_CLANG_DIR/bin/clang++" -print-resource-dir)/lib/linux
+              asan_runtime="$asan_dir/libclang_rt.asan-$(uname -m).so"
+              test -f "$asan_runtime"
+              export LD_LIBRARY_PATH="$asan_dir:$LD_LIBRARY_PATH"
+              example_link_flags=("-DCMAKE_SHARED_LINKER_FLAGS=-Wl,-rpath-link,$asan_dir")
+              example_env+=("LD_PRELOAD=$asan_runtime" "ASAN_OPTIONS=fast_unwind_on_malloc=1")
+              ;;
+            esac
             pushd examples
             mkdir build
-            cmake -B build
+            cmake "${example_link_flags[@]}" -B build
             cmake --build build/ -j $(nproc)
             rm /usr/lib/x86_64-linux-gnu/libstdc++.so.6
             ln -s /opt/vesoft/toolset/clang/10.0.0/lib64/libstdc++.so /usr/lib/x86_64-linux-gnu/libstdc++.so.6
-            LD_LIBRARY_PATH=/usr/local/nebula/lib64:/usr/local/nebula/lib:$LD_LIBRARY_PATH ./build/session_example graphd:9669
-            LD_LIBRARY_PATH=/usr/local/nebula/lib64:/usr/local/nebula/lib:$LD_LIBRARY_PATH ./build/session_pool_example graphd:9669
+            "${example_env[@]}" ./build/session_example graphd:9669
+            "${example_env[@]}" ./build/session_pool_example graphd:9669
             popd
             ;;
           esac

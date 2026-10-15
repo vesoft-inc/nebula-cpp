@@ -217,7 +217,8 @@ TEST_F(SessionTest, Timeout) {
   resp = session.execute(
       "SHOW QUERIES "
       "| YIELD $-.SessionID AS sid, $-.ExecutionPlanID AS eid, $-.DurationInUSec AS dur "
-      "WHERE $-.DurationInUSec > 1000000 AND $-.`Query` CONTAINS 'GO' "
+      "WHERE $-.DurationInUSec > 1000000 "
+      "AND $-.`Query` STARTS WITH 'use session_test;GO 100000 STEPS' "
       "| ORDER BY $-.dur "
       "| KILL QUERY(session=$-.sid, plan=$-.eid)");
   ASSERT_EQ(resp.errorCode, nebula::ErrorCode::SUCCEEDED);
