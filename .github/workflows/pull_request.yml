@@ -216,6 +216,11 @@ jobs:
       options: --mount type=tmpfs,destination=/tmp/ccache/nebula-graph,tmpfs-size=1073741824 --cap-add=SYS_PTRACE
     steps:
       - uses: actions/checkout@v4
+      - name: Install OpenSSL on CentOS
+        if: matrix.os == 'centos7'
+        run: |
+          sed -i 's|http://vault.centos.org/centos/$releasever/|https://vault.centos.org/7.9.2009/|g' /etc/yum.repos.d/CentOS-Base.repo
+          yum --disablerepo='*' --enablerepo=base,updates,extras -y install openssl
       - name: Generate SSL test certificates
         run: |
           printf 'vesoft' > certs/test.ca.password
@@ -355,6 +360,11 @@ jobs:
       options: --mount type=tmpfs,destination=/tmp/ccache/nebula-graph,tmpfs-size=1073741824 --cap-add=SYS_PTRACE
     steps:
       - uses: actions/checkout@v4
+      - name: Install OpenSSL on CentOS
+        if: matrix.os == 'centos7'
+        run: |
+          sed -i 's|http://vault.centos.org/centos/$releasever/|https://vault.centos.org/7.9.2009/|g' /etc/yum.repos.d/CentOS-Base.repo
+          yum --disablerepo='*' --enablerepo=base,updates,extras -y install openssl
       - name: Generate SSL test certificates
         run: |
           printf 'vesoft' > certs/test.ca.password
