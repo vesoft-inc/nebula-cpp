@@ -3,17 +3,36 @@
 // This source code is licensed under Apache 2.0 License.
 
 #include <common/Init.h>
+#include <common/datatypes/DataSet.h>
 #include <common/datatypes/Geography.h>
 #include <folly/json.h>
 #include <folly/synchronization/Baton.h>
 #include <glog/logging.h>
 #include <gtest/gtest.h>
 #include <gtest/gtest_prod.h>
-#include <nebula/client/SessionPool.h>
+#include <nebula/client/Config.h>
+#include <nebula/client/Connection.h>
 
 #include <atomic>
+#include <cassert>
 #include <chrono>
+#include <cstddef>
+#include <exception>
+#include <list>
+#include <mutex>
 #include <thread>
+#include <utility>
+#include <vector>
+
+#define private public
+#include <nebula/client/Session.h>
+#undef private
+
+#include <nebula/client/ConnectionPool.h>
+
+#define private public
+#include <nebula/client/SessionPool.h>
+#undef private
 
 #include "./ClientTest.h"
 
@@ -152,6 +171,28 @@ TEST_F(SessionPoolTest, Normal) {
       t.join();
     }
   }
+}
+
+TEST_F(SessionPoolTest, JsonParseFailureReturnsSessionToPool) {
+  nebula::SessionPoolConfig config;
+  config.username_ = "root";
+  config.password_ = "nebula";
+  config.addrs_ = {kServerHost ":9669"};
+  config.spaceName_ = "session_pool_test";
+  config.maxSize_ = 1;
+
+  nebula::SessionPool pool(config);
+  ASSERT_TRUE(pool.init());
+  ASSERT_EQ(pool.idleSessions_.size(), 1);
+
+  // Force Connection::executeJsonWithParameter() to return an empty response.
+  pool.idleSessions_.front().conn_.close();
+  EXPECT_THROW(pool.executeJson("YIELD 1"), std::exception);
+  ASSERT_EQ(pool.idleSessions_.size(), 1);
+
+  auto resp = pool.execute("YIELD 1");
+  EXPECT_NE(resp.errorMsg ? *resp.errorMsg : "", "No idle session.");
+  EXPECT_EQ(pool.idleSessions_.size(), 1);
 }
 
 // case 3

@@ -77,18 +77,24 @@ std::string SessionPool::executeJsonWithParameter(
     const std::string &stmt, const std::unordered_map<std::string, Value> &parameters) {
   auto result = getIdleSession();
   if (result.second) {
-    auto resp = result.first.executeJsonWithParameter(stmt, parameters);
-    auto obj = folly::parseJson(resp);
-    auto respSpaceName = obj["results"][0]["spaceName"].asString();
-    if (respSpaceName != config_.spaceName_) {
-      if (respSpaceName == "") {
-        // This can be caused by reconnect, switch to origin space and try to query again
-        resp = result.first.executeJsonWithParameter("USE " + config_.spaceName_ + ";" + stmt,
-                                                     parameters);
-      } else {
-        // switch to origin space only
-        result.first.execute("USE " + config_.spaceName_);
+    std::string resp;
+    try {
+      resp = result.first.executeJsonWithParameter(stmt, parameters);
+      auto obj = folly::parseJson(resp);
+      auto respSpaceName = obj["results"][0]["spaceName"].asString();
+      if (respSpaceName != config_.spaceName_) {
+        if (respSpaceName == "") {
+          // This can be caused by reconnect, switch to origin space and try to query again
+          resp = result.first.executeJsonWithParameter("USE " + config_.spaceName_ + ";" + stmt,
+                                                       parameters);
+        } else {
+          // switch to origin space only
+          result.first.execute("USE " + config_.spaceName_);
+        }
       }
+    } catch (...) {
+      giveBack(std::move(result.first));
+      throw;
     }
     giveBack(std::move(result.first));
     return resp;
