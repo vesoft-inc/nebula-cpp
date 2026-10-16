@@ -17,6 +17,7 @@
 #include <atomic>
 #include <chrono>
 #include <thread>
+#include <utility>
 
 #include "./ClientTest.h"
 #include "common/graph/Response.h"
@@ -99,6 +100,28 @@ TEST_F(SessionTest, Basic) {
 
   LOG(INFO) << "Testing reopen.";
   runOnce(pool);
+}
+
+TEST_F(SessionTest, MoveAssignmentReturnsConnectionsToOwningPools) {
+  nebula::Config config;
+  config.maxConnectionPoolSize_ = 1;
+
+  nebula::ConnectionPool poolA;
+  nebula::ConnectionPool poolB;
+  poolA.init({kServerHost ":9669"}, config);
+  poolB.init({kServerHost ":9669"}, config);
+  {
+    auto sessionA = poolA.getSession("root", "nebula");
+    auto sessionB = poolB.getSession("root", "nebula");
+    ASSERT_TRUE(sessionA.valid());
+    ASSERT_TRUE(sessionB.valid());
+
+    sessionA = std::move(sessionB);
+    EXPECT_FALSE(sessionB.valid());
+  }
+
+  EXPECT_EQ(poolA.size(), 1);
+  EXPECT_EQ(poolB.size(), 1);
 }
 
 TEST_F(SessionTest, OverUse) {
